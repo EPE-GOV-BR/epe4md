@@ -20,7 +20,7 @@ mensal dessa modalidade de geração.
 Você pode instalar o pacote através do repositório da EPE no GitHub:
 
 ``` r
-devtools::install.github("epebr/epe4md")
+devtools::install_github("EPE-GOV-BR/epe4md")
 ```
 
 ## Como usar
