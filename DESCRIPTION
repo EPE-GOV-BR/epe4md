@@ -1,0 +1,49 @@
+Package: epe4md
+Title: EPE's 4MD model to forecast the adoption of Distributed Generation
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Gabriel",
+           family = "Konzen",
+           role = c("aut", "cre"),
+           email = "gabriel.konzen@epe.gov.br"),
+      person(given = "Bruno",
+           family = "Crotman",
+           role = c("aut"),
+           email = "bruno.crotman@epe.gov.br"),
+      person(given = "Empresa de Pesquisa Energética",
+           role = c("cph", "fnd")
+           ))           
+Description: EPE's 4MD model to forecast the adoption of Distributed Generation.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.1
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+Config/testthat/edition: 3
+Imports: 
+    dplyr,
+    purrr,
+    tidyr,
+    readr,
+    readxl,
+    jrvFinance,
+    janitor,
+    feather,
+    stats,
+    furrr,
+    writexl,
+    zoo,
+    lubridate,
+    tsibble,
+    here,
+    stringr,
+    fabletools,
+    feasts,
+    assertthat
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr
