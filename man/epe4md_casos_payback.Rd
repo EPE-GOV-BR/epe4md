@@ -12,7 +12,7 @@ epe4md_casos_payback(
   inflacao = 0.0375,
   ano_troca_inversor = 11,
   fator_custo_inversor = 0.15,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{

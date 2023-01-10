@@ -13,7 +13,7 @@ epe4md_calibra_curva_s(
   spb = 0.3,
   p_max = 0.01,
   q_max = 1,
-  dir_dados_premissas = "inst/\\n                                   dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{

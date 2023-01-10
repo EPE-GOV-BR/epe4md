@@ -11,7 +11,7 @@ epe4md_proj_adotantes(
   ano_base,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
-  dir_dados_premissas = "inst/\\n                                  dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{
