@@ -28,7 +28,7 @@ epe4md_calcula(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{
@@ -92,8 +92,8 @@ trifásico.}
 
 \item{filtro_renda_domicilio}{string. Define o filtro aplicado a consumidores
 residenciais, de acordo com a renda mensal do responsável, em salários
-mínimos. Permite: "maior_2sm", "maior_3sm" ou "maior_5sm". Default igual a
-"maior_3sm".}
+mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
+"maior_5sm". Default igual a "maior_3sm".}
 
 \item{desconto_capex_local}{numeric. Percentual de desconto a ser aplicado no
 CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.

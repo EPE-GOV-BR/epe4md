@@ -9,7 +9,7 @@ epe4md_investimentos(
   resultados_mensais,
   ano_base,
   ano_max_resultado = 2050,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{

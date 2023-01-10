@@ -19,7 +19,7 @@ epe4md_payback(
   disponibilidade_kwh_mes = 100,
   desconto_capex_local = 0,
   anos_desconto = 0,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{

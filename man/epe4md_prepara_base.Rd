@@ -10,7 +10,7 @@ epe4md_prepara_base(
   base_aneel,
   ano_base,
   resumida = TRUE,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{
