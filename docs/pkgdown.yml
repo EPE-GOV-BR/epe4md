@@ -1,0 +1,8 @@
+pandoc: 2.19.2
+pkgdown: 2.0.7
+pkgdown_sha: ~
+articles:
+  fazendo_projecoes: fazendo_projecoes.html
+  por_dentro_do_modelo: por_dentro_do_modelo.html
+last_built: 2023-01-11T14:20Z
+
