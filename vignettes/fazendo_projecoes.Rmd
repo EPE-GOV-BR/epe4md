@@ -28,7 +28,7 @@ O pacote `epe4md` possui diferentes funções encadeadas para realizar as proje�
 
 Há apenas dois argumentos obrigatórios que precisam ser definidos para rodar a função `epe4md_calcula`.
 
-Em primeiro lugar, deve-se definir o argumento `ano_base` que indica o último ano do histórico com dados disponíveis. Esse argumento está relacionado especialmente com a importação da base de dados. 
+Em primeiro lugar, deve-se definir o argumento `ano_base` que indica o último ano do histórico com dados disponíveis. Esse argumento está relacionado especialmente com a importação da base de dados.
 
 Na sequência, um argumento essencial para a execução da projeção é a definição das premissas regulatórias. Ou seja, qual o modelo de compensação dos créditos de energia gerada, quando haverá mudanças no modelo, se haverá tarifas binômias para consumidores de baixa tensão, etc. Essas premissas são definidas através de um arquivo `.xlsx`. Um exemplo de entrada é apresentado a seguir, a partir de um arquivo que é instalado junto com o pacote. No entanto, o usuário pode carregar um arquivo similar a partir de suas premissas.
 
@@ -44,30 +44,33 @@ print(premissas_regulatorias)
 As variáveis da tabela são explicadas a seguir:
 
 #### alternativas
+
 Valor entre 0 e 5 que representa a forma de compensação da parcela da geração injetada na rede.
 
-* 0: Consumidor compensa todas as componentes tarifárias.
-* 1: Paga TUSD Distribuição.
-* 2: Anterior + TUSD Transmissão.
-* 3: Anterior + TUSD Encargos.
-* 4: Anterior + TUSD Perdas.
-* 5: Anterior + TE Encargos. Ou seja, compensa somente a TE Energia.
+-   0: Consumidor compensa todas as componentes tarifárias.
+-   1: Paga TUSD Distribuição.
+-   2: Anterior + TUSD Transmissão.
+-   3: Anterior + TUSD Encargos.
+-   4: Anterior + TUSD Perdas.
+-   5: Anterior + TE Encargos. Ou seja, compensa somente a TE Energia.
 
-A figura a seguir ilustra as alternativas de compensação.
-![Componentes tarifárias compensadas em cada alternativa e valor correspondente, em relação à tarifa cheia (B1) em 2020](alternativas_compensacao.jpg){width=80%}
+A figura a seguir ilustra as alternativas de compensação. ![Componentes tarifárias compensadas em cada alternativa e valor correspondente, em relação à tarifa cheia (B1) em 2020](alternativas_compensacao.jpg){width="80%"}
 
 #### p_transicao
+
 Representa a parcela da alternativa anterior a ser paga pelo consumidor. Varia de 0 a 1, sendo 1 = 100%. Esse parâmetro permite um escalonamento da cobrança.
 
 #### binomia
+
 Representa a cobrança ou não de uma tarifa binômia na baixa tensão, em que as componentes TUSD Distribuição e TUSD Transmissão passariam a ser cobradas de forma fixa, não sendo passíveis de compensação. Pode ser `TRUE` ou `FALSE`.
 
 #### demanda_g
-Representa a cobrança de TUSDg para a demanda de consumidores do grupo A. Caso seja `FALSE`, é considerada a cobrança da TUSD consumo. 
 
-## Rodando o modelo 4MD 
+Representa a cobrança de TUSDg para a demanda de consumidores do grupo A. Caso seja `FALSE`, é considerada a cobrança da TUSD consumo.
 
-A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem ser alterados caso seja de interesse do usuário. A seguir, por exemplo, iremos especificar o horizonte desejado da projeção como sendo 2030. Caso não fosse atribuído valor para esse argumento da função, o resultado iria até 2050. Para mais informações, verificar a documentação da função. 
+## Rodando o modelo 4MD
+
+A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem ser alterados caso seja de interesse do usuário. A seguir, por exemplo, iremos especificar o horizonte desejado da projeção como sendo 2030. Caso não fosse atribuído valor para esse argumento da função, o resultado iria até 2050. Para mais informações, verificar a documentação da função.
 
 ```{r, cache = TRUE, warning = FALSE, message=FALSE}
 resultado <- epe4md_calcula(ano_base = 2021,
