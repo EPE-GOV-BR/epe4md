@@ -6,12 +6,6 @@
 #' [epe4md::epe4md_mercado_potencial].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
-#' @param altera_sistemas_existentes logic. TRUE se alterações regulatórias
-#' afetam investimentos realizados em anos anteriores à revisão da regulação.
-#' Default igual a FALSE.
-#' @param ano_decisao_alteracao numeric. Ano em que são definidas novas regras e
-#' se tornam de conhecimento público. Esse parâmetro só tem efeito caso o
-#' anterior seja igual a TRUE. Default igual a 2023.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos
@@ -32,8 +26,6 @@
 epe4md_proj_adotantes <- function(casos_otimizados,
                                   consumidores,
                                   ano_base,
-                                  altera_sistemas_existentes = TRUE,
-                                  ano_decisao_alteracao = 2023,
                                   dir_dados_premissas = NA_character_ ) {
 
 
