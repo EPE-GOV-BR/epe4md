@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # epe4md
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 O pacote epe4md permite fazer projeções do mercado de Micro e Minigeração Distribuída (GD) no Brasil.
@@ -27,14 +28,9 @@ Através das premissas do usuário, é possível estimar quantas unidades consum
 Você pode instalar o pacote através do repositório da EPE no GitHub:
 
 ``` r
-devtools::install_github("EPE-GOV-BR/epe4md", 
-                         build_vignettes = TRUE)
+devtools::install_github("EPE-GOV-BR/epe4md")
 ```
 
 ## Como usar
 
-Acesse as vinhetas com tutoriais:
-
-``` r
-browseVignettes(package="epe4md")
-```
+Acesse os tutoriais no site <https://epe-gov-br.github.io/epe4md/>

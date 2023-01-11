@@ -20,14 +20,9 @@ mensal dessa modalidade de geração.
 Você pode instalar o pacote através do repositório da EPE no GitHub:
 
 ``` r
-devtools::install_github("EPE-GOV-BR/epe4md", 
-                         build_vignettes = TRUE)
+devtools::install_github("EPE-GOV-BR/epe4md")
 ```
 
 ## Como usar
 
-Acesse as vinhetas com tutoriais:
-
-``` r
-browseVignettes(package="epe4md")
-```
+Acesse os tutoriais no site <https://epe-gov-br.github.io/epe4md/>
