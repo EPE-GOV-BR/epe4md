@@ -2,9 +2,9 @@
 # Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: [main, master, "8-publicar-na-cran"]
+    branches: [main, master, "8-publicar-na-cran", 8-publicar-na-cran]
   pull_request:
-    branches: [main, master, "8-publicar-na-cran"]
+    branches: [main, master, "8-publicar-na-cran", 8-publicar-na-cran]
 
 name: R-CMD-check
 
