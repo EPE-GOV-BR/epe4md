@@ -8,7 +8,11 @@
 epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame Resultado resumido com coluna cenario}
+\item{dados}{data.frame Resultado resumido com coluna cenario.}
+
+\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
+
+\item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
 Gráfico da capacidade instalada acumulada por cenário

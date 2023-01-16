@@ -8,7 +8,13 @@
 epe4md_graf_part_fonte_geracao(dados, cor = "#953735", tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame Resultados mensais de potencia e energia}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
+
+\item{cor}{string. Escolha da cor do gráfico. Default igual a Vermelho.}
+
+\item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
+
+\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013}
 }
 \description{
 Gráfico da participação de cada tecnologia na geração de energia

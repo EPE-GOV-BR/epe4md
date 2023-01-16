@@ -13,7 +13,13 @@ epe4md_graf_part_fonte_potencia(
 )
 }
 \arguments{
-\item{dados}{data.frame Resultados mensais de potencia e energia}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
+
+\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013}
+
+\item{cor}{string. Escolha da cor do gráfico.}
+
+\item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
 Gráfico da participação de capacidade por fonte

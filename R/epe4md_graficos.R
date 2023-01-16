@@ -1,16 +1,31 @@
 #' Gráfico da capacidade instalada acumulada
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
 #'
-#' @import dplyr
 #' @encoding UTF-8
 #'
+#' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
-epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
-                                 tamanho = 14) {
+epe4md_graf_pot_acum <- function(
+    dados,
+    ano_inicio = 2013,
+    cor = "#13475d",
+    tamanho = 14)
+  {
+
   resumo <- dados %>%
     epe4md_sumariza_resultados() %>%
     filter(ano >= ano_inicio)
@@ -24,21 +39,38 @@ epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
     theme(legend.position = "none",
           text = element_text(size = tamanho, family = "Calibri Light")) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
-}
+  }
 
 #' Gráfico da capacidade instalada anual
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#'
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_pot_anual <- function(dados, ano_inicio = 2013, cor = "#13475d",
-                                  tamanho = 14) {
+
+epe4md_graf_pot_anual <- function(
+    dados,
+    ano_inicio = 2013,
+    cor = "#13475d",
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     epe4md_sumariza_resultados() %>%
@@ -56,16 +88,29 @@ epe4md_graf_pot_anual <- function(dados, ano_inicio = 2013, cor = "#13475d",
 
 #' Gráfico da capacidade instalada acumulada por segmento
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#'
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
-#'
 #' @import dplyr
+#' @import ggplot2
 #'
-epe4md_graf_pot_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
+#' @examples
+
+epe4md_graf_pot_segmento <- function(
+    dados,
+    ano_inicio = 2013,
+    tamanho = 14)
+{
 
 
   resumo <- dados %>%
@@ -94,16 +139,29 @@ epe4md_graf_pot_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
 
 #' Gráfico da capacidade instalada acumulada por região
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_pot_regiao <- function(dados, ano_inicio = 2013, tamanho = 14) {
+epe4md_graf_pot_regiao <- function(
+    dados,
+    ano_inicio = 2013,
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     epe4md_fatores_publicacao() %>%
@@ -131,17 +189,33 @@ epe4md_graf_pot_regiao <- function(dados, ano_inicio = 2013, tamanho = 14) {
 
 #' Gráfico da participação de capacidade por fonte
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico.
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_part_fonte_potencia <- function(dados, ano_inicio = 2013,
-                                            cor = "#112446", tamanho = 14) {
+
+epe4md_graf_part_fonte_potencia <- function(
+    dados,
+    ano_inicio = 2013,
+    cor = "#112446",
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     mutate(pot_total = sum(pot_mes_mw)) %>%
@@ -174,17 +248,33 @@ epe4md_graf_part_fonte_potencia <- function(dados, ano_inicio = 2013,
 
 #' Gráfico da geração mensal em MWmed
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_geracao_mes <- function(dados, ano_inicio = 2013,
-                                    cor = "#953735", tamanho = 14) {
+
+epe4md_graf_geracao_mes <- function(
+    dados,
+    ano_inicio = 2013,
+    cor = "#953735",
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     filter(ano >= ano_inicio) %>%
@@ -206,13 +296,25 @@ epe4md_graf_geracao_mes <- function(dados, ano_inicio = 2013,
 
 #' Gráfico da geração anual em MWmed
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
+
 
 
 epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
@@ -247,17 +349,32 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 
 #' Gráfico da participação de cada tecnologia na geração de energia
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_part_fonte_geracao <- function(dados, cor = "#953735",
-                                           tamanho = 14) {
+
+epe4md_graf_part_fonte_geracao <- function(
+    dados,
+    cor = "#953735",
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     filter(ano == max(ano)) %>%
@@ -290,16 +407,30 @@ epe4md_graf_part_fonte_geracao <- function(dados, cor = "#953735",
 
 #' Gráfico da evolução da participação por segmento
 #'
-#' @param dados data.frame Resultados mensais de potencia e energia
+#' @param dados data.frame. Resultados mensais de potência e energia.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_part_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
+
+epe4md_graf_part_segmento <- function(
+    dados,
+    ano_inicio = 2013,
+    tamanho = 14)
+{
 
   resumo <- dados %>%
     epe4md_fatores_publicacao() %>%
@@ -331,16 +462,30 @@ epe4md_graf_part_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
 
 #' Gráfico da capacidade instalada acumulada por cenário
 #'
-#' @param dados data.frame Resultado resumido com coluna cenario
+#' @param dados data.frame Resultado resumido com coluna cenario.
+#'
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
+#'
+#' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
 #' @return
+#'
 #' @export
+#'
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
+#'
+#' @examples
 
 
-epe4md_graf_pot_cenario <- function(dados, ano_inicio = 2013, tamanho = 14) {
+
+epe4md_graf_pot_cenario <- function(
+    dados,
+    ano_inicio = 2013,
+    tamanho = 14)
+{
 
   ultimos <- dados %>%
     mutate(pot_acum = round(pot_acum, 1)) %>%
