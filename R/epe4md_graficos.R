@@ -1,10 +1,13 @@
 #' Gráfico da capacidade instalada acumulada
 #'
+#' Mostra a soma acumulada das potência entre os parãmetros `ano_inicio` e `ano_max_resultado`
+#' passado na função `epe4md::epe4md_calcula`.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro
+#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -15,7 +18,6 @@
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -43,12 +45,14 @@ epe4md_graf_pot_acum <- function(
 
 #' Gráfico da capacidade instalada anual
 #'
+#' Gráfico de colunas que mostra a soma simples da potência em cada ano, entre os parâmetros `ano_inicio` e
+#' `ano_max_resultado` passado na função `epe4md::epe4md_calcula`.
 #'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro
+#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -59,7 +63,6 @@ epe4md_graf_pot_acum <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -88,10 +91,13 @@ epe4md_graf_pot_anual <- function(
 
 #' Gráfico da capacidade instalada acumulada por segmento
 #'
+#' Mostra a soma acumulada da potência entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
+#' Comercial (BT) ', ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
+#'
 #'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -102,7 +108,6 @@ epe4md_graf_pot_anual <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -141,7 +146,7 @@ epe4md_graf_pot_segmento <- function(
 #'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -152,7 +157,6 @@ epe4md_graf_pot_segmento <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -189,9 +193,12 @@ epe4md_graf_pot_regiao <- function(
 
 #' Gráfico da participação de capacidade por fonte
 #'
+#' Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro' e 'Eólica')
+#' na capacidade instalada.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param cor string. Escolha da cor do gráfico.
 #'
@@ -204,7 +211,6 @@ epe4md_graf_pot_regiao <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -248,9 +254,11 @@ epe4md_graf_part_fonte_potencia <- function(
 
 #' Gráfico da geração mensal em MWmed
 #'
+#' Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
 #'
@@ -263,7 +271,6 @@ epe4md_graf_part_fonte_potencia <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -296,9 +303,11 @@ epe4md_graf_geracao_mes <- function(
 
 #' Gráfico da geração anual em MWmed
 #'
+#' Gráfico de área que mostra a geração de energia em MWmed agrupada por ano.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
 #'
@@ -311,7 +320,6 @@ epe4md_graf_geracao_mes <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -349,9 +357,12 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 
 #' Gráfico da participação de cada tecnologia na geração de energia
 #'
+#' Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro', 'Eólica')
+#' na geração de energia somente no parâmetro `ano_max_resultado` passado na função `epe4md::epe4md_calcula`.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
 #'
@@ -364,7 +375,6 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -407,9 +417,12 @@ epe4md_graf_part_fonte_geracao <- function(
 
 #' Gráfico da evolução da participação por segmento
 #'
+#' Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
+#' na geração de energia em cada ano.
+#'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013
+#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -420,7 +433,6 @@ epe4md_graf_part_fonte_geracao <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
 #'
 #' @examples
 
@@ -462,6 +474,9 @@ epe4md_graf_part_segmento <- function(
 
 #' Gráfico da capacidade instalada acumulada por cenário
 #'
+#' Mostra a soma acumulada das potência entre os parâmetros `ano_inicio` e `ano_max_resultado`
+#' passado na função `epe4md::epe4md_calcula` em cada um dos cenários.
+#'
 #' @param dados data.frame Resultado resumido com coluna cenario.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
@@ -475,7 +490,7 @@ epe4md_graf_part_segmento <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot2
+#'
 #'
 #' @examples
 
@@ -514,3 +529,6 @@ epe4md_graf_pot_cenario <- function(
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 
 }
+
+
+
