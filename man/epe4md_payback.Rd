@@ -55,7 +55,7 @@ para reforços na rede. Default igual a 200.}
 
 \item{disponibilidade_kwh_mes}{numeric. Consumo de disponbilidade do
 consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
-trifásico.}
+trifásico. Tem efeito somente até o ano de 2022.}
 
 \item{desconto_capex_local}{numeric. Percentual de desconto a ser aplicado no
 CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
@@ -71,7 +71,8 @@ pasta default.}
 
 \item{pagamento_disponibilidade.}{numeric. Percentual de meses em que o
 consumidor residencial paga custo de disponbilidade em função da
-variabilidade da geração FV. Default igual a 0.3.}
+variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
+ano de 2022.}
 }
 \value{
 data.frame. Métricas financeiras para cada caso.
