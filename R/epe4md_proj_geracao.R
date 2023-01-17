@@ -26,11 +26,10 @@
 
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
-                                dir_dados_premissas = "inst/
-                                dados_premissas") {
+                                dir_dados_premissas = NA_character_) {
 
   dir_dados_premissas <- if_else(
-    dir_dados_premissas == "inst/dados_premissas",
+    is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
                 package = "epe4md"),
     dir_dados_premissas

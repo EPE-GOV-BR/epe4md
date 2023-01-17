@@ -27,7 +27,7 @@ O pacote `epe4md` possui diferentes funções encadeadas para realizar as proje�
 
 ## Dados e parâmetros de entrada
 
-No local onde o pacote é instalado na máquina existe a pasta `dados_premissas`. Dentro dessa pasta há subpastas com dados e parâmetros de entrada para cada edição do Plano Decenal de Expansão de Energia (PDE). 
+No local onde o pacote é instalado na máquina existe a pasta `dados_premissas`. Dentro dessa pasta há subpastas com dados e parâmetros de entrada para cada ano base. 
 ```{r}
 list.files(system.file("dados_premissas/2021", package = "epe4md"))
 ```
@@ -39,10 +39,6 @@ Na sequência, são descritos os arquivos presentes na pasta de premissas.
 ### base_mmgd.xlsx
 
 É a base tratada de sistemas de MMGD existentes até o final do ano base. É gerada com auxílio da função `epe4md_prepara_base`. A base é utilizada em diversas funções que necessitam dados históricos.
-
-### base_mmgd_ajuste2022.xlsx
-
-É a base tratada de sistemas de MMGD instalados em janeiro e fevereiro de 2022. A base é utilizada com a função `epe4md_ajuste_2022` para realizar a projeção de referência do PDE 2032.
 
 ### capex_historico_outras.xlsx
 
