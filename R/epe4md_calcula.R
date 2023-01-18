@@ -75,7 +75,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' para reforços na rede. Default igual a 200.
 #' @param ano_troca_inversor numeric. Ano, a partir do ano de instalação, em que
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
-#' @param pagamento_disponibilidade numeric. Percentual de meses em que o
+#' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
 #' variabilidade da geração FV. Default igual a 0.3.
 #' @param disponibilidade_kwh_mes numeric. Consumo de disponbilidade do
