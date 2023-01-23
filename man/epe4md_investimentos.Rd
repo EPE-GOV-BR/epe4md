@@ -24,7 +24,7 @@ Se esse parâmetro não for passado, a função usa os dados default que são
 instalados com o pacote. É importante que os nomes dos arquivos sejam os
 mesmos da pasta default.}
 
-\item{resultados_mensais.}{Resultado da função \link{epe4md_calcula}.}
+\item{resultados_mensais}{Resultado da função \link{epe4md_calcula}.}
 }
 \value{
 data.frame com o montante estimado de investimentos relativos à

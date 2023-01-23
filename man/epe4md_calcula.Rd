@@ -136,7 +136,7 @@ parâmetro não for passado, a função usa os dados default que são instalados
 com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 pasta default.}
 
-\item{pagamento_disponibilidade.}{numeric. Percentual de meses em que o
+\item{pagamento_disponibilidade}{numeric. Percentual de meses em que o
 consumidor residencial paga custo de disponbilidade em função da
 variabilidade da geração FV. Default igual a 0.3.}
 }

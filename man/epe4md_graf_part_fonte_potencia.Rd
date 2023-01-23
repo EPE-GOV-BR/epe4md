@@ -7,7 +7,6 @@
 \usage{
 epe4md_graf_part_fonte_potencia(
   dados,
-  ano_inicio = 2013,
   cor = "#112446",
   tamanho = 14
 )

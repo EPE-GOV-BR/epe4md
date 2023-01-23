@@ -1,12 +1,12 @@
 #' Prepara a base de dados da ANEEL com geradores existentes para ser utilizada
 #' nas funções seguintes.
 #'
-#' @param base_aneel. Dataframe com a base de dados disponibilizada pela ANEEL
+#' @param base_aneel Dataframe com a base de dados disponibilizada pela ANEEL
 #' na sua página de dados abertos com dados individualizados dos micro e
 #' minigeradores distribuídos. Sugestão ler base com read.csv2
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a
 #' função irá buscar a base de dados. Último ano completo realizado.
-#' @param resumida. Logic. Se TRUE, retorna a base resumida (Default). Se
+#' @param resumida Logic. Se TRUE, retorna a base resumida (Default). Se
 #' FALSE retorna base com mais desagregações.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados

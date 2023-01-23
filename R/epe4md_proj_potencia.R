@@ -2,6 +2,8 @@
 #'
 #' @param proj_adotantes data.frame. Resultado da função
 #' [epe4md::epe4md_proj_adotantes].
+#' @param lista_adotantes data.frame. Data.frame que contém dados relativos aos
+#' adotantes.
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas.

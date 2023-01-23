@@ -12,6 +12,9 @@ epe4md_proj_potencia(
 )
 }
 \arguments{
+\item{lista_adotantes}{data.frame. Data.frame que contém dados relativos aos
+adotantes.}
+
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 

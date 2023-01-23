@@ -22,11 +22,11 @@ parâmetro não for passado, a função usa os dados default que são instalados
 com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 pasta default.}
 
-\item{base_aneel.}{Dataframe com a base de dados disponibilizada pela ANEEL
+\item{base_aneel}{Dataframe com a base de dados disponibilizada pela ANEEL
 na sua página de dados abertos com dados individualizados dos micro e
 minigeradores distribuídos. Sugestão ler base com read.csv2}
 
-\item{resumida.}{Logic. Se TRUE, retorna a base resumida (Default). Se
+\item{resumida}{Logic. Se TRUE, retorna a base resumida (Default). Se
 FALSE retorna base com mais desagregações.}
 }
 \value{
