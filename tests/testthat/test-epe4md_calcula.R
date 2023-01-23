@@ -1,5 +1,4 @@
 
-library(here)
 library(readxl)
 
 test_that("epe4md_calcula works", {

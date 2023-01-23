@@ -101,6 +101,8 @@ epe4md_graf_pot_anual <- function(
 #'
 #' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
 #'
+#' @param paleta_epe data.frame. Paleta de cores da EPE.
+#'
 #' @return
 #'
 #' @export
@@ -149,6 +151,8 @@ epe4md_graf_pot_segmento <- function(
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param tamanho numeric. Altera tamanho da fonte da legenda. Default igual a 14.
+#'
+#' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
 #' @return
 #'
@@ -428,6 +432,8 @@ epe4md_graf_part_fonte_geracao <- function(
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
+#' @param paleta_epe data.frame. Paleta de cores da EPE.
+#'
 #' @return
 #'
 #' @export
@@ -485,6 +491,8 @@ epe4md_graf_part_segmento <- function(
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
+#'
+#' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
 #' @return
 #'

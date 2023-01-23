@@ -21,7 +21,7 @@
 #' para reforços na rede. Default igual a 200.
 #' @param ano_troca_inversor numeric. Ano, a partir do ano de instalação, em que
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
-#' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
+#' @param pagamento_disponibilidade numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
 #' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
 #' ano de 2022.

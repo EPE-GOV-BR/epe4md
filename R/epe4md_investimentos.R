@@ -1,6 +1,6 @@
 #' Calcula o montante investido
 #'
-#' @param resultados_mensais. Resultado da função [epe4md::epe4md_calcula].
+#' @param resultados_mensais Resultado da função [epe4md::epe4md_calcula].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
