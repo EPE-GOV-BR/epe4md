@@ -70,12 +70,12 @@ Representa a cobrança de TUSDg para a demanda de consumidores do grupo A. Caso 
 
 ## Rodando o modelo 4MD
 
-A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem ser alterados caso seja de interesse do usuário. A seguir, por exemplo, iremos especificar o horizonte desejado da projeção como sendo 2030. Caso não fosse atribuído valor para esse argumento da função, o resultado iria até 2050. Para mais informações, verificar a documentação da função.
+A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem ser alterados caso seja de interesse do usuário. A seguir, por exemplo, iremos especificar o horizonte desejado da projeção como sendo 2035. Caso não fosse atribuído valor para esse argumento da função, o resultado iria até 2050. Para mais informações, verificar a documentação da função.
 
 ```{r, cache = TRUE, warning = FALSE, message=FALSE}
 resultado <- epe4md_calcula(ano_base = 2021,
                               premissas_reg = premissas_regulatorias,
-                              ano_max_resultado = 2030)
+                              ano_max_resultado = 2035)
 ```
 
 A saída da função traz um data frame com a projeção do número de adotantes, da capacidade instalada e da geração de energia. Os resultados estão em base mensal.

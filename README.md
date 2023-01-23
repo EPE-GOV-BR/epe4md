@@ -6,6 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
+<img src="man/figures/logo.png" align="right" height="139" />
+
 O pacote epe4md permite fazer projeções do mercado de Micro e
 Minigeração Distribuída (GD) no Brasil.
 
