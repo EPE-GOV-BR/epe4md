@@ -15,5 +15,6 @@ epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gráfico da capacidade instalada acumulada por cenário
+Mostra a soma acumulada das potência entre os parâmetros \code{ano_inicio} e \code{ano_max_resultado}
+passado na função \code{epe4md::epe4md_calcula} em cada um dos cenários.
 }

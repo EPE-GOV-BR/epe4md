@@ -10,7 +10,7 @@ epe4md_graf_pot_regiao(dados, ano_inicio = 2013, tamanho = 14)
 \arguments{
 \item{dados}{data.frame. Resultados mensais de potência e energia.}
 
-\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013}
+\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
 }
