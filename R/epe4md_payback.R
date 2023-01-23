@@ -45,6 +45,8 @@
 #'@import purrr
 #'@import readxl
 #'@import dplyr
+#'@import future
+#'@import tibble
 #'
 #'@encoding UTF-8
 #'

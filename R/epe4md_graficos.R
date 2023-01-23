@@ -205,6 +205,8 @@ epe4md_graf_pot_regiao <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import forcats
+#' @import scales
 #'
 #' @examples
 
@@ -367,6 +369,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @import dplyr
 #' @import ggplot2
 #' @import forcats
+#' @import scales
 #'
 #' @examples
 
@@ -423,7 +426,7 @@ epe4md_graf_part_fonte_geracao <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
-
+#' @import scales
 #'
 #' @examples
 
@@ -479,6 +482,7 @@ epe4md_graf_part_segmento <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import scales
 #'
 #' @examples
 

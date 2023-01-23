@@ -30,22 +30,22 @@ Imports:
     dplyr,
     purrr,
     tidyr,
-    readr,
     readxl,
     jrvFinance,
     janitor,
-    feather,
     stats,
     furrr,
-    writexl,
     zoo,
     lubridate,
     tsibble,
-    here,
     stringr,
     fabletools,
     feasts,
-    assertthat
+    assertthat,
+    forcats,
+    future,
+    scales,
+    tibble
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
