@@ -32,6 +32,7 @@
 #'@import tidyr
 #'@import readxl
 #'@import dplyr
+#'@import tibble
 #'
 #'@encoding UTF-8
 #'
