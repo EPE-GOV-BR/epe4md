@@ -198,8 +198,6 @@ epe4md_graf_pot_regiao <- function(
 #'
 #' @param dados data.frame. Resultados mensais de potência e energia.
 #'
-#' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
-#'
 #' @param cor string. Escolha da cor do gráfico.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
@@ -218,7 +216,6 @@ epe4md_graf_pot_regiao <- function(
 
 epe4md_graf_part_fonte_potencia <- function(
     dados,
-    ano_inicio = 2013,
     cor = "#112446",
     tamanho = 14)
 {
