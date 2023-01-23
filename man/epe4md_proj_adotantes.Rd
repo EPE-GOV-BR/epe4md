@@ -15,7 +15,7 @@ epe4md_proj_adotantes(
 \arguments{
 \item{casos_otimizados}{data.frame. Resultado da funcao
 \link{epe4md_calibra_curva_s}.
-#' @param consumidores list. Resultado da função
+\item{consumidores}{list. Resultado da função}
 \link{epe4md_mercado_potencial}.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
