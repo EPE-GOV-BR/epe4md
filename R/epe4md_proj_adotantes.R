@@ -2,7 +2,7 @@
 #'
 #' @param casos_otimizados data.frame. Resultado da funcao
 #' [epe4md::epe4md_calibra_curva_s].
-#' #' @param consumidores list. Resultado da função
+#' @param consumidores list. Resultado da função
 #' [epe4md::epe4md_mercado_potencial].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
