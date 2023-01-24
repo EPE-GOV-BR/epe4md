@@ -3,6 +3,7 @@
 export(epe4md_calcula)
 export(epe4md_calibra_curva_s)
 export(epe4md_casos_payback)
+export(epe4md_copia_premissas)
 export(epe4md_fatores_publicacao)
 export(epe4md_graf_geracao_ano)
 export(epe4md_graf_geracao_mes)

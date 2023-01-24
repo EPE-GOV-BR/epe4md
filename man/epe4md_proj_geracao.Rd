@@ -5,11 +5,7 @@
 \alias{epe4md_proj_geracao}
 \title{Estima a geração de eletricidade a partir da projeção de potência}
 \usage{
-epe4md_proj_geracao(
-  proj_mensal,
-  ano_base,
-  dir_dados_premissas = "inst/\\n                                dados_premissas"
-)
+epe4md_proj_geracao(proj_mensal, ano_base, dir_dados_premissas = NA_character_)
 }
 \arguments{
 \item{proj_mensal}{dataframe. Resultado da função

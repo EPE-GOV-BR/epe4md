@@ -8,7 +8,7 @@
 epe4md_proj_potencia(
   lista_adotantes,
   ano_base,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{
