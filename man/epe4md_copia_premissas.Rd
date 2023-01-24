@@ -3,18 +3,20 @@
 \encoding{UTF-8}
 \name{epe4md_copia_premissas}
 \alias{epe4md_copia_premissas}
-\title{Copia as planilhas de premissas originais do modelo para um novo diretório
-chamado dados_premissas, na raiz do projeto atual.}
+\title{Copia as planilhas de premissas originais do modelo para um novo diretório.}
 \usage{
-epe4md_copia_premissas(ano_base)
+epe4md_copia_premissas(ano_base, destino = "dados_premissas")
 }
 \arguments{
 \item{ano_base}{numeric. Ano base das premissas que serão copiadas.}
+
+\item{destino}{string. Diretório de destino das planilhas. Se não for
+preenchido, a função cria uma pasta chamada dados_premissas na raiz do
+projeto atual do RStudio.}
 }
 \value{
-data.frame. Base tratada e resumida.
+Cópia das planilhas de premissas.
 }
 \description{
-Copia as planilhas de premissas originais do modelo para um novo diretório
-chamado dados_premissas, na raiz do projeto atual.
+Copia as planilhas de premissas originais do modelo para um novo diretório.
 }
