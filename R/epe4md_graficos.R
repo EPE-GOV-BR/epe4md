@@ -1,13 +1,13 @@
-#' Gráfico da capacidade instalada acumulada
+#' Gr\u00E1fico da capacidade instalada acumulada
 #'
-#' Mostra a soma acumulada das potência entre os parãmetros `ano_inicio` e `ano_max_resultado`
-#' passado na função `epe4md::epe4md_calcula`.
+#' Mostra a soma acumulada da pot\u00EAncia entre os par\u00E3metros `ano_inicio` e `ano_max_resultado`
+#' passado na fun\u00E7\u00E3o `epe4md::epe4md_calcula`.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro.
+#' @param cor string. Escolha da cor do gr\u00E1fico. Default igual a Azul Escuro.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -36,23 +36,23 @@ epe4md_graf_pot_acum <- function(
     aes(x = ano, y = pot_acum) +
     geom_line(color = cor, size = 1) +
     geom_point(color = cor, fill = "white", shape = 21, stroke = 1.25) +
-    labs(x = "", y = "Potência [GW]") +
+    labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
           text = element_text(size = tamanho, family = "Calibri Light")) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
   }
 
-#' Gráfico da capacidade instalada anual
+#' Gr\u00E1fico da capacidade instalada anual
 #'
-#' Gráfico de colunas que mostra a soma simples da potência em cada ano, entre os parâmetros `ano_inicio` e
-#' `ano_max_resultado` passado na função `epe4md::epe4md_calcula`.
+#' Gr\u00E1fico de colunas que mostra a soma simples da pot\u00EAncia em cada ano, entre os par??metros `ano_inicio` e
+#' `ano_max_resultado` passado na fun\u00E7\u00E3o `epe4md::epe4md_calcula`.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Azul Escuro.
+#' @param cor string. Escolha da cor do gr\u00E1fico. Default igual a Azul Escuro.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -82,20 +82,20 @@ epe4md_graf_pot_anual <- function(
   ggplot(resumo) +
     aes(x = ano, y = pot_ano) +
     geom_col(fill = cor) +
-    labs(x = "", y = "Potência [GW]") +
+    labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
           text = element_text(size = tamanho, family = "Calibri Light")) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
-#' Gráfico da capacidade instalada acumulada por segmento
+#' Gr\u00E1fico da capacidade instalada acumulada por segmento
 #'
-#' Mostra a soma acumulada da potência entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
+#' Mostra a soma acumulada da pot\u00EAncia entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
 #' Comercial (BT) ', ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
 #'
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
@@ -134,7 +134,7 @@ epe4md_graf_pot_segmento <- function(
     aes(x = ano, y = pot_acum, color = segmento) +
     geom_line(size = 1) +
     geom_point(fill = "white", shape = 21, stroke = 1.25) +
-    labs(x = "", y = "Potência [GW]") +
+    labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
           text = element_text(size = tamanho, family = "Calibri Light"),
@@ -144,9 +144,9 @@ epe4md_graf_pot_segmento <- function(
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
-#' Gráfico da capacidade instalada acumulada por região
+#' Gr\u00E1fico da capacidade instalada acumulada por regi\u00E3o
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
@@ -185,7 +185,7 @@ epe4md_graf_pot_regiao <- function(
     aes(x = ano, y = pot_acum, color = regiao) +
     geom_line(size = 1) +
     geom_point(fill = "white", shape = 21, stroke = 1.25) +
-    labs(x = "", y = "Potência [GW]") +
+    labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
           text = element_text(size = tamanho, family = "Calibri Light"),
@@ -195,14 +195,14 @@ epe4md_graf_pot_regiao <- function(
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
-#' Gráfico da participação de capacidade por fonte
+#' Gr\u00E1fico da participa\u00E7\u00E3o de capacidade por fonte
 #'
-#' Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro' e 'Eólica')
+#' Gr\u00E1fico de barras que mostra a participa\u00E7\u00E3o de cada fonte ('Fotovoltaica', 'Termel\u00E9trica', 'Hidro' e 'E\u00F3lica')
 #' na capacidade instalada.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
-#' @param cor string. Escolha da cor do gráfico.
+#' @param cor string. Escolha da cor do gr\u00E1fico.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -238,7 +238,7 @@ epe4md_graf_part_fonte_potencia <- function(
   ggplot(resumo) +
     aes(x = fonte_resumo, y = part_potencia) +
     geom_col(fill = cor) +
-    labs(x = "", y = "Participação em Capacidade Instalada") +
+    labs(x = "", y = "Participa\u00E7\u00E3o em Capacidade Instalada") +
     geom_text(aes(label = scales::percent(round(part_potencia, 3),
                                           decimal.mark = ",",
                                           accuracy = 0.1),
@@ -255,15 +255,15 @@ epe4md_graf_part_fonte_potencia <- function(
 
 
 
-#' Gráfico da geração mensal em MWmed
+#' Gr\u00E1fico da gera\u00E7\u00E3o mensal em MWmed
 #'
-#' Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
+#' Gr\u00E1fico de \u00E1rea que mostra a soma da gera\u00E7\u00E3o de energia em MWmed agrupada por m\u00EAs.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#' @param cor string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -295,7 +295,7 @@ epe4md_graf_geracao_mes <- function(
   ggplot(resumo) +
     aes(x = as.Date(data), y = energia_mwmed) +
     geom_area(fill = cor) +
-    labs(x = "", y = "Geração [MWméd]") +
+    labs(x = "", y = "Gera\u00E7\u00E3o [MWm\u00E9d]") +
     theme_minimal() +
     theme(legend.position = "none",
           text = element_text(size = tamanho, family = "Calibri Light")) +
@@ -304,15 +304,15 @@ epe4md_graf_geracao_mes <- function(
 
 }
 
-#' Gráfico da geração anual em MWmed
+#' Gr\u00E1fico da gera\u00E7\u00E3o anual em MWmed
 #'
-#' Gráfico de área que mostra a geração de energia em MWmed agrupada por ano.
+#' Gr\u00E1fico de \u00E1rea que mostra a gera\u00E7\u00E3o de energia em MWmed agrupada por ano.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#' @param cor string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -349,7 +349,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
     geom_area(fill = cor) +
     # geom_line(color = "#7f7f7f", size = 1) +
     # geom_point(fill = "white", color = cor, shape = 21, stroke = 1.25) +
-    labs(x = "", y = "Geração [MWméd]") +
+    labs(x = "", y = "Gera\u00E7\u00E3o [MWm\u00E9d]") +
     theme_minimal() +
     theme(legend.position = "none",
           text = element_text(size = tamanho, family = "Calibri Light")) +
@@ -359,16 +359,16 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 
 }
 
-#' Gráfico da participação de cada tecnologia na geração de energia
+#' Gr\u00E1fico da participa\u00E7\u00E3o de cada tecnologia na gera\u00E7\u00E3o de energia
 #'
-#' Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro', 'Eólica')
-#' na geração de energia somente no parâmetro `ano_max_resultado` passado na função `epe4md::epe4md_calcula`.
+#' Gr\u00E1fico de barras que mostra a participa\u00E7\u00E3o de cada fonte ('Fotovoltaica', 'Termel\u00E9trica', 'Hidro', 'E\u00F3lica')
+#' na gera\u00E7\u00E3o de energia somente no par??metro `ano_max_resultado` passado na fun\u00E7\u00E3o `epe4md::epe4md_calcula`.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
-#' @param cor string. Escolha da cor do gráfico. Default igual a Vermelho.
+#' @param cor string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
@@ -405,7 +405,7 @@ epe4md_graf_part_fonte_geracao <- function(
   ggplot(resumo) +
     aes(x = fonte_resumo, y = part_energia) +
     geom_col(fill = cor) +
-    labs(x = "", y = "Participação na Geração") +
+    labs(x = "", y = "Participa\u00E7\u00E3o na Gera\u00E7\u00E3o") +
     geom_text(aes(label = scales::percent(round(part_energia, 3),
                                           decimal.mark = ",",
                                           accuracy = 0.1),
@@ -421,12 +421,12 @@ epe4md_graf_part_fonte_geracao <- function(
 }
 
 
-#' Gráfico da evolução da participação por segmento
+#' Gr\u00E1fico da evolu\u00E7\u00E3o da participa\u00E7\u00E3o por segmento
 #'
-#' Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
-#' na geração de energia em cada ano.
+#' Gr\u00E1fico de colunas que mostra a participa\u00E7\u00E3o de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
+#' na gera\u00E7\u00E3o de energia em cada ano.
 #'
-#' @param dados data.frame. Resultados mensais de potência e energia.
+#' @param dados data.frame. Resultados mensais de pot\u00EAncia e energia.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
@@ -469,7 +469,7 @@ epe4md_graf_part_segmento <- function(
   ggplot(resumo) +
     geom_col(aes(x = ano, y = part_potencia, fill = segmento),
              position = "stack") +
-    labs(x = "", y = "Participação em Potência") +
+    labs(x = "", y = "Participa\u00E7\u00E3o em Pot\u00EAncia") +
     theme_minimal() +
     theme(legend.position = "bottom",
           text = element_text(size = tamanho, family = "Calibri Light"),
@@ -481,10 +481,10 @@ epe4md_graf_part_segmento <- function(
 
 }
 
-#' Gráfico da capacidade instalada acumulada por cenário
+#' Gr\u00E1fico da capacidade instalada acumulada por cen\u00E1rio
 #'
-#' Mostra a soma acumulada das potência entre os parâmetros `ano_inicio` e `ano_max_resultado`
-#' passado na função `epe4md::epe4md_calcula` em cada um dos cenários.
+#' Mostra a soma acumulada das pot\u00EAncia entre os par??metros `ano_inicio` e `ano_max_resultado`
+#' passado na fun\u00E7\u00E3o `epe4md::epe4md_calcula` em cada um dos cen\u00E1rios.
 #'
 #' @param dados data.frame Resultado resumido com coluna cenario.
 #'
@@ -526,7 +526,7 @@ epe4md_graf_pot_cenario <- function(
     aes(x = ano, y = pot_acum, color = cenario) +
     geom_line(size = 1) +
     geom_point(fill = "white", shape = 21, stroke = 1.25) +
-    labs(x = "", y = "Potência [GW]", color = "Cenário") +
+    labs(x = "", y = "Pot\u00EAncia [GW]", color = "Cen\u00E1rio") +
     theme_minimal() +
     theme(legend.position = "bottom",
           text = element_text(size = tamanho, family = "Calibri Light")) +

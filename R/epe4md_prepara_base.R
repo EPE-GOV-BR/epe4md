@@ -35,8 +35,8 @@ epe4md_prepara_base <- function(base_aneel,
 
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
-    system.file(stringr::str_glue("dados_premissas/{ano_base}"),
-                package = "epe4md"),
+    system.file(stringr::str_glue('dados_premissas/{ano_base}'),
+                package = 'epe4md'),
     dir_dados_premissas
   )
 
@@ -48,10 +48,10 @@ epe4md_prepara_base <- function(base_aneel,
 
   base_mmgd <- base_mmgd %>%
     mutate(fonte_resumo = case_when(
-      sig_tipo_geracao == "UFV" ~ "Fotovoltaica",
-      sig_tipo_geracao == "UTE" ~ "Termelétrica",
-      sig_tipo_geracao == "EOL" ~ "Eólica",
-      TRUE ~ "Hidro"
+      sig_tipo_geracao == 'UFV' ~ 'Fotovoltaica',
+      sig_tipo_geracao == 'UTE' ~ 'Termelétrica',
+      sig_tipo_geracao == 'EOL' ~ 'Eólica',
+      TRUE ~ 'Hidro'
     ))
 
   base_mmgd$dth_atualiza_cadastral_empreend <- ymd(
@@ -59,8 +59,8 @@ epe4md_prepara_base <- function(base_aneel,
 
   base_mmgd <- base_mmgd %>%
     mutate(data_conexao = ifelse(dth_atualiza_cadastral_empreend <
-                                   dmy("01-01-2013"),
-                                 dmy("01-01-2013"),
+                                   dmy('01-01-2013'),
+                                 dmy('01-01-2013'),
                                  dth_atualiza_cadastral_empreend))
 
   base_mmgd$data_conexao <- as_date(base_mmgd$data_conexao)
@@ -70,25 +70,25 @@ epe4md_prepara_base <- function(base_aneel,
     mutate(ano = year(data_conexao)) %>%
     select(-dth_atualiza_cadastral_empreend)
 
-  base_mmgd$mes <- as.Date(cut(base_mmgd$data_conexao, breaks = "month"))
+  base_mmgd$mes <- as.Date(cut(base_mmgd$data_conexao, breaks = 'month'))
 
   base_mmgd <- base_mmgd %>%
     arrange(data_conexao)
 
   base_mmgd <- base_mmgd %>%
-    mutate(mini_micro = ifelse(dsc_porte == "Microgeracao",
-                               "MicroGD",
-                               "MiniGD"))
+    mutate(mini_micro = ifelse(dsc_porte == 'Microgeracao',
+                               'MicroGD',
+                               'MiniGD'))
 
   nomes_dist <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/nomes_dist_powerbi.xlsx")) %>%
+    read_xlsx(stringr::str_glue('{dir_dados_premissas}/nomes_dist_powerbi.xlsx')) %>%
     janitor::clean_names()
 
   base_mmgd <- base_mmgd %>%
-    left_join(nomes_dist, by = "sig_agente")
+    left_join(nomes_dist, by = 'sig_agente')
 
   tabela_regiao <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx")) %>%
+    read_xlsx(stringr::str_glue('{dir_dados_premissas}/tabela_dist_subs.xlsx')) %>%
     janitor::clean_names() %>%
     select(uf, subsistema) %>%
     distinct()
@@ -98,7 +98,7 @@ epe4md_prepara_base <- function(base_aneel,
            potencia_instalada_k_w = mda_potencia_instalada_kw,
            qtde_u_csrecebem_os_creditos = qtd_uc_recebe_credito,
            fonte = dsc_fonte_geracao) %>%
-    left_join(tabela_regiao, by = "uf")
+    left_join(tabela_regiao, by = 'uf')
 
   base_mmgd <- base_mmgd %>%
     mutate(potencia_mw = potencia_instalada_k_w / 1000)
@@ -108,27 +108,27 @@ epe4md_prepara_base <- function(base_aneel,
   base_mmgd <- base_mmgd %>%
     rename(subgrupo = dsc_sub_grupo_tarifario,
            classe = dsc_classe_consumo) %>%
-    mutate(atbt = ifelse(subgrupo %in% c("B1", "B2", "B3", "B4"), "BT", "AT"),
-           local_remoto = ifelse(sig_modalidade_empreendimento %in% c("R", "C"),
-                                 "remoto",
-                                 "local"))
+    mutate(atbt = ifelse(subgrupo %in% c('B1', 'B2', 'B3', 'B4'), 'BT', 'AT'),
+           local_remoto = ifelse(sig_modalidade_empreendimento %in% c('R', 'C'),
+                                 'remoto',
+                                 'local'))
 
-  base_mmgd$classe <- gsub("Iluminação pública", "Ilum. Púb.", base_mmgd$classe)
+  base_mmgd$classe <- gsub('Iluminação pública', 'Ilum. Púb.', base_mmgd$classe)
 
   # divisao segmentos
 
   segmento <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/segmento.xlsx"))
+    read_xlsx(stringr::str_glue('{dir_dados_premissas}/segmento.xlsx'))
 
   base_mmgd <- left_join(base_mmgd, segmento,
-                         by = c("classe", "atbt", "local_remoto"))
+                         by = c('classe', 'atbt', 'local_remoto'))
 
   base_mmgd <- base_mmgd %>%
     mutate(modalidade = case_when(
-      sig_modalidade_empreendimento == "P" ~ "Geração na própria UC",
-      sig_modalidade_empreendimento == "R" ~ "Autoconsumo remoto",
-      sig_modalidade_empreendimento == "C" ~ "Geração compartilhada",
-      TRUE ~ "Condomínios"))
+      sig_modalidade_empreendimento == 'P' ~ 'Geração na própria UC',
+      sig_modalidade_empreendimento == 'R' ~ 'Autoconsumo remoto',
+      sig_modalidade_empreendimento == 'C' ~ 'Geração compartilhada',
+      TRUE ~ 'Condomínios'))
 
   base_mmgd <- base_mmgd %>%
     rename(
