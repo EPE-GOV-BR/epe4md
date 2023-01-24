@@ -14,7 +14,8 @@ epe4md_proj_adotantes(
 }
 \arguments{
 \item{casos_otimizados}{data.frame. Resultado da funcao
-\link{epe4md_calibra_curva_s}.
+\link{epe4md_calibra_curva_s}.}
+
 \item{consumidores}{list. Resultado da função
 \link{epe4md_mercado_potencial}.}
 
