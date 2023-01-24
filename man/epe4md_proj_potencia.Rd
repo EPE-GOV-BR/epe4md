@@ -23,8 +23,6 @@ Se esse parâmetro não for passado, a função usa os dados default que são
 instalados com o pacote. É importante que os nomes dos arquivos sejam os
 mesmos da pasta default.}
 
-\item{proj_adotantes}{data.frame. Resultado da função
-\link{epe4md_proj_adotantes}.}
 }
 \value{
 list com dois data.frames. "proj_potencia" possui os resultados da

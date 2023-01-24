@@ -1,7 +1,7 @@
 #' Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
 #'
-#' @param proj_adotantes data.frame. Resultado da função
 #' [epe4md::epe4md_proj_adotantes].
+#' @param proj_adotantes data.frame. Resultado da função
 #' @param lista_adotantes data.frame. Data.frame que contém dados relativos aos
 #' adotantes.
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função

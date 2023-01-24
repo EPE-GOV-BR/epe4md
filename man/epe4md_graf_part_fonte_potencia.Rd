@@ -7,15 +7,12 @@
 \usage{
 epe4md_graf_part_fonte_potencia(
   dados,
-  ano_inicio,
   cor = "#112446",
   tamanho = 14
 )
 }
 \arguments{
 \item{dados}{data.frame. Resultados mensais de potência e energia.}
-
-\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{cor}{string. Escolha da cor do gráfico.}
 
