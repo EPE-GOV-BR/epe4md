@@ -62,6 +62,9 @@
     <li>
       <a href="../articles/por_dentro_do_modelo.html">Por dentro do 4MD</a>
     </li>
+    <li>
+      <a href="../articles/treinamento_inicial.html">Treinamento Inicial</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -185,30 +188,30 @@ consumo.</p>
 <p>A função <code>epe4md_calcula</code> possui outros argumentos
 pré-definidos, que podem ser alterados caso seja de interesse do
 usuário. A seguir, por exemplo, iremos especificar o horizonte desejado
-da projeção como sendo 2030. Caso não fosse atribuído valor para esse
+da projeção como sendo 2035. Caso não fosse atribuído valor para esse
 argumento da função, o resultado iria até 2050. Para mais informações,
 verificar a documentação da função.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resultado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
 <span>                              premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
-<span>                              ano_max_resultado <span class="op">=</span> <span class="fl">2030</span><span class="op">)</span></span></code></pre></div>
+<span>                              ano_max_resultado <span class="op">=</span> <span class="fl">2035</span><span class="op">)</span></span></code></pre></div>
 <p>A saída da função traz um data frame com a projeção do número de
 adotantes, da capacidade instalada e da geração de energia. Os
 resultados estão em base mensal.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Exemplo de resultado para o estado do RJ</span></span>
 <span></span>
-<span><span class="va">resumo_potencia_rj</span> <span class="op">&lt;-</span> <span class="va">resultado</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">uf</span> <span class="op">==</span> <span class="st">"RJ"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ano</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span><span class="va">resumo_potencia_rj</span> <span class="op">&lt;-</span> <span class="va">resultado</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">uf</span> <span class="op">==</span> <span class="st">"RJ"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ano</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>adotantes_ano <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">adotantes_mes</span><span class="op">)</span>,</span>
-<span>            capacidade_ano_mw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pot_mes_mw</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>            capacidade_ano_mw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">pot_mes_mw</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>adotantes_acum <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">adotantes_ano</span><span class="op">)</span>,</span>
-<span>         capacidade_acum_mw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">capacidade_ano_mw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ano</span>, <span class="va">adotantes_acum</span>, <span class="va">capacidade_acum_mw</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/magrittr/man/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>         capacidade_acum_mw <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cumsum.html" class="external-link">cumsum</a></span><span class="op">(</span><span class="va">capacidade_ano_mw</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">ano</span>, <span class="va">adotantes_acum</span>, <span class="va">capacidade_acum_mw</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 18 × 3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 23 × 3</span></span></span>
 <span><span class="co">#&gt;      ano adotantes_acum capacidade_acum_mw</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013              8                  0</span></span>
@@ -221,14 +224,7 @@ resultados estão em base mensal.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020          <span style="text-decoration: underline;">23</span>186                204</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021          <span style="text-decoration: underline;">50</span>288                407</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022          <span style="text-decoration: underline;">88</span>664                669</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span>  <span style="text-decoration: underline;">2</span>023         <span style="text-decoration: underline;">136</span>200               <span style="text-decoration: underline;">1</span>081</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span>  <span style="text-decoration: underline;">2</span>024         <span style="text-decoration: underline;">182</span>483               <span style="text-decoration: underline;">1</span>426</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span>  <span style="text-decoration: underline;">2</span>025         <span style="text-decoration: underline;">226</span>603               <span style="text-decoration: underline;">1</span>767</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span>  <span style="text-decoration: underline;">2</span>026         <span style="text-decoration: underline;">269</span>075               <span style="text-decoration: underline;">2</span>104</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span>  <span style="text-decoration: underline;">2</span>027         <span style="text-decoration: underline;">309</span>685               <span style="text-decoration: underline;">2</span>427</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span>  <span style="text-decoration: underline;">2</span>028         <span style="text-decoration: underline;">346</span>874               <span style="text-decoration: underline;">2</span>726</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span>  <span style="text-decoration: underline;">2</span>029         <span style="text-decoration: underline;">382</span>031               <span style="text-decoration: underline;">3</span>013</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span>  <span style="text-decoration: underline;">2</span>030         <span style="text-decoration: underline;">418</span>634               <span style="text-decoration: underline;">3</span>317</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 13 more rows</span></span></span></code></pre></div>
 <p>O usuário pode explorar esses resultados da forma como achar melhor,
 embora existam algumas funções no pacote que resumam os resultados em
 nível nacional.</p>
@@ -237,7 +233,7 @@ nível nacional.</p>
 <span></span>
 <span><span class="co">#Resultado de capacidade instalada, em GW.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">resumo_potencia</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 18 × 5</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 23 × 5</span></span></span>
 <span><span class="co">#&gt;      ano pot_ano geracao_gwh pot_acum geracao_mwmed</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013 0.002<span style="text-decoration: underline;">06</span>        1.15  0.002<span style="text-decoration: underline;">06</span>         0.131</span></span>
@@ -250,14 +246,7 @@ nível nacional.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020 2.89        <span style="text-decoration: underline;">5</span>778.    5.17          660.   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021 4.58       <span style="text-decoration: underline;">10</span>883.    9.75         <span style="text-decoration: underline;">1</span>242.   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022 3.81       <span style="text-decoration: underline;">17</span>281.   13.6          <span style="text-decoration: underline;">1</span>973.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span>  <span style="text-decoration: underline;">2</span>023 4.38       <span style="text-decoration: underline;">23</span>422.   17.9          <span style="text-decoration: underline;">2</span>674.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span>  <span style="text-decoration: underline;">2</span>024 3.40       <span style="text-decoration: underline;">29</span>306.   21.3          <span style="text-decoration: underline;">3</span>345.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span>  <span style="text-decoration: underline;">2</span>025 2.85       <span style="text-decoration: underline;">33</span>631.   24.2          <span style="text-decoration: underline;">3</span>839.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span>  <span style="text-decoration: underline;">2</span>026 2.40       <span style="text-decoration: underline;">37</span>273.   26.6          <span style="text-decoration: underline;">4</span>255.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span>  <span style="text-decoration: underline;">2</span>027 2.08       <span style="text-decoration: underline;">40</span>325.   28.7          <span style="text-decoration: underline;">4</span>603.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span>  <span style="text-decoration: underline;">2</span>028 1.84       <span style="text-decoration: underline;">43</span>064.   30.5          <span style="text-decoration: underline;">4</span>916.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span>  <span style="text-decoration: underline;">2</span>029 2.01       <span style="text-decoration: underline;">45</span>512.   32.5          <span style="text-decoration: underline;">5</span>195.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span>  <span style="text-decoration: underline;">2</span>030 2.65       <span style="text-decoration: underline;">48</span>730.   35.2          <span style="text-decoration: underline;">5</span>563.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 13 more rows</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="../reference/epe4md_graf_pot_acum.html">epe4md_graf_pot_acum</a></span><span class="op">(</span>dados <span class="op">=</span> <span class="va">resultado</span><span class="op">)</span></span></code></pre></div>
