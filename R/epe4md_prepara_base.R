@@ -3,7 +3,7 @@
 #'
 #' @param base_aneel. Dataframe com a base de dados disponibilizada pela ANEEL
 #' na sua página de dados abertos com dados individualizados dos micro e
-#' minigeradores distribuídos. Sugestão ler base com read.csv2
+#' minigeradores distribuídos.
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a
 #' função irá buscar a base de dados. Último ano completo realizado.
 #' @param resumida. Logic. Se TRUE, retorna a base resumida (Default). Se
