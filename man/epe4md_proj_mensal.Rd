@@ -12,7 +12,7 @@ epe4md_proj_mensal(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA,
   metodo_ajuste = NA,
-  dir_dados_premissas = "inst/\\n                               dados_premissas"
+  dir_dados_premissas = NA_character_
 )
 }
 \arguments{
