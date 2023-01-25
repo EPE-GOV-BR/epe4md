@@ -8,7 +8,6 @@
 epe4md_calcula(
   premissas_reg,
   ano_base,
-  num_futures = 1,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -62,11 +61,6 @@ contém um exemplo de premissas de entrada.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
-
-\item{num_futures}{numeric. Especifica o número máximo de futures que podem
-ser usados paralelamente. Para máximo desempenho utilize o método
-"availableCores()" do pacote "parallelly" como valor para "num_futures".
-Default igual a 1.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}

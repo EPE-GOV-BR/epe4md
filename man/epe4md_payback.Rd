@@ -9,7 +9,6 @@ epe4md_payback(
   casos_payback,
   premissas_reg,
   ano_base,
-  num_futures = 1,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -32,11 +31,6 @@ consideradas nos cálculos.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
-
-\item{num_futures}{numeric. Especifica o número máximo de futures que podem
-ser usados paralelamente. Para máximo desempenho utilize o método
-"availableCores()" do pacote "parallelly" como valor para "num_futures".
-Default igual a 1.}
 
 \item{altera_sistemas_existentes}{logic. TRUE se alterações regulatórias
 afetam investimentos realizados em anos anteriores à revisão da regulação.
