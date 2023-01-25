@@ -33,9 +33,10 @@ consideradas nos cálculos.}
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
-\item{num_futures}{numeric. Especifica o número máximo de futures que podem ser
-usados paralelamente. Para máximo desempenho utilize o método "availableCores()"
-do pacote "parallelly" como valor para "num_futures". Default igual a 1.}
+\item{num_futures}{numeric. Especifica o número máximo de futures que podem
+ser usados paralelamente. Para máximo desempenho utilize o método
+"availableCores()" do pacote "parallelly" como valor para "num_futures".
+Default igual a 1.}
 
 \item{altera_sistemas_existentes}{logic. TRUE se alterações regulatórias
 afetam investimentos realizados em anos anteriores à revisão da regulação.
@@ -58,6 +59,11 @@ para reforços na rede. Default igual a 200.}
 \item{ano_troca_inversor}{numeric. Ano, a partir do ano de instalação, em que
 é realizada a troca do inversor fotovoltaico. Default igual a 11.}
 
+\item{pagamento_disponibilidade}{numeric. Percentual de meses em que o
+consumidor residencial paga custo de disponbilidade em função da
+variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
+ano de 2022.}
+
 \item{disponibilidade_kwh_mes}{numeric. Consumo de disponbilidade do
 consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
 trifásico. Tem efeito somente até o ano de 2022.}
@@ -73,11 +79,6 @@ CAPEX. Default igual a 0.}
 parâmetro não for passado, a função usa os dados default que são instalados
 com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 pasta default.}
-
-\item{pagamento_disponibilidade}{numeric. Percentual de meses em que o
-consumidor residencial paga custo de disponbilidade em função da
-variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
-ano de 2022.}
 }
 \value{
 data.frame. Métricas financeiras para cada caso.
