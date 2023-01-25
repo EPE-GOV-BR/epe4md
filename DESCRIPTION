@@ -26,7 +26,6 @@ Suggests:
     tidyverse
 Config/testthat/edition: 3
 Imports:
-    ggplot2,
     dplyr,
     purrr,
     tidyr,

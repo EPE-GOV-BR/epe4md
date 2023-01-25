@@ -115,6 +115,10 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
+#' @param num_futures numeric. Especifica o número máximo de futures que podem
+#' ser usados paralelamente. Para máximo desempenho utilize o método
+#' "availableCores()" do pacote "parallelly" como valor para "num_futures".
+#' Default igual a 1.
 #'
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
@@ -134,6 +138,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
+  num_futures = 1,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -228,6 +233,7 @@ epe4md_calcula <- function(
   )
 
   resultado_payback <- epe4md_payback(
+    num_futures = num_futures,
     ano_base = ano_base,
     casos_payback = casos_payback,
     premissas_reg = premissas_reg,

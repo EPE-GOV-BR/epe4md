@@ -10,7 +10,7 @@ test_that("there is no missing values", {
   expect_equal(sum(is.na(epe4md_mercado_potencial(ano_base = 2021))), 0)
 
   expect_equal(epe4md_mercado_potencial(ano_base = 2021) %>%
-                 extract2(1) %>%
+                 magrittr::extract2(1) %>%
                  distinct(nome_4md) %>%
                  nrow(), 54)
 

@@ -37,6 +37,10 @@
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
+#' @param num_futures numeric. Especifica o número máximo de futures que podem
+#' ser usados paralelamente. Para máximo desempenho utilize o método
+#' "availableCores()" do pacote "parallelly" como valor para "num_futures".
+#' Default igual a 1.
 #'
 #' @return data.frame. Métricas financeiras para cada caso.
 #' @export
@@ -56,6 +60,7 @@ epe4md_payback <- function(
     casos_payback,
     premissas_reg,
     ano_base,
+    num_futures = 1,
     altera_sistemas_existentes = TRUE,
     ano_decisao_alteracao = 2023,
     inflacao = 0.0375,
@@ -291,7 +296,7 @@ epe4md_payback <- function(
 
   }
 
-  future::plan(future::multisession)
+  future::plan(future::multisession(workers = num_futures))
 
   resultado_payback <- casos_payback %>%
     mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
