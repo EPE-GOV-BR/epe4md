@@ -182,6 +182,7 @@ epe4md_calcula <- function(
   assert_that(is.logical(premissas_reg$demanda_g))
 
   assert_that(is.number(ano_base))
+  assert_that(is.number(num_futures))
   assert_that(is.flag(altera_sistemas_existentes))
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(inflacao))
