@@ -125,7 +125,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #'@import tidyr
 #'@import dplyr
-#'@import assertthat
 #'
 #'@encoding UTF-8
 #'
@@ -159,7 +158,7 @@ epe4md_calcula <- function(
 {
 
 
-  assert_that(premissas_reg %has_name% c(
+  assertthat::assertthat::assert_that(premissas_reg %has_name% c(
       "ano",
       "alternativa",
       "p_transicao",
@@ -169,23 +168,23 @@ epe4md_calcula <- function(
   )
 
 
-  assert_that(is.numeric(premissas_reg$ano))
-  assert_that(is.numeric(premissas_reg$alternativa))
-  assert_that(is.numeric(premissas_reg$p_transicao))
-  assert_that(is.logical(premissas_reg$binomia))
-  assert_that(is.logical(premissas_reg$demanda_g))
+  assertthat::assert_that(is.numeric(premissas_reg$ano))
+  assertthat::assert_that(is.numeric(premissas_reg$alternativa))
+  assertthat::assert_that(is.numeric(premissas_reg$p_transicao))
+  assertthat::assert_that(is.logical(premissas_reg$binomia))
+  assertthat::assert_that(is.logical(premissas_reg$demanda_g))
 
-  assert_that(is.number(ano_base))
-  assert_that(is.flag(altera_sistemas_existentes))
-  assert_that(is.number(ano_decisao_alteracao))
-  assert_that(is.number(inflacao))
-  assert_that(is.number(taxa_desconto_nominal))
-  assert_that(is.number(custo_reforco_rede))
-  assert_that(is.number(ano_troca_inversor))
-  assert_that(is.number(pagamento_disponibilidade))
-  assert_that(is.number(disponibilidade_kwh_mes))
-  assert_that(
-    assert_in(
+  assertthat::assert_that(is.number(ano_base))
+  assertthat::assert_that(is.flag(altera_sistemas_existentes))
+  assertthat::assert_that(is.number(ano_decisao_alteracao))
+  assertthat::assert_that(is.number(inflacao))
+  assertthat::assert_that(is.number(taxa_desconto_nominal))
+  assertthat::assert_that(is.number(custo_reforco_rede))
+  assertthat::assert_that(is.number(ano_troca_inversor))
+  assertthat::assert_that(is.number(pagamento_disponibilidade))
+  assertthat::assert_that(is.number(disponibilidade_kwh_mes))
+  assertthat::assert_that(
+    assertthat::assert_in(
       filtro_renda_domicilio,
       categorias = c(
 
@@ -200,12 +199,12 @@ epe4md_calcula <- function(
   )
 
 
-  assert_that(is.number(desconto_capex_local))
-  assert_that(is.number(anos_desconto))
-  assert_that(is.number(tx_cresc_grupo_a))
-  assert_that(is.number(spb))
-  assert_that(is.number(p_max))
-  assert_that(is.number(q_max))
+  assertthat::assert_that(is.number(desconto_capex_local))
+  assertthat::assert_that(is.number(anos_desconto))
+  assertthat::assert_that(is.number(tx_cresc_grupo_a))
+  assertthat::assert_that(is.number(spb))
+  assertthat::assert_that(is.number(p_max))
+  assertthat::assert_that(is.number(q_max))
 
 
   assertthat::assert_that(ano_max_resultado <= 2050)

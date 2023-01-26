@@ -1,14 +1,14 @@
 
 
 
-assert_in <- function(x, categorias){
+assertthat::assert_in <- function(x, categorias){
 
   x %in% categorias
 
 }
 
 
-assertthat::on_failure(assert_in) <- function(call, env) {
+assertthat::on_failure(assertthat::assert_in) <- function(call, env) {
 
   paste0(
     deparse(call$x),
