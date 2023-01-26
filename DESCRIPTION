@@ -27,6 +27,7 @@ Suggests:
 Config/testthat/edition: 3
 Imports:
     dplyr,
+    scales,
     purrr,
     tidyr,
     readxl,
@@ -40,11 +41,10 @@ Imports:
     stringr,
     fabletools,
     feasts,
+    tibble,
     assertthat,
     forcats,
     future,
-    scales,
-    tibble,
     magrittr
 Depends: 
     R (>= 2.10)
