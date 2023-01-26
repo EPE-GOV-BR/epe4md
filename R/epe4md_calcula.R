@@ -158,7 +158,7 @@ epe4md_calcula <- function(
 {
 
 
-  assertthat::assertthat::assert_that(premissas_reg %has_name% c(
+  assertthat::assert_that(premissas_reg %has_name% c(
       "ano",
       "alternativa",
       "p_transicao",
