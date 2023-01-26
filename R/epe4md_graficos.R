@@ -214,6 +214,7 @@ epe4md_graf_pot_regiao <- function(
 #'
 #' @import dplyr
 #' @import forcats
+#' @import scales
 #'
 #' @examples
 
@@ -322,6 +323,7 @@ epe4md_graf_geracao_mes <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import scales
 #'
 #' @examples
 
@@ -439,6 +441,7 @@ epe4md_graf_part_fonte_geracao <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import scales
 #'
 #' @examples
 
@@ -498,6 +501,7 @@ epe4md_graf_part_segmento <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import scales
 #'
 #' @examples
 

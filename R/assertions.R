@@ -1,7 +1,7 @@
 
 
 
-assertthat::assert_in <- function(x, categorias){
+assert_in <- function(x, categorias){
 
   x %in% categorias
 
