@@ -76,6 +76,7 @@ epe4md_proj_geracao <- function(proj_mensal,
                                       day = dia_instalacao)) %>%
     filter(pot_mes_mw != 0)
 
+  proj_mensal <- proj_mensal[1:50,]
 
   #crossing das instalacoes com os meses de operacao
   projecao_energia <- crossing(proj_mensal, meses_operacao)
