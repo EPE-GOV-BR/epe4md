@@ -75,7 +75,7 @@ A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem s
 ```{r, cache = TRUE, warning = FALSE, message=FALSE}
 resultado <- epe4md_calcula(ano_base = 2021,
                               premissas_reg = premissas_regulatorias,
-                              ano_max_resultado = 2023)
+                              ano_max_resultado = 2030)
 ```
 
 A saída da função traz um data frame com a projeção do número de adotantes, da capacidade instalada e da geração de energia. Os resultados estão em base mensal.
