@@ -125,7 +125,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #'@import tidyr
 #'@import dplyr
-#'@import assertthat
+#'@rawNamespace import(assertthat, except=c(has_name))
 #'
 #'@encoding UTF-8
 #'

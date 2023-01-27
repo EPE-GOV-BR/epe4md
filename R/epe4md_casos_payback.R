@@ -21,7 +21,7 @@
 #' @export
 #'
 #'@import tidyr
-#'@import purrr
+#'@rawNamespace import(purrr, except=c(discard))
 #'@import readxl
 #'@import dplyr
 #'@import stringr
