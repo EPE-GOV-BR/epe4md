@@ -79,7 +79,7 @@ test_that("epe4md_calcula filtro_renda certo", {
         read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
                               package = "epe4md")),
       ano_base = 2021,
-      ano_max_resultado = 2023,
+      ano_max_resultado = 2050,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023,
       filtro_renda_domicilio = "maior_5sm"
