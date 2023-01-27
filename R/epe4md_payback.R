@@ -291,7 +291,7 @@ epe4md_payback <- function(
 
   }
 
-  future::plan(future::multisession(workers = 1))
+  future::plan(future::multisession)
 
   resultado_payback <- casos_payback %>%
     mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
