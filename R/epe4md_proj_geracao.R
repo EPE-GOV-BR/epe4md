@@ -18,6 +18,7 @@
 #'@import lubridate
 #'@import tidyr
 #'@import readxl
+#'@rawNamespace import(readr, except=c(col_factor))
 #'@import dplyr
 #'@import tibble
 #'
@@ -70,11 +71,15 @@ epe4md_proj_geracao <- function(proj_mensal,
            mes_operacao = ceiling_date(mes_operacao, "month") - 1) %>%
     select(mes_operacao)
 
-
   proj_mensal <- proj_mensal %>%
     mutate(mes_instalacao = make_date(year = ano, month = month(mes_ano),
                                       day = dia_instalacao)) %>%
-    filter(pot_mes_mw != 0)
+    filter(pot_mes_mw != 0) %>%
+    mutate(
+      ano = as.integer(ano),
+      adotantes_mes = as.integer(adotantes_mes),
+      mes = as.integer(mes)
+    )
 
   #crossing das instalacoes com os meses de operacao
   projecao_energia <- crossing(proj_mensal, meses_operacao)

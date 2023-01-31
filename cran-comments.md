@@ -1,9 +1,14 @@
 ## R CMD check results
 
-This is the first submission
+  This is the first submission.
 
-Test for R CMD Check workflow
+    There was 1 NOTE:
 
-Test for new Actions policy allowing external libraries to work on the workflow
+* checking dependencies in R code ... NOTE
+  Namespace in Imports field not imported from: 'magrittr'
+
+  magrittr is a build-time dependency.
 
 ## Downstream dependencies
+
+  There are currently no downstream dependencies for this package.
