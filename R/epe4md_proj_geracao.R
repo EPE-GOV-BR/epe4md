@@ -74,12 +74,13 @@ epe4md_proj_geracao <- function(proj_mensal,
   proj_mensal <- proj_mensal %>%
     mutate(mes_instalacao = make_date(year = ano, month = month(mes_ano),
                                       day = dia_instalacao)) %>%
-    filter(pot_mes_mw != 0) %>%
-    mutate(
-      ano = as.integer(ano),
-      adotantes_mes = as.integer(adotantes_mes),
-      mes = as.integer(mes)
-    )
+    filter(pot_mes_mw != 0)
+  # %>%
+  #   mutate(
+  #     ano = as.integer(ano),
+  #     adotantes_mes = as.integer(adotantes_mes),
+  #     mes = as.integer(mes)
+  #   )
 
   #crossing das instalacoes com os meses de operacao
   projecao_energia <- crossing(proj_mensal, meses_operacao)
