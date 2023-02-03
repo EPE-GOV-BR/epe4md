@@ -251,6 +251,8 @@ epe4md_calcula <- function(
 
   )
 
+  rm(casos_payback)
+
   consumidores <- epe4md_mercado_potencial(
     ano_base = ano_base,
     tx_cresc_grupo_a = tx_cresc_grupo_a,
@@ -275,10 +277,15 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     dir_dados_premissas = dir_dados_premissas)
 
+  rm(casos_otimizados)
+  rm(consumidores)
+
   lista_potencia <- epe4md_proj_potencia(
     lista_adotantes = lista_adotantes,
     ano_base = ano_base,
     dir_dados_premissas = dir_dados_premissas)
+
+  rm(lista_adotantes)
 
   proj_mensal <- epe4md_proj_mensal(
     lista_potencia = lista_potencia,
@@ -289,6 +296,8 @@ epe4md_calcula <- function(
     metodo_ajuste = metodo_ajuste,
     ultimo_mes_ajuste = ultimo_mes_ajuste
   )
+
+  rm(lista_potencia)
 
   resultados_mensais <- epe4md_proj_geracao(
     proj_mensal = proj_mensal,
