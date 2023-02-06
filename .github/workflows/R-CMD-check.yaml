@@ -23,8 +23,6 @@ jobs:
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           # - {os: ubuntu-latest,   r: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
-          - R_BUILD_ARGS = '--no-build-vignettes --ignore-vignettes'
-          - R_CHECK_ARGS = '--no-build-vignettes --ignore-vignettes'
 
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -48,5 +46,4 @@ jobs:
 
       - uses: r-lib/actions/check-r-package@v2
         with:
-          args: 'c("--no-build-vignettes", "--ignore-vignettes")'
           upload-snapshots: true
