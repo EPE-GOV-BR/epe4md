@@ -8,7 +8,7 @@
 epe4md_calcula(
   premissas_reg,
   ano_base,
-  sequencisal,
+  sequencial,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
