@@ -115,10 +115,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
-#' @param sequencial logic. Parâmetro que define se a projeção deve ser
-#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
-#' sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
-#' paralela, defina o parâmetro como FALSE.
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
@@ -137,7 +133,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
-  sequencial,
+  #sequencial,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -181,7 +177,7 @@ epe4md_calcula <- function(
   assert_that(is.logical(premissas_reg$demanda_g))
 
   assert_that(is.number(ano_base))
-  assert_that(is.logical(sequencial))
+  #assert_that(is.logical(sequencial))
   assert_that(is.flag(altera_sistemas_existentes))
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(inflacao))
@@ -236,7 +232,7 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     casos_payback = casos_payback,
     premissas_reg = premissas_reg,
-    sequencial = sequencial,
+    #sequencial = sequencial,
     altera_sistemas_existentes = altera_sistemas_existentes,
     ano_decisao_alteracao = ano_decisao_alteracao,
     inflacao = inflacao,
