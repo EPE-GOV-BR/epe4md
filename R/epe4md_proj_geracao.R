@@ -58,8 +58,6 @@ epe4md_proj_geracao <- function(proj_mensal,
   proj_mensal <- proj_mensal %>%
     left_join(tabela_regiao, by = c("nome_4md"))
 
-  rm(tabela_regiao)
-
 
   #considera-se que os sitemas são instalados no dia 15 de cada mês
   dia_instalacao <- 15
@@ -73,23 +71,14 @@ epe4md_proj_geracao <- function(proj_mensal,
            mes_operacao = ceiling_date(mes_operacao, "month") - 1) %>%
     select(mes_operacao)
 
-  rm(anos_operacao)
-  rm(meses)
 
   proj_mensal <- proj_mensal %>%
     mutate(mes_instalacao = make_date(year = ano, month = month(mes_ano),
                                       day = dia_instalacao)) %>%
-    filter(pot_mes_mw != 0) %>%
-    mutate(
-      ano = as.integer(ano),
-      adotantes_mes = as.integer(adotantes_mes),
-      mes = as.integer(mes)
-    )
+    filter(pot_mes_mw != 0)
 
   #crossing das instalacoes com os meses de operacao
   projecao_energia <- crossing(proj_mensal, meses_operacao)
-
-  rm(meses_operacao)
 
   projecao_energia <- projecao_energia %>%
     mutate(dias_operando = mes_operacao - mes_instalacao) %>%
@@ -107,9 +96,6 @@ epe4md_proj_geracao <- function(proj_mensal,
       TRUE ~ fc)
     ) %>%
     select(-fc_local, -fc_remoto, -mes)
-
-  rm(fc_fv_mensal)
-  rm(fc_outras_mensal)
 
   degradacao_diaria <- (1 + 0.005)^(1 / 365) - 1
 
@@ -137,8 +123,6 @@ epe4md_proj_geracao <- function(proj_mensal,
     mutate(energia_autoc_mwh = energia_mwh * fator_autoconsumo,
            energia_inj_mwh = energia_mwh * (1 - fator_autoconsumo))
 
-  rm(injecao)
-
   resumo_projecao_energia <- projecao_energia %>%
     group_by(mes_operacao, nome_4md, subsistema, uf, segmento, fonte_resumo) %>%
     summarise(energia_mwh = sum(energia_mwh),
@@ -165,7 +149,6 @@ epe4md_proj_geracao <- function(proj_mensal,
            mes = month(data)) %>%
     select(data, ano, mes, everything(), -mes_ano)
 
-  rm(proj_mensal)
 
   #juncao potencia e energia
 

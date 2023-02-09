@@ -133,7 +133,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
-  sequencial,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -177,7 +176,6 @@ epe4md_calcula <- function(
   assert_that(is.logical(premissas_reg$demanda_g))
 
   assert_that(is.number(ano_base))
-  assert_that(is.logical(sequencial))
   assert_that(is.flag(altera_sistemas_existentes))
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(inflacao))
@@ -232,7 +230,6 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     casos_payback = casos_payback,
     premissas_reg = premissas_reg,
-    sequencial = sequencial,
     altera_sistemas_existentes = altera_sistemas_existentes,
     ano_decisao_alteracao = ano_decisao_alteracao,
     inflacao = inflacao,
@@ -246,8 +243,6 @@ epe4md_calcula <- function(
     dir_dados_premissas = dir_dados_premissas
 
   )
-
-  rm(casos_payback)
 
   consumidores <- epe4md_mercado_potencial(
     ano_base = ano_base,
@@ -273,15 +268,10 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     dir_dados_premissas = dir_dados_premissas)
 
-  rm(casos_otimizados)
-  rm(consumidores)
-
   lista_potencia <- epe4md_proj_potencia(
     lista_adotantes = lista_adotantes,
     ano_base = ano_base,
     dir_dados_premissas = dir_dados_premissas)
-
-  rm(lista_adotantes)
 
   proj_mensal <- epe4md_proj_mensal(
     lista_potencia = lista_potencia,
@@ -292,8 +282,6 @@ epe4md_calcula <- function(
     metodo_ajuste = metodo_ajuste,
     ultimo_mes_ajuste = ultimo_mes_ajuste
   )
-
-  rm(lista_potencia)
 
   resultados_mensais <- epe4md_proj_geracao(
     proj_mensal = proj_mensal,

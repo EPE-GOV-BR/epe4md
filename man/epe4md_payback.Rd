@@ -9,7 +9,6 @@ epe4md_payback(
   casos_payback,
   premissas_reg,
   ano_base,
-  sequencial,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -32,11 +31,6 @@ consideradas nos cálculos.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
-
-\item{sequencial}{logic. Parâmetro que define se a projeção deve ser
-realizada de forma sequencial ou paralela. Para executar a projeção de forma
-sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
-paralela, defina o parâmetro como FALSE.}
 
 \item{altera_sistemas_existentes}{logic. TRUE se alterações regulatórias
 afetam investimentos realizados em anos anteriores à revisão da regulação.

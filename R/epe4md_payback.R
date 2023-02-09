@@ -37,7 +37,6 @@
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
-
 #'
 #' @return data.frame. Métricas financeiras para cada caso.
 #' @export
@@ -57,7 +56,6 @@ epe4md_payback <- function(
     casos_payback,
     premissas_reg,
     ano_base,
-    sequencial,
     altera_sistemas_existentes = TRUE,
     ano_decisao_alteracao = 2023,
     inflacao = 0.0375,
@@ -293,31 +291,17 @@ epe4md_payback <- function(
 
   }
 
-  if(sequencial == TRUE){
-    future::plan(future::sequential())
+  future::plan(future::multisession)
 
-    resultado_payback <- casos_payback %>%
-      mutate(saida = purrr::pmap(.l = list(nome_4md, ano, segmento,
-                                                  vida_util, fator_autoconsumo,
-                                                  geracao_1_kwh, degradacao,
-                                                  capex_inicial, capex_inversor,
-                                                  oem_anual, pot_sistemas),
-                                 .f = fluxo_de_caixa)) %>%
-      unnest(saida)
-  }
-  else{
-    future::plan(future::multisession())
-
-    resultado_payback <- casos_payback %>%
-      mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
-                                                  vida_util, fator_autoconsumo,
-                                                  geracao_1_kwh, degradacao,
-                                                  capex_inicial, capex_inversor,
-                                                  oem_anual, pot_sistemas),
-                                        .f = fluxo_de_caixa,
-                                        .progress = TRUE)) %>%
-      unnest(saida)
-  }
+  resultado_payback <- casos_payback %>%
+    mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
+                                                vida_util, fator_autoconsumo,
+                                                geracao_1_kwh, degradacao,
+                                                capex_inicial, capex_inversor,
+                                                oem_anual, pot_sistemas),
+                                      .f = fluxo_de_caixa,
+                                      .progress = TRUE)) %>%
+    unnest(saida)
 
   resultado_payback
 

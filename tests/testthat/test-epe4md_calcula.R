@@ -8,7 +8,6 @@ test_that("epe4md_calcula works", {
         read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
                               package = "epe4md")),
       ano_base = 2021,
-      sequencial = TRUE,
       ano_max_resultado = 2032,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023
@@ -26,7 +25,6 @@ test_that("epe4md_calcula erro > 2050", {
         read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
                               package = "epe4md")),
       ano_base = 2021,
-      sequencial = TRUE,
       ano_max_resultado = 2051,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023
@@ -47,7 +45,6 @@ test_that("epe4md_calcula tipo errado", {
           ano = as.character(ano)
         ),
       ano_base = 2021,
-      sequencial = TRUE,
       ano_max_resultado = 2050,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023
@@ -65,7 +62,6 @@ test_that("epe4md_calcula filtro_renda errado", {
         read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
                               package = "epe4md")),
       ano_base = 2021,
-      sequencial = TRUE,
       ano_max_resultado = 2050,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023,
@@ -83,8 +79,7 @@ test_that("epe4md_calcula filtro_renda certo", {
         read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
                               package = "epe4md")),
       ano_base = 2021,
-      sequencial = TRUE,
-      ano_max_resultado = 2050,
+      ano_max_resultado = 2023,
       altera_sistemas_existentes = TRUE,
       ano_decisao_alteracao = 2023,
       filtro_renda_domicilio = "maior_5sm"
