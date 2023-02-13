@@ -4,7 +4,7 @@
 \name{epe4md_prepara_base}
 \alias{epe4md_prepara_base}
 \title{Prepara a base de dados da ANEEL com geradores existentes para ser utilizada
-nas funções seguintes.}
+nas fun\u00E7\u00F5es seguintes.}
 \usage{
 epe4md_prepara_base(
   base_aneel,
@@ -14,25 +14,25 @@ epe4md_prepara_base(
 )
 }
 \arguments{
-\item{ano_base}{numeric. Ano base da projeção. Define o ano em que a
-função irá buscar a base de dados. Último ano completo realizado.}
-
-\item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
-parâmetro não for passado, a função usa os dados default que são instalados
-com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
-pasta default.}
-
 \item{base_aneel}{Dataframe com a base de dados disponibilizada pela ANEEL
-na sua página de dados abertos com dados individualizados dos micro e
-minigeradores distribuídos. Sugestão ler base com read.csv2}
+na sua p\u00E1gina de dados abertos com dados individualizados dos micro e
+minigeradores distribu\u00EDdos. Sugest\u00E3o ler base com read.csv2}
+
+\item{ano_base}{numeric. Ano base da proje\u00E7\u00E3o. Define o ano em que a
+fun\u00E7\u00E3o ir\u00E1 buscar a base de dados. \u00DAltimo ano completo realizado.}
 
 \item{resumida}{Logic. Se TRUE, retorna a base resumida (Default). Se
-FALSE retorna base com mais desagregações.}
+FALSE retorna base com mais desagrega\u00E7\u00F5es.}
+
+\item{dir_dados_premissas}{Diret\u00F3rio onde se encontram as premissas. Se esse
+par\u00E2metro n\u00E3o for passado, a fun\u00E7\u00E3o usa os dados default que s\u00E3o instalados
+com o pacote. \u00E9 importante que os nomes dos arquivos sejam os mesmos da
+pasta default.}
 }
 \value{
 data.frame. Base tratada e resumida.
 }
 \description{
 Prepara a base de dados da ANEEL com geradores existentes para ser utilizada
-nas funções seguintes.
+nas fun\u00E7\u00F5es seguintes.
 }

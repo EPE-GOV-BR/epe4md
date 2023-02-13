@@ -3,17 +3,19 @@
 \encoding{UTF-8}
 \name{epe4md_graf_pot_regiao}
 \alias{epe4md_graf_pot_regiao}
-\title{Gráfico da capacidade instalada acumulada por região}
+\title{Gr\u00E1fico da capacidade instalada acumulada por regi\u00E3o}
 \usage{
 epe4md_graf_pot_regiao(dados, ano_inicio = 2013, tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de potência e energia.}
+\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
+
+\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
-Gráfico da capacidade instalada acumulada por região
+Gr\u00E1fico da capacidade instalada acumulada por regi\u00E3o
 }

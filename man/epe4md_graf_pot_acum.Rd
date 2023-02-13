@@ -3,20 +3,20 @@
 \encoding{UTF-8}
 \name{epe4md_graf_pot_acum}
 \alias{epe4md_graf_pot_acum}
-\title{Gráfico da capacidade instalada acumulada}
+\title{Gr\u00E1fico da capacidade instalada acumulada}
 \usage{
 epe4md_graf_pot_acum(dados, ano_inicio = 2013, cor = "#13475d", tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de potência e energia.}
+\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
-\item{cor}{string. Escolha da cor do gráfico. Default igual a Azul Escuro.}
+\item{cor}{string. Escolha da cor do gr\u00E1fico. Default igual a Azul Escuro.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Mostra a soma acumulada das potência entre os parãmetros \code{ano_inicio} e \code{ano_max_resultado}
-passado na função \code{epe4md::epe4md_calcula}.
+Mostra a soma acumulada da pot\u00EAncia entre os par\u00E3metros \code{ano_inicio} e \code{ano_max_resultado}
+passado na fun\u00E7\u00E3o \code{epe4md::epe4md_calcula}.
 }

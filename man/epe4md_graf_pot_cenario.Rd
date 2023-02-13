@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{epe4md_graf_pot_cenario}
 \alias{epe4md_graf_pot_cenario}
-\title{Gráfico da capacidade instalada acumulada por cenário}
+\title{Gr\u00E1fico da capacidade instalada acumulada por cen\u00E1rio}
 \usage{
 epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 }
@@ -13,8 +13,10 @@ epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
+
+\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
-Mostra a soma acumulada das potência entre os parâmetros \code{ano_inicio} e \code{ano_max_resultado}
-passado na função \code{epe4md::epe4md_calcula} em cada um dos cenários.
+Mostra a soma acumulada das pot\u00EAncia entre os par??metros \code{ano_inicio} e \code{ano_max_resultado}
+passado na fun\u00E7\u00E3o \code{epe4md::epe4md_calcula} em cada um dos cen\u00E1rios.
 }

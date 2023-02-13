@@ -3,18 +3,20 @@
 \encoding{UTF-8}
 \name{epe4md_graf_part_segmento}
 \alias{epe4md_graf_part_segmento}
-\title{Gráfico da evolução da participação por segmento}
+\title{Gr\u00E1fico da evolu\u00E7\u00E3o da participa\u00E7\u00E3o por segmento}
 \usage{
 epe4md_graf_part_segmento(dados, ano_inicio = 2013, tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de potência e energia.}
+\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
+
+\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
-Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
-na geração de energia em cada ano.
+Gr\u00E1fico de colunas que mostra a participa\u00E7\u00E3o de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
+na gera\u00E7\u00E3o de energia em cada ano.
 }

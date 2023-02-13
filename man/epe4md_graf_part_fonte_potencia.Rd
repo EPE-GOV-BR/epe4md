@@ -3,22 +3,18 @@
 \encoding{UTF-8}
 \name{epe4md_graf_part_fonte_potencia}
 \alias{epe4md_graf_part_fonte_potencia}
-\title{Gráfico da participação de capacidade por fonte}
+\title{Gr\u00E1fico da participa\u00E7\u00E3o de capacidade por fonte}
 \usage{
-epe4md_graf_part_fonte_potencia(
-  dados,
-  cor = "#112446",
-  tamanho = 14
-)
+epe4md_graf_part_fonte_potencia(dados, cor = "#112446", tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de potência e energia.}
+\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
 
-\item{cor}{string. Escolha da cor do gráfico.}
+\item{cor}{string. Escolha da cor do gr\u00E1fico.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro' e 'Eólica')
+Gr\u00E1fico de barras que mostra a participa\u00E7\u00E3o de cada fonte ('Fotovoltaica', 'Termel\u00E9trica', 'Hidro' e 'E\u00F3lica')
 na capacidade instalada.
 }
