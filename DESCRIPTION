@@ -14,6 +14,10 @@ Authors@R:
            family = "Santos",
            role = c("aut"),
            email = "joao.santos@epe.gov.br"),
+      person(given = "Leticia",
+           family = "Minini",
+           role = c("aut"),
+           email = "leticia.barbosa@epe.gov.br"),
       person(given = "Empresa de Pesquisa Energética",
            role = c("cph", "fnd")
            ))           
