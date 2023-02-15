@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{epe4md_graf_geracao_mes}
 \alias{epe4md_graf_geracao_mes}
-\title{Gr\u00E1fico da gera\u00E7\u00E3o mensal em MWmed}
+\title{Gráfico da geração mensal em MWmed}
 \usage{
 epe4md_graf_geracao_mes(
   dados,
@@ -13,14 +13,14 @@ epe4md_graf_geracao_mes(
 )
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
-\item{cor}{string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.}
+\item{cor}{string. Escolha da cor do gráfico. Default igual a Vermelho.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gr\u00E1fico de \u00E1rea que mostra a soma da gera\u00E7\u00E3o de energia em MWmed agrupada por m\u00EAs.
+Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 }

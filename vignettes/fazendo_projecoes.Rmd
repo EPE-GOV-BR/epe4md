@@ -32,6 +32,8 @@ Em primeiro lugar, deve-se definir o argumento `ano_base` que indica o último a
 
 Em seguida, deve-se definir o argumento `sequencial` que indica se a projeção deve ser realizada de forma sequencial (caso TRUE) ou de forma paralela (caso FALSE).
 
+O próximo parâmetro a ser definido é `filter_uf`, que define se os resultados devem ser filtrados por alguma unidade federativa ou não. Para não filtrar os resultados, defina o parâmetro como "N".
+
 Na sequência, um argumento essencial para a execução da projeção é a definição das premissas regulatórias. Ou seja, qual o modelo de compensação dos créditos de energia gerada, quando haverá mudanças no modelo, se haverá tarifas binômias para consumidores de baixa tensão, etc. Essas premissas são definidas através de um arquivo `.xlsx`. Um exemplo de entrada é apresentado a seguir, a partir de um arquivo que é instalado junto com o pacote. No entanto, o usuário pode carregar um arquivo similar a partir de suas premissas.
 
 ```{r }
@@ -77,6 +79,7 @@ A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem s
 ```{r, cache = TRUE, warning = FALSE, message=FALSE}
 resultado <- epe4md_calcula(ano_base = 2021,
                               sequencial = TRUE,
+                              filter_uf = "RJ",
                               premissas_reg = premissas_regulatorias,
                               ano_max_resultado = 2030)
 ```

@@ -3,18 +3,19 @@
 \encoding{UTF-8}
 \name{epe4md_graf_part_fonte_geracao}
 \alias{epe4md_graf_part_fonte_geracao}
-\title{Gr\u00E1fico da participa\u00E7\u00E3o de cada tecnologia na gera\u00E7\u00E3o de energia}
+\title{Gráfico da participação de cada tecnologia na geração de energia}
 \usage{
 epe4md_graf_part_fonte_geracao(dados, cor = "#953735", tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
 
-\item{cor}{string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.}
+\item{cor}{string. Escolha da cor do gráfico. Default igual a Vermelho.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
+
 }
 \description{
-Gr\u00E1fico de barras que mostra a participa\u00E7\u00E3o de cada fonte ('Fotovoltaica', 'Termel\u00E9trica', 'Hidro', 'E\u00F3lica')
-na gera\u00E7\u00E3o de energia somente no par??metro \code{ano_max_resultado} passado na fun\u00E7\u00E3o \code{epe4md::epe4md_calcula}.
+Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro', 'Eólica')
+na geração de energia somente no parâmetro \code{ano_max_resultado} passado na função \code{epe4md::epe4md_calcula}.
 }

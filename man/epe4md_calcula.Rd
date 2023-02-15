@@ -9,6 +9,7 @@ epe4md_calcula(
   premissas_reg,
   ano_base,
   sequencial,
+  filter_uf,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -67,6 +68,10 @@ irá buscar a base de dados. Último ano completo realizado.}
 realizada de forma sequencial ou paralela. Para executar a projeção de forma
 sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
 paralela, defina o parâmetro como FALSE.}
+
+\item{filter_uf}{string. Parâmetro que define uma unidade federativa (UF) a ser
+filtrada. Para um resultado com todas as unidades federativas, defina o parâmetro
+como "N".}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}

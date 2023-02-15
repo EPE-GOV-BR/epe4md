@@ -3,20 +3,20 @@
 \encoding{UTF-8}
 \name{epe4md_graf_pot_anual}
 \alias{epe4md_graf_pot_anual}
-\title{Gr\u00E1fico da capacidade instalada anual}
+\title{Gráfico da capacidade instalada anual}
 \usage{
 epe4md_graf_pot_anual(dados, ano_inicio = 2013, cor = "#13475d", tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
-\item{cor}{string. Escolha da cor do gr\u00E1fico. Default igual a Azul Escuro.}
+\item{cor}{string. Escolha da cor do gráfico. Default igual a Azul Escuro.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gr\u00E1fico de colunas que mostra a soma simples da pot\u00EAncia em cada ano, entre os par??metros \code{ano_inicio} e
-\code{ano_max_resultado} passado na fun\u00E7\u00E3o \code{epe4md::epe4md_calcula}.
+Gráfico de colunas que mostra a soma simples da potência em cada ano, entre os parâmetros \code{ano_inicio} e
+\code{ano_max_resultado} passado na função \code{epe4md::epe4md_calcula}.
 }

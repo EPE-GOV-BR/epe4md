@@ -13,8 +13,6 @@ epe4md_investimentos(
 )
 }
 \arguments{
-\item{resultados_mensais}{Resultado da função \link{epe4md_calcula}.}
-
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
@@ -25,6 +23,8 @@ Máximo igual a 2050. Default igual a 2050.}
 Se esse parâmetro não for passado, a função usa os dados default que são
 instalados com o pacote. É importante que os nomes dos arquivos sejam os
 mesmos da pasta default.}
+
+\item{resultados_mensais}{Resultado da função \link{epe4md_calcula}.}
 }
 \value{
 data.frame com o montante estimado de investimentos relativos à

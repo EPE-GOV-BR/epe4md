@@ -8,6 +8,9 @@
 #' Se esse parâmetro não for passado, a função usa os dados default que são
 #' instalados com o pacote. É importante que os nomes dos arquivos sejam os
 #' mesmos da pasta default.
+#' @param filter_uf string. Parâmetro que define uma unidade federativa (UF) a
+#' ser filtrada. Para um resultado com todas as unidades federativas, defina o
+#' parâmetro como "N".
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
@@ -28,6 +31,7 @@
 
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
+                                filter_uf,
                                 dir_dados_premissas = "inst/
                                 dados_premissas") {
 
@@ -78,7 +82,13 @@ epe4md_proj_geracao <- function(proj_mensal,
     filter(pot_mes_mw != 0)
 
   #crossing das instalacoes com os meses de operacao
-  projecao_energia <- crossing(proj_mensal, meses_operacao)
+  if(filter_uf == "N"){
+    projecao_energia <- crossing(proj_mensal, meses_operacao)
+  }
+  else{
+    projecao_energia <- crossing(proj_mensal, meses_operacao) %>%
+      filter(uf == filter_uf)
+  }
 
   projecao_energia <- projecao_energia %>%
     mutate(dias_operando = mes_operacao - mes_instalacao) %>%

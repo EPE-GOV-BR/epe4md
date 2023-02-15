@@ -3,18 +3,18 @@
 \encoding{UTF-8}
 \name{epe4md_graf_pot_segmento}
 \alias{epe4md_graf_pot_segmento}
-\title{Gr\u00E1fico da capacidade instalada acumulada por segmento}
+\title{Gráfico da capacidade instalada acumulada por segmento}
 \usage{
 epe4md_graf_pot_segmento(dados, ano_inicio = 2013, tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame. Resultados mensais de pot\u00EAncia e energia.}
+\item{dados}{data.frame. Resultados mensais de potência e energia.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Mostra a soma acumulada da pot\u00EAncia entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
+Mostra a soma acumulada da potência entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
 Comercial (BT) ', ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
 }
