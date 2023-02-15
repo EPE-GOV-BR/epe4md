@@ -13,8 +13,6 @@ epe4md_graf_part_fonte_geracao(dados, cor = "#953735", tamanho = 14)
 \item{cor}{string. Escolha da cor do gr\u00E1fico. Default igual a Vermelho.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
-
-\item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 }
 \description{
 Gr\u00E1fico de barras que mostra a participa\u00E7\u00E3o de cada fonte ('Fotovoltaica', 'Termel\u00E9trica', 'Hidro', 'E\u00F3lica')

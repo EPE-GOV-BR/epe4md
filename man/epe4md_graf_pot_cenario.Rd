@@ -13,8 +13,6 @@ epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
-
-\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
 Mostra a soma acumulada das pot\u00EAncia entre os par??metros \code{ano_inicio} e \code{ano_max_resultado}

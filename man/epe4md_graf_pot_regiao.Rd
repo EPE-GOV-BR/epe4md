@@ -13,8 +13,6 @@ epe4md_graf_pot_regiao(dados, ano_inicio = 2013, tamanho = 14)
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
-
-\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
 Gr\u00E1fico da capacidade instalada acumulada por regi\u00E3o

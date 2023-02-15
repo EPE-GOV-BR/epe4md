@@ -63,6 +63,11 @@ contém um exemplo de premissas de entrada.}
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
+\item{sequencial}{logic. Parâmetro que define se a projeção deve ser
+realizada de forma sequencial ou paralela. Para executar a projeção de forma
+sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
+paralela, defina o parâmetro como FALSE.}
+
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}
 

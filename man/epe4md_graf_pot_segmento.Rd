@@ -13,8 +13,6 @@ epe4md_graf_pot_segmento(dados, ano_inicio = 2013, tamanho = 14)
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
-
-\item{paleta_epe}{data.frame. Paleta de cores da EPE.}
 }
 \description{
 Mostra a soma acumulada da pot\u00EAncia entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',

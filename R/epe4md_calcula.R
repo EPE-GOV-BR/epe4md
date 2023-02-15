@@ -115,6 +115,10 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
+#' @param sequencial logic. Parâmetro que define se a projeção deve ser
+#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
+#' sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
+#' paralela, defina o parâmetro como FALSE.
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
