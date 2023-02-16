@@ -75,6 +75,15 @@ epe4md_proj_geracao <- function(proj_mensal,
            mes_operacao = ceiling_date(mes_operacao, "month") - 1) %>%
     select(mes_operacao)
 
+  uf_list <- proj_mensal$uf %>% unique()
+
+  if(filter_uf %in% uf_list){
+    proj_mensal <- proj_mensal %>%
+      filter(uf == filter_uf)
+  }
+  else{
+    print("UF inválida! O filtro não foi aplicado!")
+  }
 
   proj_mensal <- proj_mensal %>%
     mutate(mes_instalacao = make_date(year = ano, month = month(mes_ano),
@@ -82,13 +91,8 @@ epe4md_proj_geracao <- function(proj_mensal,
     filter(pot_mes_mw != 0)
 
   #crossing das instalacoes com os meses de operacao
-  if(filter_uf == "N"){
-    projecao_energia <- crossing(proj_mensal, meses_operacao)
-  }
-  else{
-    projecao_energia <- crossing(proj_mensal, meses_operacao) %>%
-      filter(uf == filter_uf)
-  }
+  projecao_energia <- crossing(proj_mensal, meses_operacao)
+
 
   projecao_energia <- projecao_energia %>%
     mutate(dias_operando = mes_operacao - mes_instalacao) %>%
