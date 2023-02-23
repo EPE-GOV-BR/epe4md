@@ -111,11 +111,13 @@ epe4md_proj_adotantes <- function(casos_otimizados,
     mutate(adotantes_hist = ifelse(is.na(adotantes_hist), 0, adotantes_hist))
 
   projecao <- left_join(projecao, part_adot_fontes,
-                        by = c("nome_4md", "segmento")) %>%
+                        by = c("nome_4md", "segmento"),
+                        multiple = "all") %>%
     mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0))
 
   projecao <- left_join(projecao, historico_adot_fontes,
-                        by = c("nome_4md", "segmento", "ano", "fonte_resumo"))
+                        by = c("nome_4md", "segmento", "ano", "fonte_resumo"),
+                        multiple = "all")
 
   projecao <- projecao %>%
     mutate(adotantes_ano = ifelse(ano <= ano_base,
@@ -156,9 +158,11 @@ epe4md_proj_adotantes <- function(casos_otimizados,
     ungroup()
 
   part_adotantes <- left_join(adotantes_segmento, consumidores_totais,
-                              by = c("ano", "segmento")) %>%
+                              by = c("ano", "segmento"),
+                              multiple = "all") %>%
     mutate(penetracao_total = adotantes / total_ucs) %>%
-    left_join(mercado_nicho, by = c("ano", "segmento")) %>%
+    left_join(mercado_nicho, by = c("ano", "segmento"),
+              multiple = "all") %>%
     mutate(penetracao_nicho = adotantes / mercado_nicho,
            penetracao_potencial = adotantes / mercado_potencial)
 

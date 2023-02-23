@@ -56,12 +56,14 @@ epe4md_proj_potencia <- function(lista_adotantes,
                               pot_media)) %>%
     ungroup() %>%
     select(nome_4md, segmento, fonte_resumo, pot_media) %>%
-    left_join(potencia_tipica, by = "segmento") %>%
+    left_join(potencia_tipica, by = "segmento",
+              multiple = "all") %>%
     mutate(pot_media = ifelse(is.na(pot_media), pot_sistemas, pot_media)) %>%
     select(-pot_sistemas)
 
   proj_potencia <- left_join(proj_adotantes, potencia_media,
-                             by = c("nome_4md", "segmento", "fonte_resumo"))
+                             by = c("nome_4md", "segmento", "fonte_resumo"),
+                             multiple = "all")
 
 
   # historico de adotantes para substituir anos iniciais da projeção
@@ -80,7 +82,8 @@ epe4md_proj_potencia <- function(lista_adotantes,
 
   proj_potencia <- left_join(proj_potencia, historico_pot_fontes,
                              by = c("nome_4md", "segmento",
-                                    "ano", "fonte_resumo"))
+                                    "ano", "fonte_resumo"),
+                             multiple = "all")
 
   proj_potencia <- proj_potencia %>%
     mutate(pot_ano = ifelse(ano <= ano_base, pot_hist, pot_ano)) %>%

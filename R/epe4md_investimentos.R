@@ -55,10 +55,12 @@ epe4md_investimentos <- function(resultados_mensais,
     mutate(fonte_resumo = "Fotovoltaica")
 
   potencia_custos <- left_join(proj_potencia, custo_fv,
-                               by = c("ano", "fonte_resumo", "segmento"))
+                               by = c("ano", "fonte_resumo", "segmento"),
+                               multiple = "all")
 
   potencia_custos <- left_join(potencia_custos, custo_outras,
-                               by = "fonte_resumo")
+                               by = "fonte_resumo",
+                               multiple = "all")
 
   potencia_custos <- potencia_custos %>%
     mutate(custo_unitario = ifelse(is.na(custo_unitario),

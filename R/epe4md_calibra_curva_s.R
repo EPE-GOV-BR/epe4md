@@ -72,10 +72,12 @@ epe4md_calibra_curva_s <- function(resultado_payback,
            payback_desc, tir_nominal, tir_real)
 
   base_otimizacao <- left_join(resultado_payback_historico, consumidores,
-                               by = c("nome_4md", "ano", "segmento"))
+                               by = c("nome_4md", "ano", "segmento"),
+                               multiple = "all")
 
   base_otimizacao <- left_join(base_otimizacao, historico,
-                               by = c("nome_4md", "ano", "segmento"))
+                               by = c("nome_4md", "ano", "segmento"),
+                               multiple = "all")
 
   base_otimizacao <- base_otimizacao %>%
     mutate(payback = ifelse(segmento %in% c("residencial",
@@ -166,7 +168,8 @@ epe4md_calibra_curva_s <- function(resultado_payback,
 
   casos_otimizados <- casos_otimizados %>%
     mutate(ano = ano + 2012) %>%
-    left_join(consumidores, by = c("nome_4md", "segmento", "ano"))
+    left_join(consumidores, by = c("nome_4md", "segmento", "ano"),
+              multiple = "all")
 
   resultado_payback <- resultado_payback %>%
     select(nome_4md, segmento, ano, payback, payback_desc) %>%
@@ -177,7 +180,8 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     select(-payback_desc)
 
   casos_otimizados <- left_join(casos_otimizados, resultado_payback,
-                                by = c("nome_4md", "segmento", "ano"))
+                                by = c("nome_4md", "segmento", "ano"),
+                                multiple = "all")
 
   casos_otimizados <- casos_otimizados %>%
     mutate(mercado_potencial = round(exp(-spb * payback) * consumidores, 0),

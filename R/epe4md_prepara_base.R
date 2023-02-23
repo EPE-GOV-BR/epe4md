@@ -85,7 +85,8 @@ epe4md_prepara_base <- function(base_aneel,
     janitor::clean_names()
 
   base_mmgd <- base_mmgd %>%
-    left_join(nomes_dist, by = 'sig_agente')
+    left_join(nomes_dist, by = 'sig_agente',
+              multiple = "all")
 
   tabela_regiao <-
     read_xlsx(stringr::str_glue('{dir_dados_premissas}/tabela_dist_subs.xlsx')) %>%
@@ -98,7 +99,8 @@ epe4md_prepara_base <- function(base_aneel,
            potencia_instalada_k_w = mda_potencia_instalada_kw,
            qtde_u_csrecebem_os_creditos = qtd_uc_recebe_credito,
            fonte = dsc_fonte_geracao) %>%
-    left_join(tabela_regiao, by = 'uf')
+    left_join(tabela_regiao, by = 'uf',
+              multiple = "all")
 
   base_mmgd <- base_mmgd %>%
     mutate(potencia_mw = potencia_instalada_k_w / 1000)
@@ -121,7 +123,8 @@ epe4md_prepara_base <- function(base_aneel,
     read_xlsx(stringr::str_glue('{dir_dados_premissas}/segmento.xlsx'))
 
   base_mmgd <- left_join(base_mmgd, segmento,
-                         by = c('classe', 'atbt', 'local_remoto'))
+                         by = c('classe', 'atbt', 'local_remoto'),
+                         multiple = "all")
 
   base_mmgd <- base_mmgd %>%
     mutate(modalidade = case_when(

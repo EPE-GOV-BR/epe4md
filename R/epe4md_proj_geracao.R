@@ -60,7 +60,8 @@ epe4md_proj_geracao <- function(proj_mensal,
     readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx"))
 
   proj_mensal <- proj_mensal %>%
-    left_join(tabela_regiao, by = c("nome_4md"))
+    left_join(tabela_regiao, by = c("nome_4md"),
+              multiple = "all")
 
 
   #considera-se que os sitemas são instalados no dia 15 de cada mês
@@ -100,8 +101,10 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   projecao_energia <- projecao_energia %>%
     mutate(mes = month(mes_operacao)) %>%
-    left_join(fc_outras_mensal, by = c("subsistema", "mes", "fonte_resumo")) %>%
-    left_join(fc_fv_mensal, by = c("nome_4md", "mes")) %>%
+    left_join(fc_outras_mensal, by = c("subsistema", "mes", "fonte_resumo"),
+              multiple = "all") %>%
+    left_join(fc_fv_mensal, by = c("nome_4md", "mes"),
+              multiple = "all") %>%
     mutate(fc = case_when(
       fonte_resumo == "Fotovoltaica" &
         segmento == "comercial_at_remoto" ~ fc_remoto,
@@ -133,7 +136,8 @@ epe4md_proj_geracao <- function(proj_mensal,
                                 pot_mes_mw * fc * dias_operando_mes * 24))
 
   projecao_energia <- projecao_energia %>%
-    left_join(injecao, by = c("segmento", "fonte_resumo")) %>%
+    left_join(injecao, by = c("segmento", "fonte_resumo"),
+              multiple = "all") %>%
     mutate(energia_autoc_mwh = energia_mwh * fator_autoconsumo,
            energia_inj_mwh = energia_mwh * (1 - fator_autoconsumo))
 
@@ -168,7 +172,8 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   juncao <- left_join(resumo_projecao_energia, resumo_projecao_potencia,
                       by = c("data", "ano", "mes", "nome_4md",
-                             "subsistema", "uf", "segmento", "fonte_resumo"))
+                             "subsistema", "uf", "segmento", "fonte_resumo"),
+                      multiple = "all")
 
   juncao <- juncao %>%
     replace_na(list(pot_mes_mw = 0, adotantes_mes = 0))
@@ -178,7 +183,8 @@ epe4md_proj_geracao <- function(proj_mensal,
     distinct()
 
   resumo_resultados <- juncao %>%
-    left_join(fatores_pq, by = c("segmento", "nome_4md"))
+    left_join(fatores_pq, by = c("segmento", "nome_4md"),
+              multiple = "all")
 
   resumo_resultados
 

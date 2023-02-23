@@ -92,9 +92,11 @@ epe4md_casos_payback <- function(ano_base,
   casos <- pivot_longer(casos, cols = c("fv", "eolica", "termica"),
                         names_to = "tecnologia", values_to = "fc")
 
-  casos <- left_join(casos, fontes, by = "fonte_resumo")
+  casos <- left_join(casos, fontes, by = "fonte_resumo",
+                     multiple = "all")
 
-  casos <- left_join(casos, potencia_tipica, by = "segmento")
+  casos <- left_join(casos, potencia_tipica, by = "segmento",
+                     multiple = "all")
 
   casos <- casos %>%
     mutate(geracao_1_kwh = pot_sistemas * fc * 8760)

@@ -84,10 +84,12 @@ epe4md_mercado_potencial <- function(ano_base,
 
   consumidores_residenciais <- left_join(lista_consumidores_residenciais,
                                          consumidores_residenciais,
-                                         by = c("nome_4md", "ano", "renda"))
+                                         by = c("nome_4md", "ano", "renda"),
+                                         multiple = "all")
 
   consumidores_residenciais <- left_join(consumidores_residenciais,
-                                         crescimento_mercado, by = "ano")
+                                         crescimento_mercado, by = "ano",
+                                         multiple = "all")
 
   consumidores_residenciais <- consumidores_residenciais %>%
     group_by(nome_4md, renda) %>%
@@ -120,7 +122,8 @@ epe4md_mercado_potencial <- function(ano_base,
                                       anos_faltantes_res)
 
   consumidores_b2b3 <- left_join(lista_consumidores_b2b3, consumidores_b2b3,
-                                 by = c("nome_4md", "ano")) %>%
+                                 by = c("nome_4md", "ano"),
+                                 multiple = "all") %>%
     filter(ano > 2012)
 
   crescimento_mercado <- read_xlsx(stringr::str_glue(
@@ -130,7 +133,8 @@ epe4md_mercado_potencial <- function(ano_base,
     select(-taxa_crescimento_mercado)
 
   consumidores_b2b3 <- left_join(consumidores_b2b3, crescimento_mercado,
-                                 by = "ano")
+                                 by = "ano",
+                                 multiple = "all")
 
   consumidores_b2b3 <- consumidores_b2b3 %>%
     group_by(nome_4md) %>%
@@ -157,7 +161,8 @@ epe4md_mercado_potencial <- function(ano_base,
   consumidores_a$ano <- as.numeric(consumidores_a$ano)
 
   consumidores_a <- left_join(lista_consumidores_b2b3, consumidores_a,
-                              by = c("nome_4md", "ano")) %>%
+                              by = c("nome_4md", "ano"),
+                              multiple = "all") %>%
     filter(ano > 2012)
 
 
@@ -207,7 +212,8 @@ epe4md_mercado_potencial <- function(ano_base,
   fator_comercial <- consumidores_residenciais %>%
     group_by(ano) %>%
     summarise(consumidores_nicho = sum(consumidores_proj)) %>%
-    left_join(total_domicilios, by = "ano") %>%
+    left_join(total_domicilios, by = "ano" ,
+              multiple = "all") %>%
     mutate(fator_nicho_comercial = consumidores_nicho / domicilios) %>%
     ungroup() %>%
     select(ano, fator_nicho_comercial)
@@ -219,7 +225,8 @@ epe4md_mercado_potencial <- function(ano_base,
   }
 
   consumidores_residenciais <- left_join(consumidores_residenciais,
-                                         fator_tecnico, by = "nome_4md")
+                                         fator_tecnico, by = "nome_4md",
+                                         multiple = "all")
 
   consumidores_residenciais <- consumidores_residenciais %>%
     mutate(residencial = round(consumidores_proj * fator_tecnico, 0),
@@ -231,10 +238,12 @@ epe4md_mercado_potencial <- function(ano_base,
 
 
   consumidores_b2b3 <- left_join(consumidores_b2b3, fator_comercial,
-                                 by = "ano")
+                                 by = "ano",
+                                 multiple = "all")
 
   consumidores_b2b3 <- left_join(consumidores_b2b3, fator_tecnico,
-                                 by = "nome_4md")
+                                 by = "nome_4md",
+                                 multiple = "all")
 
 
   consumidores_b2b3 <- consumidores_b2b3 %>%

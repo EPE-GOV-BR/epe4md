@@ -105,7 +105,8 @@ epe4md_payback <- function(
     filter(subgrupo == "B3") %>%
     mutate(segmento = "comercial_at_remoto") %>%
     select(-tarifa_demanda_c, - tarifa_demanda_g) %>%
-    left_join(tarifas_demanda_a, by = c("ano", "nome_4md"))
+    left_join(tarifas_demanda_a, by = c("ano", "nome_4md"),
+              multiple = "all")
 
   tarifas_residencial <- tarifas %>%
     filter(subgrupo == "B1") %>%
@@ -127,7 +128,8 @@ epe4md_payback <- function(
 
   anos <- tibble(ano = seq(2013, 2050, 1))
 
-  premissas_regulatorias <- left_join(anos, premissas_reg, by = "ano") %>%
+  premissas_regulatorias <- left_join(anos, premissas_reg, by = "ano",
+                                      multiple = "all") %>%
     mutate(across(
       .cols = c(binomia, demanda_g),
       .fns = ~as.logical(.x))) %>%
@@ -158,7 +160,8 @@ epe4md_payback <- function(
                               "ano" = ano)
 
     fluxo_caixa <- fluxo_caixa %>%
-      left_join(fator_construcao, by = "segmento") %>%
+      left_join(fator_construcao, by = "segmento",
+                multiple = "all") %>%
       mutate(fator_construcao = ifelse(ano_simulacao == 1, fator_construcao, 1))
 
 
@@ -168,11 +171,13 @@ epe4md_payback <- function(
                ano = ifelse(ano > 2050, 2050, ano))
     }
 
-    fluxo_caixa <- left_join(fluxo_caixa, premissas_regulatorias, by = "ano")
+    fluxo_caixa <- left_join(fluxo_caixa, premissas_regulatorias, by = "ano",
+                             multiple = "all")
 
     fluxo_caixa <- left_join(fluxo_caixa, tarifas,
                              by = c("ano", "nome_4md",
-                                    "segmento", "alternativa"))
+                                    "segmento", "alternativa"),
+                             multiple = "all")
 
     fluxo_caixa <- fluxo_caixa %>%
       mutate(tarifa_autoc_tusd = ifelse(binomia == TRUE,
