@@ -39,7 +39,7 @@ epe4md_graf_pot_acum <- function(
     labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
   }
 
@@ -85,7 +85,7 @@ epe4md_graf_pot_anual <- function(
     labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
@@ -137,7 +137,7 @@ epe4md_graf_pot_segmento <- function(
     labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
@@ -188,7 +188,7 @@ epe4md_graf_pot_regiao <- function(
     labs(x = "", y = "Pot\u00EAncia [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
@@ -248,7 +248,7 @@ epe4md_graf_part_fonte_potencia <- function(
     coord_flip(ylim = c(0, 1.1)) +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = 14, family = "Calibri Light"),
+          text = element_text(size = 14),
           legend.title = element_blank())
 
 }
@@ -298,7 +298,7 @@ epe4md_graf_geracao_mes <- function(
     labs(x = "", y = "Gera\u00E7\u00E3o [MWm\u00E9d]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_y_continuous(
       labels = scales::label_number(big.mark = ".", decimal.mark = ","))
 
@@ -352,7 +352,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
     labs(x = "", y = "Gera\u00E7\u00E3o [MWm\u00E9d]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_y_continuous(
       labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
@@ -415,7 +415,7 @@ epe4md_graf_part_fonte_geracao <- function(
     coord_flip(ylim = c(0, 1.1)) +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = 14, family = "Calibri Light"),
+          text = element_text(size = 14),
           legend.title = element_blank())
 
 }
@@ -472,7 +472,7 @@ epe4md_graf_part_segmento <- function(
     labs(x = "", y = "Participa\u00E7\u00E3o em Pot\u00EAncia") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_fill_manual(values = paleta_epe) +
     scale_y_continuous(labels = scales::label_percent()) +
@@ -529,7 +529,7 @@ epe4md_graf_pot_cenario <- function(
     labs(x = "", y = "Pot\u00EAncia [GW]", color = "Cen\u00E1rio") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
     #scale_x_continuous(expand = c(0, 0)) +
