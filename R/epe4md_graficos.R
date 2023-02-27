@@ -18,8 +18,14 @@
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot
 #'
 #' @examples
+
+utils::globalVariables(c("energia_mwh", "dias_mes", "dias_ano", "energia_mwmed",
+                         "energia_mwh_total", "part_energia", "pot_mes_mw",
+                         "pot_total", "pot_acum", "part_potencia", "pot_total_ano",
+                         "pot_ano_mw", "pot_ano_total", "pot_ano", "cenario", "regiao"))
 
 epe4md_graf_pot_acum <- function(
     dados,

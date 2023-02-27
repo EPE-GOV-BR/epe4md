@@ -25,6 +25,13 @@
 #'
 #' @examples
 
+utils::globalVariables(c("sig_agente", "cod_municipio_ibge", "dth_atualiza_cadastral_empreend",
+                         "data_conexao", "dsc_porte", "uf", "subsistema", "sig_uf",
+                         "mda_potencia_instalada_kw", "qtd_uc_recebe_credito", "atbt",
+                         "dsc_fonte_geracao", "potencia_instalada_k_w", "classe",
+                         "dsc_sub_grupo_tarifario", "dsc_classe_consumo", "modalidade",
+                         "sig_modalidade_empreendimento", "nom_municipio", "mini_micro",
+                         "local_remoto", "num_geradores", "data_conexao"))
 
 epe4md_prepara_base <- function(base_aneel,
                                 ano_base,

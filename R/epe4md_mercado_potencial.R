@@ -30,6 +30,16 @@
 #'
 #' @examples
 
+utils::globalVariables(c("domicilios_5a10sm", "domicilios_10a15sm", "domicilios_15a20sm",
+                         "domicilios_15a20sm", "domicilios_maior20sm", "maior_5sm",
+                         "domicilios_3a5sm", "maior_3sm", "domicilios_2a3sm", "maior_2sm",
+                         "domicilios_1a2sm", "domicilios_pp", "renda", "domicilios",
+                         "crescimento_acumulado", "consumidores_proj", "empresa",
+                         "taxa_crescimento_mercado", "crescimento", "taxa_acumulada",
+                         "domicilios", "consumidores_nicho", "fator_nicho_comercial",
+                         "residencial", "residencial_remoto", "comercial_bt",
+                         "comercial_at_remoto", "subgrupo"))
+
 epe4md_mercado_potencial <- function(ano_base,
                                      filtro_renda_domicilio = "maior_3sm",
                                      filtro_comercial = NA,

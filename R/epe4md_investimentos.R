@@ -23,6 +23,7 @@
 #'
 #' @examples
 
+utils::globalVariables(c("custo_unitario", "taxa_crescimento_mercado"))
 
 epe4md_investimentos <- function(resultados_mensais,
                                  ano_base,

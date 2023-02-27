@@ -23,6 +23,11 @@
 #'
 #' @examples
 
+utils::globalVariables(c("Ft", "adotantes_ano", "adotantes_ano_media",
+                         "adotantes_ano_c", "adotantes_acum_c",
+                         "adotantes_hist_total", "part_fonte", "faltantes",
+                         "adotantes", "total_ucs"))
+
 epe4md_proj_adotantes <- function(casos_otimizados,
                                   consumidores,
                                   ano_base,

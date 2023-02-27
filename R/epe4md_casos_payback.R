@@ -31,6 +31,10 @@
 #' @examples
 
 
+utils::globalVariables(c("custo_unitario","fc_remoto", "fc_local", "fc_fv", "fc_eol", "fc_term", "pot_sistemas",
+                         "fc", "tecnologia", "custo_inversor", "mes"))
+
+
 epe4md_casos_payback <- function(ano_base,
                                  ano_max_resultado = 2050,
                                  inflacao = 0.0375,

@@ -56,6 +56,21 @@
 #'
 #' @examples
 
+utils::globalVariables(c("tarifa_demanda_c", "tarifa_demanda_g", "binomia", "demanda_g",
+                         "p_transicao", "alternativa", "ano_simulacao", "tarifa_autoc_bin_tusd",
+                         "tarifa_autoc_tusd", "energia_ano", "energia_autoc", "capex",
+                         "desconto_capex", "ano_real", "taxa_inflacao", "tarifa_autoc_te",
+                         "impostos_cheio", "energia_inj", "tarifa_inj_te", "tarifa_inj_tusd",
+                         "impostos_tusd", "pag_inj_te", "pag_inj_tusd", "tarifa_demanda",
+                         "consumo_disponibilidade", "receita_autoc", "receita_inj_completa",
+                         "pag_compensacao", "demanda_contratada", "oem", "troca_inversor",
+                         "capex_obra", "custo_disponibilidade", "saldo_anual", "taxa_desconto",
+                         "saldo_anual_desc", "saldo_acumulado", ".temp_maior_negativo",
+                         ".temp_menor_positivo", ".temp_payback_inteiro", ".temp_payback_frac",
+                         "saldo_acumulado_desc", "vida_util", "fator_autoconsumo",
+                         "geracao_1_kwh", "degradacao", "capex_inicial", "capex_inversor",
+                         "oem_anual", "pot_sistemas"))
+
 epe4md_payback <- function(
     casos_payback,
     premissas_reg,

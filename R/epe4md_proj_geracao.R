@@ -29,6 +29,10 @@
 #'
 #' @examples
 
+utils::globalVariables(c("ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",
+                         "dias_operando", "dias_operando_mes", "fator_autoconsumo",
+                         "subsistema", "energia_autoc_mwh", "energia_inj_mwh"))
+
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
                                 filter_uf,
