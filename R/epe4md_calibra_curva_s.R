@@ -29,6 +29,11 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#'
+
+utils::globalVariables(c("ano", "nome_4md", "segmento", "qtde_u_csrecebem_os_creditos", "payback", "payback_desc",
+                         "tir_nominal", "tir_real", "adotantes_hist", "adotantes_acum", "nome_dist", "nome_seg",
+                         "name", "saida", "p", "mercado_potencial", "fonte_resumo"))
 
 epe4md_calibra_curva_s <- function(resultado_payback,
                                    consumidores,
