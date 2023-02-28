@@ -23,6 +23,8 @@
 #'@encoding UTF-8
 #' @examples
 
+utils::globalVariables(c("pot_media", "pot_hist", "geracao_gwh"))
+
 epe4md_proj_potencia <- function(lista_adotantes,
                                  ano_base,
                                  dir_dados_premissas = "inst/dados_premissas") {

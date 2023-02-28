@@ -29,7 +29,7 @@
 #'
 #' @examples
 
-utils::globalVariables(c("ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",
+utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",
                          "dias_operando", "dias_operando_mes", "fator_autoconsumo",
                          "subsistema", "energia_autoc_mwh", "energia_inj_mwh"))
 

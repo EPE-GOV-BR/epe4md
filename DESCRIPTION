@@ -55,7 +55,8 @@ Imports:
     future,
     magrittr,
     readr,
-    utils
+    utils,
+    ggplot2
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr

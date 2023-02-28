@@ -38,6 +38,8 @@
 #'
 #' @examples
 
+utils::globalVariables(c("seasonal", "fator_mensal", "adotantes_total", "pot_media", "pot_hist"))
+
 epe4md_proj_mensal <- function(lista_potencia,
                                   ano_base,
                                   ano_max_resultado = 2050,

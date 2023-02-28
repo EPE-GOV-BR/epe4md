@@ -18,11 +18,11 @@
 #' @encoding UTF-8
 #'
 #' @import dplyr
-#' @import ggplot
+#' @import ggplot2
 #'
 #' @examples
 
-utils::globalVariables(c("energia_mwh", "dias_mes", "dias_ano", "energia_mwmed",
+utils::globalVariables(c("potencia_mw", "energia_mwh", "dias_mes", "dias_ano", "energia_mwmed",
                          "energia_mwh_total", "part_energia", "pot_mes_mw",
                          "pot_total", "pot_acum", "part_potencia", "pot_total_ano",
                          "pot_ano_mw", "pot_ano_total", "pot_ano", "cenario", "regiao"))
@@ -69,6 +69,7 @@ epe4md_graf_pot_acum <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
 #'
 #' @examples
 
@@ -116,6 +117,7 @@ epe4md_graf_pot_anual <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
 #'
 #' @examples
 
@@ -167,6 +169,7 @@ epe4md_graf_pot_segmento <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
 #'
 #' @examples
 
@@ -221,6 +224,7 @@ epe4md_graf_pot_regiao <- function(
 #' @import dplyr
 #' @import forcats
 #' @import scales
+#' @import ggplot2
 #'
 #' @examples
 
@@ -280,6 +284,7 @@ epe4md_graf_part_fonte_potencia <- function(
 #' @encoding UTF-8
 #'
 #' @import dplyr
+#' @import ggplot2
 #'
 #' @examples
 
@@ -330,6 +335,7 @@ epe4md_graf_geracao_mes <- function(
 #'
 #' @import dplyr
 #' @import scales
+#' @import ggplot2
 #'
 #' @examples
 
@@ -387,6 +393,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @import dplyr
 #' @import forcats
 #' @import scales
+#' @import ggplot2
 #'
 #' @examples
 
@@ -448,6 +455,7 @@ epe4md_graf_part_fonte_geracao <- function(
 #'
 #' @import dplyr
 #' @import scales
+#' @import ggplot2
 #'
 #' @examples
 
@@ -508,6 +516,7 @@ epe4md_graf_part_segmento <- function(
 #'
 #' @import dplyr
 #' @import scales
+#' @import ggplot2
 #'
 #' @examples
 
