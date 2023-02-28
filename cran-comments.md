@@ -4,8 +4,13 @@
 
     There was 1 NOTE:
     
-* checking R code for possible problems ... NOTE
-    There are no visible binding for some global variables
+* checking package dependencies ... NOTE
+  Imports includes 21 non-default packages.
+  Importing from so many packages makes the package vulnerable to any of
+  them becoming unavailable.  Move as many as possible to Suggests and
+  use conditionally.
+  
+  All the packages listed in the import field are used.
 
 ## Downstream dependencies
 
