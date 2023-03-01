@@ -96,8 +96,8 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param spb numeric. Fator de Sensibilidade ao Payback (SPB).
 #' Default igual a 0.3.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
-#' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
-#' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
+#' @param q_max numeric. Fator de imitação (q) máximo. Default igual a 1.
+#' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumidores
 #' cativos do Grupo A. Default igual a 0.016 representa crescimento entre
 #' 2006 e 2019.
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá

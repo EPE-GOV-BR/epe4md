@@ -26,7 +26,7 @@ mínimos. Permite: "total", "maior_1sm, maior_2sm", "maior_3sm" ou
 segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.}
 
-\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
+\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumidores
 cativos do Grupo A. Default igual a 0.016 representa crescimento
 entre 2006 e 2019.}
 
@@ -37,7 +37,7 @@ default.}
 }
 \value{
 list com dois data.frames. "consumidores" possui o mercado
-potencial incial. "consumidores_totais" possui dados de mercado total.
+potencial inicial. "consumidores_totais" possui dados de mercado total.
 }
 \description{
 Cria a base do mercado potencial inicial para a adoção.

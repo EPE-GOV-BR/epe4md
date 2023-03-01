@@ -117,7 +117,7 @@ Default igual a 0.}
 \item{anos_desconto}{vector. Anos em que há a incidência do desconto no
 CAPEX. Default igual a 0.}
 
-\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
+\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumidores
 cativos do Grupo A. Default igual a 0.016 representa crescimento entre
 2006 e 2019.}
 
@@ -126,7 +126,7 @@ Default igual a 0.3.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 
-\item{q_max}{numeric. Fator de imitação (q) máximo. DEfault igual a 1.}
+\item{q_max}{numeric. Fator de imitação (q) máximo. Default igual a 1.}
 
 \item{filtro_comercial}{numeric. Fator percentual para definir o nicho do
 segmento comercial. Default é calculado pelo modelo com base no nicho

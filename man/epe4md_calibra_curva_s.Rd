@@ -34,7 +34,7 @@ Máximo igual a 2050. Default igual a 2050.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 
-\item{q_max}{numeric. Fator de imitação (q) máximo. DEfault igual a 1.}
+\item{q_max}{numeric. Fator de imitação (q) máximo. Default igual a 1.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

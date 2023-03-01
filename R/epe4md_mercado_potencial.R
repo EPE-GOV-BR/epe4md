@@ -13,12 +13,12 @@
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da pasta
 #' default.
-#' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
+#' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumidores
 #' cativos do Grupo A. Default igual a 0.016 representa crescimento
 #' entre 2006 e 2019.
 #'
 #' @return list com dois data.frames. "consumidores" possui o mercado
-#' potencial incial. "consumidores_totais" possui dados de mercado total.
+#' potencial inicial. "consumidores_totais" possui dados de mercado total.
 #' @export
 #'
 #'@import tidyr

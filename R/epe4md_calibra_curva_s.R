@@ -11,7 +11,7 @@
 #' @param spb numeric. Fator de Sensibilidade ao Payback (SPB). Default igual a
 #' 0.3.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
-#' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
+#' @param q_max numeric. Fator de imitação (q) máximo. Default igual a 1.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da

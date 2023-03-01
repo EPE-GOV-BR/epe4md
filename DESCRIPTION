@@ -1,6 +1,7 @@
 Package: epe4md
 Title: EPE's 4MD model to forecast the adoption of Distributed Generation
 Version: 0.1.4
+Language: pt-BR
 Authors@R: 
     c(person(given = "Gabriel",
            family = "Konzen",
