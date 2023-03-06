@@ -34,6 +34,7 @@ Suggests:
     rmarkdown,
     tidyverse
 Config/testthat/edition: 3
+Config/testthat/parallel: true
 Imports:
     dplyr,
     scales,

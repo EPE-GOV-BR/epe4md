@@ -9,3 +9,5 @@
 ^cran-comments.md$
 ^cran-comments-example.md$
 ^.lintr$
+^doc$
+^Meta$

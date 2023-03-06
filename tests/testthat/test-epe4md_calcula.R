@@ -2,6 +2,7 @@
 library(readxl)
 
 test_that("epe4md_calcula works", {
+  skip_on_cran()
   expect_snapshot_value(
     epe4md_calcula(
       premissas_reg =
@@ -21,6 +22,7 @@ test_that("epe4md_calcula works", {
 
 
 test_that("epe4md_calcula erro > 2050", {
+  skip_on_cran()
   expect_error(
     epe4md_calcula(
       premissas_reg =
@@ -40,6 +42,7 @@ test_that("epe4md_calcula erro > 2050", {
 
 
 test_that("epe4md_calcula tipo errado", {
+  skip_on_cran()
   expect_error(
     epe4md_calcula(
       premissas_reg =
@@ -62,6 +65,7 @@ test_that("epe4md_calcula tipo errado", {
 
 
 test_that("epe4md_calcula filtro_renda errado", {
+  skip_on_cran()
   expect_error(
     epe4md_calcula(
       premissas_reg =
@@ -81,6 +85,7 @@ test_that("epe4md_calcula filtro_renda errado", {
 
 
 test_that("epe4md_calcula filtro_renda certo", {
+  skip_on_cran()
   expect_silent(
     epe4md_calcula(
       premissas_reg =
