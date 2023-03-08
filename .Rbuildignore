@@ -11,3 +11,4 @@
 ^.lintr$
 ^doc$
 ^Meta$
+^CRAN-SUBMISSION$
