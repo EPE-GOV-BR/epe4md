@@ -1,6 +1,5 @@
 
 
-
 assert_in <- function(x, categorias){
 
   x %in% categorias
