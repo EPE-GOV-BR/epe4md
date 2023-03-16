@@ -20,3 +20,7 @@ epe4md_graf_pot_anual(dados, ano_inicio = 2013, cor = "#13475d", tamanho = 14)
 Gráfico de colunas que mostra a soma simples da potência em cada ano, entre os parâmetros \code{ano_inicio} e
 \code{ano_max_resultado} passado na função \code{epe4md::epe4md_calcula}.
 }
+\value{
+Plota um gráfico de colunas que mostra a soma simples da potência em cada ano, entre os parâmetros \code{ano_inicio} e
+\code{ano_max_resultado} passado na função \code{epe4md::epe4md_calcula}.
+}

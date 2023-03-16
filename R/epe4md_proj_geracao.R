@@ -87,7 +87,7 @@ epe4md_proj_geracao <- function(proj_mensal,
       filter(uf == filter_uf)
   }
   else if (filter_uf != "N"){
-    print("UF incorreta! Resultado apresentado sem filtro!")
+    message("\nUF incorreta! Resultado apresentado sem filtro!")
   }
 
   proj_mensal <- proj_mensal %>%

@@ -11,7 +11,8 @@
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico que mostra a soma acumulada das potências entre os parâmetros
+#' ano_inicio e ano_max_resultado.
 #'
 #' @export
 #'
@@ -62,7 +63,8 @@ epe4md_graf_pot_acum <- function(
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico de colunas que mostra a soma simples da potência em cada ano,
+#' entre os parâmetros ano_inicio e ano_max_resultado passado na função epe4md_calcula.
 #'
 #' @export
 #'
@@ -110,7 +112,9 @@ epe4md_graf_pot_anual <- function(
 #'
 #' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
-#' @return
+#' @return Gráfico que mostra a soma acumulada da potência entre o intervalo de
+#' anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ', Comercial (BT) ',
+#' ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
 #'
 #' @export
 #'
@@ -162,7 +166,7 @@ epe4md_graf_pot_segmento <- function(
 #'
 #' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada por região.
 #'
 #' @export
 #'
@@ -215,7 +219,8 @@ epe4md_graf_pot_regiao <- function(
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica',
+#' 'Termelétrica', 'Hidro' e 'Eólica') na capacidade instalada.
 #'
 #' @export
 #'
@@ -277,7 +282,7 @@ epe4md_graf_part_fonte_potencia <- function(
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 #'
 #' @export
 #'
@@ -327,7 +332,7 @@ epe4md_graf_geracao_mes <- function(
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 #'
 #' @export
 #'
@@ -384,7 +389,9 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #'
 #' @param tamanho numeric. Altera o tamanho da fonte da legenda. Default igual a 14.
 #'
-#' @return
+#' @return Gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica',
+#' 'Termelétrica', 'Hidro', 'Eólica') na geração de energia somente no parâmetro
+#' ano_max_resultado passado na função epe4md_calcula.
 #'
 #' @export
 #'
@@ -447,7 +454,9 @@ epe4md_graf_part_fonte_geracao <- function(
 #'
 #' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
-#' @return
+#' @return Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)',
+#' 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'
+#' na geração de energia em cada ano.
 #'
 #' @export
 #'
@@ -508,7 +517,8 @@ epe4md_graf_part_segmento <- function(
 #'
 #' @param paleta_epe data.frame. Paleta de cores da EPE.
 #'
-#' @return
+#' @return Gráfico que mostra a soma acumulada das potência entre os parâmetros
+#' ano_inicio e ano_max_resultado passado na função epe4md_calcula em cada um dos cenários.
 #'
 #' @export
 #'

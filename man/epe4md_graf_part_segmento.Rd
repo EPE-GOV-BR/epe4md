@@ -15,6 +15,8 @@ epe4md_graf_part_segmento(dados, ano_inicio = 2013, tamanho = 14)
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
-na geração de energia em cada ano.
+Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto' na geração de energia em cada ano.
+}
+\value{
+Plota um gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto' na geração de energia em cada ano.
 }

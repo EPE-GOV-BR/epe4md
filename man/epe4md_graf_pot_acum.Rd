@@ -17,6 +17,10 @@ epe4md_graf_pot_acum(dados, ano_inicio = 2013, cor = "#13475d", tamanho = 14)
 \item{tamanho}{numeric. Altera o tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Mostra a soma acumulada das potência entre os parãmetros \code{ano_inicio} e \code{ano_max_resultado}
+Mostra a soma acumulada das potências entre os parâmetros \code{ano_inicio} e \code{ano_max_resultado}
+passado na função \code{epe4md::epe4md_calcula}.
+}
+\value{
+Plota um gráfico que mostra a soma acumulada das potências entre os parâmetros \code{ano_inicio} e \code{ano_max_resultado}
 passado na função \code{epe4md::epe4md_calcula}.
 }

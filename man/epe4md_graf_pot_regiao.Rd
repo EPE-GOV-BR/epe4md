@@ -15,5 +15,8 @@ epe4md_graf_pot_regiao(dados, ano_inicio = 2013, tamanho = 14)
 \item{tamanho}{numeric. Altera tamanho da fonte da legenda. Default igual a 14.}
 }
 \description{
-Gráfico da capacidade instalada acumulada por região
+Gráfico da capacidade instalada acumulada por região.
+}
+\value{
+Plota um gráfico da capacidade instalada acumulada por região.
 }

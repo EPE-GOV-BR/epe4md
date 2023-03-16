@@ -18,3 +18,6 @@ epe4md_graf_pot_segmento(dados, ano_inicio = 2013, tamanho = 14)
 Mostra a soma acumulada da potência entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ',
 Comercial (BT) ', ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
 }
+\value{
+Plota um gráfico que mostra a soma acumulada da potência entre o intervalo de anos solicitado, agrupada entre os segmentos : ' Comercial (AT) ', Comercial (BT) ', ' Comercial Remoto (AT/BT) ', ' Residencial ' e ' Residencial Remoto '.
+}

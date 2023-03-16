@@ -1,5 +1,5 @@
 Package: epe4md
-Title: EPE's 4MD model to forecast the adoption of Distributed Generation
+Title: EPE's 4MD Model to Forecast the Adoption of Distributed Generation
 Version: 0.1.4
 Language: pt-BR
 Authors@R: 
@@ -23,6 +23,11 @@ Authors@R:
            role = c("cph", "fnd")
            ))           
 Description: EPE's 4MD model to forecast the adoption of Distributed Generation.
+             Given the user's assumptions, it is possible to estimate how many consumer 
+             units will have distributed generation in Brazil over the next 10 years, 
+             for example. In addition, it is possible to estimate the installed capacity, 
+             the amount of investments that will be made in the country and the monthly 
+             energy contribution of this type of generation. <https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf>
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

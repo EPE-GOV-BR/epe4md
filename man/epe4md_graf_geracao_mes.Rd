@@ -24,3 +24,6 @@ epe4md_graf_geracao_mes(
 \description{
 Gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 }
+\value{
+Plota um gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
+}
