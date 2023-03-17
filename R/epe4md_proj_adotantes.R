@@ -22,6 +22,12 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_proj_adotantes(
+#'    casos_otimizados,
+#'    consumidores,
+#'    ano_base,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("Ft", "adotantes_ano", "adotantes_ano_media",
                          "adotantes_ano_c", "adotantes_acum_c",

@@ -36,3 +36,10 @@ mensal de energia.
 \description{
 Estima a geração de eletricidade a partir da projeção de potência
 }
+\examples{
+epe4md_proj_geracao(
+   proj_mensal,
+   ano_base,
+   dir_dados_premissas = NA_character_
+)
+}

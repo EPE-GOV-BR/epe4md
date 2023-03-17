@@ -27,7 +27,8 @@ Description: EPE's 4MD model to forecast the adoption of Distributed Generation.
              units will have distributed generation in Brazil over the next 10 years, 
              for example. In addition, it is possible to estimate the installed capacity, 
              the amount of investments that will be made in the country and the monthly 
-             energy contribution of this type of generation. <https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf>
+             energy contribution of this type of generation. 
+             <https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf>.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true

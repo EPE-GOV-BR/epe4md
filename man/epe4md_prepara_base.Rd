@@ -36,3 +36,11 @@ data.frame. Base tratada e resumida.
 Prepara a base de dados da ANEEL com geradores existentes para ser utilizada
 nas funções seguintes.
 }
+\examples{
+epe4md_prepara_base(
+  base_aneel,
+  ano_base,
+  resumida = TRUE,
+  dir_dados_premissas = NA_character_
+)
+}

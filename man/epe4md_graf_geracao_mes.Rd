@@ -27,3 +27,11 @@ Gráfico de área que mostra a soma da geração de energia em MWmed agrupada po
 \value{
 Plota um gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 }
+\examples{
+epe4md_graf_geracao_mes(
+  dados,
+  ano_inicio = 2013,
+  cor = "#953735",
+  tamanho = 14
+)
+}

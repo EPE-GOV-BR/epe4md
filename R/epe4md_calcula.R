@@ -12,6 +12,8 @@
 #'@import dplyr
 #'
 #' @examples
+#' epe4md_sumariza_resultados(resultados_mensais)
+#'
 epe4md_sumariza_resultados <- function(resultados_mensais) {
 
   result <- resultados_mensais %>%
@@ -137,6 +139,13 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'@encoding UTF-8
 #'
 #' @examples
+#' premissas_regulatorias <- readxl::read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx", package = "epe4md"))
+#'
+#' resultado <- epe4md_calcula(
+#'   ano_base = 2021,
+#'   premissas_reg = premissas_regulatorias,
+#'   ano_max_resultado = 2027)
+#'
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,

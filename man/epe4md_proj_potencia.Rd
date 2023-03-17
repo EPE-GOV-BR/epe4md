@@ -33,3 +33,10 @@ número de adotantes frente ao total de unidades consumidoras.
 \description{
 Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
 }
+\examples{
+epe4md_proj_potencia(
+  lista_adotantes,
+  ano_base,
+  dir_dados_premissas = NA_character_
+)
+}

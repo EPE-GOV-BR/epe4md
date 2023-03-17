@@ -22,6 +22,12 @@
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_pot_acum(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   cor = "#13475d",
+#'   tamanho = 14
+#' )
 
 utils::globalVariables(c("potencia_mw", "energia_mwh", "dias_mes", "dias_ano", "energia_mwmed",
                          "energia_mwh_total", "part_energia", "pot_mes_mw",
@@ -74,8 +80,12 @@ epe4md_graf_pot_acum <- function(
 #' @import ggplot2
 #'
 #' @examples
-
-
+#' epe4md_graf_pot_anual(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   cor = "#13475d",
+#'   tamanho = 14
+#' )
 
 epe4md_graf_pot_anual <- function(
     dados,
@@ -124,13 +134,17 @@ epe4md_graf_pot_anual <- function(
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_part_segmento(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   tamanho = 14
+#' )
 
 epe4md_graf_pot_segmento <- function(
     dados,
     ano_inicio = 2013,
     tamanho = 14)
 {
-
 
   resumo <- dados %>%
     epe4md_fatores_publicacao() %>%
@@ -176,6 +190,11 @@ epe4md_graf_pot_segmento <- function(
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_pot_regiao(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   tamanho = 14
+#' )
 
 
 epe4md_graf_pot_regiao <- function(
@@ -232,6 +251,12 @@ epe4md_graf_pot_regiao <- function(
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_part_fonte_potencia(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   cor = "#112446",
+#'   tamanho = 14
+#' )
 
 
 
@@ -292,8 +317,12 @@ epe4md_graf_part_fonte_potencia <- function(
 #' @import ggplot2
 #'
 #' @examples
-
-
+#' epe4md_graf_geracao_mes(
+#'    dados,
+#'    ano_inicio = 2013,
+#'    cor = "#953735",
+#'    tamanho = 14
+#' )
 
 epe4md_graf_geracao_mes <- function(
     dados,
@@ -343,8 +372,12 @@ epe4md_graf_geracao_mes <- function(
 #' @import ggplot2
 #'
 #' @examples
-
-
+#' epe4md_graf_geracao_ano(
+#'    dados,
+#'    ano_inicio = 2013,
+#'    cor = "#953735",
+#'    tamanho = 14
+#' )
 
 epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
                                     cor = "#953735", tamanho = 14) {
@@ -403,6 +436,11 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_part_fonte_geracao(
+#'  dados,
+#'  cor = "#953735",
+#'  tamanho = 14
+#' )
 
 
 
@@ -467,6 +505,11 @@ epe4md_graf_part_fonte_geracao <- function(
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_part_segmento(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   tamanho = 14
+#' )
 
 
 
@@ -529,6 +572,11 @@ epe4md_graf_part_segmento <- function(
 #' @import ggplot2
 #'
 #' @examples
+#' epe4md_graf_pot_cenario(
+#'   dados,
+#'   ano_inicio = 2013,
+#'   tamanho = 14
+#' )
 
 
 

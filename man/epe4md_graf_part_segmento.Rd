@@ -20,3 +20,10 @@ Gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)
 \value{
 Plota um gráfico de colunas que mostra a participação de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto' na geração de energia em cada ano.
 }
+\examples{
+epe4md_graf_part_segmento(
+  dados,
+  ano_inicio = 2013,
+  tamanho = 14
+)
+}

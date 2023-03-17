@@ -28,6 +28,11 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_proj_geracao(
+#'   proj_mensal,
+#'   ano_base,
+#'   dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",
                          "dias_operando", "dias_operando_mes", "fator_autoconsumo",

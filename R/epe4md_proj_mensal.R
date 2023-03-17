@@ -37,6 +37,15 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_proj_mensal(
+#'    lista_potencia,
+#'    ano_base,
+#'    ano_max_resultado = 2050,
+#'    ajuste_ano_corrente = FALSE,
+#'    ultimo_mes_ajuste = NA,
+#'    metodo_ajuste = NA,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("seasonal", "fator_mensal", "adotantes_total", "pot_media", "pot_hist"))
 

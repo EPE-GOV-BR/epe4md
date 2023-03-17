@@ -23,3 +23,10 @@ na geração de energia somente no parâmetro \code{ano_max_resultado} passado n
 plota um gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro', 'Eólica')
 na geração de energia somente no parâmetro \code{ano_max_resultado} passado na função \code{epe4md::epe4md_calcula}.
 }
+\examples{
+epe4md_graf_part_fonte_geracao(
+  dados,
+  cor = "#953735",
+  tamanho = 14
+)
+}

@@ -20,3 +20,10 @@ Gráfico da capacidade instalada acumulada por região.
 \value{
 Plota um gráfico da capacidade instalada acumulada por região.
 }
+\examples{
+epe4md_graf_pot_regiao(
+  dados,
+  ano_inicio = 2013,
+  tamanho = 14
+)
+}

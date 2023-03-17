@@ -26,3 +26,11 @@ na capacidade instalada.
 Plota um gráfico de barras que mostra a participação de cada fonte ('Fotovoltaica', 'Termelétrica', 'Hidro' e 'Eólica')
 na capacidade instalada.
 }
+\examples{
+epe4md_graf_part_fonte_potencia(
+  dados,
+  ano_inicio = 2013,
+  cor = "#112446",
+  tamanho = 14
+)
+}

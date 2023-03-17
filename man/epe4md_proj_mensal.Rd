@@ -52,3 +52,14 @@ de micro e minigeração distribuída e número de adotantes mensal
 \description{
 Faz a abertura mensal da projeção de potência
 }
+\examples{
+epe4md_proj_mensal(
+  lista_potencia,
+  ano_base,
+  ano_max_resultado = 2050,
+  ajuste_ano_corrente = FALSE,
+  ultimo_mes_ajuste = NA,
+  metodo_ajuste = NA,
+  dir_dados_premissas = NA_character_
+)
+}

@@ -1,9 +1,7 @@
 #' Calibra o modelo de Bass com dados históricos e gera curvas S de adoção.
 #'
-#' @param resultado_payback data.frame. Resultado da função
-#' [epe4md::epe4md_payback].
-#' @param consumidores list. Resultado da função
-#' [epe4md::epe4md_mercado_potencial].
+#' @param resultado_payback data.frame. Resultado da função [epe4md::epe4md_payback].
+#' @param consumidores list. Resultado da função [epe4md::epe4md_mercado_potencial].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
@@ -30,6 +28,16 @@
 #'
 #' @examples
 #'
+#'epe4md_calibra_curva_s(
+#'  resultado_payback,
+#'  consumidores,
+#'  ano_base,
+#'  ano_max_resultado = 2050,
+#'  spb = 0.3,
+#'  p_max = 0.01,
+#'  q_max = 1,
+#'  dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("ano", "nome_4md", "segmento", "qtde_u_csrecebem_os_creditos", "payback", "payback_desc",
                          "tir_nominal", "tir_real", "adotantes_hist", "adotantes_acum", "nome_dist", "nome_seg",

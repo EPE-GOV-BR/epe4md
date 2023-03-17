@@ -55,6 +55,22 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_payback(
+#'    casos_payback,
+#'    premissas_reg,
+#'    ano_base,
+#'    altera_sistemas_existentes = TRUE,
+#'    ano_decisao_alteracao = 2023,
+#'    inflacao = 0.0375,
+#'    taxa_desconto_nominal = 0.13,
+#'    custo_reforco_rede = 200,
+#'    ano_troca_inversor = 11,
+#'    pagamento_disponibilidade = 0.3,
+#'    disponibilidade_kwh_mes = 100,
+#'    desconto_capex_local = 0,
+#'    anos_desconto = 0,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("tarifa_demanda_c", "tarifa_demanda_g", "binomia", "demanda_g",
                          "p_transicao", "alternativa", "ano_simulacao", "tarifa_autoc_bin_tusd",

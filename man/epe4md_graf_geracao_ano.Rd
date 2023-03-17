@@ -27,3 +27,11 @@ Gráfico de área que mostra a geração de energia em MWmed agrupada por ano.
 \value{
 Plota um gráfico de área que mostra a geração de energia em MWmed agrupada por ano.
 }
+\examples{
+epe4md_graf_geracao_ano(
+  dados,
+  ano_inicio = 2013,
+  cor = "#953735",
+  tamanho = 14
+)
+}

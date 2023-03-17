@@ -17,3 +17,6 @@ geração de energia, em GWh e MWméd.
 \description{
 Resume os resultados de capacidade instalada
 }
+\examples{
+epe4md_sumariza_resultados(resultados_mensais)
+}

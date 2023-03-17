@@ -16,3 +16,6 @@ data.frame com nomes dos segmentos alterados.
 \description{
 Altera fatores para facilitar entendimento em publicações
 }
+\examples{
+epe4md_fatores_publicacao(dados)
+}

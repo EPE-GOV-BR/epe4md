@@ -22,3 +22,10 @@ passado na função \code{epe4md::epe4md_calcula} em cada um dos cenários.
 Plota um gráfico que mostra a soma acumulada das potência entre os parâmetros \code{ano_inicio} e \code{ano_max_resultado}
 passado na função \code{epe4md::epe4md_calcula} em cada um dos cenários.
 }
+\examples{
+epe4md_graf_pot_cenario(
+  dados,
+  ano_inicio = 2013,
+  tamanho = 14
+)
+}

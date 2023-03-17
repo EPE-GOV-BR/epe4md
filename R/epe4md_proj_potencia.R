@@ -22,6 +22,11 @@
 #'
 #'@encoding UTF-8
 #' @examples
+#' epe4md_proj_potencia(
+#'    lista_adotantes,
+#'    ano_base,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("pot_media", "pot_hist", "geracao_gwh"))
 

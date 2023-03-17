@@ -36,3 +36,11 @@ ao total de unidades consumidoras.
 \description{
 Realiza a projeção do número de adotantes de micro e minigeração distribuída
 }
+\examples{
+epe4md_proj_adotantes(
+  casos_otimizados,
+  consumidores,
+  ano_base,
+  dir_dados_premissas = NA_character_
+)
+}

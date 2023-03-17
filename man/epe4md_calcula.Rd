@@ -160,3 +160,14 @@ mensal de energia.
 O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
+\examples{
+premissas_regulatorias <- readxl::read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx", package = "epe4md"))
+
+resultado <- epe4md_calcula(
+  premissas_reg = premissas_regulatorias,
+  ano_base = 2021,
+  sequencial = TRUE,
+  filter_uf = "RJ",
+  ano_max_resultado = 2027
+)
+}

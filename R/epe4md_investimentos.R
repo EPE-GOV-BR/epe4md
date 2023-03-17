@@ -22,6 +22,12 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_investimentos(
+#'    resultados_mensais,
+#'    ano_base,
+#'    ano_max_resultado = 2050,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("custo_unitario", "taxa_crescimento_mercado"))
 

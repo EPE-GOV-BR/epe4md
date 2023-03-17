@@ -47,3 +47,15 @@ data.frame com curvas de difusão e mercado potencial
 \description{
 Calibra o modelo de Bass com dados históricos e gera curvas S de adoção.
 }
+\examples{
+epe4md_calibra_curva_s(
+  resultado_payback,
+  consumidores,
+  ano_base,
+  ano_max_resultado = 2050,
+  spb = 0.3,
+  p_max = 0.01,
+  q_max = 1,
+  dir_dados_premissas = NA_character_
+)
+}

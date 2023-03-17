@@ -24,6 +24,12 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' epe4md_prepara_base(
+#'    base_aneel,
+#'    ano_base,
+#'    resumida = TRUE,
+#'    dir_dados_premissas = NA_character_
+#' )
 
 utils::globalVariables(c("mes_ano", "sig_agente", "cod_municipio_ibge", "dth_atualiza_cadastral_empreend",
                          "data_conexao", "dsc_porte", "uf", "subsistema", "sig_uf",
