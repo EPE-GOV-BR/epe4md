@@ -28,10 +28,46 @@
 #'
 #' @examples
 #'
+#' resultado_payback <- tibble(
+#'   segmento = "comercial_at",
+#'   fonte_resumo = "Fotovoltaica",
+#'   fator_autoconsumo = 0.8,
+#'   oem_anual = 0.01,
+#'   nome_4md = c("AME", "CEB", "CEEE", "ENEL GO", "LIGHT"),
+#'   fc = c(0.1405358, 0.1723692, 0.1723692, 0.1710513, 0.1516523),
+#'   vida_util = 25,
+#'   degradacao = 0.005,
+#'   pot_sistemas = 70,
+#'   geracao_1_kwh = c(86176.54, 105696.78, 90105.27, 104888.68, 92993.17),
+#'   ano = 2021,
+#'   custo_unitario = 3.81,
+#'   custo_inversor = 0.5715,
+#'   capex_inicial = 266700,
+#'   capex_inversor = 57808.98,
+#'   payback = c(4.921500, 4.967306, 4.940258, 4.940258, 4.415278),
+#'   payback_desc = c(6.683981, 6.773162, 6.720501, 5.894958, 5.723854),
+#'   tir_nominal = c(0.2691598, 0.2660881, 0.2678933, 0.3002609, 0.3086373),
+#'   tir_real = c(0.2232865, 0.2203258, 0.2220658, 0.2532635, 0.2613372)
+#' )
+#'
+#' consumidores <- list(
+#'   consumidores <- tibble(
+#'     nome_4md = c("CELESC", "CEMIG", "COELBA", "COPEL", "CPFL PAULISTA", "ENEL GO", "ENEL RJ", "ENEL SP", "LIGHT", "RGE"),
+#'     ano = 2021,
+#'     segmento = "residencial",
+#'     consumidores = c(294853, 705996, 328907, 488333, 531478, 225929, 263874, 859724, 523613, 315290)
+#'   ),
+#'  consumidores_totais <- tibble(
+#'   ano = 2021,
+#'   total_ucs = c(72212363, 12098612, 181394),
+#'   segmento = c("residencial", "comercial_bt", "comercial_at")
+#'   )
+#' )
+#'
 #'epe4md_calibra_curva_s(
 #'  resultado_payback,
 #'  consumidores,
-#'  ano_base,
+#'  ano_base = 2021,
 #'  ano_max_resultado = 2050,
 #'  spb = 0.3,
 #'  p_max = 0.01,

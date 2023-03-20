@@ -10,7 +10,16 @@
 #'@import dplyr
 #'
 #'@examples
-#'epe4md_fatores_publicacao(dados)
+#'
+#' dados <- tibble(
+#'   fonte_resumo = c("comercial_bt",
+#'                  "comercial_at_remoto",
+#'                  "comercial_at",
+#'                  "residencial_remoto",
+#'                  "residencial")
+#' )
+#'
+#' epe4md_fatores_publicacao(dados)
 
 
 

@@ -24,7 +24,7 @@
 #' @examples
 #' epe4md_investimentos(
 #'    resultados_mensais,
-#'    ano_base,
+#'    ano_base = 2021,
 #'    ano_max_resultado = 2050,
 #'    dir_dados_premissas = NA_character_
 #' )

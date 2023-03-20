@@ -46,7 +46,7 @@ payback.
 }
 \examples{
 epe4md_casos_payback(
-  ano_base,
+  ano_base = 2021,
   ano_max_resultado = 2050,
   inflacao = 0.0375,
   ano_troca_inversor = 11,

@@ -139,7 +139,13 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'@encoding UTF-8
 #'
 #' @examples
-#' premissas_regulatorias <- readxl::read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx", package = "epe4md"))
+#' premissas_regulatorias <- tibble(
+#'   ano = 2021,
+#'   alternativa = 0,
+#'   p_transicao = 1.00,
+#'   binomia = FALSE,
+#'   demanda_g = FALSE
+#' )
 #'
 #' resultado <- epe4md_calcula(
 #'   ano_base = 2021,
@@ -261,7 +267,6 @@ epe4md_calcula <- function(
     desconto_capex_local = desconto_capex_local,
     anos_desconto = anos_desconto,
     dir_dados_premissas = dir_dados_premissas
-
   )
 
   rm(casos_payback)
@@ -320,4 +325,5 @@ epe4md_calcula <- function(
   )
 
   resultados_mensais
+  browser()
 }
