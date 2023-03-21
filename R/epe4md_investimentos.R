@@ -22,8 +22,27 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#'
+#' resultados_mensais <- tibble(
+#'    data = c('2021-01-01', '2021-01-01', '2021-01-01'),
+#'    ano = 2021,
+#'    nome_4md = c("ENEL RJ", "ENF", "LIGHT"),
+#'    subsistema = "SE",
+#'    uf = "RJ",
+#'    segmento = "comercial_at",
+#'    fonte_resumo = "Fotovoltaica",
+#'    energica_mwh = c(2019.6225, 69.06433, 2303.18754),
+#'    energica_autoc_mwh = c(1615.698, 55.25146, 1842.55003),
+#'    energia_inj_mwh = c(403.92450, 13.81287, 460.63751),
+#'    energia_mwmed = c(2.714546380, 0.092828390, 3.095682180),
+#'    pot_mes_mw = c(1.5275, 0.0000, 3.09568218),
+#'    adotantes_mes = c(21, 0, 4),
+#'    p = c(0.00027826110, 0.00060785180, 0.00137570060),
+#'    q = c(1.0000000, 1.0000000, 0.5282319)
+#' )
+#'
 #' epe4md_investimentos(
-#'    resultados_mensais,
+#'    resultados_mensais = resultados_mensais,
 #'    ano_base = 2021,
 #'    ano_max_resultado = 2050,
 #'    dir_dados_premissas = NA_character_

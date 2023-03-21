@@ -37,10 +37,38 @@ ao total de unidades consumidoras.
 Realiza a projeção do número de adotantes de micro e minigeração distribuída
 }
 \examples{
+
+casos_otimizados <- tibble(
+    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
+    segmento = "comercial_at",
+    p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
+    q = 1,
+    spb = 0.3,
+    ano = 2021,
+    Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
+    consumidores = c(2801, 10995, 791, 116, 48),
+    payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
+    mercado_potencial = c(172, 1232, 22, 3, 1)
+)
+
+consumidores <- list(
+  consumidores <- tibble(
+    nome_4md = c("CELESC", "CEMIG", "COELBA", "COPEL", "CPFL PAULISTA"),
+    ano = 2021,
+    segmento = "residencial",
+    consumidores = c(294853, 705996, 328907, 488333, 531478)
+  ),
+  consumidores_totais <- tibble(
+    ano = 2021,
+    total_ucs = c(72212363, 12098612, 181394),
+    segmento = c("residencial", "comercial_bt", "comercial_at")
+  )
+)
+
 epe4md_proj_adotantes(
-  casos_otimizados,
-  consumidores,
-  ano_base,
+  casos_otimizados = casos_otimizados,
+  consumidores = consumidores,
+  ano_base = 2021,
   dir_dados_premissas = NA_character_
 )
 }

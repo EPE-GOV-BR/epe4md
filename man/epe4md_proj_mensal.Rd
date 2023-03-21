@@ -53,9 +53,46 @@ de micro e minigeração distribuída e número de adotantes mensal
 Faz a abertura mensal da projeção de potência
 }
 \examples{
+
+lista_potencia <- list(
+    proj_potencia <- tibble(
+      nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
+      segmento = "comercial_at",
+      p = c(0.0004484362, 0.0005572423, 0.000122345, 0.0002427430, 0.0001034085),
+      q = 1,
+      spb = 0.3,
+      ano = 2021,
+      Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
+      consumidores = c(2801, 10995, 791, 116, 48),
+      payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
+      mercado_potencial = c(43.00, 308.00, 5.50, 0.75, 0.25),
+      adotantes_ano = 0,
+      adotantes_acum = c(0, 1, 0, 0, 0),
+      fonte_resumo = "Eólica",
+      part_fonte = c(0.0000000000, 0.0006309148, 0.0000000000, 0.0000000000, 0.0000000000),
+      adotantes_hist = 0,
+      pot_media = c(38.61667, 2.50000, 38.61667, 38.61667, 38.61667),
+      pot_ano = 0,
+      pot_hist = 0,
+      pot_ano_mw = 0,
+      pot_acum_mw = c(0.0000, 0.0025, 0.0000, 0.0000, 0.0000)
+    ),
+    part_adotantes <- tibble(
+      ano = 2021,
+      segmento = c("comercial_at", "comercial_bt", "residencial"),
+      adotantes = c(11857, 315815, 798073),
+      mercado_potencial = c(16718, 412539, 3370592),
+      total_ucs = c(181394, 12098612, 72212363),
+      penetracao_total = c(0.06536600, 0.02610341, 0.01105175),
+      mercado_nicho = c(181394, 1930557, 11522806),
+      penetracao_nicho = c(0.0653660, 0.1635875, 0.0692603),
+      penetracao_potencial = c(0.7092356, 0.7655397, 0.2367753)
+    )
+)
+
 epe4md_proj_mensal(
-  lista_potencia,
-  ano_base,
+  lista_potencia = lista_potencia,
+  ano_base = 2021,
   ano_max_resultado = 2050,
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA,

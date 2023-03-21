@@ -26,7 +26,7 @@
 #' @examples
 #' epe4md_prepara_base(
 #'    base_aneel,
-#'    ano_base,
+#'    ano_base = 2021,
 #'    resumida = TRUE,
 #'    dir_dados_premissas = NA_character_
 #' )

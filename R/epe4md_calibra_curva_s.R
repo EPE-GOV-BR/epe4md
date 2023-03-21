@@ -65,8 +65,8 @@
 #' )
 #'
 #'epe4md_calibra_curva_s(
-#'  resultado_payback,
-#'  consumidores,
+#'  resultado_payback = resultado_payback,
+#'  consumidores = consumidores,
 #'  ano_base = 2021,
 #'  ano_max_resultado = 2050,
 #'  spb = 0.3,
