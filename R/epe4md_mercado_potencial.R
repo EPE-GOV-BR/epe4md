@@ -9,13 +9,17 @@
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
+#' @param filtro_local_comercial string. Define a origem dos dados do Fator de 
+#' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+#' tensão. Como default, são utilizados os mesmos valores dos consumidores
+#' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+#' de adotantes locais por distribuidora até o ano base.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da pasta
 #' default.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
-#' cativos do Grupo A. Default igual a 0.016 representa crescimento
-#' entre 2006 e 2019.
+#' cativos do Grupo A. Default igual a 0.
 #'
 #' @return list com dois data.frames. "consumidores" possui o mercado
 #' potencial incial. "consumidores_totais" possui dados de mercado total.
@@ -33,7 +37,8 @@
 epe4md_mercado_potencial <- function(ano_base,
                                      filtro_renda_domicilio = "maior_3sm",
                                      filtro_comercial = NA,
-                                     tx_cresc_grupo_a = 0.016,
+                                     fator_local_comercial = "residencial",
+                                     tx_cresc_grupo_a = 0,
                                      dir_dados_premissas = NA_character_
                                      ) {
 
@@ -103,11 +108,12 @@ epe4md_mercado_potencial <- function(ano_base,
 
   consumidores_b2b3 <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_b2b3.xlsx")) %>%
-    select(-empresa) %>%
     pivot_longer(cols = starts_with("20"), names_to = "ano",
                  values_to = "consumidores") %>%
     group_by(nome_4md, ano) %>%
-    summarise(consumidores = sum(consumidores))
+    summarise(consumidores = sum(consumidores)) %>%
+    ungroup() %>% 
+    filter(between(ano, 2013, ano_base))
 
   consumidores_b2b3$ano <- as.numeric(consumidores_b2b3$ano)
 
@@ -148,11 +154,12 @@ epe4md_mercado_potencial <- function(ano_base,
 
   consumidores_a <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_a.xlsx")) %>%
-    select(-empresa) %>%
     pivot_longer(cols = starts_with("20"), names_to = "ano",
                  values_to = "consumidores") %>%
     group_by(nome_4md, ano) %>%
-    summarise(consumidores = sum(consumidores))
+    summarise(consumidores = sum(consumidores)) %>%
+    ungroup() %>% 
+    filter(between(ano, 2013, ano_base))
 
   consumidores_a$ano <- as.numeric(consumidores_a$ano)
 
@@ -200,7 +207,27 @@ epe4md_mercado_potencial <- function(ano_base,
   fator_tecnico <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/fator_tecnico.xlsx")) %>%
       select(nome_4md, fator_tecnico)
+  
+  fator_tecnico_comercial <- fator_tecnico
+  
+  if(fator_local_comercial == "historico") {
+  
+  dados_gd <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx"))
+  
+  fator_tecnico_comercial <- dados_gd %>%
+    filter(ano <= ano_base,
+           segmento %in% c("comercial_bt", "comercial_at_remoto")) %>% 
+    group_by(nome_4md, local_remoto) %>%
+    summarise(qtde_clientes = sum(qtde_u_csrecebem_os_creditos)) %>% 
+    ungroup() %>% 
+    group_by(nome_4md) %>% 
+    mutate(total_clientes = sum(qtde_clientes)) %>% 
+    ungroup() %>% 
+    filter(local_remoto == "local") %>% 
+    mutate(fator_tecnico = qtde_clientes / total_clientes) 
 
+  } 
+  
   consumidores_residenciais <- consumidores_residenciais %>%
     filter(renda == filtro_renda_domicilio)
 
@@ -233,7 +260,7 @@ epe4md_mercado_potencial <- function(ano_base,
   consumidores_b2b3 <- left_join(consumidores_b2b3, fator_comercial,
                                  by = "ano")
 
-  consumidores_b2b3 <- left_join(consumidores_b2b3, fator_tecnico,
+  consumidores_b2b3 <- left_join(consumidores_b2b3, fator_tecnico_comercial,
                                  by = "nome_4md")
 
 

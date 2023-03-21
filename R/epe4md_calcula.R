@@ -85,6 +85,11 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' residenciais, de acordo com a renda mensal do responsável, em salários
 #' mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 #' "maior_5sm". Default igual a "maior_3sm".
+#' @param filtro_local_comercial string. Define a origem dos dados do Fator de 
+#' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+#' tensão. Como default, são utilizados os mesmos valores dos consumidores
+#' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+#' de adotantes locais por distribuidora até o ano base.
 #' @param desconto_capex_local numeric. Percentual de desconto a ser aplicado no
 #' CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
 #' Default igual a 0.
@@ -98,8 +103,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
-#' cativos do Grupo A. Default igual a 0.016 representa crescimento entre
-#' 2006 e 2019.
+#' cativos do Grupo A. Default igual a 0.
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá
 #' incorporar o histórico mensal recente, verificado em parte do primeiro ano
 #' após o ano base. Default igual a FALSE. O arquivo base_mmgd.xlsx deve
@@ -139,15 +143,15 @@ epe4md_calcula <- function(
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
-  custo_reforco_rede = 200, #R$/kW para sistemas comercial_at_remoto
+  custo_reforco_rede = 200, 
   ano_troca_inversor = 11,
-  pagamento_disponibilidade = 0.3, #devido à variabilidade da FV, em alguns
-  #meses o cliente pode pagar disponibilidade
-  disponibilidade_kwh_mes = 100, #equivalente a um consumidor trifásico
+  pagamento_disponibilidade = 0.3, 
+  disponibilidade_kwh_mes = 100, 
   filtro_renda_domicilio = "maior_3sm",
+  fator_local_comercial = "residencial",
   desconto_capex_local = 0,
   anos_desconto = 0,
-  tx_cresc_grupo_a = 0.016,
+  tx_cresc_grupo_a = 0,
   spb = 0.3,
   p_max = 0.01,
   q_max = 1,
@@ -196,6 +200,18 @@ epe4md_calcula <- function(
         "maior_3sm",
         "maior_5sm"
 
+      )
+    )
+  )
+  
+  assert_that(
+    assert_in(
+      fator_local_comercial,
+      categorias = c(
+        
+        "residencial",
+        "historico"
+        
       )
     )
   )
@@ -250,6 +266,7 @@ epe4md_calcula <- function(
     tx_cresc_grupo_a = tx_cresc_grupo_a,
     filtro_renda_domicilio = filtro_renda_domicilio,
     filtro_comercial = filtro_comercial,
+    fator_local_comercial = fator_local_comercial,
     dir_dados_premissas = dir_dados_premissas
   )
 

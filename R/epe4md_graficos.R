@@ -22,7 +22,7 @@ epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
     labs(x = "", y = "Potência [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
@@ -50,7 +50,7 @@ epe4md_graf_pot_anual <- function(dados, ano_inicio = 2013, cor = "#13475d",
     labs(x = "", y = "Potência [GW]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
 
@@ -85,7 +85,7 @@ epe4md_graf_pot_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
     labs(x = "", y = "Potência [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
@@ -122,7 +122,7 @@ epe4md_graf_pot_regiao <- function(dados, ano_inicio = 2013, tamanho = 14) {
     labs(x = "", y = "Potência [GW]") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 1, byrow = TRUE)) +
@@ -165,7 +165,7 @@ epe4md_graf_part_fonte_potencia <- function(dados, ano_inicio = 2013,
     coord_flip(ylim = c(0, 1.1)) +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = 14, family = "Calibri Light"),
+          text = element_text(size = 14),
           legend.title = element_blank())
 
 }
@@ -198,7 +198,7 @@ epe4md_graf_geracao_mes <- function(dados, ano_inicio = 2013,
     labs(x = "", y = "Geração [MWméd]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_y_continuous(
       labels = scales::label_number(big.mark = ".", decimal.mark = ","))
 
@@ -238,7 +238,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
     labs(x = "", y = "Geração [MWméd]") +
     theme_minimal() +
     theme(legend.position = "none",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_y_continuous(
       labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
@@ -282,7 +282,7 @@ epe4md_graf_part_fonte_geracao <- function(dados, cor = "#953735",
     coord_flip(ylim = c(0, 1.1)) +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = 14, family = "Calibri Light"),
+          text = element_text(size = 14),
           legend.title = element_blank())
 
 }
@@ -320,7 +320,7 @@ epe4md_graf_part_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
     labs(x = "", y = "Participação em Potência") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light"),
+          text = element_text(size = tamanho),
           legend.title = element_blank()) +
     scale_fill_manual(values = paleta_epe) +
     scale_y_continuous(labels = scales::label_percent()) +
@@ -358,7 +358,7 @@ epe4md_graf_pot_cenario <- function(dados, ano_inicio = 2013, tamanho = 14) {
     labs(x = "", y = "Potência [GW]", color = "Cenário") +
     theme_minimal() +
     theme(legend.position = "bottom",
-          text = element_text(size = tamanho, family = "Calibri Light")) +
+          text = element_text(size = tamanho)) +
     scale_color_manual(values = paleta_epe) +
     guides(color = guide_legend(nrow = 2, byrow = TRUE)) +
     #scale_x_continuous(expand = c(0, 0)) +

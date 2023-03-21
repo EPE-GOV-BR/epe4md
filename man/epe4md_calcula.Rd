@@ -18,9 +18,10 @@ epe4md_calcula(
   pagamento_disponibilidade = 0.3,
   disponibilidade_kwh_mes = 100,
   filtro_renda_domicilio = "maior_3sm",
+  fator_local_comercial = "residencial",
   desconto_capex_local = 0,
   anos_desconto = 0,
-  tx_cresc_grupo_a = 0.016,
+  tx_cresc_grupo_a = 0,
   spb = 0.3,
   p_max = 0.01,
   q_max = 1,
@@ -103,8 +104,7 @@ Default igual a 0.}
 CAPEX. Default igual a 0.}
 
 \item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
-cativos do Grupo A. Default igual a 0.016 representa crescimento entre
-2006 e 2019.}
+cativos do Grupo A. Default igual a 0.}
 
 \item{spb}{numeric. Fator de Sensibilidade ao Payback (SPB).
 Default igual a 0.3.}
@@ -139,6 +139,12 @@ pasta default.}
 \item{pagamento_disponibilidade.}{numeric. Percentual de meses em que o
 consumidor residencial paga custo de disponbilidade em função da
 variabilidade da geração FV. Default igual a 0.3.}
+
+\item{filtro_local_comercial}{string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.}
 }
 \value{
 data.frame com os resultados da projeção de capacidade instalada

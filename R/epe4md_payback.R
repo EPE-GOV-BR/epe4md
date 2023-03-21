@@ -219,11 +219,11 @@ epe4md_payback <- function(
                                 (tarifa_autoc_tusd + tarifa_autoc_te)) /
                (1 - impostos_cheio),
              receita_inj_completa = (taxa_inflacao * energia_inj *
-                                       tarifa_inj_te / (1 - impostos_cheio)) +
+                                       tarifa_inj_te / (1 - impostos_te)) +
                (taxa_inflacao * energia_inj * tarifa_inj_tusd /
                   (1 - impostos_tusd)),
              pag_compensacao = ((taxa_inflacao * energia_inj * pag_inj_te /
-                                   (1 - impostos_cheio)) +
+                                   (1 - impostos_te)) +
                                   (taxa_inflacao * energia_inj * pag_inj_tusd /
                                      (1 - impostos_tusd))) * -p_transicao,
              demanda_contratada = -taxa_inflacao * pot_sistemas *
