@@ -17,14 +17,46 @@
 #' número de adotantes frente ao total de unidades consumidoras.
 #' @export
 #'
-#'@import tidyr
-#'@import dplyr
+#' @import tidyr
+#' @import dplyr
 #'
-#'@encoding UTF-8
+#' @encoding UTF-8
+#'
+#' lista_adotantes <- list(
+#'  proj_adotantes <- tibble(
+#'    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
+#'    segmento = "comercial_at",
+#'    p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
+#'    q = 1,
+#'    spb = 0.3,
+#'    ano = 2021,
+#'    Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
+#'    consumidores = c(2801, 10995, 791, 116, 48),
+#'    payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
+#'    mercado_potencial = c(43.00, 308.00, 5.50, 0.75, 0.25),
+#'    adotantes_ano = 0,
+#'    adotantes_acum = c(0, 1, 0, 0, 0),
+#'    fonte_resumo = "Eólica",
+#'    part_fonte = c(0.0000000000, 0.0006309148, 0.0000000000, 0.0000000000, 0.0000000000),
+#'    adotantes_hist = 0
+#'  ),
+#'  part_adotantes <- tibble(
+#'    ano = 2021,
+#'    segmento = c("comercial_at", "comercial_bt", "residencial"),
+#'    adotantes = c(11857, 315815, 798073),
+#'    mercado_potencial = c(16718, 412539, 3370592),
+#'    total_ucs = c(181394, 12098612, 72212363),
+#'    penetracao_total = c(0.06536600, 0.02610341, 0.01105175),
+#'    mercado_nicho = c(181394, 1930557, 11522806),
+#'    penetracao_nicho = c(0.0653660, 0.1635875, 0.0692603),
+#'    penetracao_potencial = c(0.7092356, 0.7655397, 0.2367753)
+#'  )
+#' )
+#'
 #' @examples
 #' epe4md_proj_potencia(
-#'    lista_adotantes,
-#'    ano_base,
+#'    lista_adotantes = lista_adotantes,
+#'    ano_base = 2021,
 #'    dir_dados_premissas = NA_character_
 #' )
 

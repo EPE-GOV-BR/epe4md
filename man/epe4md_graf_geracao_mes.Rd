@@ -28,9 +28,29 @@ Gráfico de área que mostra a soma da geração de energia em MWmed agrupada po
 Plota um gráfico de área que mostra a soma da geração de energia em MWmed agrupada por mês.
 }
 \examples{
+
+dados <- tibble(
+  data = 2021-01-01,
+  ano = 2021,
+  mes = 1,
+  nome_4md = c("ENEL RJ", "ENF", "LIGHT"),
+  subsistema = "SE",
+  uf = "RJ",
+  segmento = "comercial_at",
+  fonte_resumo = "Fotovoltaica",
+  energia_mwh = c(2019.62250, 69.06433, 2303.18754),
+  energia_autoc_mwh = c(1615.69800, 55.25146, 1842.55003),
+  energia_inj_mwh = c(403.92450, 13.81287, 460.63751),
+  energia_mwmed = c(2.71454638, 0.09282839, 3.09568218),
+  pot_mes_mw =  c(1.5275, 0.0000, 1.0500),
+  adotantes_mes = c(21, 0, 4),
+  p = c(0.0002782611, 0.0006078518, 0.0013757006),
+  q = c(1.0000000, 1.0000000, 0.5282319)
+)
+
 epe4md_graf_geracao_mes(
-  dados,
-  ano_inicio = 2013,
+  dados = dados,
+  ano_inicio = 2021,
   cor = "#953735",
   tamanho = 14
 )
