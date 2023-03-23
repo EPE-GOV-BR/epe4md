@@ -344,7 +344,4 @@ epe4md_calcula <- function(
   )
 
   resultados_mensais
-
-  browser()
-
 }

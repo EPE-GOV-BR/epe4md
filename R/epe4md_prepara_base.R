@@ -16,16 +16,52 @@
 #' @return data.frame. Base tratada e resumida.
 #' @export
 #'
-#'@import tidyr
-#'@import readxl
-#'@import dplyr
-#'@import stringr
+#' @import tidyr
+#' @import readxl
+#' @import dplyr
+#' @import stringr
 #'
-#'@encoding UTF-8
+#' @encoding UTF-8
 #'
 #' @examples
+#' base <- tibble(
+#'  DatGeracaoConjuntoDados = "2023-03-22",
+#'  AnmPeriodoReferencia = "03/2023",
+#'  NumCNPJDistribuidora = c(3.467321e+12, 8.644416e+13, 2.508603e+13),
+#'  SigAgente = c("EMT", "CEGERO", "ETO"),
+#'  NomAgente = c("Energisa Mato Grosso - Distribuidora de Energia S.A.", "COOPERATIVA DE ELETRICIDADE DE S<c3>O LUDGERO", "ENERGISA TOCANTINS DISTRIBUIDORA DE ENERGIA S.A."),
+#'  CodClasseConsumo = c(1, 3, 1),
+#'  DscClasseConsumo = c("Residencial", "Rural", "Residencial"),
+#'  CodSubGrupoTarifario = c(9, 10, 9),
+#'  DscSubGrupoTarifario = c("B1", "B2", "B1"),
+#'  codUFibge = c(51, 42, 17),
+#'  SigUF = c("MT", "SC", "TO"),
+#'  codRegiao = c(5102, 4206, 1702),
+#'  NomRegiao = c("Centro Oeste", "Sul", "Norte"),
+#'  CodMunicipioIbge = c(5101803, 4211702, 1721000),
+#'  NomMunicipio = c("Barra do Gar<e7>as", "Orleans", "Palmas"),
+#'  CodCEP = c("78600***", "88870***", "77000***"),
+#'  SigTipoConsumidor = "PF",
+#'  NumCPFCNPJ = c("***.529.008-**", "***.075.129-**", "***.730.731-**"),
+#'  NomeTitularEmpreendimento = "***",
+#'  CodEmpreendimento = c("GD.MT.000.001.703", "GD.SC.000.051.177", "GD.TO.000.000.763"),
+#'  DthAtualizaCadastralEmpreend = c("2016-04-08", "2018-12-04", "2016-09-29"),
+#'  SigModalidadeEmpreendimento = c("R", "P", "P"),
+#'  DscModalidadeHabilitado = c("Caracterizada como Autoconsumo remoto", "Com Microgeracao ou Minigeracao distribuida", "Com Microgeracao ou Minigeracao distribuida"),
+#'  QtdUCRecebeCredito = c(2, 1, 1),
+#'  SigTipoGeracao = "UFV",
+#'  DscFonteGeracao = "Radia<e7><e3>o solar",
+#'  DscPorte = "Microgeracao",
+#'  MdaPotenciaInstaladaKW = c(3.00, 5.00, 4.00),
+#'  NumCoordNEmpreendimento = NA,
+#'  NumCoordEEmpreendimento = NA,
+#'  NomSubEstacao = NA,
+#'  NumCoordESub = NA,
+#'  NumCoordNSub = NA
+#' )
+#'
 #' epe4md_prepara_base(
-#'    base_aneel,
+#'    base_aneel = base,
 #'    ano_base = 2021,
 #'    resumida = TRUE,
 #'    dir_dados_premissas = NA_character_
