@@ -15,11 +15,12 @@
 #' expansão da capacidade instalada de micro e minigeração distribuída.
 #' @export
 #'
-#'@import tidyr
-#'@import readxl
-#'@import dplyr
+#' @import tidyr
+#' @import readxl
+#' @import dplyr
+#' @import tibble
 #'
-#'@encoding UTF-8
+#' @encoding UTF-8
 #'
 #' @examples
 #'

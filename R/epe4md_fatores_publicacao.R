@@ -7,7 +7,8 @@
 #'
 #'@encoding UTF-8
 #'
-#'@import dplyr
+#' @import dplyr
+#' @import tibble
 #'
 #'@examples
 #'

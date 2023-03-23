@@ -20,6 +20,7 @@
 #' @import readxl
 #' @import dplyr
 #' @import stringr
+#' @import tibble
 #'
 #' @encoding UTF-8
 #'

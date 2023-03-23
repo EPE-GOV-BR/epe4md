@@ -17,9 +17,10 @@
 #' ao total de unidades consumidoras.
 #' @export
 #'
-#'@import tidyr
-#'@import dplyr
-#'@encoding UTF-8
+#' @import tidyr
+#' @import dplyr
+#' @encoding UTF-8
+#' @import tibble
 #'
 #' @examples
 #'

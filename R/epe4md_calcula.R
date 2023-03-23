@@ -9,7 +9,8 @@
 #' geração de energia, em GWh e MWméd.
 #' @export
 #'
-#'@import dplyr
+#' @import dplyr
+#' @import tibble
 #'
 #' @examples
 #'

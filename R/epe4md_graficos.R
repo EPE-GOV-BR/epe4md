@@ -20,6 +20,7 @@
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -98,6 +99,7 @@ epe4md_graf_pot_acum <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -172,6 +174,7 @@ epe4md_graf_pot_anual <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -248,6 +251,7 @@ epe4md_graf_pot_segmento <- function(
 #'
 #' @import dplyr
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -329,6 +333,7 @@ epe4md_graf_pot_regiao <- function(
 #' @import forcats
 #' @import scales
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -490,6 +495,7 @@ epe4md_graf_geracao_mes <- function(
 #' @import dplyr
 #' @import scales
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -574,6 +580,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @import forcats
 #' @import scales
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -663,6 +670,7 @@ epe4md_graf_part_fonte_geracao <- function(
 #' @import dplyr
 #' @import scales
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
@@ -750,6 +758,7 @@ epe4md_graf_part_segmento <- function(
 #' @import dplyr
 #' @import scales
 #' @import ggplot2
+#' @import tibble
 #'
 #' @examples
 #'
