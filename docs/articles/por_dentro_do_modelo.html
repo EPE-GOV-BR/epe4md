@@ -95,7 +95,7 @@
 <h2 id="metodologia">Metodologia<a class="anchor" aria-label="anchor" href="#metodologia"></a>
 </h2>
 <p>O referencial teórico e uma descrição da metodologia do 4MD pode ser
-encontrada <a href="https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-607/topico-593/NT_Metodologia_4MD_PDE_2031.pdf" class="external-link">neste
+encontrada <a href="https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf" class="external-link">neste
 link.</a></p>
 </div>
 <div class="section level2">
@@ -117,7 +117,7 @@ funções possuem um prefixo “epe4md_” (omitido na figura)</p>
 <code>dados_premissas</code>. Dentro dessa pasta há subpastas com dados
 e parâmetros de entrada para cada ano base.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2021"</span>, package <span class="op">=</span> <span class="st">"epe4md"</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2022"</span>, package <span class="op">=</span> <span class="st">"epe4md"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] "base_mmgd.xlsx"                      </span></span>
 <span><span class="co">#&gt;  [2] "capex_historico_outras.xlsx"         </span></span>
 <span><span class="co">#&gt;  [3] "consumidores_a.xlsx"                 </span></span>
@@ -134,11 +134,13 @@ e parâmetros de entrada para cada ano base.</p>
 <span><span class="co">#&gt; [14] "potencia_tipica.xlsx"                </span></span>
 <span><span class="co">#&gt; [15] "premissas_reg.xlsx"                  </span></span>
 <span><span class="co">#&gt; [16] "segmento.xlsx"                       </span></span>
-<span><span class="co">#&gt; [17] "subgrupo_compensacao.xlsx"           </span></span>
-<span><span class="co">#&gt; [18] "tabela_dist_subs.xlsx"               </span></span>
-<span><span class="co">#&gt; [19] "tarifas_4md.xlsx"                    </span></span>
-<span><span class="co">#&gt; [20] "tempo_construcao.xlsx"               </span></span>
-<span><span class="co">#&gt; [21] "total_domicilios.xlsx"</span></span></code></pre></div>
+<span><span class="co">#&gt; [17] "spb.xlsx"                            </span></span>
+<span><span class="co">#&gt; [18] "subgrupo_compensacao.xlsx"           </span></span>
+<span><span class="co">#&gt; [19] "tabela_dist_subs.xlsx"               </span></span>
+<span><span class="co">#&gt; [20] "tarifas_4md.xlsx"                    </span></span>
+<span><span class="co">#&gt; [21] "tempo_construcao.xlsx"               </span></span>
+<span><span class="co">#&gt; [22] "tipo_payback.xlsx"                   </span></span>
+<span><span class="co">#&gt; [23] "total_domicilios.xlsx"</span></span></code></pre></div>
 <p>Caso o usuário deseje alterar esses dados e parâmetros de entrada, é
 recomendado copiar esses arquivos para outra pasta, fazer as alterações
 na nova pasta, e passar para o modelo o caminho da nova pasta. Esse novo
@@ -253,6 +255,12 @@ instalações (alta ou baixa tensão, local ou remoto e classe do
 consumidor)</p>
 </div>
 <div class="section level3">
+<h3 id="spb-xlsx">spb.xlsx<a class="anchor" aria-label="anchor" href="#spb-xlsx"></a>
+</h3>
+<p>Definição do fator de Sensibilidade ao Payback (SPB) por
+segmento.</p>
+</div>
+<div class="section level3">
 <h3 id="subgrupo_compensacao-xlsx">subgrupo_compensacao.xlsx<a class="anchor" aria-label="anchor" href="#subgrupo_compensacao-xlsx"></a>
 </h3>
 <p>Relação de segmentos de mercado utilizados no modelo e o subgrupo
@@ -277,6 +285,13 @@ os cálculos de retorno financeiro dos projetos.</p>
 <p>Premissas de tempo de construção dos sistemas fotovoltaicos em cada
 segmento de mercado. Utilizadas para os cálculos de retorno financeiro
 dos projetos.</p>
+</div>
+<div class="section level3">
+<h3 id="tipo_payback-xlsx">tipo_payback.xlsx<a class="anchor" aria-label="anchor" href="#tipo_payback-xlsx"></a>
+</h3>
+<p>Definição da métrica de payback que será utilizada para cálculo do
+mercado potencial em conjunto com o fator SPB. Pode ser “simples” ou
+“descontado”.</p>
 </div>
 <div class="section level3">
 <h3 id="total_domicilios-xlsx">total_domicilios.xlsx<a class="anchor" aria-label="anchor" href="#total_domicilios-xlsx"></a>
