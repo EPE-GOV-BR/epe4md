@@ -10,7 +10,6 @@ epe4md_calibra_curva_s(
   consumidores,
   ano_base,
   ano_max_resultado = 2050,
-  spb = 0.3,
   p_max = 0.01,
   q_max = 1,
   dir_dados_premissas = NA_character_
@@ -28,9 +27,6 @@ irá buscar a base de dados. Último ano completo realizado.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}
-
-\item{spb}{numeric. Fator de Sensibilidade ao Payback (SPB). Default igual a
-0.3.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 

@@ -8,8 +8,6 @@
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
 #' Máximo igual a 2050. Default igual a 2050.
-#' @param spb numeric. Fator de Sensibilidade ao Payback (SPB). Default igual a
-#' 0.3.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
@@ -33,7 +31,6 @@ epe4md_calibra_curva_s <- function(resultado_payback,
                                    consumidores,
                                    ano_base,
                                    ano_max_resultado = 2050,
-                                   spb = 0.3,
                                    p_max = 0.01,
                                    q_max = 1,
                                    dir_dados_premissas = NA_character_) {
@@ -76,9 +73,14 @@ epe4md_calibra_curva_s <- function(resultado_payback,
   base_otimizacao <- left_join(base_otimizacao, historico,
                                by = c("nome_4md", "ano", "segmento"))
 
+  tipo_payback <- read_xlsx(
+    stringr::str_glue("{dir_dados_premissas}/tipo_payback.xlsx"))
+  
+  base_otimizacao <- left_join(base_otimizacao, tipo_payback,
+                               by = "segmento")
+  
   base_otimizacao <- base_otimizacao %>%
-    mutate(payback = ifelse(segmento %in% c("residencial",
-                                            "residencial_remoto"),
+    mutate(payback = ifelse(tipo_payback == "simples",
                             payback,
                             payback_desc))
 
@@ -92,6 +94,10 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     ungroup() %>%
     select(nome_4md, consumidores, ano, payback, adotantes_acum, segmento) %>%
     mutate(ano = ano - 2012)
+  
+  fator_sbp <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/spb.xlsx"))
+  
+  base_otimizacao <- left_join(base_otimizacao, fator_sbp, by = "segmento")
 
 
   base_otimizacao <- base_otimizacao %>%
@@ -99,7 +105,6 @@ epe4md_calibra_curva_s <- function(resultado_payback,
       "nome_dist" = nome_4md,
       "nome_seg" = segmento
     )
-
 
 
   otimiza_casos <- function(nome_4md, segmento) {
@@ -112,7 +117,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     otimiza_curva_s <- function(params, y) {
       p <- params[1]
       q <- params[2]
-      spb <- spb
+      spb <- y$spb
       consumidores <- y$consumidores
       t <- y$ano
       payback <- y$payback
@@ -151,7 +156,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     unnest(saida)
 
   casos_otimizados <- casos_otimizados %>%
-    mutate(spb = spb)
+    left_join(fator_sbp, by = "segmento")
 
   anos_simulacao <- tibble::tibble("ano" = seq(1, 38))
 
@@ -168,9 +173,9 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     left_join(consumidores, by = c("nome_4md", "segmento", "ano"))
 
   resultado_payback <- resultado_payback %>%
-    select(nome_4md, segmento, ano, payback, payback_desc) %>%
-    mutate(payback = ifelse(segmento %in%
-                              c("residencial", "residencial_remoto"),
+    left_join(tipo_payback, by = "segmento") %>% 
+    select(nome_4md, segmento, ano, payback, payback_desc, tipo_payback) %>%
+    mutate(payback = ifelse(tipo_payback == "simples",
                             payback,
                             payback_desc)) %>%
     select(-payback_desc)
@@ -185,6 +190,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
                                       mercado_potencial))
 
   casos_otimizados <- casos_otimizados %>%
-    filter(ano <= ano_max_resultado)
+    filter(ano <= ano_max_resultado) %>% 
+    select(-tipo_payback)
 
 }

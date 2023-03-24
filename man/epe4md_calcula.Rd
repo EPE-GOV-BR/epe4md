@@ -22,7 +22,6 @@ epe4md_calcula(
   desconto_capex_local = 0,
   anos_desconto = 0,
   tx_cresc_grupo_a = 0,
-  spb = 0.3,
   p_max = 0.01,
   q_max = 1,
   filtro_comercial = NA_real_,
@@ -96,6 +95,12 @@ residenciais, de acordo com a renda mensal do responsável, em salários
 mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 "maior_5sm". Default igual a "maior_3sm".}
 
+\item{fator_local_comercial}{string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.}
+
 \item{desconto_capex_local}{numeric. Percentual de desconto a ser aplicado no
 CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
 Default igual a 0.}
@@ -105,9 +110,6 @@ CAPEX. Default igual a 0.}
 
 \item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
 cativos do Grupo A. Default igual a 0.}
-
-\item{spb}{numeric. Fator de Sensibilidade ao Payback (SPB).
-Default igual a 0.3.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 
@@ -139,12 +141,6 @@ pasta default.}
 \item{pagamento_disponibilidade.}{numeric. Percentual de meses em que o
 consumidor residencial paga custo de disponbilidade em função da
 variabilidade da geração FV. Default igual a 0.3.}
-
-\item{filtro_local_comercial}{string. Define a origem dos dados do Fator de
-Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
-tensão. Como default, são utilizados os mesmos valores dos consumidores
-residenciais. Caso selecionado "historico", utiliza o histórico do percentual
-de adotantes locais por distribuidora até o ano base.}
 }
 \value{
 data.frame com os resultados da projeção de capacidade instalada

@@ -9,7 +9,7 @@
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
-#' @param filtro_local_comercial string. Define a origem dos dados do Fator de 
+#' @param fator_local_comercial string. Define a origem dos dados do Fator de 
 #' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
 #' tensão. Como default, são utilizados os mesmos valores dos consumidores
 #' residenciais. Caso selecionado "historico", utiliza o histórico do percentual

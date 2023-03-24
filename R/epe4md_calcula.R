@@ -85,7 +85,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' residenciais, de acordo com a renda mensal do responsável, em salários
 #' mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 #' "maior_5sm". Default igual a "maior_3sm".
-#' @param filtro_local_comercial string. Define a origem dos dados do Fator de 
+#' @param fator_local_comercial string. Define a origem dos dados do Fator de 
 #' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
 #' tensão. Como default, são utilizados os mesmos valores dos consumidores
 #' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
@@ -98,8 +98,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
-#' @param spb numeric. Fator de Sensibilidade ao Payback (SPB).
-#' Default igual a 0.3.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
@@ -152,7 +150,6 @@ epe4md_calcula <- function(
   desconto_capex_local = 0,
   anos_desconto = 0,
   tx_cresc_grupo_a = 0,
-  spb = 0.3,
   p_max = 0.01,
   q_max = 1,
   filtro_comercial = NA_real_,
@@ -220,7 +217,6 @@ epe4md_calcula <- function(
   assert_that(is.number(desconto_capex_local))
   assert_that(is.number(anos_desconto))
   assert_that(is.number(tx_cresc_grupo_a))
-  assert_that(is.number(spb))
   assert_that(is.number(p_max))
   assert_that(is.number(q_max))
 
@@ -275,7 +271,6 @@ epe4md_calcula <- function(
     consumidores = consumidores,
     ano_base = ano_base,
     ano_max_resultado = ano_max_resultado,
-    spb = spb,
     p_max = p_max,
     q_max = q_max,
     dir_dados_premissas = dir_dados_premissas)

@@ -27,6 +27,12 @@ mínimos. Permite: "total", "maior_1sm, maior_2sm", "maior_3sm" ou
 segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.}
 
+\item{fator_local_comercial}{string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.}
+
 \item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
 cativos do Grupo A. Default igual a 0.}
 
@@ -34,12 +40,6 @@ cativos do Grupo A. Default igual a 0.}
 parâmetro não for passado, a função usa os dados default que são instalados
 com o pacote. É importante que os nomes dos arquivos sejam os mesmos da pasta
 default.}
-
-\item{filtro_local_comercial}{string. Define a origem dos dados do Fator de
-Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
-tensão. Como default, são utilizados os mesmos valores dos consumidores
-residenciais. Caso selecionado "historico", utiliza o histórico do percentual
-de adotantes locais por distribuidora até o ano base.}
 }
 \value{
 list com dois data.frames. "consumidores" possui o mercado
