@@ -23,7 +23,7 @@ Plota um gráfico que mostra a soma acumulada da potência entre o intervalo de 
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

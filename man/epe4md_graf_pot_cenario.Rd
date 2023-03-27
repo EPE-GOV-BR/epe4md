@@ -24,7 +24,7 @@ passado na função \code{epe4md::epe4md_calcula} em cada um dos cenários.
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

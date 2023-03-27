@@ -159,6 +159,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'@encoding UTF-8
 #'
 #' @examples
+#'
 #' premissas_regulatorias <- tibble(
 #'   ano = 2021,
 #'   alternativa = 0,

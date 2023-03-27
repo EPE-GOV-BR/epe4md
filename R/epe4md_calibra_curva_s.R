@@ -50,18 +50,11 @@
 #'   tir_real = c(0.2232865, 0.2203258, 0.2220658, 0.2532635, 0.2613372)
 #' )
 #'
-#' consumidores <- list(
-#'   consumidores <- tibble(
+#' consumidores <- tibble(
 #'     nome_4md = c("CELESC", "CEMIG", "COELBA", "COPEL", "CPFL PAULISTA", "ENEL GO", "ENEL RJ", "ENEL SP", "LIGHT", "RGE"),
 #'     ano = 2021,
 #'     segmento = "residencial",
 #'     consumidores = c(294853, 705996, 328907, 488333, 531478, 225929, 263874, 859724, 523613, 315290)
-#'   ),
-#'  consumidores_totais <- tibble(
-#'   ano = 2021,
-#'   total_ucs = c(72212363, 12098612, 181394),
-#'   segmento = c("residencial", "comercial_bt", "comercial_at")
-#'   )
 #' )
 #'
 #'epe4md_calibra_curva_s(
@@ -188,7 +181,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
                         upper = c(p_max, q_max),
                         control = list(parscale = c(0.005, 0.3)))
 
-    parametros <- tibble::enframe(otimizador$par)
+    parametros <- enframe(otimizador$par)
 
 
     parametros <- pivot_wider(parametros, names_from = name,

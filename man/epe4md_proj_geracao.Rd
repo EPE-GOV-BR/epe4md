@@ -38,7 +38,7 @@ Estima a geração de eletricidade a partir da projeção de potência
 }
 \examples{
 
-projecao_mensal <- tibble(
+projecao_mensal <- tibble::tibble(
     ano = 2021,
     nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
     fonte_resumo = "Fotovoltaica",

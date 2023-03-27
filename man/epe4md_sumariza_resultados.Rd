@@ -19,7 +19,7 @@ Resume os resultados de capacidade instalada
 }
 \examples{
 
-resultados_mensais <- tibble(
+resultados_mensais <- tibble::tibble(
     data = c('2021-01-01', '2021-01-01', '2021-01-01'),
     ano = 2021,
     nome_4md = c("ENEL RJ", "ENF", "LIGHT"),

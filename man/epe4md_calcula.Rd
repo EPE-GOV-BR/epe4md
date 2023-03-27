@@ -161,7 +161,7 @@ O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
 \examples{
-premissas_regulatorias <- tibble(
+premissas_regulatorias <- tibble::tibble(
   ano = 2021,
   alternativa = 0,
   p_transicao = 1.00,

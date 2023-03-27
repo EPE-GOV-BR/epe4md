@@ -36,7 +36,7 @@ Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
 \examples{
 
 lista_adotantes <- list(
- proj_adotantes <- tibble(
+ proj_adotantes <- tibble::tibble(
    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
    segmento = "comercial_at",
    p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
@@ -53,7 +53,7 @@ lista_adotantes <- list(
    part_fonte = c(0.0000000000, 0.0006309148, 0.0000000000, 0.0000000000, 0.0000000000),
    adotantes_hist = 0
  ),
- part_adotantes <- tibble(
+ part_adotantes <- tibble::tibble(
    ano = 2021,
    segmento = c("comercial_at", "comercial_bt", "residencial"),
    adotantes = c(11857, 315815, 798073),

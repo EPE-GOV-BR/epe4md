@@ -88,7 +88,7 @@ Roda um fluxo de caixa para cada caso e retorna métricas financeiras.
 }
 \examples{
 
-casos_payback <- tibble(
+casos_payback <- tibble::tibble(
   segmento = "comercial_at",
   fonte_resumo = "Fotovoltaica",
   fator_autoconsumo = 0.8,
@@ -106,7 +106,7 @@ casos_payback <- tibble(
   capex_inversor = 57808.98
 )
 
-premissas_regulatorias <- tibble(
+premissas_regulatorias <- tibble::tibble(
   ano = 2021,
   alternativa = 0,
   p_transicao = 1.00,

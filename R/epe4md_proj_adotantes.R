@@ -37,18 +37,11 @@
 #'   mercado_potencial = c(172, 1232, 22, 3, 1)
 #' )
 #'
-#' consumidores <- list(
-#'   consumidores <- tibble(
+#' consumidores <- tibble(
 #'     nome_4md = c("CELESC", "CEMIG", "COELBA", "COPEL", "CPFL PAULISTA"),
 #'     ano = 2021,
 #'     segmento = "residencial",
 #'     consumidores = c(294853, 705996, 328907, 488333, 531478)
-#'  ),
-#'  consumidores_totais <- tibble(
-#'     ano = 2021,
-#'     total_ucs = c(72212363, 12098612, 181394),
-#'     segmento = c("residencial", "comercial_bt", "comercial_at")
-#'  )
 #' )
 #'
 #' epe4md_proj_adotantes(

@@ -28,7 +28,7 @@ na capacidade instalada.
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

@@ -18,7 +18,7 @@ Altera fatores para facilitar entendimento em publicações
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   fonte_resumo = c("comercial_bt",
                     "comercial_at_remoto",
                     "comercial_at",

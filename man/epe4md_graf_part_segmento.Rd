@@ -22,7 +22,7 @@ Plota um gráfico de colunas que mostra a participação de cada segmento 'Comer
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

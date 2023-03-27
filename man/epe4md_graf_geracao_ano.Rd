@@ -29,7 +29,7 @@ Plota um gráfico de área que mostra a geração de energia em MWmed agrupada p
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

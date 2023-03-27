@@ -55,7 +55,7 @@ Faz a abertura mensal da projeção de potência
 \examples{
 
 lista_potencia <- list(
-    proj_potencia <- tibble(
+    proj_potencia <- tibble::tibble(
       nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
       segmento = "comercial_at",
       p = c(0.0004484362, 0.0005572423, 0.000122345, 0.0002427430, 0.0001034085),
@@ -77,7 +77,7 @@ lista_potencia <- list(
       pot_ano_mw = 0,
       pot_acum_mw = c(0.0000, 0.0025, 0.0000, 0.0000, 0.0000)
     ),
-    part_adotantes <- tibble(
+    part_adotantes <- tibble::tibble(
       ano = 2021,
       segmento = c("comercial_at", "comercial_bt", "residencial"),
       adotantes = c(11857, 315815, 798073),

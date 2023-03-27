@@ -26,7 +26,7 @@ Plota um gráfico de colunas que mostra a soma simples da potência em cada ano,
 }
 \examples{
 
-dados <- tibble(
+dados <- tibble::tibble(
   data = 2021-01-01,
   ano = 2021,
   mes = 1,

@@ -38,7 +38,7 @@ nas funções seguintes.
 }
 \examples{
 
-base <- tibble(
+base <- tibble::tibble(
  DatGeracaoConjuntoDados = "2023-03-22",
  AnmPeriodoReferencia = "03/2023",
  NumCNPJDistribuidora = c(3.467321e+12, 8.644416e+13, 2.508603e+13),
