@@ -36,25 +36,4 @@ mensal de energia.
 \description{
 Estima a geração de eletricidade a partir da projeção de potência
 }
-\examples{
 
-projecao_mensal <- tibble::tibble(
-    ano = 2021,
-    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-    fonte_resumo = "Fotovoltaica",
-    segmento = "comercial_at",
-    adotantes_mes = c(4, 19, 2, 8, 5),
-    pot_mes_mw = c(0.25500, 2.14532, 0.03060, 0.12604, 0.05441),
-    mes_ano = "2021 jan",
-    mes = 1,
-    p = c(0.0004484362, 0.0004484362, 0.0001000000, 0.0001767164, 0.0036879405),
-    q = c( 1.0000000, 1.0000000, 0.9044994, 0.8862171, 0.5501830),
-    Ft = c(0.7847763, 0.8193315, 0.2750850, 0.3674506, 0.4915285)
-)
-
-epe4md_proj_geracao(
-   proj_mensal = projecao_mensal,
-   ano_base = 2021,
-   dir_dados_premissas = NA_character_
-)
-}

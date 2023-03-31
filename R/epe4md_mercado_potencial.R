@@ -29,12 +29,13 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#'
 #' epe4md_mercado_potencial(
-#'    ano_base = 2021,
-#'    filtro_renda_domicilio = "maior_3sm",
-#'    filtro_comercial = NA,
-#'    tx_cresc_grupo_a = 0.016,
-#'    dir_dados_premissas = NA_character_
+#'   ano_base = 2021,
+#'   filtro_renda_domicilio = "maior_3sm",
+#'   filtro_comercial = NA,
+#'   tx_cresc_grupo_a = 0.016,
+#'   dir_dados_premissas = NA_character_
 #' )
 
 utils::globalVariables(c("domicilios_5a10sm", "domicilios_10a15sm", "domicilios_15a20sm",

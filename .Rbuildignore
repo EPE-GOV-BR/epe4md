@@ -11,3 +11,4 @@
 ^.lintr$
 ^doc$
 ^CRAN-SUBMISSION$
+^dados$

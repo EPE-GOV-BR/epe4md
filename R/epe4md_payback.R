@@ -56,25 +56,25 @@
 #'
 #' @examples
 #'
-#' casos_payback <- tibble(
-#'    segmento = "comercial_at",
-#'    fonte_resumo = "Fotovoltaica",
-#'    fator_autoconsumo = 0.8,
-#'    oem_anual = 0.01,
-#'    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-#'    fc = c(0.1633388, 0.1513311, 0.1505592, 0.1649651, 0.1481121),
-#'    vida_util = 25,
-#'    degradacao = 0.005,
-#'    pot_sistemas = 70,
-#'    geracao_1_kwh = c(100159.36, 92796.22, 92322.91, 101156.62, 90822.36),
-#'    ano = 2021,
-#'    custo_unitario = 3.81,
-#'    custo_inversor = 0.5715,
-#'    capex_inicial = 266700,
-#'    capex_inversor = 57808.98
+#' casos_payback <- tibble::tibble(
+#'   segmento = "comercial_at",
+#'   fonte_resumo = "Fotovoltaica",
+#'   fator_autoconsumo = 0.8,
+#'   oem_anual = 0.01,
+#'   nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
+#'   fc = c(0.1633388, 0.1513311, 0.1505592, 0.1649651, 0.1481121),
+#'   vida_util = 25,
+#'   degradacao = 0.005,
+#'   pot_sistemas = 70,
+#'   geracao_1_kwh = c(100159.36, 92796.22, 92322.91, 101156.62, 90822.36),
+#'   ano = 2021,
+#'   custo_unitario = 3.81,
+#'   custo_inversor = 0.5715,
+#'   capex_inicial = 266700,
+#'   capex_inversor = 57808.98
 #' )
 #'
-#' premissas_regulatorias <- tibble(
+#' premissas_regulatorias <- tibble::tibble(
 #'   ano = 2021,
 #'   alternativa = 0,
 #'   p_transicao = 1.00,
@@ -83,20 +83,21 @@
 #' )
 #'
 #' epe4md_payback(
-#'    casos_payback = casos_payback,
-#'    premissas_reg = premissas_regulatorias,
-#'    ano_base = 2021,
-#'    altera_sistemas_existentes = TRUE,
-#'    ano_decisao_alteracao = 2023,
-#'    inflacao = 0.0375,
-#'    taxa_desconto_nominal = 0.13,
-#'    custo_reforco_rede = 200,
-#'    ano_troca_inversor = 11,
-#'    pagamento_disponibilidade = 0.3,
-#'    disponibilidade_kwh_mes = 100,
-#'    desconto_capex_local = 0,
-#'    anos_desconto = 0,
-#'    dir_dados_premissas = NA_character_
+#'   casos_payback = casos_payback,
+#'   premissas_reg = premissas_regulatorias,
+#'   ano_base = 2021,
+#'   sequencial = TRUE,
+#'   altera_sistemas_existentes = TRUE,
+#'   ano_decisao_alteracao = 2023,
+#'   inflacao = 0.0375,
+#'   taxa_desconto_nominal = 0.13,
+#'   custo_reforco_rede = 200,
+#'   ano_troca_inversor = 11,
+#'   pagamento_disponibilidade = 0.3,
+#'   disponibilidade_kwh_mes = 100,
+#'   desconto_capex_local = 0,
+#'   anos_desconto = 0,
+#'   dir_dados_premissas = NA_character_
 #' )
 
 utils::globalVariables(c("tarifa_demanda_c", "tarifa_demanda_g", "binomia", "demanda_g",

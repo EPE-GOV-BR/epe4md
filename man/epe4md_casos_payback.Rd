@@ -45,6 +45,7 @@ Cria a base de casos para serem simulados posteriormente no cálculo do
 payback.
 }
 \examples{
+
 epe4md_casos_payback(
   ano_base = 2021,
   ano_max_resultado = 2050,

@@ -14,26 +14,30 @@
 #'
 #' @examples
 #'
-#' resultados_mensais <- tibble(
-#'   data = c('2021-01-01', '2021-01-01', '2021-01-01'),
-#'   ano = 2021,
-#'   nome_4md = c("ENEL RJ", "ENF", "LIGHT"),
-#'   subsistema = "SE",
-#'   uf = "RJ",
-#'   segmento = "comercial_at",
-#'   fonte_resumo = "Fotovoltaica",
-#'   energica_mwh = c(2019.6225, 69.06433, 2303.18754),
-#'   energica_autoc_mwh = c(1615.698, 55.25146, 1842.55003),
-#'   energia_inj_mwh = c(403.92450, 13.81287, 460.63751),
-#'   energia_mwmed = c(2.714546380, 0.092828390, 3.095682180),
-#'   pot_mes_mw = c(1.5275, 0.0000, 3.09568218),
-#'   adotantes_mes = c(21, 0, 4),
-#'   p = c(0.00027826110, 0.00060785180, 0.00137570060),
-#'   q = c(1.0000000, 1.0000000, 0.5282319)
+#' resultados_mensais <- structure(
+#'   list(data = structure(c(18628, 18628, 18628),
+#'        class = "Date"),
+#'        ano = c(2021, 2021, 2021),
+#'        mes = c(1, 1, 1),
+#'        nome_4md = c("RORAIMA", "SULGIPE", "UHENPAL"),
+#'        subsistema = c("MAN", "NE", "S"),
+#'        uf = c("RR", "SE", "RS"),
+#'        segmento = c("comercial_at", "comercial_at", "comercial_bt"),
+#'        fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
+#'        energia_mwh = c(536.436102870736, 83.2181016179793, 128.993567632682),
+#'        energia_autoc_mwh = c(429.148882296589, 66.5744812943834, 64.4967838163411),
+#'        energia_inj_mwh = c(107.287220574147, 16.6436203235959, 64.4967838163411),
+#'        energia_mwmed = c(Jan = 0.721016267299377, Jan = 0.11185228712094, Jan = 0.173378451119196),
+#'        pot_mes_mw = c(0, 0, 0.05441),
+#'        adotantes_mes = c(0, 0, 5),
+#'        p = c(0.000122345127598721, 0.000242743031345856, 0.00368794049368357),
+#'        q = c(1, 1, 0.550183036478482)),
+#'   row.names = c(NA, -3L),
+#'   class = c("tbl_df", "tbl", "data.frame")
 #' )
 #'
 #' epe4md_sumariza_resultados(resultados_mensais)
-#'
+
 epe4md_sumariza_resultados <- function(resultados_mensais) {
 
   result <- resultados_mensais %>%
@@ -160,19 +164,23 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' @examples
 #'
-#' premissas_regulatorias <- tibble(
-#'   ano = 2021,
-#'   alternativa = 0,
-#'   p_transicao = 1.00,
-#'   binomia = FALSE,
-#'   demanda_g = FALSE
-#' )
+#'premissas_regulatorias <- tibble::tibble(
+#'  ano = 2021,
+#'  alternativa = 0,
+#'  p_transicao = 1.00,
+#'  binomia = FALSE,
+#'  demanda_g = FALSE
+#')
 #'
-#' resultado <- epe4md_calcula(
-#'   ano_base = 2021,
-#'   premissas_reg = premissas_regulatorias,
-#'   ano_max_resultado = 2027)
+#'resultado <- epe4md_calcula(
+#'  premissas_reg = premissas_regulatorias,
+#'  ano_base = 2021,
+#'  sequencial = TRUE,
+#'  filter_uf = "RJ",
+#'  ano_max_resultado = 2027
+#')
 #'
+
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,

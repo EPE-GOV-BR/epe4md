@@ -49,7 +49,6 @@ dados <- tibble::tibble(
 
 epe4md_graf_part_fonte_potencia(
   dados = dados,
-  ano_inicio = 2021,
   cor = "#112446",
   tamanho = 14
 )

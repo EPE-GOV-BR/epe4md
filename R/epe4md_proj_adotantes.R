@@ -24,7 +24,7 @@
 #'
 #' @examples
 #'
-#' casos_otimizados <- tibble(
+#' casos_otimizados <- tibble::tibble(
 #'   nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
 #'   segmento = "comercial_at",
 #'   p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
@@ -37,18 +37,21 @@
 #'   mercado_potencial = c(172, 1232, 22, 3, 1)
 #' )
 #'
-#' consumidores <- tibble(
-#'     nome_4md = c("CELESC", "CEMIG", "COELBA", "COPEL", "CPFL PAULISTA"),
-#'     ano = 2021,
-#'     segmento = "residencial",
-#'     consumidores = c(294853, 705996, 328907, 488333, 531478)
+#' consumidores <- list(
+#'   consumidores <- tibble::tibble(nome_4md = c("COSERN", "EFLUL", "EQUATORIAL MA"),
+#'                                  ano = c(2041, 2045, 2032),
+#'                                  segmento = c("comercial_at", "residencial_remoto", "comercial_at"),
+#'                                  consumidores = c(3515, 544, 3379)),
+#'   consumidores_totais <- tibble::tibble(ano = c(2015, 2015, 2021),
+#'                                         total_ucs = c(189716, 64959670.04355956, 181394),
+#'                                         segmento = c("comercial_at", "residencial", "comercial_at"))
 #' )
 #'
 #' epe4md_proj_adotantes(
-#'    casos_otimizados = casos_otimizados,
-#'    consumidores = consumidores,
-#'    ano_base = 2021,
-#'    dir_dados_premissas = NA_character_
+#'   casos_otimizados = casos_otimizados,
+#'   consumidores = consumidores,
+#'   ano_base = 2021,
+#'   dir_dados_premissas = NA_character_
 #' )
 
 utils::globalVariables(c("Ft", "adotantes_ano", "adotantes_ano_media",

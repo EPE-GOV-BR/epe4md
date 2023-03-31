@@ -43,6 +43,7 @@ potencial inicial. "consumidores_totais" possui dados de mercado total.
 Cria a base do mercado potencial inicial para a adoção.
 }
 \examples{
+
 epe4md_mercado_potencial(
   ano_base = 2021,
   filtro_renda_domicilio = "maior_3sm",

@@ -118,6 +118,7 @@ epe4md_payback(
   casos_payback = casos_payback,
   premissas_reg = premissas_regulatorias,
   ano_base = 2021,
+  sequencial = TRUE,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
