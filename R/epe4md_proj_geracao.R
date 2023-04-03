@@ -8,9 +8,9 @@
 #' Se esse parâmetro não for passado, a função usa os dados default que são
 #' instalados com o pacote. É importante que os nomes dos arquivos sejam os
 #' mesmos da pasta default.
-#' @param filter_uf string. Parâmetro que define uma unidade federativa (UF) a
-#' ser filtrada. Para um resultado com todas as unidades federativas, defina o
-#' parâmetro como "N".
+#' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
+#' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+#' o resultado será apresentado sem filtros.
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
@@ -54,9 +54,8 @@ utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/a
 
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
-                                filter_uf,
-                                dir_dados_premissas = "inst/
-                                dados_premissas") {
+                                filtro_de_uf,
+                                dir_dados_premissas = "inst/dados_premissas") {
 
   dir_dados_premissas <- if_else(
     dir_dados_premissas == "inst/dados_premissas",
@@ -101,11 +100,11 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   uf_list <- proj_mensal$uf %>% unique()
 
-  if(filter_uf %in% uf_list){
+  if(filtro_de_uf %in% uf_list){
     proj_mensal <- proj_mensal %>%
-      filter(uf == filter_uf)
+      filter(uf == filtro_de_uf)
   }
-  else if (filter_uf != "N"){
+  else if (filtro_de_uf != "N"){
     message("\nUF incorreta! Resultado apresentado sem filtro!")
   }
 

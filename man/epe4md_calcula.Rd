@@ -9,7 +9,7 @@ epe4md_calcula(
   premissas_reg,
   ano_base,
   sequencial,
-  filter_uf,
+  filtro_de_uf,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -69,9 +69,9 @@ realizada de forma sequencial ou paralela. Para executar a projeção de forma
 sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
 paralela, defina o parâmetro como FALSE.}
 
-\item{filter_uf}{string. Parâmetro que define uma unidade federativa (UF) a ser
-filtrada. Para um resultado com todas as unidades federativas, defina o parâmetro
-como "N".}
+\item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
+ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+o resultado será apresentado sem filtros.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}
@@ -173,7 +173,7 @@ resultado <- epe4md_calcula(
   premissas_reg = premissas_regulatorias,
   ano_base = 2021,
   sequencial = TRUE,
-  filter_uf = "RJ",
+  filtro_de_uf = "RJ",
   ano_max_resultado = 2027
 )
 }

@@ -8,7 +8,7 @@
 epe4md_proj_geracao(
   proj_mensal,
   ano_base,
-  filter_uf,
+  filtro_de_uf,
   dir_dados_premissas = "inst/\\n                                dados_premissas"
 )
 }
@@ -19,9 +19,9 @@ epe4md_proj_geracao(
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
-\item{filter_uf}{string. Parâmetro que define uma unidade federativa (UF) a ser
-filtrada. Para um resultado com todas as unidades federativas, defina o parâmetro
-como "N".}
+\item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
+ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+o resultado será apresentado sem filtros.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas.
 Se esse parâmetro não for passado, a função usa os dados default que são

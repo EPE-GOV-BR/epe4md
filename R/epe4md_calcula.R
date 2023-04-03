@@ -145,9 +145,9 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' realizada de forma sequencial ou paralela. Para executar a projeção de forma
 #' sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
 #' paralela, defina o parâmetro como FALSE.
-#' @param filter_uf string. Parâmetro que define uma unidade federativa (UF) a
-#' ser filtrada. Para um resultado com todas as unidades federativas, defina o
-#' parâmetro como "N".
+#' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
+#' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+#' o resultado será apresentado sem filtros.
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
@@ -176,7 +176,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'  premissas_reg = premissas_regulatorias,
 #'  ano_base = 2021,
 #'  sequencial = TRUE,
-#'  filter_uf = "RJ",
+#'  filtro_de_uf = "RJ",
 #'  ano_max_resultado = 2027
 #')
 #'
@@ -184,8 +184,8 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
-  sequencial,
-  filter_uf,
+  sequencial = FALSE,
+  filtro_de_uf = "N",
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -349,7 +349,7 @@ epe4md_calcula <- function(
   resultados_mensais <- epe4md_proj_geracao(
     proj_mensal = proj_mensal,
     ano_base = ano_base,
-    filter_uf = filter_uf,
+    filtro_de_uf = filtro_de_uf,
     dir_dados_premissas = dir_dados_premissas
   )
 
