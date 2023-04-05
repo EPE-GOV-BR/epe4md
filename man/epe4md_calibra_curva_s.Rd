@@ -47,3 +47,4 @@ data.frame com curvas de difusão e mercado potencial
 \description{
 Calibra o modelo de Bass com dados históricos e gera curvas S de adoção.
 }
+

@@ -713,7 +713,8 @@ epe4md_graf_part_segmento <- function(
 #' Mostra a soma acumulada das pot\u00EAncia entre os par??metros `ano_inicio` e `ano_max_resultado`
 #' passado na fun\u00E7\u00E3o `epe4md::epe4md_calcula` em cada um dos cen\u00E1rios.
 #'
-#' @param dados data.frame Resultado resumido com coluna cenario.
+#' @param dados data.frame Resultado da função [epe4md::epe4md_sumariza_resultados] acrescido de uma
+#' coluna chamada cenario.
 #'
 #' @param ano_inicio numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.
 #'
@@ -751,8 +752,6 @@ epe4md_graf_pot_cenario <- function(
 
   resumo <- dados %>%
     filter(ano >= ano_inicio)
-
-
 
   ggplot(resumo) +
     aes(x = ano, y = pot_acum, color = cenario) +

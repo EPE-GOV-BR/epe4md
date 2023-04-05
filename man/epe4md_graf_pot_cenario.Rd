@@ -8,7 +8,7 @@
 epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 }
 \arguments{
-\item{dados}{data.frame Resultado resumido com coluna cenario.}
+\item{dados}{data.frame. Resultado da função [epe4md::epe4md_sumariza_resultados] acrescido de uma coluna chamada cenario.}
 
 \item{ano_inicio}{numeric. Define o ano em que se inicia o eixo x. Default igual a 2013.}
 
