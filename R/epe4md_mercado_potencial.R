@@ -113,6 +113,7 @@ epe4md_mercado_potencial <- function(ano_base,
     group_by(nome_4md, ano) %>%
     summarise(consumidores = sum(consumidores)) %>%
     ungroup() %>% 
+    mutate(ano = as.numeric(ano)) %>% 
     filter(between(ano, 2013, ano_base))
 
   consumidores_b2b3$ano <- as.numeric(consumidores_b2b3$ano)
@@ -159,6 +160,7 @@ epe4md_mercado_potencial <- function(ano_base,
     group_by(nome_4md, ano) %>%
     summarise(consumidores = sum(consumidores)) %>%
     ungroup() %>% 
+    mutate(ano = as.numeric(ano)) %>% 
     filter(between(ano, 2013, ano_base))
 
   consumidores_a$ano <- as.numeric(consumidores_a$ano)
