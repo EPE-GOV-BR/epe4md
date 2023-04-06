@@ -69,6 +69,8 @@ Realiza a projeção do número de adotantes de micro e minigeração distribuí
           class = c("tbl_df", "tbl", "data.frame"))
         )
 
+    names(consumidores) <- c("consumidores", "consumidores_totais")
+
     epe4md_proj_adotantes(
       casos_otimizados = casos_otimizados,
       consumidores = consumidores,
