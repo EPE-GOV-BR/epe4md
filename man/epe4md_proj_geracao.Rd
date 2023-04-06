@@ -9,7 +9,8 @@ epe4md_proj_geracao(
   proj_mensal,
   ano_base,
   filtro_de_uf,
-  dir_dados_premissas = "inst/dados_premissas"
+  dir_dados_premissas = NA_character_
+)
 }
 \arguments{
 \item{proj_mensal}{dataframe. Resultado da função
@@ -55,7 +56,9 @@ Estima a geração de eletricidade a partir da projeção de potência
 
   epe4md_proj_geracao(
     proj_mensal = projecao_mensal,
-    ano_base = 2021
+    ano_base = 2021,
+    filtro_de_uf = "N",
+    dir_dados_premissas = NA_character_
   )
 }
 

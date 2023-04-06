@@ -12,6 +12,7 @@
 #' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 #' o resultado será apresentado sem filtros.
 #'
+#'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
 #' mensal de energia.
@@ -27,6 +28,7 @@
 #'
 #'@encoding UTF-8
 #'
+#' @examples
 #' projecao_mensal <- structure(
 #'   list(ano = c(2015, 2025, 2022),
 #'        nome_4md = c("COPEL", "ESE", "UHENPAL"),
@@ -45,7 +47,9 @@
 #'
 #' epe4md_proj_geracao(
 #'   proj_mensal = projecao_mensal,
-#'   ano_base = 2021
+#'   ano_base = 2021,
+#'   filtro_de_uf = "N",
+#'   dir_dados_premissas = NA_character_
 #' )
 
 utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",
@@ -54,11 +58,11 @@ utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/a
 
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
-                                filtro_de_uf,
-                                dir_dados_premissas = "inst/dados_premissas") {
+                                filtro_de_uf = "N",
+                                dir_dados_premissas = NA_character_) {
 
   dir_dados_premissas <- if_else(
-    dir_dados_premissas == "inst/dados_premissas",
+    is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
                 package = "epe4md"),
     dir_dados_premissas
@@ -82,8 +86,7 @@ epe4md_proj_geracao <- function(proj_mensal,
     readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx"))
 
   proj_mensal <- proj_mensal %>%
-    left_join(tabela_regiao, by = c("nome_4md"),
-              multiple = "all")
+    left_join(tabela_regiao, by = c("nome_4md"))
 
 
   #considera-se que os sitemas são instalados no dia 15 de cada mês
@@ -98,9 +101,9 @@ epe4md_proj_geracao <- function(proj_mensal,
            mes_operacao = ceiling_date(mes_operacao, "month") - 1) %>%
     select(mes_operacao)
 
-  uf_list <- proj_mensal$uf %>% unique()
+  lista_uf <- proj_mensal$uf %>% unique()
 
-  if(filtro_de_uf %in% uf_list){
+  if(filtro_de_uf %in% lista_uf){
     proj_mensal <- proj_mensal %>%
       filter(uf == filtro_de_uf)
   }
@@ -113,9 +116,9 @@ epe4md_proj_geracao <- function(proj_mensal,
                                       day = dia_instalacao)) %>%
     filter(pot_mes_mw != 0)
 
+
   #crossing das instalacoes com os meses de operacao
   projecao_energia <- crossing(proj_mensal, meses_operacao)
-
 
   projecao_energia <- projecao_energia %>%
     mutate(dias_operando = mes_operacao - mes_instalacao) %>%
@@ -123,10 +126,8 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   projecao_energia <- projecao_energia %>%
     mutate(mes = month(mes_operacao)) %>%
-    left_join(fc_outras_mensal, by = c("subsistema", "mes", "fonte_resumo"),
-              multiple = "all") %>%
-    left_join(fc_fv_mensal, by = c("nome_4md", "mes"),
-              multiple = "all") %>%
+    left_join(fc_outras_mensal, by = c("subsistema", "mes", "fonte_resumo")) %>%
+    left_join(fc_fv_mensal, by = c("nome_4md", "mes")) %>%
     mutate(fc = case_when(
       fonte_resumo == "Fotovoltaica" &
         segmento == "comercial_at_remoto" ~ fc_remoto,
@@ -158,8 +159,7 @@ epe4md_proj_geracao <- function(proj_mensal,
                                 pot_mes_mw * fc * dias_operando_mes * 24))
 
   projecao_energia <- projecao_energia %>%
-    left_join(injecao, by = c("segmento", "fonte_resumo"),
-              multiple = "all") %>%
+    left_join(injecao, by = c("segmento", "fonte_resumo")) %>%
     mutate(energia_autoc_mwh = energia_mwh * fator_autoconsumo,
            energia_inj_mwh = energia_mwh * (1 - fator_autoconsumo))
 
@@ -194,8 +194,7 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   juncao <- left_join(resumo_projecao_energia, resumo_projecao_potencia,
                       by = c("data", "ano", "mes", "nome_4md",
-                             "subsistema", "uf", "segmento", "fonte_resumo"),
-                      multiple = "all")
+                             "subsistema", "uf", "segmento", "fonte_resumo"))
 
   juncao <- juncao %>%
     replace_na(list(pot_mes_mw = 0, adotantes_mes = 0))
@@ -205,8 +204,7 @@ epe4md_proj_geracao <- function(proj_mensal,
     distinct()
 
   resumo_resultados <- juncao %>%
-    left_join(fatores_pq, by = c("segmento", "nome_4md"),
-              multiple = "all")
+    left_join(fatores_pq, by = c("segmento", "nome_4md"))
 
   resumo_resultados <- resumo_resultados %>%
     left_join(tabela_regiao, by = c("nome_4md", "subsistema", "uf"))

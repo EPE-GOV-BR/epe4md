@@ -25,22 +25,23 @@
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -106,22 +107,23 @@ epe4md_graf_pot_acum <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -183,22 +185,23 @@ epe4md_graf_pot_anual <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -262,22 +265,23 @@ epe4md_graf_pot_segmento <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -303,8 +307,6 @@ epe4md_graf_pot_regiao <- function(
     mutate(pot_acum = cumsum(pot_ano) / 1000) %>%
     ungroup() %>%
     filter(ano >= ano_inicio)
-
-
 
   ggplot(resumo) +
     aes(x = ano, y = pot_acum, color = regiao) +
@@ -347,22 +349,23 @@ epe4md_graf_pot_regiao <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -406,8 +409,6 @@ epe4md_graf_part_fonte_potencia <- function(
 
 }
 
-
-
 #' Gr\u00E1fico da gera\u00E7\u00E3o mensal em MWmed
 #'
 #' Gr\u00E1fico de \u00E1rea que mostra a soma da gera\u00E7\u00E3o de energia em MWmed agrupada por m\u00EAs.
@@ -432,22 +433,23 @@ epe4md_graf_part_fonte_potencia <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -510,22 +512,23 @@ epe4md_graf_geracao_mes <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -597,22 +600,23 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
@@ -657,7 +661,6 @@ epe4md_graf_part_fonte_geracao <- function(
 
 }
 
-
 #' Gr\u00E1fico da evolu\u00E7\u00E3o da participa\u00E7\u00E3o por segmento
 #'
 #' Gr\u00E1fico de colunas que mostra a participa\u00E7\u00E3o de cada segmento 'Comercial (AT)', 'Comercial(BT)', 'Comercial Remoto (AT/BT)', Residencial' e 'Residencial Remoto'.
@@ -687,22 +690,23 @@ epe4md_graf_part_fonte_geracao <- function(
 #' @examples
 #'
 #' dados <- structure(
-#'   list(data = structure(c(18932, 20270, 20240), class = "Date"),
-#'        ano = c(2021, 2025, 2025),
-#'        mes = c(11, 7, 6),
-#'        nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
-#'        subsistema = c("NE", "S", "NE"),
-#'        uf = c("AL", "RS", "SE"),
-#'        segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+#'   list(data = structure(c(17928, 20485, 19997), class = "Date"),
+#'        ano = c(2019, 2026, 2024),
+#'        mes = c(2, 2, 10),
+#'        nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+#'        subsistema = c("SE", "NE", "S"),
+#'        uf = c("ES", "AL", "SC"),
+#'        segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
 #'        fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-#'        energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_autoc_mwh = c(0, 0, 0),
-#'        energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
-#'        energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
-#'        pot_mes_mw = c(0, 0.0380457601715835, 0),
-#'        adotantes_mes = c(0, 1, 0),
-#'        p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
-#'        q = c(1, 1, 1)),
+#'        energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+#'        energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+#'        energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+#'        energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+#'        pot_mes_mw = c(0, 0, 0.0118333352680657),
+#'        adotantes_mes = c(0, 0, 3),
+#'        p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        regiao = c("SE", "NE", "S")),
 #'   row.names = c(NA, -3L),
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
