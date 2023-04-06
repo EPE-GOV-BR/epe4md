@@ -208,6 +208,9 @@ epe4md_proj_geracao <- function(proj_mensal,
     left_join(fatores_pq, by = c("segmento", "nome_4md"),
               multiple = "all")
 
+  resumo_resultados <- resumo_resultados %>%
+    left_join(tabela_regiao, by = c("nome_4md", "subsistema", "uf"))
+
   resumo_resultados
 
 }

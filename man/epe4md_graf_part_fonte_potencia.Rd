@@ -28,23 +28,25 @@ na capacidade instalada.
 }
 \examples{
 
-dados <- tibble::tibble(
-  data = 2021-01-01,
-  ano = 2021,
-  mes = 1,
-  nome_4md = c("ENEL RJ", "ENF", "LIGHT"),
-  subsistema = "SE",
-  uf = "RJ",
-  segmento = "comercial_at",
-  fonte_resumo = "Fotovoltaica",
-  energia_mwh = c(2019.62250, 69.06433, 2303.18754),
-  energia_autoc_mwh = c(1615.69800, 55.25146, 1842.55003),
-  energia_inj_mwh = c(403.92450, 13.81287, 460.63751),
-  energia_mwmed = c(2.71454638, 0.09282839, 3.09568218),
-  pot_mes_mw =  c(1.5275, 0.0000, 1.0500),
-  adotantes_mes = c(21, 0, 4),
-  p = c(0.0002782611, 0.0006078518, 0.0013757006),
-  q = c(1.0000000, 1.0000000, 0.5282319)
+dados <- structure(
+  list(data = structure(c(18932, 20270, 20240), class = "Date"),
+       ano = c(2021, 2025, 2025),
+       mes = c(11, 7, 6),
+       nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
+       subsistema = c("NE", "S", "NE"),
+       uf = c("AL", "RS", "SE"),
+       segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+       fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
+       energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
+       energia_autoc_mwh = c(0, 0, 0),
+       energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
+       energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
+       pot_mes_mw = c(0, 0.0380457601715835, 0),
+       adotantes_mes = c(0, 1, 0),
+       p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
+       q = c(1, 1, 1)),
+  row.names = c(NA, -3L),
+  class = c("tbl_df", "tbl", "data.frame")
 )
 
 epe4md_graf_part_fonte_potencia(

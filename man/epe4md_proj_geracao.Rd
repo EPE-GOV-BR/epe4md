@@ -9,7 +9,7 @@ epe4md_proj_geracao(
   proj_mensal,
   ano_base,
   filtro_de_uf,
-  dir_dados_premissas = NA_character_
+  dir_dados_premissas = "inst/dados_premissas"
 }
 \arguments{
 \item{proj_mensal}{dataframe. Resultado da função

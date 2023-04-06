@@ -20,4 +20,32 @@ Gráfico da capacidade instalada acumulada por região.
 \value{
 Plota um gráfico da capacidade instalada acumulada por região.
 }
+\examples{
 
+dados <- structure(
+  list(data = structure(c(18932, 20270, 20240), class = "Date"),
+       ano = c(2021, 2025, 2025),
+       mes = c(11, 7, 6),
+       nome_4md = c("EQUATORIAL AL", "CEEE", "ESE"),
+       subsistema = c("NE", "S", "NE"),
+       uf = c("AL", "RS", "SE"),
+       segmento = c("comercial_at_remoto", "comercial_at_remoto", "comercial_at_remoto"),
+       fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
+       energia_mwh = c(403.2, 10183.3360624878, 232.664667657347),
+       energia_autoc_mwh = c(0, 0, 0),
+       energia_inj_mwh = c(403.2, 10183.3360624878, 232.664667657347),
+       energia_mwmed = c(Nov = 0.56, Jul = 13.6872796538814, Jun = 0.323145371746315),
+       pot_mes_mw = c(0, 0.0380457601715835, 0),
+       adotantes_mes = c(0, 1, 0),
+       p = c(0.000197086794290392, 0.0017617796547688, 0.000609865642927143),
+       q = c(1, 1, 1)),
+  row.names = c(NA, -3L),
+  class = c("tbl_df", "tbl", "data.frame")
+)
+
+epe4md_graf_pot_regiao(
+     dados = dados,
+     ano_inicio = 2013,
+     tamanho = 14
+)
+}
