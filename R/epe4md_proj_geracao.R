@@ -27,25 +27,25 @@
 #'
 #'@encoding UTF-8
 #'
-#' projecao_mensal <- tibble(
-#'  ano = 2021,
-#'  nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-#'  fonte_resumo = "Fotovoltaica",
-#'  segmento = "comercial_at",
-#'  adotantes_mes = c(4, 19, 2, 8, 5),
-#'  pot_mes_mw = c(0.25500, 2.14532, 0.03060, 0.12604, 0.05441),
-#'  mes_ano = "2021 jan",
-#'  mes = 1,
-#'  p = c(0.0004484362, 0.0004484362, 0.0001000000, 0.0001767164, 0.0036879405),
-#'  q = c( 1.0000000, 1.0000000, 0.9044994, 0.8862171, 0.5501830),
-#'  Ft = c(0.7847763, 0.8193315, 0.2750850, 0.3674506, 0.4915285)
-#' )
+#' projecao_mensal <- structure(
+#'   list(ano = c(2015, 2025, 2022),
+#'        nome_4md = c("COPEL", "ESE", "UHENPAL"),
+#'        fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Hidro"),
+#'        segmento = c("comercial_at", "residencial", "residencial"),
+#'        adotantes_mes = c(1, 172, 0),
+#'        pot_mes_mw = c(0.00767, 1.14501518259998, 0),
+#'        mes_ano = structure(c(16467, 20240, 19236),
+#'                            class = c("yearmonth", "vctrs_vctr")),
+#'        mes = c(2, 6, 9),
+#'        p = c(0.000505391053085753, 0.000786787452721811, 0.00364169896575091),
+#'        q = c(0.872731853324977, 0.543083860089691, 0.560319141756969),
+#'        Ft = c(0.00731468279517835, 0.629706876035949, 0.64417085772448)),
+#'   row.names = c(NA, -3L),
+#'   class = c("tbl_df", "tbl", "data.frame"))
 #'
-#' @examples
 #' epe4md_proj_geracao(
 #'   proj_mensal = projecao_mensal,
-#'   ano_base = 2021,
-#'   dir_dados_premissas = NA_character_
+#'   ano_base = 2021
 #' )
 
 utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/ano", "mes_instalacao",

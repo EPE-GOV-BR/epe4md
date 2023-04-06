@@ -39,49 +39,45 @@
 #' @examples
 #'
 #' lista_potencia <- list(
-#'   proj_potencia <- tibble::tibble(
-#'     nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-#'     segmento = "comercial_at",
-#'     p = c(0.0004484362, 0.0005572423, 0.000122345, 0.0002427430, 0.0001034085),
-#'     q = 1,
-#'     spb = 0.3,
-#'     ano = 2021,
-#'     Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
-#'     consumidores = c(2801, 10995, 791, 116, 48),
-#'     payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
-#'     mercado_potencial = c(43.00, 308.00, 5.50, 0.75, 0.25),
-#'     adotantes_ano = 0,
-#'     adotantes_acum = c(0, 1, 0, 0, 0),
-#'     fonte_resumo = "Eólica",
-#'     part_fonte = c(0.0000000000, 0.0006309148, 0.0000000000, 0.0000000000, 0.0000000000),
-#'     adotantes_hist = 0,
-#'     pot_media = c(38.61667, 2.50000, 38.61667, 38.61667, 38.61667),
-#'     pot_ano = 0,
-#'     pot_hist = 0,
-#'     pot_ano_mw = 0,
-#'     pot_acum_mw = c(0.0000, 0.0025, 0.0000, 0.0000, 0.0000)
-#'   ),
-#'   part_adotantes <- tibble::tibble(
-#'     ano = 2021,
-#'     segmento = c("comercial_at", "comercial_bt", "residencial"),
-#'     adotantes = c(11857, 315815, 798073),
-#'     mercado_potencial = c(16718, 412539, 3370592),
-#'     total_ucs = c(181394, 12098612, 72212363),
-#'     penetracao_total = c(0.06536600, 0.02610341, 0.01105175),
-#'     mercado_nicho = c(181394, 1930557, 11522806),
-#'     penetracao_nicho = c(0.0653660, 0.1635875, 0.0692603),
-#'     penetracao_potencial = c(0.7092356, 0.7655397, 0.2367753)
-#'   )
-#' )
+#'   structure(
+#'     list(nome_4md = c("SULGIPE", "ENEL RJ", "COSERN"),
+#'          segmento = c("residencial_remoto", "residencial", "comercial_at"),
+#'          p = c(0.000323066811243587, 0.000123056130181494, 0.000787809069463831),
+#'          q = c(0.721680688512525, 0.875693111591128, 1),
+#'          spb = c(0.3, 0.3, 0.3),
+#'          ano = c(2025, 2025, 2019),
+#'          Ft = c(0.842113510009708,  0.925209402868019, 0.464451352457598),
+#'          consumidores = c(1114, 286430, 2714),
+#'          payback = c(3.64182621961061, 3.6477830110581, 7.44160219022217),
+#'          mercado_potencial = c(93.5, 23971.5, 72.75),
+#'          adotantes_ano = c(44, 10982, 0),
+#'          adotantes_acum = c(309, 88861, 1),
+#'          fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Eólica"),
+#'          part_fonte = c(1, 1, 0.0028169014084507),
+#'          adotantes_hist = c(NA, NA, 0),
+#'          pot_media = c(2.16376623376623, 5.52175275167785, 100),
+#'          pot_ano = c(95.2057142857143, 60639.8887189262, 0),
+#'          pot_hist = c(NA, NA, 0),
+#'          pot_ano_mw = c(0.0952057142857143, 60.6398887189262, 0),
+#'          pot_acum_mw = c(0.668603766233766, 485.066631017987, 0.1)),
+#'     class = c("tbl_df", "tbl", "data.frame"),
+#'     row.names = c(NA, -3L)),
+#'   structure(
+#'     list(ano = c(2023, 2013, 2027),
+#'          segmento = c("comercial_bt", "comercial_at", "comercial_at"),
+#'          adotantes = c(457589, 6, 28934),
+#'          mercado_potencial = c(484014, 117, 28385),
+#'          total_ucs = c(12524434, 180897, 199518),
+#'          penetracao_total = c(0.0365357029307672, 3.31680459045755e-05, 0.14501949698774),
+#'          mercado_nicho = c(2002218, 180897, 199518),
+#'          penetracao_nicho = c(0.228541047977793, 3.31680459045755e-05, 0.14501949698774),
+#'          penetracao_potencial = c(0.945404471771478, 0.0512820512820513, 1.01934120133874)),
+#'     row.names = c(NA, -3L),
+#'     class = c("tbl_df", "tbl", "data.frame")))
 #'
 #' epe4md_proj_mensal(
-#'    lista_potencia = lista_potencia,
-#'    ano_base = 2021,
-#'    ano_max_resultado = 2050,
-#'    ajuste_ano_corrente = FALSE,
-#'    ultimo_mes_ajuste = NA,
-#'    metodo_ajuste = NA,
-#'    dir_dados_premissas = NA_character_
+#'   lista_potencia = lista_potencia,
+#'   ano_base = 2021
 #' )
 
 
@@ -93,8 +89,7 @@ epe4md_proj_mensal <- function(lista_potencia,
                                   ajuste_ano_corrente = FALSE,
                                   ultimo_mes_ajuste = NA,
                                   metodo_ajuste = NA,
-                                  dir_dados_premissas = "inst/
-                               dados_premissas") {
+                                  dir_dados_premissas = "inst/dados_premissas") {
 
   dir_dados_premissas <- if_else(
     dir_dados_premissas == "inst/dados_premissas",

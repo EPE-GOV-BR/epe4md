@@ -24,34 +24,42 @@
 #'
 #' @examples
 #'
-#' casos_otimizados <- tibble::tibble(
-#'   nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-#'   segmento = "comercial_at",
-#'   p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
-#'   q = 1,
-#'   spb = 0.3,
-#'   ano = 2021,
-#'   Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
-#'   consumidores = c(2801, 10995, 791, 116, 48),
-#'   payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
-#'   mercado_potencial = c(172, 1232, 22, 3, 1)
-#' )
+#' casos_otimizados <-
+#' structure(
+#'   list(nome_4md = c("MUXENERGIA", "EPB", "EFLJC"),
+#'        segmento = c("comercial_bt", "comercial_at", "residencial"),
+#'        p = c(0.01, 0.000316252847258369, 0.00025238142355137),
+#'        q = c(1, 1, 0.676434758626127),
+#'        spb = c(0.3, 0.3, 0.3),
+#'        ano = c(2029, 2025, 2026),
+#'        Ft = c(0.999996472365327, 0.992930172901814, 0.829136572246132),
+#'        consumidores = c(257, 1871, 847),
+#'        payback = c(4.38236607048146, 7.216158855616, 4.25745937192023),
+#'        mercado_potencial = c(69, 215, 236)),
+#'   row.names = c(NA, -3L),
+#'   class = c("tbl_df", "tbl", "data.frame"))
 #'
-#' consumidores <- list(
-#'   consumidores <- tibble::tibble(nome_4md = c("COSERN", "EFLUL", "EQUATORIAL MA"),
-#'                                  ano = c(2041, 2045, 2032),
-#'                                  segmento = c("comercial_at", "residencial_remoto", "comercial_at"),
-#'                                  consumidores = c(3515, 544, 3379)),
-#'   consumidores_totais <- tibble::tibble(ano = c(2015, 2015, 2021),
-#'                                         total_ucs = c(189716, 64959670.04355956, 181394),
-#'                                         segmento = c("comercial_at", "residencial", "comercial_at"))
-#' )
+#' consumidores <-
+#'   list(
+#'     structure(
+#'       list(nome_4md = c("CPFL PIRATININGA", "EMS", "RGE"),
+#'            ano = c(2020, 2028, 2034),
+#'            segmento = c("comercial_at_remoto", "residencial", "comercial_at"),
+#'            consumidores = c(6736, 113412, 13515)),
+#'       class = c("tbl_df", "tbl", "data.frame"),
+#'       row.names = c(NA, -3L)),
+#'     structure(
+#'       list(ano = c(2017, 2035, 2031),
+#'            total_ucs = c(67352162.358959, 88092914.3204848, 83828643.0017198),
+#'            segmento = c("residencial", "residencial", "residencial")),
+#'       row.names = c(NA, -3L),
+#'       class = c("tbl_df", "tbl", "data.frame"))
+#'   )
 #'
 #' epe4md_proj_adotantes(
 #'   casos_otimizados = casos_otimizados,
 #'   consumidores = consumidores,
-#'   ano_base = 2021,
-#'   dir_dados_premissas = NA_character_
+#'   ano_base = 2021
 #' )
 
 utils::globalVariables(c("Ft", "adotantes_ano", "adotantes_ano_media",

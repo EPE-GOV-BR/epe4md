@@ -25,40 +25,42 @@
 #' @examples
 #'
 #' lista_adotantes <- list(
-#'  proj_adotantes <- tibble::tibble(
-#'    nome_4md = c("OUTRA", "RGE", "RORAIMA", "SULGIPE", "UHENPAL"),
-#'    segmento = "comercial_at",
-#'    p = c(0.0004484362, 0.0005572423, 0.0001223451, 0.0002427430, 0.0001034085),
-#'    q = 1,
-#'    spb = 0.3,
-#'    ano = 2021,
-#'    Ft = c(0.7847763, 0.8193315, 0.4980477, 0.6633618, 0.4560837),
-#'    consumidores = c(2801, 10995, 791, 116, 48),
-#'    payback = c(9.300698, 7.295061, 11.896997, 12.448897, 11.590019),
-#'    mercado_potencial = c(43.00, 308.00, 5.50, 0.75, 0.25),
-#'    adotantes_ano = 0,
-#'    adotantes_acum = c(0, 1, 0, 0, 0),
-#'    fonte_resumo = "Eólica",
-#'    part_fonte = c(0.0000000000, 0.0006309148, 0.0000000000, 0.0000000000, 0.0000000000),
-#'    adotantes_hist = 0
-#'  ),
-#'  part_adotantes <- tibble::tibble(
-#'    ano = 2021,
-#'    segmento = c("comercial_at", "comercial_bt", "residencial"),
-#'    adotantes = c(11857, 315815, 798073),
-#'    mercado_potencial = c(16718, 412539, 3370592),
-#'    total_ucs = c(181394, 12098612, 72212363),
-#'    penetracao_total = c(0.06536600, 0.02610341, 0.01105175),
-#'    mercado_nicho = c(181394, 1930557, 11522806),
-#'    penetracao_nicho = c(0.0653660, 0.1635875, 0.0692603),
-#'    penetracao_potencial = c(0.7092356, 0.7655397, 0.2367753)
-#'  )
+#'   structure(
+#'     list(nome_4md = c("CEB", "EQUATORIAL MA", "LIGHT"),
+#'          segmento = c("comercial_at_remoto", "comercial_bt", "comercial_at_remoto"),
+#'          p = c(0.000314088483901221, 0.000326288160094334, 0.01),
+#'          q = c(0.860602105239079, 0.796618861208451, 0.0771175699573262),
+#'          spb = c(0.3, 0.3, 0.3),
+#'          ano = c(2024, 2028, 2022),
+#'          Ft = c(0.917955265426745, 0.992968921614641, 0.137575817915978),
+#'          consumidores = c(12146, 47955, 22878),
+#'          payback = c(5.00924084667372, 4.40202323859729, 8.53878219211533),
+#'          mercado_potencial = c(675.75, 3200.75, 441.5),
+#'          adotantes_ano = c(309, 0, 4),
+#'          adotantes_acum = c(2361, 0, 42),
+#'          fonte_resumo = c("Fotovoltaica", "Eólica", "Fotovoltaica"),
+#'          part_fonte = c(1, 0, 0.186666666666667),
+#'          adotantes_hist = c(NA_real_, NA_real_, NA_real_)),
+#'     row.names = c(NA, -3L),
+#'     class = c("tbl_df", "tbl", "data.frame")),
+#'   structure(
+#'     list(ano = c(2030, 2016, 2020),
+#'          segmento = c("comercial_bt", "residencial", "residencial"),
+#'          adotantes = c(694432, 7214, 357386),
+#'          mercado_potencial = c(620539, 857786, 2931122),
+#'          total_ucs = c(14858570, 66148593.0147109, 71001451.6735913),
+#'          penetracao_total = c(0.0467361260202025, 0.000109057497238009, 0.00503350271826806),
+#'          mercado_nicho = c(2541888, 10668970, 11014026),
+#'          penetracao_nicho = c(0.273195357151849, 0.000676166490298501, 0.0324482618798975),
+#'          penetracao_potencial = c(1.11907873638885, 0.00841002301273278, 0.121928053489415)),
+#'  row.names = c(NA, -3L),
+#'     class = c("tbl_df", "tbl", "data.frame"))
 #' )
 #'
 #' epe4md_proj_potencia(
-#'    lista_adotantes = lista_adotantes,
-#'    ano_base = 2021,
-#'    dir_dados_premissas = NA_character_
+#'   lista_adotantes = lista_adotantes,
+#'   ano_base = 2021,
+#'   dir_dados_premissas = NA_character_
 #' )
 
 utils::globalVariables(c("pot_media", "pot_hist", "geracao_gwh"))
