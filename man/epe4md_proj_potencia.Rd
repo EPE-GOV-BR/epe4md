@@ -72,7 +72,6 @@ Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
 
   epe4md_proj_potencia(
     lista_adotantes = lista_adotantes,
-    ano_base = 2021,
-    dir_dados_premissas = NA_character_
+    ano_base = 2021
   )
 }
