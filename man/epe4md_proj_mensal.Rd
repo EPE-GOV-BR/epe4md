@@ -53,45 +53,44 @@ de micro e minigeração distribuída e número de adotantes mensal
 Faz a abertura mensal da projeção de potência
 }
 \examples{
-  lista_potencia <- list(
-    structure(
-      list(nome_4md = c("SULGIPE", "ENEL RJ", "COSERN"),
-           segmento = c("residencial_remoto", "residencial", "comercial_at"),
-           p = c(0.000323066811243587, 0.000123056130181494, 0.000787809069463831),
-           q = c(0.721680688512525, 0.875693111591128, 1),
-           spb = c(0.3, 0.3, 0.3),
-           ano = c(2025, 2025, 2019),
-           Ft = c(0.842113510009708,  0.925209402868019, 0.464451352457598),
-           consumidores = c(1114, 286430, 2714),
-           payback = c(3.64182621961061, 3.6477830110581, 7.44160219022217),
-           mercado_potencial = c(93.5, 23971.5, 72.75),
-           adotantes_ano = c(44, 10982, 0),
-           adotantes_acum = c(309, 88861, 1),
-           fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Eólica"),
-           part_fonte = c(1, 1, 0.0028169014084507),
-           adotantes_hist = c(NA, NA, 0),
-           pot_media = c(2.16376623376623, 5.52175275167785, 100),
-           pot_ano = c(95.2057142857143, 60639.8887189262, 0),
-           pot_hist = c(NA, NA, 0),
-           pot_ano_mw = c(0.0952057142857143, 60.6398887189262, 0),
-           pot_acum_mw = c(0.668603766233766, 485.066631017987, 0.1)),
-      class = c("tbl_df", "tbl", "data.frame"),
-      row.names = c(NA, -3L)),
-    structure(
-      list(ano = c(2023, 2013, 2027),
-           segmento = c("comercial_bt", "comercial_at", "comercial_at"),
-           adotantes = c(457589, 6, 28934),
-           mercado_potencial = c(484014, 117, 28385),
-           total_ucs = c(12524434, 180897, 199518),
-           penetracao_total = c(0.0365357029307672, 3.31680459045755e-05, 0.14501949698774),
-           mercado_nicho = c(2002218, 180897, 199518),
-           penetracao_nicho = c(0.228541047977793, 3.31680459045755e-05, 0.14501949698774),
-           penetracao_potencial = c(0.945404471771478, 0.0512820512820513, 1.01934120133874)),
-      row.names = c(NA, -3L),
-      class = c("tbl_df", "tbl", "data.frame")))
+    lista_adotantes <- list(
+      structure(
+        list(nome_4md = c("CEB", "EQUATORIAL MA", "LIGHT"),
+             segmento = c("comercial_at_remoto", "comercial_bt", "comercial_at_remoto"),
+             p = c(0.000314088483901221, 0.000326288160094334, 0.01),
+             q = c(0.860602105239079, 0.796618861208451, 0.0771175699573262),
+             spb = c(0.3, 0.3, 0.3),
+             ano = c(2024, 2028, 2022),
+             Ft = c(0.917955265426745, 0.992968921614641, 0.137575817915978),
+             consumidores = c(12146, 47955, 22878),
+             payback = c(5.00924084667372, 4.40202323859729, 8.53878219211533),
+             mercado_potencial = c(675.75, 3200.75, 441.5),
+             adotantes_ano = c(309, 0, 4),
+             adotantes_acum = c(2361, 0, 42),
+             fonte_resumo = c("Fotovoltaica", "Eólica", "Fotovoltaica"),
+             part_fonte = c(1, 0, 0.186666666666667),
+             adotantes_hist = c(NA_real_, NA_real_, NA_real_)),
+        row.names = c(NA, -3L),
+        class = c("tbl_df", "tbl", "data.frame")),
+      structure(
+        list(ano = c(2030, 2016, 2020),
+             segmento = c("comercial_bt", "residencial", "residencial"),
+             adotantes = c(694432, 7214, 357386),
+             mercado_potencial = c(620539, 857786, 2931122),
+             total_ucs = c(14858570, 66148593.0147109, 71001451.6735913),
+             penetracao_total = c(0.0467361260202025, 0.000109057497238009, 0.00503350271826806),
+             mercado_nicho = c(2541888, 10668970, 11014026),
+             penetracao_nicho = c(0.273195357151849, 0.000676166490298501, 0.0324482618798975),
+             penetracao_potencial = c(1.11907873638885, 0.00841002301273278, 0.121928053489415)),
+        row.names = c(NA, -3L),
+        class = c("tbl_df", "tbl", "data.frame"))
+    )
 
-  epe4md_proj_mensal(
-    lista_potencia = lista_potencia,
-    ano_base = 2021
-  )
+    names(lista_adotantes) <- c("proj_adotantes", "part_adotantes")
+
+    epe4md_proj_potencia(
+      lista_adotantes = lista_adotantes,
+      ano_base = 2021
+    )
+
 }
