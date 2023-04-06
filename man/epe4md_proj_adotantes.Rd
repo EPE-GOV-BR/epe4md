@@ -75,4 +75,3 @@ Realiza a projeção do número de adotantes de micro e minigeração distribuí
       ano_base = 2021
     )
 }
-}
