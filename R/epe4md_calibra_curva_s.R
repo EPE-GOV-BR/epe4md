@@ -194,5 +194,4 @@ epe4md_calibra_curva_s <- function(resultado_payback,
 
   casos_otimizados <- casos_otimizados %>%
     filter(ano <= ano_max_resultado)
-
 }
