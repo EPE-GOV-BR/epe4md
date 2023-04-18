@@ -161,8 +161,7 @@ O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
 \examples{
-  \dontrun{
-    premissas_regulatorias <- structure(
+  premissas_regulatorias <- structure(
       list(ano = 2021,
            alternativa = 0,
            p_transicao = 1,
@@ -177,5 +176,4 @@ adotantes e geração de energia em base mensal.
                    sequencial = FALSE,
                    filtro_de_uf = "RR",
                    ano_max_resultado = 2021)
-  }
 }

@@ -171,7 +171,8 @@ epe4md_proj_mensal <- function(lista_potencia,
   # transformação da potencia anual em mensal com base nos fatores
 
   projecao_mensal <- projecao_mensal %>%
-    left_join(fatores_mensais, by = "mes",
+    left_join(fatores_mensais,
+              by = "mes",
               multiple = "all") %>%
     mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
            adotantes_mes = round(fator_mensal * adotantes_ano / 12)) %>%
@@ -183,8 +184,10 @@ epe4md_proj_mensal <- function(lista_potencia,
       crossing(meses) %>%
       mutate(mes_ano = make_date(ano, mes, 1),
              mes_ano = tsibble::yearmonth(mes_ano)) %>%
-      left_join(fatores_mensais, by = "mes",
-                multiple = "all") %>%
+      left_join(fatores_mensais,
+                by = "mes",
+                multiple = "all",
+                relationship = "many-to-many") %>%
       mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
              adotantes_mes = round(fator_mensal * adotantes_ano / 12)) %>%
       select(- fator_mensal, - adotantes_ano, - pot_ano_mw) %>%
@@ -234,7 +237,8 @@ epe4md_proj_mensal <- function(lista_potencia,
     select(ano, segmento, fonte_resumo, nome_4md, p, q, Ft)
 
   projecao_mensal <- projecao_mensal %>%
-    left_join(fatores_pq, by = c("ano", "segmento", "nome_4md", "fonte_resumo"),
+    left_join(fatores_pq,
+              by = c("ano", "segmento", "nome_4md", "fonte_resumo"),
               multiple = "all")
 
   projecao_mensal
