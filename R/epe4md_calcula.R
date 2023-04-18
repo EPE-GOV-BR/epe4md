@@ -164,22 +164,21 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' @examples
 #'
-#'premissas_regulatorias <- tibble::tibble(
-#'  ano = 2021,
-#'  alternativa = 0,
-#'  p_transicao = 1.00,
-#'  binomia = FALSE,
-#'  demanda_g = FALSE
-#')
+#' premissas_regulatorias <- structure(
+#'   list(ano = 2021,
+#'        alternativa = 0,
+#'        p_transicao = 1,
+#'        binomia = FALSE,
+#'        demanda_g = FALSE),
+#'   class = c("tbl_df", "tbl", "data.frame"),
+#'   row.names = c(NA, -1L)
+#' )
 #'
-#'resultado <- epe4md_calcula(
-#'  premissas_reg = premissas_regulatorias,
-#'  ano_base = 2021,
-#'  sequencial = TRUE,
-#'  filtro_de_uf = "RJ",
-#'  ano_max_resultado = 2027
-#')
-#'
+#' epe4md_calcula(premissas_reg = premissas_regulatorias,
+#'                ano_base = 2021,
+#'                sequencial = FALSE,
+#'                filtro_de_uf = "RR",
+#'                ano_max_resultado = 2021)
 
 epe4md_calcula <- function(
   premissas_reg,

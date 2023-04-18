@@ -38,21 +38,28 @@ Estima a geração de eletricidade a partir da projeção de potência
 }
 \examples{
 
+  library(dplyr)
+
   projecao_mensal <- structure(
-    list(ano = c(2015, 2025, 2022),
-         nome_4md = c("COPEL", "ESE", "UHENPAL"),
-         fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Hidro"),
-         segmento = c("comercial_at", "residencial", "residencial"),
-         adotantes_mes = c(1, 172, 0),
-         pot_mes_mw = c(0.00767, 1.14501518259998, 0),
-         mes_ano = structure(c(16467, 20240, 19236),
-                             class = c("yearmonth", "vctrs_vctr")),
-         mes = c(2, 6, 9),
-         p = c(0.000505391053085753, 0.000786787452721811, 0.00364169896575091),
-         q = c(0.872731853324977, 0.543083860089691, 0.560319141756969),
-         Ft = c(0.00731468279517835, 0.629706876035949, 0.64417085772448)),
+    list(ano = c(2018, 2019, 2020),
+         nome_4md = c("COSERN", "EQUATORIAL AL", "ERO"),
+         fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
+         segmento = c("residencial", "comercial_bt", "residencial_remoto"),
+         adotantes_mes = c(29, 38, 4),
+         pot_mes_mw = c(0.16773, 0.42818, 0.01418),
+         mes_ano = c("2018 jul 1", "2019 jun 1", "2020 ago 1"),
+         mes = c(7, 6, 8),
+         p = c(1e-04, 0.000321082460336051, 1e-04),
+         q = c(0.999129117163193, 1, 0.788982959999952),
+         Ft = c(0.0385425368844212, 0.260610809377481, 0.0652161787454779)),
     row.names = c(NA, -3L),
-    class = c("tbl_df", "tbl", "data.frame"))
+    class = c("tbl_df", "tbl", "data.frame")
+  )
+
+  projecao_mensal <- projecao_mensal \%>\%
+    mutate(
+      mes_ano = strptime(mes_ano, "\%Y \%b \%d")
+    )
 
   epe4md_proj_geracao(
     proj_mensal = projecao_mensal,
