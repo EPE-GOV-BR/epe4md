@@ -20,10 +20,10 @@ Altera fatores para facilitar entendimento em publicações
 
 dados <- tibble::tibble(
   fonte_resumo = c("comercial_bt",
-                    "comercial_at_remoto",
-                    "comercial_at",
-                    "residencial_remoto",
-                    "residencial")
+                   "comercial_at_remoto",
+                   "comercial_at",
+                   "residencial_remoto",
+                   "residencial")
 )
 
 epe4md_fatores_publicacao(dados)

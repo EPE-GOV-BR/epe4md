@@ -26,25 +26,25 @@ na geração de energia somente no parâmetro \code{ano_max_resultado} passado n
 \examples{
 
 dados <- structure(
-    list(data = structure(c(17928, 20485, 19997), class = "Date"),
-         ano = c(2019, 2026, 2024),
-         mes = c(2, 2, 10),
-         nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
-         subsistema = c("SE", "NE", "S"),
-         uf = c("ES", "AL", "SC"),
-         segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
-         fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-         energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
-         energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
-         energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
-         energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
-         pot_mes_mw = c(0, 0, 0.0118333352680657),
-         adotantes_mes = c(0, 0, 3),
-         p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
-         q = c(1, 1, 0.676434758626127),
-         regiao = c("SE", "NE", "S")),
-    row.names = c(NA, -3L),
-    class = c("tbl_df", "tbl", "data.frame")
+  list(data = structure(c(17928, 20485, 19997), class = "Date"),
+       ano = c(2019, 2026, 2024),
+       mes = c(2, 2, 10),
+       nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
+       subsistema = c("SE", "NE", "S"),
+       uf = c("ES", "AL", "SC"),
+       segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
+       fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
+       energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
+       energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
+       energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
+       energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
+       pot_mes_mw = c(0, 0, 0.0118333352680657),
+       adotantes_mes = c(0, 0, 3),
+       p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
+       q = c(1, 1, 0.676434758626127),
+       regiao = c("SE", "NE", "S")),
+  row.names = c(NA, -3L),
+  class = c("tbl_df", "tbl", "data.frame")
 )
 
 epe4md_graf_part_fonte_geracao(

@@ -6,6 +6,22 @@
 #' consideradas nos cálculos.
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
+#' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
+#' Máximo igual a 2050. Default igual a 2050.
+#' @param sequencial logic. Parâmetro que define se a projeção deve ser
+#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
+#' sequencial defina o parâmetro como TRUE. Default igual a FALSE.
+#' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
+#' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+#' o resultado será apresentado sem filtros.
+#' @param filtro_de_segmento string. Parâmetro que define um segmento a ser
+#' filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+#' "comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+#' informado um valor ou seja informado um valor inválido o resultado será
+#' apresentado sem filtro.
+#' @param filtro_de_custo_unitario_max numeric. Parâmetro que define o valor
+#' máximo do custo unitário para ser utilizado no cálculo do payback. Default
+#' igual a NULL.
 #' @param altera_sistemas_existentes logic. TRUE se alterações regulatórias
 #' afetam investimentos realizados em anos anteriores à revisão da regulação.
 #' Default igual a FALSE.
@@ -37,10 +53,6 @@
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
-#' @param sequencial logic. Parâmetro que define se a projeção deve ser
-#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
-#' sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
-#' paralela, defina o parâmetro como FALSE.
 #'
 #' @return data.frame. Métricas financeiras para cada caso.
 #' @export
@@ -86,7 +98,11 @@
 #'   casos_payback = casos_payback,
 #'   premissas_reg = premissas_regulatorias,
 #'   ano_base = 2021,
+#'   ano_max_resultado = 2021,
 #'   sequencial = TRUE,
+#'   filtro_de_uf = "RR,
+#'   filtro_de_segmento = "comercial_at",
+#'   filtro_de_custo_unitario_max = 6,
 #'   altera_sistemas_existentes = TRUE,
 #'   ano_decisao_alteracao = 2023,
 #'   inflacao = 0.0375,
@@ -119,7 +135,11 @@ epe4md_payback <- function(
     casos_payback,
     premissas_reg,
     ano_base,
+    ano_max_resultado,
     sequencial,
+    filtro_de_uf,
+    filtro_de_segmento,
+    filtro_de_custo_unitario_max,
     altera_sistemas_existentes = TRUE,
     ano_decisao_alteracao = 2023,
     inflacao = 0.0375,
@@ -147,7 +167,8 @@ epe4md_payback <- function(
                                 sheet = "fator")
 
   tarifas <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/tarifas_4md.xlsx"))
+    read_xlsx(stringr::str_glue("{dir_dados_premissas}/tarifas_4md.xlsx")) %>%
+    filter(ano <= ano_max_resultado)
 
   tarifas_comercial_at <- tarifas %>%
     filter(subgrupo == "A4") %>%
@@ -183,9 +204,10 @@ epe4md_payback <- function(
                        tarifas_residencial,
                        tarifas_residencial_remoto, tarifas_comercial_bt)
 
+
 # premissas regulatorias
 
-  anos <- tibble(ano = seq(2013, 2050, 1))
+  anos <- tibble(ano = seq(2013, ano_max_resultado, 1))
 
   premissas_regulatorias <- left_join(anos, premissas_reg, by = "ano",
                                       multiple = "all") %>%
@@ -206,7 +228,39 @@ epe4md_payback <- function(
                                 2,
                                 alternativa))
 
+  # Aplicando filtro de UF
+  tabela_regiao <-
+    readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx"))
 
+  casos_payback <- casos_payback %>%
+    left_join(tabela_regiao, by = c("nome_4md"))
+
+  lista_uf <- casos_payback$uf %>% unique()
+
+  if(filtro_de_uf %in% lista_uf){
+    casos_payback <- casos_payback %>%
+      filter(uf == filtro_de_uf)
+  }
+  else if (filtro_de_uf != "N"){
+    message("\nUF incorreta! Resultado apresentado sem filtro!")
+  }
+
+  # Aplicando filtro de segmento
+  lista_segmentos <- casos_payback$segmento %>% unique()
+
+  if(filtro_de_segmento %in% lista_segmentos){
+    casos_payback <- casos_payback %>%
+      filter(segmento == filtro_de_segmento)
+  }
+  else if (filtro_de_segmento != "N"){
+    message("\nSegmento incorreto! Resultado apresentado sem filtro!")
+  }
+
+  # Aplicando filtro de custo unitário máximo
+  if(!(is.null(filtro_de_custo_unitario_max))){
+    casos_payback <- casos_payback %>%
+      filter(custo_unitario <= filtro_de_custo_unitario_max)
+  }
 
   fluxo_de_caixa <- function(nome_4md, ano, segmento, vida_util,
                              fator_autoconsumo, geracao_1_kwh, degradacao,

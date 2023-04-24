@@ -9,7 +9,11 @@ epe4md_payback(
   casos_payback,
   premissas_reg,
   ano_base,
+  ano_max_resultado,
   sequencial,
+  filtro_de_uf,
+  filtro_de_segmento,
+  filtro_de_custo_unitario_max,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -33,10 +37,27 @@ consideradas nos cálculos.}
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
+\item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
+Máximo igual a 2050. Default igual a 2050.}
+
 \item{sequencial}{logic. Parâmetro que define se a projeção deve ser
 realizada de forma sequencial ou paralela. Para executar a projeção de forma
 sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
 paralela, defina o parâmetro como FALSE.}
+
+\item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
+ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+o resultado será apresentado sem filtros.}
+
+\item{filtro_de_segmento}{string. Parâmetro que define um segmento a ser
+filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+"comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+informado um valor ou seja informado um valor inválido o resultado será
+apresentado sem filtro.}
+
+\item{filtro_de_custo_unitario_max}{numeric. Parâmetro que define o valor
+máximo do custo unitário para ser utilizado no cálculo do payback. Default
+igual a NULL.}
 
 \item{altera_sistemas_existentes}{logic. TRUE se alterações regulatórias
 afetam investimentos realizados em anos anteriores à revisão da regulação.
@@ -118,7 +139,11 @@ epe4md_payback(
   casos_payback = casos_payback,
   premissas_reg = premissas_regulatorias,
   ano_base = 2021,
+  ano_max_resultado = 2021,
   sequencial = TRUE,
+  filtro_de_uf = "RR",
+  filtro_de_segmento = "comercial_at",
+  filtro_de_custo_unitario_max = 6,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,

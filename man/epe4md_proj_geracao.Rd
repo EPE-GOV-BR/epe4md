@@ -9,6 +9,7 @@ epe4md_proj_geracao(
   proj_mensal,
   ano_base,
   filtro_de_uf,
+  filtro_de_segmento,
   dir_dados_premissas = NA_character_
 )
 }
@@ -22,6 +23,12 @@ irá buscar a base de dados. Último ano completo realizado.}
 \item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
 ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 o resultado será apresentado sem filtros.}
+
+\item{filtro_de_segmento}{string. Parâmetro que define um segmento a ser
+filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+"comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+informado um valor ou seja informado um valor inválido o resultado será
+apresentado sem filtro.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas.
 Se esse parâmetro não for passado, a função usa os dados default que são
@@ -65,6 +72,7 @@ Estima a geração de eletricidade a partir da projeção de potência
     proj_mensal = projecao_mensal,
     ano_base = 2021,
     filtro_de_uf = "N",
+    filtro_de_segmento = "comercial_at",
     dir_dados_premissas = NA_character_
   )
 }

@@ -10,6 +10,8 @@ epe4md_calcula(
   ano_base,
   sequencial = FALSE,
   filtro_de_uf = "N",
+  filtro_de_segmento = "N",
+  filtro_de_custo_unitario_max = NULL,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -66,12 +68,21 @@ irá buscar a base de dados. Último ano completo realizado.}
 
 \item{sequencial}{logic. Parâmetro que define se a projeção deve ser
 realizada de forma sequencial ou paralela. Para executar a projeção de forma
-sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
-paralela, defina o parâmetro como FALSE.}
+sequencial defina o parâmetro como TRUE. Default FALSE.}
 
 \item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
 ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 o resultado será apresentado sem filtros.}
+
+\item{filtro_de_segmento}{string. Parâmetro que define um segmento a ser
+filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+"comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+informado um valor ou seja informado um valor inválido o resultado será
+apresentado sem filtro.}
+
+\item{filtro_de_custo_unitario_max}{numeric. Parâmetro que define o valor
+máximo do custo unitário para ser utilizado no cálculo do payback. Default
+igual a NULL.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
 Máximo igual a 2050. Default igual a 2050.}
@@ -161,21 +172,22 @@ O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
 \examples{
-  \dontrun{
-    premissas_regulatorias <- structure(
-        list(ano = 2021,
-             alternativa = 0,
-             p_transicao = 1,
-             binomia = FALSE,
-             demanda_g = FALSE),
-        class = c("tbl_df", "tbl", "data.frame"),
-        row.names = c(NA, -1L)
-      )
 
-      epe4md_calcula(premissas_reg = premissas_regulatorias,
-                     ano_base = 2021,
-                     sequencial = FALSE,
-                     filtro_de_uf = "RR",
-                     ano_max_resultado = 2021)
-  }
+premissas_regulatorias <- structure(
+  list(ano = 2021,
+       alternativa = 0,
+       p_transicao = 1,
+       binomia = FALSE,
+       demanda_g = FALSE),
+  class = c("tbl_df", "tbl", "data.frame"),
+  row.names = c(NA, -1L)
+)
+
+resultado <- epe4md_calcula(premissas_reg = premissas_regulatorias,
+                            ano_base = 2021,
+                            sequencial = FALSE,
+                            filtro_de_uf = "RR",
+                            filtro_de_segmento = "comercial_at",
+                            filtro_de_custo_unitario_max = 6,
+                            ano_max_resultado = 2021)
 }

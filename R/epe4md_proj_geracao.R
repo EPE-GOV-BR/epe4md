@@ -11,6 +11,11 @@
 #' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
 #' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 #' o resultado será apresentado sem filtros.
+#' @param filtro_de_segmento string. Parâmetro que define um segmento a ser
+#' filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+#' "comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+#' informado um valor ou seja informado um valor inválido o resultado será
+#' apresentado sem filtro.
 #'
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
@@ -56,6 +61,7 @@
 #'   proj_mensal = projecao_mensal,
 #'   ano_base = 2021,
 #'   filtro_de_uf = "N",
+#'   filtro_de_segmento = "N",
 #'   dir_dados_premissas = NA_character_
 #' )
 
@@ -65,7 +71,8 @@ utils::globalVariables(c("adotantes_mes", "ano_operacao", "mes_operacao", "mes/a
 
 epe4md_proj_geracao <- function(proj_mensal,
                                 ano_base,
-                                filtro_de_uf = "N",
+                                filtro_de_uf,
+                                filtro_de_segmento,
                                 dir_dados_premissas = NA_character_) {
 
   dir_dados_premissas <- if_else(
@@ -215,6 +222,14 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   resumo_resultados <- resumo_resultados %>%
     left_join(tabela_regiao, by = c("nome_4md", "subsistema", "uf"))
+
+  # Aplicando filtro de segmento quando solicitado
+  lista_segmentos <- resumo_resultados$segmento %>% unique()
+
+  if(filtro_de_segmento %in% lista_segmentos){
+    resumo_resultados <- resumo_resultados %>%
+      filter(segmento == filtro_de_segmento)
+  }
 
   resumo_resultados
 

@@ -99,7 +99,6 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   proj_potencia <- lista_potencia$proj_potencia
 
-
   if (ajuste_ano_corrente == TRUE) {
 
     dados_gd_historico <- readxl::read_xlsx(
@@ -136,7 +135,6 @@ epe4md_proj_mensal <- function(lista_potencia,
            adotantes_mes = qtde_u_csrecebem_os_creditos) %>%
     mutate(mes = month(mes_ano)) %>%
     select(- data_conexao, - num_geradores,- potencia_instalada_k_w)
-
 
   meses <- tibble(mes = seq(1, 12))
 
@@ -186,8 +184,7 @@ epe4md_proj_mensal <- function(lista_potencia,
              mes_ano = tsibble::yearmonth(mes_ano)) %>%
       left_join(fatores_mensais,
                 by = "mes",
-                multiple = "all",
-                relationship = "many-to-many") %>%
+                multiple = "all") %>%
       mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
              adotantes_mes = round(fator_mensal * adotantes_ano / 12)) %>%
       select(- fator_mensal, - adotantes_ano, - pot_ano_mw) %>%
@@ -226,11 +223,8 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   }
 
-
   #junção historico e projecao
   projecao_mensal <- bind_rows(historico_mensal, projecao_mensal)
-
-
 
   #inclusao fatores imitacao e inovacao para registro
   fatores_pq <- lista_potencia$proj_potencia %>%

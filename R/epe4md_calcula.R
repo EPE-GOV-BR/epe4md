@@ -84,6 +84,20 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
+#' @param sequencial logic. Parâmetro que define se a projeção deve ser
+#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
+#' sequencial defina o parâmetro como TRUE. Default FALSE.
+#' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
+#' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
+#' o resultado será apresentado sem filtros.
+#' @param filtro_de_segmento string. Parâmetro que define um segmento a ser
+#' filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+#' "comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+#' informado um valor ou seja informado um valor inválido o resultado será
+#' apresentado sem filtro.
+#' @param filtro_de_custo_unitario_max numeric. Parâmetro que define o valor
+#' máximo do custo unitário para ser utilizado no cálculo do payback. Default
+#' igual a NULL.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
 #' Máximo igual a 2050. Default igual a 2050.
 #' @param altera_sistemas_existentes logic. TRUE se alterações regulatórias
@@ -141,13 +155,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
 #' pasta default.
-#' @param sequencial logic. Parâmetro que define se a projeção deve ser
-#' realizada de forma sequencial ou paralela. Para executar a projeção de forma
-#' sequencial defina o parâmetro como TRUE. Para executar a projeção de forma
-#' paralela, defina o parâmetro como FALSE.
-#' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
-#' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
-#' o resultado será apresentado sem filtros.
 #'
 #' @return data.frame com os resultados da projeção de capacidade instalada
 #' de micro e minigeração distribuída, número de adotantes e geração
@@ -174,17 +181,21 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'   row.names = c(NA, -1L)
 #' )
 #'
-#' epe4md_calcula(premissas_reg = premissas_regulatorias,
-#'                ano_base = 2021,
-#'                sequencial = FALSE,
-#'                filtro_de_uf = "RR",
-#'                ano_max_resultado = 2021)
+#' resultado <- epe4md_calcula(premissas_reg = premissas_regulatorias,
+#'                             ano_base = 2021,
+#'                             sequencial = FALSE,
+#'                             filtro_de_uf = "RR",
+#'                             filtro_de_segmento = "comercial_at",
+#'                             filtro_de_custo_unitario_max = 6,
+#'                             ano_max_resultado = 2021)
 
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
   sequencial = FALSE,
   filtro_de_uf = "N",
+  filtro_de_segmento = "N",
+  filtro_de_custo_unitario_max = NULL,
   ano_max_resultado = 2050,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
@@ -281,9 +292,13 @@ epe4md_calcula <- function(
 
   resultado_payback <- epe4md_payback(
     ano_base = ano_base,
+    ano_max_resultado = ano_max_resultado,
     casos_payback = casos_payback,
     premissas_reg = premissas_reg,
     sequencial = sequencial,
+    filtro_de_uf = filtro_de_uf,
+    filtro_de_segmento = filtro_de_segmento,
+    filtro_de_custo_unitario_max = filtro_de_custo_unitario_max,
     altera_sistemas_existentes = altera_sistemas_existentes,
     ano_decisao_alteracao = ano_decisao_alteracao,
     inflacao = inflacao,
@@ -349,6 +364,7 @@ epe4md_calcula <- function(
     proj_mensal = proj_mensal,
     ano_base = ano_base,
     filtro_de_uf = filtro_de_uf,
+    filtro_de_segmento = filtro_de_segmento,
     dir_dados_premissas = dir_dados_premissas
   )
 
