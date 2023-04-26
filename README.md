@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/EPE-GOV-BR/epe4md/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/EPE-GOV-BR/epe4md/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
 O pacote epe4md permite fazer projeções do mercado de Micro e

@@ -190,4 +190,9 @@ resultado <- epe4md_calcula(premissas_reg = premissas_regulatorias,
                             filtro_de_segmento = "comercial_at",
                             filtro_de_custo_unitario_max = 6,
                             ano_max_resultado = 2021)
+
+\dontshow{
+## R CMD check: make sure any open connections are closed afterward
+if (!inherits(future::plan(), "sequential")) future::plan(future::sequential)
+}
 }

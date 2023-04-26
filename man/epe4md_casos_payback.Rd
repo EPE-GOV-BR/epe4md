@@ -46,12 +46,13 @@ payback.
 }
 \examples{
 
-epe4md_casos_payback(
-  ano_base = 2021,
-  ano_max_resultado = 2050,
-  inflacao = 0.0375,
-  ano_troca_inversor = 11,
-  fator_custo_inversor = 0.15,
-  dir_dados_premissas = NA_character_
+casos_payback <-
+  epe4md_casos_payback(
+    ano_base = 2021,
+    ano_max_resultado = 2050,
+    inflacao = 0.0375,
+    ano_troca_inversor = 11,
+    fator_custo_inversor = 0.15,
+    dir_dados_premissas = NA_character_
 )
 }

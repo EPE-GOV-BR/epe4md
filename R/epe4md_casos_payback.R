@@ -30,14 +30,15 @@
 #'
 #' @examples
 #'
-#'epe4md_casos_payback(
-#'  ano_base = 2021,
-#'  ano_max_resultado = 2050,
-#'  inflacao = 0.0375,
-#'  ano_troca_inversor = 11,
-#'  fator_custo_inversor = 0.15,
-#'  dir_dados_premissas = NA_character_
-#')
+#' casos_payback <-
+#'  epe4md_casos_payback(
+#'    ano_base = 2021,
+#'    ano_max_resultado = 2050,
+#'    inflacao = 0.0375,
+#'    ano_troca_inversor = 11,
+#'    fator_custo_inversor = 0.15,
+#'    dir_dados_premissas = NA_character_
+#'  )
 
 
 utils::globalVariables(c("custo_unitario","fc_remoto", "fc_local", "fc_fv", "fc_eol", "fc_term", "pot_sistemas",

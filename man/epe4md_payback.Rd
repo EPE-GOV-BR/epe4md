@@ -9,7 +9,6 @@ epe4md_payback(
   casos_payback,
   premissas_reg,
   ano_base,
-  ano_max_resultado,
   sequencial,
   filtro_de_uf,
   filtro_de_segmento,
@@ -36,9 +35,6 @@ consideradas nos cálculos.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
-
-\item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
-Máximo igual a 2050. Default igual a 2050.}
 
 \item{sequencial}{logic. Parâmetro que define se a projeção deve ser
 realizada de forma sequencial ou paralela. Para executar a projeção de forma
@@ -139,7 +135,6 @@ epe4md_payback(
   casos_payback = casos_payback,
   premissas_reg = premissas_regulatorias,
   ano_base = 2021,
-  ano_max_resultado = 2021,
   sequencial = TRUE,
   filtro_de_uf = "RR",
   filtro_de_segmento = "comercial_at",

@@ -188,6 +188,11 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'                             filtro_de_segmento = "comercial_at",
 #'                             filtro_de_custo_unitario_max = 6,
 #'                             ano_max_resultado = 2021)
+#'
+#' ## Don't show:
+#' ## R CMD check: make sure any open connections are closed afterward
+#' if (!inherits(future::plan(), "sequential")) future::plan(future::sequential)
+#' ## End(Don't show)
 
 epe4md_calcula <- function(
   premissas_reg,
@@ -292,7 +297,6 @@ epe4md_calcula <- function(
 
   resultado_payback <- epe4md_payback(
     ano_base = ano_base,
-    ano_max_resultado = ano_max_resultado,
     casos_payback = casos_payback,
     premissas_reg = premissas_reg,
     sequencial = sequencial,
