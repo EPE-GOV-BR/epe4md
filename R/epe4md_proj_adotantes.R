@@ -158,7 +158,8 @@ epe4md_proj_adotantes <- function(casos_otimizados,
 
   projecao <- left_join(projecao, part_adot_fontes,
                         by = c("nome_4md", "segmento"),
-                        multiple = "all") %>%
+                        multiple = "all",
+                        relationship = "many-to-many") %>%
     mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0))
 
   projecao <- left_join(projecao, historico_adot_fontes,
