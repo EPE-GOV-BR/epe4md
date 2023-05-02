@@ -422,8 +422,10 @@ epe4md_payback <- function(
       unnest(saida)
   }
   else{
+    # Definindo a estratégia de paralelismo
     future::plan(future::multisession())
 
+    # Executando a função em paralelo
     resultado_payback <- casos_payback %>%
       mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
                                                   vida_util, fator_autoconsumo,
@@ -433,6 +435,9 @@ epe4md_payback <- function(
                                         .f = fluxo_de_caixa,
                                         .progress = TRUE)) %>%
       unnest(saida)
+
+    # Encerrando o cluster paralelo
+    future::plan(future::sequential)
   }
 
   resultado_payback

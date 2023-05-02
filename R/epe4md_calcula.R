@@ -189,10 +189,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'                             filtro_de_custo_unitario_max = 6,
 #'                             ano_max_resultado = 2021)
 #'
-#' ## Don't show:
-#' ## R CMD check: make sure any open connections are closed afterward
-#' if (!inherits(future::plan(), "sequential")) future::plan(future::sequential)
-#' ## End(Don't show)
 
 epe4md_calcula <- function(
   premissas_reg,

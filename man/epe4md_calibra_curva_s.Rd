@@ -47,4 +47,44 @@ data.frame com curvas de difusão e mercado potencial
 \description{
 Calibra o modelo de Bass com dados históricos e gera curvas S de adoção.
 }
+\examples{
+resultado_payback <- structure(
+  list(segmento = c("comercial_at", "comercial_at", "comercial_at", "comercial_at", "comercial_at"),
+       fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
+       fator_autoconsumo = c(0.8, 0.8, 0.8, 0.8, 0.8),
+       oem_anual = c(0.01, 0.01, 0.01, 0.01, 0.01),
+       nome_4md = c("RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA"),
+       fc = c(0.150559213009562, 0.150559213009562, 0.150559213009562, 0.150559213009562, 0.150559213009562),
+       vida_util = c(25, 25, 25, 25, 25),
+       degradacao = c(0.005, 0.005, 0.005, 0.005, 0.005),
+       pot_sistemas = c(70, 70, 70, 70, 70),
+       geracao_1_kwh = c(92322.9094174635, 92322.9094174635, 92322.9094174635, 92322.9094174635, 92322.9094174635),
+       ano = c(2017, 2018, 2019, 2020, 2021),
+       custo_unitario = c(4.6, 4.23, 3.4, 3.62, 3.81),
+       custo_inversor = c(0.69, 0.6345, 0.51, 0.543, 0.5715),
+       capex_inicial = c(322000, 296100, 238000, 253400, 266700),
+       capex_inversor = c(69795.6224290695, 64181.6267119487, 51588.0687519209, 54926.1202593981, 57808.9829249466),
+       uf = c("RR", "RR", "RR", "RR", "RR"),
+       subsistema = c("MAN", "MAN", "MAN", "MAN", "MAN"),
+       regiao = c("N", "N", "N", "N", "N"),
+       payback = c(9.8778051007831, 6.84888025046529, 5.42743545180765, 6.58428138751385, 6.57787077623868),
+       payback_desc = c(25, 12.9151902647661, 7.76175962915069, 11.9207871041042, 11.8969973448089),
+       tir_nominal = c(0.117295199807788, 0.177811894010469, 0.237962995155112, 0.186855919654218, 0.1870853811094),
+       tir_real = c(0.0769110359593141, 0.135240379769127, 0.193217344727818, 0.143957512919728, 0.144178680587373)),
+  class = c("tbl_df", "tbl", "data.frame"),
+  row.names = c(NA, -5L)
+)
 
+consumidores <- readRDS("C:/Arquivos Locais/R/epe4md/inst/dados_exemplos/consumidores.Rds")
+
+casos_otimizados <- epe4md_calibra_curva_s(
+  resultado_payback = resultado_payback,
+  consumidores = consumidores,
+  ano_base = 2021,
+  ano_max_resultado = 2050,
+  spb = 0.3,
+  p_max = 0.01,
+  q_max = 1,
+  dir_dados_premissas = NA_character_
+)
+}
