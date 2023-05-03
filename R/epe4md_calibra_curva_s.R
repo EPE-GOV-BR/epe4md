@@ -68,10 +68,23 @@
 #'   row.names = c(NA, -5L)
 #' )
 #'
-#' consumidores <- readxl::read_xlsx(path = "inst/dados_exemplos/consumidores.xlsx")
-#' consumidores_totais <- readxl::read_xlsx(path = "inst/dados_exemplos/consumidores_totais.xlsx")
-#' consumidores <- list(consumidores = consumidores,
-#'                      consumidores_totais = consumidores_totais)
+#' consumidores <- list(
+#'   consumidores = structure(
+#'     list(nome_4md = c("RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA"),
+#'          ano = c(2017, 2018, 2019, 2020, 2021),
+#'          segmento = c("comercial_at", "comercial_at", "comercial_at",
+#'                       "comercial_at", "comercial_at"),
+#'          consumidores = c(656, 678, 751, 764, 791)),
+#'     row.names = c(NA, -5L),
+#'     class = c("tbl_df", "tbl", "data.frame")),
+#'   consumidores_totais = structure(
+#'     list(ano = c(2017, 2018, 2019, 2020, 2021),
+#'          total_ucs = c(187922, 187853, 184276, 182048, 181394),
+#'          segmento = c("comercial_at", "comercial_at", "comercial_at",
+#'                       "comercial_at", "comercial_at")),
+#'     row.names = c(NA, -5L),
+#'     class = c("tbl_df", "tbl", "data.frame"))
+#' )
 #'
 #' casos_otimizados <- epe4md_calibra_curva_s(
 #'   resultado_payback = resultado_payback,
