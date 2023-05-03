@@ -88,7 +88,10 @@ resultado_payback <- structure(
   row.names = c(NA, -5L)
 )
 
-consumidores <- readRDS("inst/dados_exemplos/consumidores.Rds")
+consumidores <- readxl::read_xlsx(path = "inst/dados_exemplos/consumidores.xlsx")
+consumidores_totais <- readxl::read_xlsx(path = "inst/dados_exemplos/consumidores_totais.xlsx")
+consumidores <- list(consumidores = consumidores,
+                     consumidores_totais = consumidores_totais)
 
 casos_otimizados <- epe4md_calibra_curva_s(
   resultado_payback = resultado_payback,
