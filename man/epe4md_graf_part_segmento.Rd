@@ -44,7 +44,7 @@ dados <- structure(
   class = c("tbl_df", "tbl", "data.frame")
 )
 
-epe4md_graf_part_segmento(
+graf_part_segmento <- epe4md_graf_part_segmento(
   dados = dados,
   ano_inicio = 2021,
   tamanho = 14

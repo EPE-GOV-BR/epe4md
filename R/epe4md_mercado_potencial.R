@@ -30,7 +30,7 @@
 #'
 #' @examples
 #'
-#' epe4md_mercado_potencial(
+#' mercado_potencial <- epe4md_mercado_potencial(
 #'   ano_base = 2021,
 #'   filtro_renda_domicilio = "maior_3sm",
 #'   filtro_comercial = NA,

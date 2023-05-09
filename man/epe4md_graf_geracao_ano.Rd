@@ -51,7 +51,7 @@ dados <- structure(
   class = c("tbl_df", "tbl", "data.frame")
 )
 
-epe4md_graf_geracao_ano(
+graf_geracao_ano <- epe4md_graf_geracao_ano(
   dados = dados,
   ano_inicio = 2021,
   cor = "#953735",

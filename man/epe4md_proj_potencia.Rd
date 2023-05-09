@@ -70,7 +70,7 @@ Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
 
   names(lista_adotantes) <- c("proj_adotantes", "part_adotantes")
 
-  epe4md_proj_potencia(
+  proj_potencia <- epe4md_proj_potencia(
     lista_adotantes = lista_adotantes,
     ano_base = 2021
   )

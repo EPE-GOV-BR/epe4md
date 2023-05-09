@@ -57,7 +57,7 @@
 #'     mes_ano = strptime(mes_ano, "%Y %b %d")
 #'   )
 #'
-#' epe4md_proj_geracao(
+#' proj_geracao <- epe4md_proj_geracao(
 #'   proj_mensal = projecao_mensal,
 #'   ano_base = 2021,
 #'   filtro_de_uf = "N",

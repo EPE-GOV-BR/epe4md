@@ -26,5 +26,5 @@ dados <- tibble::tibble(
                    "residencial")
 )
 
-epe4md_fatores_publicacao(dados)
+fatores <- epe4md_fatores_publicacao(dados)
 }

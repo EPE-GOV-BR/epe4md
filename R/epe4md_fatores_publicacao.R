@@ -20,7 +20,7 @@
 #'                    "residencial")
 #' )
 #'
-#' epe4md_fatores_publicacao(dados)
+#' fatores <- epe4md_fatores_publicacao(dados)
 
 
 epe4md_fatores_publicacao <- function(dados) {

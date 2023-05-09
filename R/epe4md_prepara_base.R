@@ -62,10 +62,10 @@
 #'   NumCoordNSub = NA
 #' )
 #'
-#' epe4md_prepara_base(
+#' base <- epe4md_prepara_base(
 #'   base_aneel = base,
 #'   ano_base = 2021,
-#' resumida = TRUE,
+#'   resumida = TRUE,
 #'   dir_dados_premissas = NA_character_
 #' )
 

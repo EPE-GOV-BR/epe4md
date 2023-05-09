@@ -4,6 +4,14 @@
 #' [epe4md::epe4md_proj_potencia].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
+#' @param filtro_nome4md string. Parâmetro que define o nome de uma
+#' concessionária de energia a ser filtrado. Caso não seja #' informado um valor
+#' ou seja informado um valor inválido o resultado será apresentado sem filtro.
+#' @param filtro_de_segmento string. Parâmetro que define um segmento a ser
+#' filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
+#' "comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
+#' informado um valor ou seja informado um valor inválido o resultado será
+#' apresentado sem filtro.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
 #' Máximo igual a 2050. Default igual a 2050.
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá
@@ -37,56 +45,75 @@
 #' @encoding UTF-8
 #'
 #' @examples
-#'
-#' lista_adotantes <- list(
-#'   structure(
-#'     list(nome_4md = c("CEB", "EQUATORIAL MA", "LIGHT"),
-#'          segmento = c("comercial_at_remoto", "comercial_bt", "comercial_at_remoto"),
-#'          p = c(0.000314088483901221, 0.000326288160094334, 0.01),
-#'          q = c(0.860602105239079, 0.796618861208451, 0.0771175699573262),
-#'          spb = c(0.3, 0.3, 0.3),
-#'          ano = c(2024, 2028, 2022),
-#'          Ft = c(0.917955265426745, 0.992968921614641, 0.137575817915978),
-#'          consumidores = c(12146, 47955, 22878),
-#'          payback = c(5.00924084667372, 4.40202323859729, 8.53878219211533),
-#'          mercado_potencial = c(675.75, 3200.75, 441.5),
-#'          adotantes_ano = c(309, 0, 4),
-#'          adotantes_acum = c(2361, 0, 42),
-#'          fonte_resumo = c("Fotovoltaica", "Eólica", "Fotovoltaica"),
-#'          part_fonte = c(1, 0, 0.186666666666667),
-#'          adotantes_hist = c(NA_real_, NA_real_, NA_real_)),
-#'     row.names = c(NA, -3L),
-#'     class = c("tbl_df", "tbl", "data.frame")),
-#'   structure(
-#'     list(ano = c(2030, 2016, 2020),
-#'          segmento = c("comercial_bt", "residencial", "residencial"),
-#'          adotantes = c(694432, 7214, 357386),
-#'          mercado_potencial = c(620539, 857786, 2931122),
-#'          total_ucs = c(14858570, 66148593.0147109, 71001451.6735913),
-#'          penetracao_total = c(0.0467361260202025, 0.000109057497238009, 0.00503350271826806),
-#'          mercado_nicho = c(2541888, 10668970, 11014026),
-#'          penetracao_nicho = c(0.273195357151849, 0.000676166490298501, 0.0324482618798975),
-#'          penetracao_potencial = c(1.11907873638885, 0.00841002301273278, 0.121928053489415)),
-#'     row.names = c(NA, -3L),
-#'     class = c("tbl_df", "tbl", "data.frame"))
+#' lista_potencia <- list(
+#'   proj_potencia = structure(
+#'     list(nome_4md = c("RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA", "RORAIMA"),
+#'          segmento = c("comercial_at", "comercial_at", "comercial_at",
+#'          "comercial_at", "comercial_at"),
+#'          p = c(0.000122298434419402, 0.000122298434419402,
+#'          0.000122298434419402, 0.000122298434419402, 0.000122298434419402),
+#'          q = c(1, 1, 1, 1, 1),
+#'          spb = c(0.3, 0.3, 0.3, 0.3, 0.3),
+#'          ano = c(2017, 2018, 2019, 2020, 2021),
+#'          Ft = c(0.0177177153816275, 0.0469352065606947, 0.118237854106428,
+#'          0.267268529395706, 0.497952210651889),
+#'          consumidores = c(656, 678, 751, 764, 791),
+#'          payback = c(25, 12.9151902647661, 7.76175962915069,
+#'          11.9207871041042, 11.8969973448089),
+#'          mercado_potencial = c(0.25, 3.5, 18.25, 5.25, 5.5),
+#'          adotantes_ano = c(3, 1, 1, 3, 6),
+#'          adotantes_acum = c(3, 4, 5, 8, 14),
+#'          fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica",
+#'          "Fotovoltaica", "Fotovoltaica"),
+#'          part_fonte = c(1, 1, 1, 1, 1),
+#'          adotantes_hist = c(3, 1, 1, 3, 6),
+#'          pot_media = c(353.694375, 353.694375, 353.694375, 353.694375,
+#'          353.694375),
+#'          pot_ano = c(199, 80, 94, 4602, 529.11),
+#'          pot_hist = c(199, 80, 94, 4602, 529.11),
+#'          pot_ano_mw = c(0.199, 0.08, 0.094, 4.602, 0.52911),
+#'          pot_acum_mw = c(0.199, 0.279, 0.373, 4.975, 5.50411)),
+#'     class = c("tbl_df", "tbl", "data.frame"),
+#'     row.names = c(NA, -5L)
+#'   ),
+#'   part_adotantes = structure(
+#'     list(ano = c(2017, 2018, 2019, 2020, 2021),
+#'          segmento = c("comercial_at", "comercial_at", "comercial_at",
+#'          "comercial_at", "comercial_at"),
+#'          adotantes = c(3, 4, 5, 8, 14),
+#'          mercado_potencial = c(1, 14, 73, 21, 22),
+#'          total_ucs = c(187922, 187853, 184276, 182048, 181394),
+#'          penetracao_total = c(1.5964070199338e-05, 2.12932452502755e-05,
+#'          2.71332132236428e-05, 4.39444542098787e-05, 7.71800610825055e-05),
+#'          mercado_nicho = c(187922, 187853, 184276, 182048, 181394),
+#'          penetracao_nicho = c(1.5964070199338e-05, 2.12932452502755e-05,
+#'          2.71332132236428e-05, 4.39444542098787e-05, 7.71800610825055e-05),
+#'          penetracao_potencial = c(3, 0.285714285714286, 0.0684931506849315,
+#'          0.380952380952381, 0.636363636363636)),
+#'     row.names = c(NA, -5L),
+#'     class = c("tbl_df", "tbl", "data.frame")
+#'   )
 #' )
 #'
-#' names(lista_adotantes) <- c("proj_adotantes", "part_adotantes")
-#'
-#' epe4md_proj_potencia(
-#'   lista_adotantes = lista_adotantes,
-#'   ano_base = 2021
+#' proj_mensal <- epe4md_proj_mensal(
+#'   lista_potencia = lista_potencia,
+#'   ano_base = 2021,
+#'   filtro_nome4md = "RORAIMA",
+#'   filtro_de_segmento = "comercial_at",
+#'   ano_max_resultado = 2021
 #' )
 
 utils::globalVariables(c("seasonal", "fator_mensal", "adotantes_total", "pot_media", "pot_hist"))
 
 epe4md_proj_mensal <- function(lista_potencia,
-                                  ano_base,
-                                  ano_max_resultado = 2050,
-                                  ajuste_ano_corrente = FALSE,
-                                  ultimo_mes_ajuste = NA,
-                                  metodo_ajuste = NA,
-                                  dir_dados_premissas = "inst/dados_premissas") {
+                               ano_base,
+                               filtro_nome4md,
+                               filtro_de_segmento,
+                               ano_max_resultado = 2050,
+                               ajuste_ano_corrente = FALSE,
+                               ultimo_mes_ajuste = NA,
+                               metodo_ajuste = NA,
+                               dir_dados_premissas = "inst/dados_premissas") {
 
   dir_dados_premissas <- if_else(
     dir_dados_premissas == "inst/dados_premissas",
@@ -234,6 +261,26 @@ epe4md_proj_mensal <- function(lista_potencia,
     left_join(fatores_pq,
               by = c("ano", "segmento", "nome_4md", "fonte_resumo"),
               multiple = "all")
+
+  # Filtro de nome
+  lista_nome4md <- projecao_mensal$nome_4md %>% unique()
+  if(filtro_nome4md %in% lista_nome4md){
+      projecao_mensal <- projecao_mensal %>%
+        filter(nome_4md == filtro_nome4md)
+  }
+  else if(filtro_nome4md != "N"){
+    warning("\nNome incorreto! Resultado apresentado sem filtro!")
+  }
+
+  # Aplicando filtro de segmento
+  lista_segmentos <- projecao_mensal$segmento %>% unique()
+  if(filtro_de_segmento %in% lista_segmentos){
+    projecao_mensal <- projecao_mensal %>%
+      filter(segmento == filtro_de_segmento)
+  }
+  else if (filtro_de_segmento != "N"){
+    message("\nSegmento incorreto! Resultado apresentado sem filtro!")
+  }
 
   projecao_mensal
 

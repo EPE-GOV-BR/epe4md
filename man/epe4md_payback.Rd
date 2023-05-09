@@ -131,7 +131,7 @@ premissas_regulatorias <- tibble::tibble(
   demanda_g = FALSE
 )
 
-epe4md_payback(
+payback <- epe4md_payback(
   casos_payback = casos_payback,
   premissas_reg = premissas_regulatorias,
   ano_base = 2021,

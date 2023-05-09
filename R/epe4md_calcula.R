@@ -36,7 +36,7 @@
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
 #'
-#' epe4md_sumariza_resultados(resultados_mensais)
+#' resultado <- epe4md_sumariza_resultados(resultados_mensais)
 
 epe4md_sumariza_resultados <- function(resultados_mensais) {
 
@@ -90,6 +90,9 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param filtro_de_uf string. Parâmetro que define uma unidade federativa (UF) a
 #' ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 #' o resultado será apresentado sem filtros.
+#' @param filtro_nome4md string. Parâmetro que define o nome de uma
+#' concessionária de energia a ser filtrado. Caso não seja informado um valor
+#' ou seja informado um valor inválido o resultado será apresentado sem filtro.
 #' @param filtro_de_segmento string. Parâmetro que define um segmento a ser
 #' filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",
 #' "comercial_bt", "residencial" e "residencial_remoto".  Caso não seja
@@ -195,6 +198,7 @@ epe4md_calcula <- function(
   ano_base,
   sequencial = FALSE,
   filtro_de_uf = "N",
+  filtro_nome4md = "N",
   filtro_de_segmento = "N",
   filtro_de_custo_unitario_max = NULL,
   ano_max_resultado = 2050,
@@ -351,6 +355,8 @@ epe4md_calcula <- function(
   proj_mensal <- epe4md_proj_mensal(
     lista_potencia = lista_potencia,
     ano_base = ano_base,
+    filtro_nome4md = filtro_nome4md,
+    filtro_de_segmento = filtro_de_segmento,
     dir_dados_premissas = dir_dados_premissas,
     ano_max_resultado = ano_max_resultado,
     ajuste_ano_corrente = ajuste_ano_corrente,

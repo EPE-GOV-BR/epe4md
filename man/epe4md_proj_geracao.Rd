@@ -68,12 +68,12 @@ Estima a geração de eletricidade a partir da projeção de potência
       mes_ano = strptime(mes_ano, "\%Y \%b \%d")
     )
 
-  epe4md_proj_geracao(
-    proj_mensal = projecao_mensal,
-    ano_base = 2021,
-    filtro_de_uf = "N",
-    filtro_de_segmento = "comercial_at",
-    dir_dados_premissas = NA_character_
-  )
+proj_geracao <- epe4md_proj_geracao(
+  proj_mensal = projecao_mensal,
+  ano_base = 2021,
+  filtro_de_uf = "N",
+  filtro_de_segmento = "comercial_at",
+  dir_dados_premissas = NA_character_
+)
 }
 

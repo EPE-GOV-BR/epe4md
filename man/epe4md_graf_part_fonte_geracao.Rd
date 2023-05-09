@@ -47,7 +47,7 @@ dados <- structure(
   class = c("tbl_df", "tbl", "data.frame")
 )
 
-epe4md_graf_part_fonte_geracao(
+graf_part_fonte_geracao <- epe4md_graf_part_fonte_geracao(
   dados = dados,
   cor = "#953735",
   tamanho = 14

@@ -42,7 +42,7 @@
 #'   q = c(1.0000000, 1.0000000, 0.5282319)
 #' )
 #'
-#' epe4md_investimentos(
+#' investimentos <- epe4md_investimentos(
 #'   resultados_mensais = resultados_mensais,
 #'   ano_base = 2021,
 #'   ano_max_resultado = 2050,

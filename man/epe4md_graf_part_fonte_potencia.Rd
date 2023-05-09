@@ -50,7 +50,7 @@ dados <- structure(
   class = c("tbl_df", "tbl", "data.frame")
 )
 
-epe4md_graf_part_fonte_potencia(
+graf_part_fonte_potencia <- epe4md_graf_part_fonte_potencia(
   dados = dados,
   cor = "#112446",
   tamanho = 14

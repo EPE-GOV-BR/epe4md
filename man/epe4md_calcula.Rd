@@ -10,6 +10,7 @@ epe4md_calcula(
   ano_base,
   sequencial = FALSE,
   filtro_de_uf = "N",
+  filtro_nome4md = "N",
   filtro_de_segmento = "N",
   filtro_de_custo_unitario_max = NULL,
   ano_max_resultado = 2050,
@@ -73,6 +74,10 @@ sequencial defina o parâmetro como TRUE. Default FALSE.}
 \item{filtro_de_uf}{string. Parâmetro que define uma unidade federativa (UF) a
 ser filtrada. Caso uma UF não seja indicada ou seja informado um valor inválido,
 o resultado será apresentado sem filtros.}
+
+\item{filtro_nome4md}{string. Parâmetro que define o nome de uma concessionária
+de energia a ser filtrado. Caso não seja informado um valor ou seja informado um
+valor inválido o resultado será apresentado sem filtro.}
 
 \item{filtro_de_segmento}{string. Parâmetro que define um segmento a ser
 filtrado. Pode se escolher entre "comercial_at", "comercial_at_remoto",

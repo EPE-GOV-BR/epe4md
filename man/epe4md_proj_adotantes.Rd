@@ -71,9 +71,9 @@ Realiza a projeção do número de adotantes de micro e minigeração distribuí
 
     names(consumidores) <- c("consumidores", "consumidores_totais")
 
-    epe4md_proj_adotantes(
-      casos_otimizados = casos_otimizados,
-      consumidores = consumidores,
-      ano_base = 2021
-    )
+proj_adotantes <- epe4md_proj_adotantes(
+  casos_otimizados = casos_otimizados,
+  consumidores = consumidores,
+  ano_base = 2021
+)
 }

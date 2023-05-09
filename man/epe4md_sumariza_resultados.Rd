@@ -41,5 +41,5 @@ resultados_mensais <- structure(
   class = c("tbl_df", "tbl", "data.frame")
 )
 
-epe4md_sumariza_resultados(resultados_mensais)
+resultado <- epe4md_sumariza_resultados(resultados_mensais)
 }
