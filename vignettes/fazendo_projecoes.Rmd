@@ -34,7 +34,7 @@ Na sequência, um argumento essencial para a execução da projeção é a defin
 
 ```{r }
 premissas_regulatorias <- 
-  readxl::read_xlsx(system.file("dados_premissas/2021/premissas_reg.xlsx",
+  readxl::read_xlsx(system.file("dados_premissas/2022/premissas_reg.xlsx",
                                                         package = "epe4md"))
 
 print(premissas_regulatorias)
@@ -73,7 +73,7 @@ Representa a cobrança de TUSDg para a demanda de consumidores do grupo A. Caso 
 A função `epe4md_calcula` possui outros argumentos pré-definidos, que podem ser alterados caso seja de interesse do usuário. A seguir, por exemplo, iremos especificar o horizonte desejado da projeção como sendo 2035. Caso não fosse atribuído valor para esse argumento da função, o resultado iria até 2050. Para mais informações, verificar a documentação da função.
 
 ```{r, cache = TRUE, warning = FALSE, message=FALSE}
-resultado <- epe4md_calcula(ano_base = 2021,
+resultado <- epe4md_calcula(ano_base = 2022,
                               premissas_reg = premissas_regulatorias,
                               ano_max_resultado = 2035)
 ```

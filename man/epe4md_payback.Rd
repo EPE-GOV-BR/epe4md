@@ -62,7 +62,7 @@ CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
 Default igual a 0.}
 
 \item{anos_desconto}{vector. Anos em que há a incidência do desconto no
-CAPEX. Default igual a 0.}
+CAPEX.Ex: c(2024, 2025). Default igual a 0.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

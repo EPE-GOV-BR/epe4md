@@ -113,10 +113,7 @@ energia e montante de investimentos.</p>
 </h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"EPE-GOV-BR/epe4md"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Downloading GitHub repo EPE-GOV-BR/epe4md@HEAD</span></span>
-<span><span class="co">#&gt; Error in utils::download.file(url, path, method = method, quiet = quiet,  : </span></span>
-<span><span class="co">#&gt;   cannot open URL 'https://api.github.com/repos/EPE-GOV-BR/epe4md/tarball/HEAD'</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"EPE-GOV-BR/epe4md"</span><span class="op">)</span></span></code></pre></div>
 <p>Observação: você precisa ter instalado o pacote “devtools”
 anteriormente. Caso ainda não tenha feito, instale através do seguinte
 código.</p>
@@ -158,12 +155,12 @@ premissas regulatórias (ver explicação no help da função ou no seguinte
 tutorial: <a href="https://epe-gov-br.github.io/epe4md/articles/fazendo_projecoes.html" class="external-link uri">https://epe-gov-br.github.io/epe4md/articles/fazendo_projecoes.html</a></p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="va">premissas_regulatorias</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2021/premissas_reg.xlsx"</span>, package <span class="op">=</span> <span class="st">"epe4md"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">premissas_regulatorias</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2022/premissas_reg.xlsx"</span>, package <span class="op">=</span> <span class="st">"epe4md"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">resultado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span></span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
 <span>  premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span><span class="op">)</span></span></code></pre></div>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span><span class="op">)</span></span></code></pre></div>
 <p>A partir dessa planilha de resultados, você pode explorar resultados
 por UF, fonte, segmento, entre outros. Isso é feito com o auxílio de
 funções da coleção <em>tidyverse.</em></p>
@@ -210,10 +207,10 @@ tamanho do mercado potencial, e a definição da taxa de crescimento do
 mercado potencial dos consumidores do Grupo A (Alta Tensão).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mercado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_mercado_potencial.html">epe4md_mercado_potencial</a></span><span class="op">(</span></span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
 <span>  filtro_renda_domicilio <span class="op">=</span> <span class="st">"maior_3sm"</span>,</span>
 <span>  filtro_comercial <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0.016</span><span class="op">)</span></span></code></pre></div>
+<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></code></pre></div>
 <p>Esta função resulta um em uma lista com dois data.frames.
 “consumidores” possui o mercado potencial incial. “consumidores_totais”
 possui dados de mercado total.</p>
@@ -232,8 +229,8 @@ para gerar o cálculo de payback posteriormente (CAPEX, OPEX, fator de
 autoconsumo, ano de troca do inversor, etc.)</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">casos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_casos_payback.html">epe4md_casos_payback</a></span><span class="op">(</span></span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span></span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
@@ -245,7 +242,7 @@ calculas as métricas financeiras de payback e TIR.</p>
 <code class="sourceCode R"><span><span class="va">payback</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_payback.html">epe4md_payback</a></span><span class="op">(</span></span>
 <span>  casos_payback <span class="op">=</span> <span class="va">casos</span>,</span>
 <span>  premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
 <span>  altera_sistemas_existentes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ano_decisao_alteracao <span class="op">=</span> <span class="fl">2023</span>,</span>
 <span>  inflacao <span class="op">=</span> <span class="fl">0.0375</span>,</span>
@@ -267,9 +264,8 @@ segmento.</p>
 <code class="sourceCode R"><span><span class="va">mercado_calibrado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calibra_curva_s.html">epe4md_calibra_curva_s</a></span><span class="op">(</span></span>
 <span>  resultado_payback <span class="op">=</span> <span class="va">payback</span>,</span>
 <span>  consumidores <span class="op">=</span> <span class="va">mercado</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span>,</span>
-<span>  spb <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span>,</span>
 <span>  p_max <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>  q_max <span class="op">=</span> <span class="fl">1</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -284,7 +280,7 @@ fonte.</p>
 <code class="sourceCode R"><span><span class="va">adotantes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_proj_adotantes.html">epe4md_proj_adotantes</a></span><span class="op">(</span></span>
 <span>  casos_otimizados <span class="op">=</span> <span class="va">mercado_calibrado</span>,</span>
 <span>  consumidores <span class="op">=</span> <span class="va">mercado</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span></span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dados_adotantes</span> <span class="op">&lt;-</span> <span class="va">adotantes</span><span class="op">$</span><span class="va">proj_adotantes</span></span></code></pre></div>
@@ -303,7 +299,7 @@ da capacidade instalada.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">potencia</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_proj_potencia.html">epe4md_proj_potencia</a></span><span class="op">(</span></span>
 <span>  lista_adotantes <span class="op">=</span> <span class="va">adotantes</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span></span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">dados_potencia</span> <span class="op">&lt;-</span> <span class="va">potencia</span><span class="op">$</span><span class="va">proj_potencia</span></span></code></pre></div>
@@ -315,10 +311,10 @@ da capacidade instalada.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mensal</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_proj_mensal.html">epe4md_proj_mensal</a></span><span class="op">(</span></span>
 <span>  lista_potencia <span class="op">=</span> <span class="va">potencia</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span>,</span>
 <span>  ajuste_ano_corrente <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  ultimo_mes_ajuste <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>  ultimo_mes_ajuste <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  metodo_ajuste <span class="op">=</span> <span class="st">"extrapola"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>O ajuste do ano corrente FALSE indica que a projeção deve começar a
@@ -335,7 +331,7 @@ e mantém o restante do ano com a projeção normal. A figura a seguir
 ilustra esses métodos.</p></li>
 </ul>
 <div class="figure">
-<img src="metodos_ajuste.png" alt=""><p class="caption">Métodos de ajuste e origem dos dados de cada mês</p>
+<img src="../../../../Arquivos%20Locais/projetos/epe4md-git3/articles/metodos_ajuste.png" alt=""><p class="caption">Métodos de ajuste e origem dos dados de cada mês</p>
 </div>
 </div>
 <div class="section level3">
@@ -347,7 +343,7 @@ dados de adotantes e capacidade instalada.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">geracao</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_proj_geracao.html">epe4md_proj_geracao</a></span><span class="op">(</span></span>
 <span>  proj_mensal <span class="op">=</span> <span class="va">mensal</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span></span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">resumo_partes_br</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_sumariza_resultados.html">epe4md_sumariza_resultados</a></span><span class="op">(</span><span class="va">geracao</span><span class="op">)</span></span></code></pre></div>
@@ -355,12 +351,12 @@ dados de adotantes e capacidade instalada.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">geracao_funcao</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span></span>
 <span>  premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span>,</span>
 <span>  altera_sistemas_existentes <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ano_decisao_alteracao <span class="op">=</span> <span class="fl">2023</span>,</span>
 <span>  ajuste_ano_corrente <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  ultimo_mes_ajuste <span class="op">=</span> <span class="fl">9</span>,</span>
+<span>  ultimo_mes_ajuste <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  metodo_ajuste <span class="op">=</span> <span class="st">"extrapola"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -388,7 +384,7 @@ de Dados de MMGD da ANEEL</a></p>
 <code class="sourceCode R"><span><span class="va">base_aneel</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv2</a></span><span class="op">(</span><span class="st">"empreendimento-geracao-distribuida.csv"</span>, locale <span class="op">=</span> <span class="fu"><a href="https://readr.tidyverse.org/reference/locale.html" class="external-link">locale</a></span><span class="op">(</span>encoding <span class="op">=</span> <span class="st">"Windows-1252"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">resumo_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_prepara_base.html">epe4md_prepara_base</a></span><span class="op">(</span><span class="va">base_aneel</span>,</span>
-<span>                                   ano_base <span class="op">=</span> <span class="fl">2021</span><span class="op">)</span></span></code></pre></div>
+<span>                                   ano_base <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span></code></pre></div>
 <p><em>Dica 1: Atente-se ao encoding. Não é raro que o csv tenha
 alteração no encoding. Se a leitura for feita com encoding incorreto,
 haverá erro ao fazer join com outras tabelas.</em></p>
@@ -404,11 +400,32 @@ partir da projeção de capacidade.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">investimentos</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_investimentos.html">epe4md_investimentos</a></span><span class="op">(</span></span>
 <span>  resultados_mensais <span class="op">=</span> <span class="va">resultado</span>,</span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span><span class="op">)</span></span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">resumo_investimentos</span> <span class="op">&lt;-</span> <span class="va">investimentos</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">ano</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>investimento_ano_bi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">investimento_ano_milhoes</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>investimento_ano_bi <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">investimento_ano_milhoes</span> <span class="op">/</span> <span class="fl">1000</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">resumo_investimentos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 2</span></span></span>
+<span><span class="co">#&gt;      ano investimento_ano_bi</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>               <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013                0.02</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>014                0.02</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>015                0.12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>016                0.46</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>017                0.95</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>018                2.31</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>019                7.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020               12.5 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021               20.8 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022               34.3 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span>  <span style="text-decoration: underline;">2</span>023               25.4 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span>  <span style="text-decoration: underline;">2</span>024               19.2 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span>  <span style="text-decoration: underline;">2</span>025               16.8 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span>  <span style="text-decoration: underline;">2</span>026               14.4 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span>  <span style="text-decoration: underline;">2</span>027               12.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span>  <span style="text-decoration: underline;">2</span>028                9.85</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="gráficos">Gráficos<a class="anchor" aria-label="anchor" href="#gr%C3%A1ficos"></a>
@@ -450,7 +467,7 @@ uma cópia na pasta do seu projeto atual (destino <em>default</em> da
 função). Caso queira escolher um diretório diferente, o usuário pode
 informar através do parâmetro “destino”.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/epe4md_copia_premissas.html">epe4md_copia_premissas</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2021</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/epe4md_copia_premissas.html">epe4md_copia_premissas</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2022</span><span class="op">)</span></span></code></pre></div>
 <p>Essa função criou na raiz do projeto atual as pastas
 <em>dados_premissas/2021</em>, com a copia de todas as planilhas de
 premissas.</p>
@@ -467,22 +484,22 @@ potencial.</p>
 aumentamos a taxa de crescimento anual para 4% a.a. a partir de 2024 e
 salvamos.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">planilha_crescimento</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="st">"dados_premissas/2021/crescimento_mercado.xlsx"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">planilha_crescimento</span> <span class="op">&lt;-</span> <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="st">"dados_premissas/2022/crescimento_mercado.xlsx"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">planilha_crescimento</span> <span class="op">&lt;-</span> <span class="va">planilha_crescimento</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>taxa_crescimento_mercado <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">ano</span> <span class="op">&gt;</span> <span class="fl">2023</span>,</span>
 <span>                                           <span class="fl">0.04</span>,</span>
 <span>                                           <span class="va">taxa_crescimento_mercado</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">writexl</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/writexl/reference/write_xlsx.html" class="external-link">write_xlsx</a></span><span class="op">(</span><span class="va">planilha_crescimento</span>, <span class="st">"dados/2021/crescimento_mercado.xlsx"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">writexl</span><span class="fu">::</span><span class="fu"><a href="https://docs.ropensci.org/writexl/reference/write_xlsx.html" class="external-link">write_xlsx</a></span><span class="op">(</span><span class="va">planilha_crescimento</span>, <span class="st">"dados/2022/crescimento_mercado.xlsx"</span><span class="op">)</span></span></code></pre></div>
 <p>Agora vamos fazer nova projeção, passando o caminho da nova pasta de
 premissas (perceba o último parâmetro).</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">resultado_crescimento</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span></span>
-<span>  ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
+<span>  ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
 <span>  premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
-<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2027</span>,</span>
-<span>  dir_dados_premissas <span class="op">=</span> <span class="st">"dados_premissas/2021"</span></span>
+<span>  ano_max_resultado <span class="op">=</span> <span class="fl">2028</span>,</span>
+<span>  dir_dados_premissas <span class="op">=</span> <span class="st">"dados_premissas/2022"</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
 <p>Portanto, há liberdade para o usuário alterar outras planilhas de
 premissas para gerar novos resultados.</p>

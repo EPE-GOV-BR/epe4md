@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Metodologia
 
-O referencial teórico e uma descrição da metodologia do 4MD pode ser encontrada [neste link.](https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-607/topico-593/NT_Metodologia_4MD_PDE_2031.pdf)
+O referencial teórico e uma descrição da metodologia do 4MD pode ser encontrada [neste link.](https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf)
 
 ## Estrutura do pacote epe4md
 
@@ -29,7 +29,7 @@ O pacote `epe4md` possui diferentes funções encadeadas para realizar as proje�
 
 No local onde o pacote é instalado na máquina existe a pasta `dados_premissas`. Dentro dessa pasta há subpastas com dados e parâmetros de entrada para cada ano base. 
 ```{r}
-list.files(system.file("dados_premissas/2021", package = "epe4md"))
+list.files(system.file("dados_premissas/2022", package = "epe4md"))
 ```
 
 Caso o usuário deseje alterar esses dados e parâmetros de entrada, é recomendado copiar esses arquivos para outra pasta, fazer as alterações na nova pasta, e passar para o modelo o caminho da nova pasta. Esse novo diretório pode ser atribuído ao modelo através do argumento `dir_dados_premissas`, presente nas funções do pacote.
@@ -100,6 +100,9 @@ Premissas regulatórias. Veja mais na vinheta "Fazendo as primeiras projeções 
 
 Definição dos segmentos de mercado a partir das características das instalações (alta ou baixa tensão, local ou remoto e classe do consumidor)
 
+### spb.xlsx
+Definição do fator de Sensibilidade ao Payback (SPB) por segmento.
+
 ### subgrupo_compensacao.xlsx
 
 Relação de segmentos de mercado utilizados no modelo e o subgrupo tarifário correspondente em que ocorre a compensação dos créditos de geração.
@@ -115,6 +118,10 @@ Relação entre as distribuidoras, unidades federativas, regiões e subsistemas.
 ### tempo_construcao.xlsx
 
 Premissas de tempo de construção dos sistemas fotovoltaicos em cada segmento de mercado. Utilizadas para os cálculos de retorno financeiro dos projetos.
+
+### tipo_payback.xlsx
+Definição da métrica de payback que será utilizada para cálculo do mercado
+potencial em conjunto com o fator SPB. Pode ser "simples" ou "descontado".
 
 ### total_domicilios.xlsx
 

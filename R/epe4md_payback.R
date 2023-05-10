@@ -32,7 +32,7 @@
 #' CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
 #' Default igual a 0.
 #' @param anos_desconto vector. Anos em que há a incidência do desconto no
-#' CAPEX. Default igual a 0.
+#' CAPEX.Ex: c(2024, 2025). Default igual a 0.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -219,11 +219,11 @@ epe4md_payback <- function(
                                 (tarifa_autoc_tusd + tarifa_autoc_te)) /
                (1 - impostos_cheio),
              receita_inj_completa = (taxa_inflacao * energia_inj *
-                                       tarifa_inj_te / (1 - impostos_cheio)) +
+                                       tarifa_inj_te / (1 - impostos_te)) +
                (taxa_inflacao * energia_inj * tarifa_inj_tusd /
                   (1 - impostos_tusd)),
              pag_compensacao = ((taxa_inflacao * energia_inj * pag_inj_te /
-                                   (1 - impostos_cheio)) +
+                                   (1 - impostos_te)) +
                                   (taxa_inflacao * energia_inj * pag_inj_tusd /
                                      (1 - impostos_tusd))) * -p_transicao,
              demanda_contratada = -taxa_inflacao * pot_sistemas *

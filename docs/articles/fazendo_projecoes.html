@@ -118,7 +118,7 @@ partir de um arquivo que é instalado junto com o pacote. No entanto, o
 usuário pode carregar um arquivo similar a partir de suas premissas.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">premissas_regulatorias</span> <span class="op">&lt;-</span> </span>
-<span>  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2021/premissas_reg.xlsx"</span>,</span>
+<span>  <span class="fu">readxl</span><span class="fu">::</span><span class="fu"><a href="https://readxl.tidyverse.org/reference/read_excel.html" class="external-link">read_xlsx</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"dados_premissas/2022/premissas_reg.xlsx"</span>,</span>
 <span>                                                        package <span class="op">=</span> <span class="st">"epe4md"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">premissas_regulatorias</span><span class="op">)</span></span>
@@ -192,7 +192,7 @@ da projeção como sendo 2035. Caso não fosse atribuído valor para esse
 argumento da função, o resultado iria até 2050. Para mais informações,
 verificar a documentação da função.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">resultado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2021</span>,</span>
+<code class="sourceCode R"><span><span class="va">resultado</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/epe4md_calcula.html">epe4md_calcula</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2022</span>,</span>
 <span>                              premissas_reg <span class="op">=</span> <span class="va">premissas_regulatorias</span>,</span>
 <span>                              ano_max_resultado <span class="op">=</span> <span class="fl">2035</span><span class="op">)</span></span></code></pre></div>
 <p>A saída da função traz um data frame com a projeção do número de
@@ -217,13 +217,13 @@ resultados estão em base mensal.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013              8                  0</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>014             38                  1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>015            205                  2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>016            764                  5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>017           <span style="text-decoration: underline;">1</span>884                 12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>018           <span style="text-decoration: underline;">3</span>998                 31</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>019          <span style="text-decoration: underline;">11</span>217                 91</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020          <span style="text-decoration: underline;">23</span>186                204</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021          <span style="text-decoration: underline;">50</span>288                407</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022          <span style="text-decoration: underline;">88</span>664                669</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>016            763                  5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>017           <span style="text-decoration: underline;">1</span>883                 12</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>018           <span style="text-decoration: underline;">3</span>993                 31</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>019          <span style="text-decoration: underline;">11</span>184                 91</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020          <span style="text-decoration: underline;">23</span>111                203</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021          <span style="text-decoration: underline;">50</span>198                407</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022          <span style="text-decoration: underline;">91</span>417                699</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 13 more rows</span></span></span></code></pre></div>
 <p>O usuário pode explorar esses resultados da forma como achar melhor,
 embora existam algumas funções no pacote que resumam os resultados em
@@ -236,16 +236,16 @@ nível nacional.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 23 × 5</span></span></span>
 <span><span class="co">#&gt;      ano pot_ano geracao_gwh pot_acum geracao_mwmed</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013 0.002<span style="text-decoration: underline;">06</span>        1.15  0.002<span style="text-decoration: underline;">06</span>         0.131</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>014 0.002<span style="text-decoration: underline;">74</span>        5.44  0.004<span style="text-decoration: underline;">80</span>         0.621</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>015 0.016<span style="text-decoration: underline;">6</span>        23.0   0.021<span style="text-decoration: underline;">4</span>          2.62 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>016 0.064<span style="text-decoration: underline;">0</span>       116.    0.085<span style="text-decoration: underline;">4</span>         13.3  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>017 0.157        333.    0.243          38.0  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>018 0.433        861.    0.676          98.3  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>019 1.60        <span style="text-decoration: underline;">2</span>281.    2.28          260.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020 2.89        <span style="text-decoration: underline;">5</span>778.    5.17          660.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021 4.58       <span style="text-decoration: underline;">10</span>883.    9.75         <span style="text-decoration: underline;">1</span>242.   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022 3.81       <span style="text-decoration: underline;">17</span>281.   13.6          <span style="text-decoration: underline;">1</span>973.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">2</span>013 0.002<span style="text-decoration: underline;">40</span>        1.57  0.002<span style="text-decoration: underline;">40</span>         0.179</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">2</span>014 0.003<span style="text-decoration: underline;">00</span>        6.14  0.005<span style="text-decoration: underline;">41</span>         0.701</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">2</span>015 0.016<span style="text-decoration: underline;">5</span>        23.7   0.021<span style="text-decoration: underline;">9</span>          2.70 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">2</span>016 0.064<span style="text-decoration: underline;">5</span>       118.    0.086<span style="text-decoration: underline;">4</span>         13.5  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">2</span>017 0.156        336.    0.243          38.4  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">2</span>018 0.433        867.    0.675          99.0  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">2</span>019 1.60        <span style="text-decoration: underline;">2</span>287.    2.27          261.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">2</span>020 2.91        <span style="text-decoration: underline;">5</span>795.    5.18          661.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">2</span>021 4.64       <span style="text-decoration: underline;">10</span>960.    9.82         <span style="text-decoration: underline;">1</span>251.   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">2</span>022 7.60       <span style="text-decoration: underline;">19</span>754.   17.4          <span style="text-decoration: underline;">2</span>255.   </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 13 more rows</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>

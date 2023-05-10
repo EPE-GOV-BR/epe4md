@@ -75,10 +75,10 @@ adotantes e geração de energia em base mensal.</p>
 <span>  pagamento_disponibilidade <span class="op">=</span> <span class="fl">0.3</span>,</span>
 <span>  disponibilidade_kwh_mes <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  filtro_renda_domicilio <span class="op">=</span> <span class="st">"maior_3sm"</span>,</span>
+<span>  fator_local_comercial <span class="op">=</span> <span class="st">"residencial"</span>,</span>
 <span>  desconto_capex_local <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  anos_desconto <span class="op">=</span> <span class="fl">0</span>,</span>
-<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0.016</span>,</span>
-<span>  spb <span class="op">=</span> <span class="fl">0.3</span>,</span>
+<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  p_max <span class="op">=</span> <span class="fl">0.01</span>,</span>
 <span>  q_max <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  filtro_comercial <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
@@ -170,6 +170,14 @@ mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 "maior_5sm". Default igual a "maior_3sm".</p></dd>
 
 
+<dt>fator_local_comercial</dt>
+<dd><p>string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.</p></dd>
+
+
 <dt>desconto_capex_local</dt>
 <dd><p>numeric. Percentual de desconto a ser aplicado no
 CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
@@ -183,13 +191,7 @@ CAPEX. Default igual a 0.</p></dd>
 
 <dt>tx_cresc_grupo_a</dt>
 <dd><p>numeric. Taxa de crescimento anual dos consumuidores
-cativos do Grupo A. Default igual a 0.016 representa crescimento entre
-2006 e 2019.</p></dd>
-
-
-<dt>spb</dt>
-<dd><p>numeric. Fator de Sensibilidade ao Payback (SPB).
-Default igual a 0.3.</p></dd>
+cativos do Grupo A. Default igual a 0.</p></dd>
 
 
 <dt>p_max</dt>

@@ -151,7 +151,7 @@ epe4md_prepara_base <- function(base_aneel,
   if (resumida == TRUE) {
 
     base_mmgd_resumo <- base_mmgd_resumo %>%
-      group_by(data_conexao, ano, nome_4md, fonte_resumo, segmento) %>%
+      group_by(data_conexao, ano, nome_4md, fonte_resumo, segmento, local_remoto) %>%
       summarise(qtde_u_csrecebem_os_creditos = sum(qtde_u_csrecebem_os_creditos),
                 num_geradores = sum(num_geradores),
                 potencia_instalada_k_w = sum(potencia_instalada_k_w),

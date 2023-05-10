@@ -64,7 +64,8 @@
 <span>  <span class="va">ano_base</span>,</span>
 <span>  filtro_renda_domicilio <span class="op">=</span> <span class="st">"maior_3sm"</span>,</span>
 <span>  filtro_comercial <span class="op">=</span> <span class="cn">NA</span>,</span>
-<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0.016</span>,</span>
+<span>  fator_local_comercial <span class="op">=</span> <span class="st">"residencial"</span>,</span>
+<span>  tx_cresc_grupo_a <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  dir_dados_premissas <span class="op">=</span> <span class="cn">NA_character_</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -89,10 +90,17 @@ segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.</p></dd>
 
 
+<dt>fator_local_comercial</dt>
+<dd><p>string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.</p></dd>
+
+
 <dt>tx_cresc_grupo_a</dt>
 <dd><p>numeric. Taxa de crescimento anual dos consumuidores
-cativos do Grupo A. Default igual a 0.016 representa crescimento
-entre 2006 e 2019.</p></dd>
+cativos do Grupo A. Default igual a 0.</p></dd>
 
 
 <dt>dir_dados_premissas</dt>

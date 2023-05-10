@@ -77,29 +77,32 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
 #' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
-#' variabilidade da geração FV. Default igual a 0.3.
+#' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o 
+#' ano de 2022.
 #' @param disponibilidade_kwh_mes numeric. Consumo de disponbilidade do
 #' consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
-#' trifásico.
+#' trifásico. Tem efeito somente até o ano de 2022.
 #' @param filtro_renda_domicilio string. Define o filtro aplicado a consumidores
 #' residenciais, de acordo com a renda mensal do responsável, em salários
 #' mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 #' "maior_5sm". Default igual a "maior_3sm".
+#' @param fator_local_comercial string. Define a origem dos dados do Fator de 
+#' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+#' tensão. Como default, são utilizados os mesmos valores dos consumidores
+#' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+#' de adotantes locais por distribuidora até o ano base.
 #' @param desconto_capex_local numeric. Percentual de desconto a ser aplicado no
 #' CAPEX de sistemas de geração local(ex: 0.1) para simulação de incentivos.
 #' Default igual a 0.
 #' @param anos_desconto vector. Anos em que há a incidência do desconto no
-#' CAPEX. Default igual a 0.
+#' CAPEX.Ex: c(2024, 2025). Default igual a 0.
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
-#' @param spb numeric. Fator de Sensibilidade ao Payback (SPB).
-#' Default igual a 0.3.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
-#' cativos do Grupo A. Default igual a 0.016 representa crescimento entre
-#' 2006 e 2019.
+#' cativos do Grupo A. Default igual a 0.
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá
 #' incorporar o histórico mensal recente, verificado em parte do primeiro ano
 #' após o ano base. Default igual a FALSE. O arquivo base_mmgd.xlsx deve
@@ -139,16 +142,15 @@ epe4md_calcula <- function(
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
-  custo_reforco_rede = 200, #R$/kW para sistemas comercial_at_remoto
+  custo_reforco_rede = 200, 
   ano_troca_inversor = 11,
-  pagamento_disponibilidade = 0.3, #devido à variabilidade da FV, em alguns
-  #meses o cliente pode pagar disponibilidade
-  disponibilidade_kwh_mes = 100, #equivalente a um consumidor trifásico
+  pagamento_disponibilidade = 0.3, 
+  disponibilidade_kwh_mes = 100, 
   filtro_renda_domicilio = "maior_3sm",
+  fator_local_comercial = "residencial",
   desconto_capex_local = 0,
   anos_desconto = 0,
-  tx_cresc_grupo_a = 0.016,
-  spb = 0.3,
+  tx_cresc_grupo_a = 0,
   p_max = 0.01,
   q_max = 1,
   filtro_comercial = NA_real_,
@@ -199,12 +201,23 @@ epe4md_calcula <- function(
       )
     )
   )
+  
+  assert_that(
+    assert_in(
+      fator_local_comercial,
+      categorias = c(
+        
+        "residencial",
+        "historico"
+        
+      )
+    )
+  )
 
 
   assert_that(is.number(desconto_capex_local))
   assert_that(is.number(anos_desconto))
   assert_that(is.number(tx_cresc_grupo_a))
-  assert_that(is.number(spb))
   assert_that(is.number(p_max))
   assert_that(is.number(q_max))
 
@@ -250,6 +263,7 @@ epe4md_calcula <- function(
     tx_cresc_grupo_a = tx_cresc_grupo_a,
     filtro_renda_domicilio = filtro_renda_domicilio,
     filtro_comercial = filtro_comercial,
+    fator_local_comercial = fator_local_comercial,
     dir_dados_premissas = dir_dados_premissas
   )
 
@@ -258,7 +272,6 @@ epe4md_calcula <- function(
     consumidores = consumidores,
     ano_base = ano_base,
     ano_max_resultado = ano_max_resultado,
-    spb = spb,
     p_max = p_max,
     q_max = q_max,
     dir_dados_premissas = dir_dados_premissas)

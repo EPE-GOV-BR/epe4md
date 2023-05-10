@@ -9,7 +9,8 @@ epe4md_mercado_potencial(
   ano_base,
   filtro_renda_domicilio = "maior_3sm",
   filtro_comercial = NA,
-  tx_cresc_grupo_a = 0.016,
+  fator_local_comercial = "residencial",
+  tx_cresc_grupo_a = 0,
   dir_dados_premissas = NA_character_
 )
 }
@@ -26,9 +27,14 @@ mínimos. Permite: "total", "maior_1sm, maior_2sm", "maior_3sm" ou
 segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.}
 
+\item{fator_local_comercial}{string. Define a origem dos dados do Fator de
+Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
+tensão. Como default, são utilizados os mesmos valores dos consumidores
+residenciais. Caso selecionado "historico", utiliza o histórico do percentual
+de adotantes locais por distribuidora até o ano base.}
+
 \item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
-cativos do Grupo A. Default igual a 0.016 representa crescimento
-entre 2006 e 2019.}
+cativos do Grupo A. Default igual a 0.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados
