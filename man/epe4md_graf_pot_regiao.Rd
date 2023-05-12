@@ -23,30 +23,32 @@ Plota um gráfico da capacidade instalada acumulada por região.
 \examples{
 
 dados <- structure(
-  list(data = structure(c(17928, 20485, 19997), class = "Date"),
-       ano = c(2019, 2026, 2024),
-       mes = c(2, 2, 10),
-       nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
-       subsistema = c("SE", "NE", "S"),
-       uf = c("ES", "AL", "SC"),
-       segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
-       fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-       energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
-       energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
-       energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
-       energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
-       pot_mes_mw = c(0, 0, 0.0118333352680657),
-       adotantes_mes = c(0, 0, 3),
-       p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
-       q = c(1, 1, 0.676434758626127),
-       regiao = c("SE", "NE", "S")),
+  list(
+    data = structure(c(16587, 16953, 17348), class = "Date"),
+    ano = c(2015, 2016, 2017),
+    mes = c(6, 6, 7),
+    nome_4md = c("EQUATORIAL PA", "AME", "AME"),
+    subsistema = c("N", "MAN", "MAN"),
+    uf = c("PA", "AM", "AM"),
+    segmento = c("comercial_at", "comercial_at", "residencial"),
+    fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
+    energia_mwh = c(2.91887385534686, 1.47730302655558, 6.59899395709866),
+    energia_autoc_mwh = c(2.33509908427749, 1.18184242124447, 2.63959758283946),
+    energia_inj_mwh = c(0.583774771069372, 0.295460605311116, 3.9593963742592),
+    energia_mwmed = c(Jun = 0.00405399146575953, Jun = 0.00205180975910497,
+                      Jul = 0.00886961553373476),
+    pot_mes_mw = c(0, 0, 0),
+    adotantes_mes = c(0, 0, 0),
+    p = c(0.000218228349678747, 0.000336532886429228, 0.000109941017035186),
+    q = c(1, 0.677467408094237, 0.68352139010882),
+    regiao = c("N", "N", "N")),
   row.names = c(NA, -3L),
   class = c("tbl_df", "tbl", "data.frame")
 )
 
 graf_pot_regiao <- epe4md_graf_pot_regiao(
-    dados = dados,
-    ano_inicio = 2021,
-    tamanho = 14
+  dados = dados,
+  ano_inicio = 2013,
+  tamanho = 14
 )
 }

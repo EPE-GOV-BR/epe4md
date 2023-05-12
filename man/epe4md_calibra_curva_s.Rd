@@ -106,14 +106,14 @@ consumidores <- list(
     class = c("tbl_df", "tbl", "data.frame"))
   )
 
-casos_otimizados <- epe4md_calibra_curva_s(
-  resultado_payback = resultado_payback,
-  consumidores = consumidores,
-  ano_base = 2021,
-  ano_max_resultado = 2050,
-  spb = 0.3,
-  p_max = 0.01,
-  q_max = 1,
-  dir_dados_premissas = NA_character_
-)
+casos_otimizados <-
+  epe4md_calibra_curva_s(resultado_payback = resultado_payback,
+                         consumidores = consumidores,
+                         ano_base = 2021,
+                         ano_max_resultado = 2050,
+                         spb = 0.3,
+                         p_max = 0.01,
+                         q_max = 1,
+                         dir_dados_premissas = NA_character_
+  )
 }

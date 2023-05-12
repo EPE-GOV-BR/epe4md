@@ -23,26 +23,28 @@ Plota um gráfico de colunas que mostra a participação de cada segmento 'Comer
 \examples{
 
 dados <- structure(
-  list(data = structure(c(17928, 20485, 19997), class = "Date"),
-       ano = c(2019, 2026, 2024),
-       mes = c(2, 2, 10),
-       nome_4md = c("EDP ES", "EQUATORIAL AL", "EFLJC"),
-       subsistema = c("SE", "NE", "S"),
-       uf = c("ES", "AL", "SC"),
-       segmento = c("comercial_at", "comercial_at_remoto", "residencial"),
-       fonte_resumo = c("Termelétrica", "Termelétrica", "Fotovoltaica"),
-       energia_mwh = c(103.488, 624.740392156863, 41.7707091331081),
-       energia_autoc_mwh = c(51.744, 0, 16.7082836532433),
-       energia_inj_mwh = c(51.744, 624.740392156863, 25.0624254798649),
-       energia_mwmed = c(Feb = 0.154, Feb = 0.929673202614379, Oct = 0.0561434262541776),
-       pot_mes_mw = c(0, 0, 0.0118333352680657),
-       adotantes_mes = c(0, 0, 3),
-       p = c(0.000329161453402278, 0.000197086794290392, 0.00025238142355137),
-       q = c(1, 1, 0.676434758626127),
-       regiao = c("SE", "NE", "S")),
+  list(
+    data = structure(c(18932, 17956, 18201), class = "Date"),
+    ano = c(2021, 2019, 2019),
+    mes = c(11, 3, 11),
+    nome_4md = c("RORAIMA", "RORAIMA", "RORAIMA"),
+    subsistema = c("MAN", "MAN", "MAN"),
+    uf = c("RR", "RR", "RR"),
+    segmento = c("comercial_at", "comercial_at", "comercial_at"),
+    fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
+    energia_mwh = c(627.959044043851, 42.0777734281515, 42.5086240693568),
+    energia_autoc_mwh = c(502.36723523508, 33.6622187425212, 34.0068992554854),
+    energia_inj_mwh = c(125.59180880877, 8.41555468563031, 8.50172481387135),
+    energia_mwmed = c(Nov = 0.872165338949792, Mar = 0.0565561470808488,
+                      Nov = 0.0590397556518844),
+    pot_mes_mw = c(0.01199, 0, 0),
+    adotantes_mes = c(1, 0, 0),
+    p = c(0.000122298434419402, 0.000122298434419402, 0.000122298434419402),
+    q = c(1, 1, 1),
+    regiao = c("N", "N", "N")),
   row.names = c(NA, -3L),
   class = c("tbl_df", "tbl", "data.frame")
-)
+  )
 
 graf_part_segmento <- epe4md_graf_part_segmento(
   dados = dados,

@@ -37,43 +37,43 @@ ao total de unidades consumidoras.
 Realiza a projeção do número de adotantes de micro e minigeração distribuída
 }
 \examples{
-    casos_otimizados <-
-      structure(
-        list(nome_4md = c("MUXENERGIA", "EPB", "EFLJC"),
-             segmento = c("comercial_bt", "comercial_at", "residencial"),
-             p = c(0.01, 0.000316252847258369, 0.00025238142355137),
-             q = c(1, 1, 0.676434758626127),
-             spb = c(0.3, 0.3, 0.3),
-             ano = c(2029, 2025, 2026),
-             Ft = c(0.999996472365327, 0.992930172901814, 0.829136572246132),
-             consumidores = c(257, 1871, 847),
-             payback = c(4.38236607048146, 7.216158855616, 4.25745937192023),
-             mercado_potencial = c(69, 215, 236)),
-        row.names = c(NA, -3L),
-        class = c("tbl_df", "tbl", "data.frame"))
+casos_otimizados <-
+  structure(
+    list(nome_4md = c("MUXENERGIA", "EPB", "EFLJC"),
+         segmento = c("comercial_bt", "comercial_at", "residencial"),
+         p = c(0.01, 0.000316252847258369, 0.00025238142355137),
+         q = c(1, 1, 0.676434758626127),
+         spb = c(0.3, 0.3, 0.3),
+         ano = c(2029, 2025, 2026),
+         Ft = c(0.999996472365327, 0.992930172901814, 0.829136572246132),
+         consumidores = c(257, 1871, 847),
+         payback = c(4.38236607048146, 7.216158855616, 4.25745937192023),
+         mercado_potencial = c(69, 215, 236)),
+    row.names = c(NA, -3L),
+    class = c("tbl_df", "tbl", "data.frame"))
 
-    consumidores <-
-      list(
-        structure(
-          list(nome_4md = c("CPFL PIRATININGA", "EMS", "RGE"),
-               ano = c(2020, 2028, 2034),
-               segmento = c("comercial_at_remoto", "residencial", "comercial_at"),
-               consumidores = c(6736, 113412, 13515)),
-          class = c("tbl_df", "tbl", "data.frame"),
-          row.names = c(NA, -3L)),
-        structure(
-          list(ano = c(2017, 2035, 2031),
-               total_ucs = c(67352162.358959, 88092914.3204848, 83828643.0017198),
-               segmento = c("residencial", "residencial", "residencial")),
-          row.names = c(NA, -3L),
-          class = c("tbl_df", "tbl", "data.frame"))
-        )
+consumidores <-
+  list(
+    structure(
+      list(nome_4md = c("CPFL PIRATININGA", "EMS", "RGE"),
+           ano = c(2020, 2028, 2034),
+           segmento = c("comercial_at_remoto", "residencial", "comercial_at"),
+           consumidores = c(6736, 113412, 13515)),
+      class = c("tbl_df", "tbl", "data.frame"),
+      row.names = c(NA, -3L)),
+    structure(
+      list(ano = c(2017, 2035, 2031),
+           total_ucs = c(67352162.358959, 88092914.3204848, 83828643.0017198),
+           segmento = c("residencial", "residencial", "residencial")),
+      row.names = c(NA, -3L),
+      class = c("tbl_df", "tbl", "data.frame"))
+    )
 
-    names(consumidores) <- c("consumidores", "consumidores_totais")
+names(consumidores) <- c("consumidores", "consumidores_totais")
 
 proj_adotantes <- epe4md_proj_adotantes(
-  casos_otimizados = casos_otimizados,
-  consumidores = consumidores,
-  ano_base = 2021
+casos_otimizados = casos_otimizados,
+consumidores = consumidores,
+ano_base = 2021
 )
 }

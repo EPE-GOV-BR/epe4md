@@ -35,14 +35,13 @@
 #'
 #' @examples
 #'
-#' library(dplyr)
 #' projecao_mensal <- structure(
 #'   list(ano = c(2018, 2019, 2020),
 #'        nome_4md = c("COSERN", "EQUATORIAL AL", "ERO"),
 #'        fonte_resumo = c("Fotovoltaica", "Fotovoltaica", "Fotovoltaica"),
 #'        segmento = c("residencial", "comercial_bt", "residencial_remoto"),
 #'        adotantes_mes = c(29, 38, 4),
-#'        pot_mes_mw = c(0.16773, 0.42818, 0.01418),
+#'      pot_mes_mw = c(0.16773, 0.42818, 0.01418),
 #'        mes_ano = c("2018 jul 1", "2019 jun 1", "2020 ago 1"),
 #'        mes = c(7, 6, 8),
 #'        p = c(1e-04, 0.000321082460336051, 1e-04),
@@ -52,16 +51,13 @@
 #'   class = c("tbl_df", "tbl", "data.frame")
 #' )
 #'
-#' projecao_mensal <- projecao_mensal %>%
-#'   mutate(
-#'     mes_ano = strptime(mes_ano, "%Y %b %d")
-#'   )
+#' projecao_mensal <- dplyr::mutate(projecao_mensal, mes_ano = strptime(mes_ano, "\%Y \%b \%d"))
 #'
 #' proj_geracao <- epe4md_proj_geracao(
 #'   proj_mensal = projecao_mensal,
 #'   ano_base = 2021,
 #'   filtro_de_uf = "N",
-#'   filtro_de_segmento = "N",
+#'   filtro_de_segmento = "comercial_at",
 #'   dir_dados_premissas = NA_character_
 #' )
 
