@@ -226,7 +226,6 @@ epe4md_calcula <- function(
   )
 {
 
-
   assert_that(premissas_reg %has_name% c(
       "ano",
       "alternativa",
@@ -336,6 +335,8 @@ epe4md_calcula <- function(
     q_max = q_max,
     dir_dados_premissas = dir_dados_premissas)
 
+  rm(resultado_payback)
+
   lista_adotantes <- epe4md_proj_adotantes(
     casos_otimizados = casos_otimizados,
     consumidores = consumidores,
@@ -373,6 +374,8 @@ epe4md_calcula <- function(
     filtro_de_segmento = filtro_de_segmento,
     dir_dados_premissas = dir_dados_premissas
   )
+
+  rm(proj_mensal)
 
   resultados_mensais
 }

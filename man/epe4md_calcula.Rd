@@ -177,7 +177,6 @@ O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
 \examples{
-
 premissas_regulatorias <- structure(
   list(ano = 2021,
        alternativa = 0,
@@ -195,5 +194,4 @@ resultado <- epe4md_calcula(premissas_reg = premissas_regulatorias,
                             filtro_de_segmento = "comercial_at",
                             filtro_de_custo_unitario_max = 6,
                             ano_max_resultado = 2021)
-
 }
