@@ -16,16 +16,21 @@
 
 ❯ checking examples ... [16s] NOTE
   Examples with CPU (user + system) or elapsed time > 5s
-  epe4md_calcula 3.25   0.47    7.64
+  epe4md_calcula 3.25   0.47    7.49
                  user system elapsed
                  
-  This function calls another 8 huge functions of this package. These functions 
-  themselves don't last that long.
+  This function calls another 8 huge functions of this package (These functions 
+  themselves don't last that long). Due to this, the code is not running under 
+  5s.
   
 ❯ checking for non-standard things in the check directory ... NOTE
   Found the following files/directories:
     ''NULL''
     
+  As noted in [R-hub issue #560](https://github.com/r-hub/rhub/issues/560), this 
+  could be due to something  in R-hub thing not on this package. According to
+  R-hub maintainer, this should be ignored.
+  
   I am unable to find this NULL file/directory anywhere, even with the ls() 
   command in RStudio. I even deleted my local repo and re-cloned it, but this 
   note persists.

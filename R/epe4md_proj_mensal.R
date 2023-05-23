@@ -111,8 +111,8 @@ utils::globalVariables(c("seasonal", "fator_mensal", "adotantes_total", "pot_med
 
 epe4md_proj_mensal <- function(lista_potencia,
                                ano_base,
-                               filtro_nome4md,
-                               filtro_de_segmento,
+                               filtro_nome4md = "N",
+                               filtro_de_segmento = "N",
                                ano_max_resultado = 2050,
                                ajuste_ano_corrente = FALSE,
                                ultimo_mes_ajuste = NA,

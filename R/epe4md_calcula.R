@@ -1,5 +1,3 @@
-
-
 #' Resume os resultados de capacidade instalada
 #'
 #' @param resultados_mensais data.frame. Saída da função
@@ -50,7 +48,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 
 
 }
-
 
 #' Roda o modelo 4MD
 #'
