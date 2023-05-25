@@ -1,6 +1,6 @@
 
 library(tidyr)
-library(dplyr)
+suppressWarnings(library(dplyr))
 library(magrittr)
 
 test_that("there is no missing values", {
