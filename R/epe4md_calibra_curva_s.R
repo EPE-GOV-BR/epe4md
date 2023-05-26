@@ -33,8 +33,13 @@ epe4md_calibra_curva_s <- function(resultado_payback,
                                    ano_max_resultado = 2050,
                                    p_max = 0.01,
                                    q_max = 1,
+                                   ano_backtesting = NA_integer_,
                                    dir_dados_premissas = NA_character_) {
 
+  if(is.na(ano_backtesting)) {
+    ano_backtesting <- ano_base
+  }  
+  
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
@@ -63,7 +68,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     ungroup()
 
   resultado_payback_historico <- resultado_payback %>%
-    filter(ano <= ano_base) %>%
+    filter(ano <= ano_backtesting) %>%
     select(nome_4md, segmento, ano, payback,
            payback_desc, tir_nominal, tir_real)
 

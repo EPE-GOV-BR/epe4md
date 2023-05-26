@@ -8,6 +8,7 @@
 epe4md_proj_potencia(
   lista_adotantes,
   ano_base,
+  ano_backtesting = NA_integer_,
   dir_dados_premissas = NA_character_
 )
 }

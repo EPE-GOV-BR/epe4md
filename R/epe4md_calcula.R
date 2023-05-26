@@ -157,6 +157,7 @@ epe4md_calcula <- function(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
+  ano_backtesting = NA_integer_,
   dir_dados_premissas = NA_character_
   )
 {
@@ -274,17 +275,20 @@ epe4md_calcula <- function(
     ano_max_resultado = ano_max_resultado,
     p_max = p_max,
     q_max = q_max,
+    ano_backtesting = ano_backtesting,
     dir_dados_premissas = dir_dados_premissas)
 
   lista_adotantes <- epe4md_proj_adotantes(
     casos_otimizados = casos_otimizados,
     consumidores = consumidores,
     ano_base = ano_base,
+    ano_backtesting = ano_backtesting,
     dir_dados_premissas = dir_dados_premissas)
 
   lista_potencia <- epe4md_proj_potencia(
     lista_adotantes = lista_adotantes,
     ano_base = ano_base,
+    ano_backtesting = ano_backtesting,
     dir_dados_premissas = dir_dados_premissas)
 
   proj_mensal <- epe4md_proj_mensal(
@@ -294,6 +298,7 @@ epe4md_calcula <- function(
     ano_max_resultado = ano_max_resultado,
     ajuste_ano_corrente = ajuste_ano_corrente,
     metodo_ajuste = metodo_ajuste,
+    ano_backtesting = ano_backtesting,
     ultimo_mes_ajuste = ultimo_mes_ajuste
   )
 

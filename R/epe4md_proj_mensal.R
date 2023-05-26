@@ -43,9 +43,14 @@ epe4md_proj_mensal <- function(lista_potencia,
                                   ajuste_ano_corrente = FALSE,
                                   ultimo_mes_ajuste = NA,
                                   metodo_ajuste = NA,
+                                  ano_backtesting = NA_integer_,
                                   dir_dados_premissas = NA_character_
                                ) {
 
+  if(is.na(ano_backtesting)) {
+    ano_backtesting <- ano_base
+  }  
+  
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
@@ -62,7 +67,7 @@ epe4md_proj_mensal <- function(lista_potencia,
 
     dados_gd_historico <- readxl::read_xlsx(
       stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx")) %>%
-      filter(data_conexao < make_date(ano_base + 1, ultimo_mes_ajuste + 1, 1))
+      filter(data_conexao < make_date(ano_backtesting + 1, ultimo_mes_ajuste + 1, 1))
 
     if(metodo_ajuste == "extrapola") {
 
@@ -71,11 +76,11 @@ epe4md_proj_mensal <- function(lista_potencia,
         summarise(adotantes_ano = sum(qtde_u_csrecebem_os_creditos),
                   pot_ano_mw = sum(potencia_mw)) %>%
         ungroup() %>%
-        mutate(adotantes_ano = ifelse(ano == ano_base + 1,
+        mutate(adotantes_ano = ifelse(ano == ano_backtesting + 1,
                                       round(adotantes_ano *
                                               (12 / ultimo_mes_ajuste), 0),
                                       adotantes_ano),
-               pot_ano_mw = ifelse(ano == ano_base + 1,
+               pot_ano_mw = ifelse(ano == ano_backtesting + 1,
                                    pot_ano_mw * (12 / ultimo_mes_ajuste),
                                    pot_ano_mw))
 
@@ -85,7 +90,7 @@ epe4md_proj_mensal <- function(lista_potencia,
 
     dados_gd_historico <- readxl::read_xlsx(
       stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx")) %>%
-      filter(ano <= ano_base)
+      filter(ano <= ano_backtesting)
   }
 
   dados_gd_historico <- dados_gd_historico %>%
@@ -107,11 +112,11 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   # calculo dos fatores de sazonalizacao
   historico_fatores <- dados_gd_historico %>%
-    filter(ano <= ano_base) %>%
+    filter(ano <= ano_backtesting) %>%
     group_by(mes_ano, ano) %>%
     summarise(pot_mes_mw = sum(pot_mes_mw)) %>%
     ungroup() %>%
-    filter(between(ano, 2014, ano_base))
+    filter(between(ano, 2014, ano_backtesting))
 
   fatores_mensais <- historico_fatores %>%
     tsibble::as_tsibble(index = mes_ano) %>%
@@ -144,7 +149,7 @@ epe4md_proj_mensal <- function(lista_potencia,
       mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
              adotantes_mes = round(fator_mensal * adotantes_ano / 12)) %>%
       select(- fator_mensal, - adotantes_ano, - pot_ano_mw) %>%
-      filter(mes_ano > tsibble::yearmonth(make_date(ano_base + 1, ultimo_mes_ajuste, 1)))
+      filter(mes_ano > tsibble::yearmonth(make_date(ano_backtesting + 1, ultimo_mes_ajuste, 1)))
 
     historico_mensal <- bind_rows(dados_gd_historico, extrapola_mes)
 
@@ -155,25 +160,25 @@ epe4md_proj_mensal <- function(lista_potencia,
   if (ajuste_ano_corrente == FALSE) {
 
     projecao_mensal <- projecao_mensal %>%
-      filter(ano > ano_base)
+      filter(ano > ano_backtesting)
 
     historico_mensal <- dados_gd_historico %>%
-      filter(mes_ano < tsibble::yearmonth(make_date(ano_base + 1, 1, 1)))
+      filter(mes_ano < tsibble::yearmonth(make_date(ano_backtesting + 1, 1, 1)))
 
   } else {
 
     if(metodo_ajuste == "extrapola") {
 
       projecao_mensal <- projecao_mensal %>%
-        filter(ano > ano_base + 1)
+        filter(ano > ano_backtesting + 1)
 
     } else {
 
       projecao_mensal <- projecao_mensal %>%
-        filter(mes_ano > tsibble::yearmonth(make_date(ano_base + 1, ultimo_mes_ajuste, 1)))
+        filter(mes_ano > tsibble::yearmonth(make_date(ano_backtesting + 1, ultimo_mes_ajuste, 1)))
 
       historico_mensal <- dados_gd_historico %>%
-        filter(mes_ano <= tsibble::yearmonth(make_date(ano_base + 1, ultimo_mes_ajuste, 1)))
+        filter(mes_ano <= tsibble::yearmonth(make_date(ano_backtesting + 1, ultimo_mes_ajuste, 1)))
 
     }
 
