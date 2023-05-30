@@ -4,7 +4,7 @@
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
-#' Máximo igual a 2050. Default igual a 2050.
+#' Máximo igual a 2060. Default igual a 2060.
 #' @param inflacao numeric. Taxa de inflacão considerada no reajuste das tarifas
 #' e para calcular o retorno real de projetos.
 #' @param ano_troca_inversor numeric. Ano, a partir do ano de instalação, em que
@@ -32,7 +32,7 @@
 
 
 epe4md_casos_payback <- function(ano_base,
-                                 ano_max_resultado = 2050,
+                                 ano_max_resultado = 2060,
                                  inflacao = 0.0375,
                                  ano_troca_inversor = 11,
                                  fator_custo_inversor = 0.15,

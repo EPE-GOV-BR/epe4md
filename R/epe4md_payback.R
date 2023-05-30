@@ -118,7 +118,7 @@ epe4md_payback <- function(
 
 # premissas regulatorias
 
-  anos <- tibble(ano = seq(2013, 2050, 1))
+  anos <- tibble(ano = seq(2013, 2060, 1))
 
   premissas_regulatorias <- left_join(anos, premissas_reg, by = "ano") %>%
     mutate(across(
@@ -158,7 +158,7 @@ epe4md_payback <- function(
     if (altera_sistemas_existentes == TRUE && ano >= ano_decisao_alteracao) {
       fluxo_caixa <- fluxo_caixa %>%
         mutate(ano = row_number() + ano - 1,
-               ano = ifelse(ano > 2050, 2050, ano))
+               ano = ifelse(ano > 2060, 2060, ano))
     }
 
     fluxo_caixa <- left_join(fluxo_caixa, premissas_regulatorias, by = "ano")
@@ -210,7 +210,7 @@ epe4md_payback <- function(
     # ano auxiliar para possibilitar alteracoes com base no ano
     fluxo_caixa <- fluxo_caixa %>%
       mutate(ano_real = row_number() + first(ano) - 1,
-             ano_real = ifelse(ano_real > 2050, 2050, ano_real))
+             ano_real = ifelse(ano_real > 2060, 2060, ano_real))
 
 
 
@@ -286,6 +286,7 @@ epe4md_payback <- function(
                                   -0.2,
                                   tir_nominal),
              tir_real = (1 + tir_nominal) / (1 + inflacao) - 1)
+    
 
   }
 

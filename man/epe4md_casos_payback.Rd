@@ -8,7 +8,7 @@ payback.}
 \usage{
 epe4md_casos_payback(
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   inflacao = 0.0375,
   ano_troca_inversor = 11,
   fator_custo_inversor = 0.15,
@@ -20,7 +20,7 @@ epe4md_casos_payback(
 irá buscar a base de dados. Último ano completo realizado.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
-Máximo igual a 2050. Default igual a 2050.}
+Máximo igual a 2060. Default igual a 2060.}
 
 \item{inflacao}{numeric. Taxa de inflacão considerada no reajuste das tarifas
 e para calcular o retorno real de projetos.}
