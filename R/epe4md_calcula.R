@@ -171,6 +171,8 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' @examples
 #'
+#' ##Not run:
+#'
 #' premissas_regulatorias <- structure(
 #'   list(ano = 2021,
 #'        alternativa = 0,
@@ -189,6 +191,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'                             filtro_de_custo_unitario_max = 6,
 #'                             ano_max_resultado = 2021)
 #'
+#' ##End(Not run)
 
 epe4md_calcula <- function(
   premissas_reg,
@@ -241,6 +244,10 @@ epe4md_calcula <- function(
 
   assert_that(is.number(ano_base))
   assert_that(is.logical(sequencial))
+  assert_that(is.string(filtro_de_uf))
+  assert_that(is.string(filtro_nome4md))
+  assert_that(is.string(filtro_de_segmento))
+  assert_that(is.numeric(filtro_de_custo_unitario_max) || is.null(filtro_de_custo_unitario_max))
   assert_that(is.flag(altera_sistemas_existentes))
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(inflacao))

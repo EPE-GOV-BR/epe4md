@@ -1,6 +1,6 @@
 ## R CMD check results
 
-    There was 5 NOTES:
+    There was 4 NOTES:
     
 ❯ checking CRAN incoming feasibility ... [12s] NOTE
   
