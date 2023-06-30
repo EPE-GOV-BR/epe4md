@@ -5,7 +5,7 @@
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
-#' Máximo igual a 2050. Default igual a 2050.
+#' Máximo igual a 2060. Default igual a 2060.
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá
 #' incorporar o histórico mensal recente, verificado em parte do primeiro ano
 #' após o ano base. Default igual a FALSE. O arquivo base_mmgd.xlsx deve
@@ -39,7 +39,7 @@
 
 epe4md_proj_mensal <- function(lista_potencia,
                                   ano_base,
-                                  ano_max_resultado = 2050,
+                                  ano_max_resultado = 2060,
                                   ajuste_ano_corrente = FALSE,
                                   ultimo_mes_ajuste = NA,
                                   metodo_ajuste = NA,

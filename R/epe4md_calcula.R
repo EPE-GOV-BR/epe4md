@@ -59,7 +59,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
-#' Máximo igual a 2050. Default igual a 2050.
+#' Máximo igual a 2060. Default igual a 2060.
 #' @param altera_sistemas_existentes logic. TRUE se alterações regulatórias
 #' afetam investimentos realizados em anos anteriores à revisão da regulação.
 #' Default igual a FALSE.
@@ -137,7 +137,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -222,7 +222,7 @@ epe4md_calcula <- function(
   assert_that(is.number(q_max))
 
 
-  assertthat::assert_that(ano_max_resultado <= 2050)
+  assertthat::assert_that(ano_max_resultado <= 2060)
 
 
   dir_dados_premissas <- if_else(

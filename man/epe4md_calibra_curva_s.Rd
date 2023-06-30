@@ -9,7 +9,7 @@ epe4md_calibra_curva_s(
   resultado_payback,
   consumidores,
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   p_max = 0.01,
   q_max = 1,
   dir_dados_premissas = NA_character_
@@ -26,7 +26,7 @@ epe4md_calibra_curva_s(
 irá buscar a base de dados. Último ano completo realizado.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
-Máximo igual a 2050. Default igual a 2050.}
+Máximo igual a 2060. Default igual a 2060.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 

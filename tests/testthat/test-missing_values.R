@@ -1,8 +1,10 @@
 
-library(tidyr)
-library(dplyr)
 
 test_that("there is no missing values", {
+  
+  library(tidyr)
+  library(dplyr)
+  
   expect_equal(sum(is.na(epe4md_casos_payback(ano_base = 2022,
                                               ano_max_resultado = 2032))), 0)
 

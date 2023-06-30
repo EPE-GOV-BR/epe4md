@@ -7,7 +7,7 @@
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
-#' Máximo igual a 2050. Default igual a 2050.
+#' Máximo igual a 2060. Default igual a 2060.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
@@ -30,7 +30,7 @@
 epe4md_calibra_curva_s <- function(resultado_payback,
                                    consumidores,
                                    ano_base,
-                                   ano_max_resultado = 2050,
+                                   ano_max_resultado = 2060,
                                    p_max = 0.01,
                                    q_max = 1,
                                    dir_dados_premissas = NA_character_) {
@@ -65,7 +65,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
   resultado_payback_historico <- resultado_payback %>%
     filter(ano <= ano_base) %>%
     select(nome_4md, segmento, ano, payback,
-           payback_desc, tir_nominal, tir_real)
+           payback_desc)
 
   base_otimizacao <- left_join(resultado_payback_historico, consumidores,
                                by = c("nome_4md", "ano", "segmento"))

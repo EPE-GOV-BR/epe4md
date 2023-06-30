@@ -8,7 +8,7 @@
 epe4md_investimentos(
   resultados_mensais,
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   dir_dados_premissas = NA_character_
 )
 }
@@ -17,7 +17,7 @@ epe4md_investimentos(
 irá buscar a base de dados. Último ano completo realizado.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
-Máximo igual a 2050. Default igual a 2050.}
+Máximo igual a 2060. Default igual a 2060.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas.
 Se esse parâmetro não for passado, a função usa os dados default que são
