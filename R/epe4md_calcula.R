@@ -171,8 +171,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' @examples
 #'
-#' ##Not run:
-#'
 #' premissas_regulatorias <- structure(
 #'   list(ano = 2021,
 #'        alternativa = 0,
@@ -190,8 +188,6 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'                             filtro_de_segmento = "comercial_at",
 #'                             filtro_de_custo_unitario_max = 6,
 #'                             ano_max_resultado = 2021)
-#'
-#' ##End(Not run)
 
 epe4md_calcula <- function(
   premissas_reg,
