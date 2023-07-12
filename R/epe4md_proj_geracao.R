@@ -1,7 +1,7 @@
 #' Estima a geração de eletricidade a partir da projeção de potência
 #'
 #' @param proj_mensal dataframe. Resultado da função
-#' [epe4md::epe4md_proj_mensal].&&&
+#' [epe4md::epe4md_proj_mensal].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas.
