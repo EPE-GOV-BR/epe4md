@@ -1,4 +1,4 @@
-
+#**
 
 #' Resume os resultados de capacidade instalada
 #'
