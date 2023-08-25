@@ -44,7 +44,12 @@ epe4md_prepara_base <- function(base_aneel,
     janitor::clean_names()
 
   base_mmgd <- base_mmgd %>%
-    drop_na(sig_agente, cod_municipio_ibge)
+    drop_na(sig_agente, cod_municipio_ibge, sig_modalidade_empreendimento,
+            sig_tipo_consumidor, sig_tipo_geracao, dth_atualiza_cadastral_empreend,
+            dsc_porte, dsc_sub_grupo_tarifario, dsc_classe_consumo, sig_uf,
+            mda_potencia_instalada_kw,
+            qtd_uc_recebe_credito,
+            dsc_fonte_geracao)
 
   base_mmgd <- base_mmgd %>%
     mutate(fonte_resumo = case_when(
