@@ -139,11 +139,42 @@ epe4md_payback <- function(
                                 alternativa))
 
 
-
   fluxo_de_caixa <- function(nome_4md, ano, segmento, vida_util,
                              fator_autoconsumo, geracao_1_kwh, degradacao,
                              capex_inicial, capex_inversor, oem_anual,
                              pot_sistemas) {
+
+    # print(paste(nome_4md, ano, segmento,
+    #       vida_util, fator_autoconsumo,
+    #       geracao_1_kwh, degradacao,
+    #       capex_inicial, capex_inversor,
+    #       oem_anual, pot_sistemas,sep="_"))
+
+    # nome_4md="FORCEL"
+    # ano=2013
+    # segmento="comercial_at"
+    # vida_util=25
+    # fator_autoconsumo=0.8
+    # geracao_1_kwh=99195.33825
+    # degradacao=0.005
+    # capex_inicial=488370
+    # capex_inversor=98449.2663270433
+    # oem_anual=0.01
+    # pot_sistemas=73
+
+    # nome_4md="LIGHT"
+    # ano=2020
+    # segmento="residencial_remoto"
+    # vida_util=25
+    # fator_autoconsumo=0.2
+    # geracao_1_kwh=7970.84281914893
+    # degradacao=0.005
+    # capex_inicial=25620
+    # capex_inversor=5164.67064581946
+    # oem_anual=0.01
+    # pot_sistemas=6
+
+
 
     fluxo_caixa <- data.frame("ano_simulacao" = 1:vida_util,
                               "segmento" = segmento,
@@ -286,7 +317,7 @@ epe4md_payback <- function(
                                   -0.2,
                                   tir_nominal),
              tir_real = (1 + tir_nominal) / (1 + inflacao) - 1)
-    
+
 
   }
 

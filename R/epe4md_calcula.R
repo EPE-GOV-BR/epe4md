@@ -77,7 +77,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
 #' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
-#' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o 
+#' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
 #' ano de 2022.
 #' @param disponibilidade_kwh_mes numeric. Consumo de disponbilidade do
 #' consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
@@ -86,7 +86,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' residenciais, de acordo com a renda mensal do responsável, em salários
 #' mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 #' "maior_5sm". Default igual a "maior_3sm".
-#' @param fator_local_comercial string. Define a origem dos dados do Fator de 
+#' @param fator_local_comercial string. Define a origem dos dados do Fator de
 #' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
 #' tensão. Como default, são utilizados os mesmos valores dos consumidores
 #' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
@@ -142,10 +142,10 @@ epe4md_calcula <- function(
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
-  custo_reforco_rede = 200, 
+  custo_reforco_rede = 200,
   ano_troca_inversor = 11,
-  pagamento_disponibilidade = 0.3, 
-  disponibilidade_kwh_mes = 100, 
+  pagamento_disponibilidade = 0.3,
+  disponibilidade_kwh_mes = 100,
   filtro_renda_domicilio = "maior_3sm",
   fator_local_comercial = "residencial",
   desconto_capex_local = 0,
@@ -201,15 +201,15 @@ epe4md_calcula <- function(
       )
     )
   )
-  
+
   assert_that(
     assert_in(
       fator_local_comercial,
       categorias = c(
-        
+
         "residencial",
         "historico"
-        
+
       )
     )
   )
@@ -240,6 +240,7 @@ epe4md_calcula <- function(
     dir_dados_premissas = dir_dados_premissas
   )
 
+
   resultado_payback <- epe4md_payback(
     ano_base = ano_base,
     casos_payback = casos_payback,
@@ -255,8 +256,8 @@ epe4md_calcula <- function(
     desconto_capex_local = desconto_capex_local,
     anos_desconto = anos_desconto,
     dir_dados_premissas = dir_dados_premissas
-
   )
+
 
   consumidores <- epe4md_mercado_potencial(
     ano_base = ano_base,
