@@ -28,6 +28,7 @@ epe4md_calcula(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
+  ano_backtesting = NA_integer_,
   dir_dados_premissas = NA_character_
 )
 }

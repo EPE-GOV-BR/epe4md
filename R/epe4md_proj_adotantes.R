@@ -26,9 +26,14 @@
 epe4md_proj_adotantes <- function(casos_otimizados,
                                   consumidores,
                                   ano_base,
+                                  ano_backtesting = NA_integer_,
                                   dir_dados_premissas = NA_character_ ) {
 
 
+  if(is.na(ano_backtesting)) {
+    ano_backtesting <- ano_base
+  }  
+  
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
@@ -103,7 +108,7 @@ epe4md_proj_adotantes <- function(casos_otimizados,
   # historico de adotantes para substituir anos iniciais da projeção
 
   historico_adot_fontes <- dados_gd %>%
-    filter(ano <= ano_base) %>%
+    filter(ano <= ano_backtesting) %>%
     group_by(ano, nome_4md, segmento, fonte_resumo) %>%
     summarise(adotantes_hist = sum(qtde_u_csrecebem_os_creditos)) %>%
     ungroup() %>%
@@ -120,7 +125,7 @@ epe4md_proj_adotantes <- function(casos_otimizados,
                         relationship = "many-to-many")
 
   projecao <- projecao %>%
-    mutate(adotantes_ano = ifelse(ano <= ano_base,
+    mutate(adotantes_ano = ifelse(ano <= ano_backtesting,
                                   adotantes_hist,
                                   adotantes_ano)) %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%

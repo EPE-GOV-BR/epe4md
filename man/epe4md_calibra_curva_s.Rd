@@ -12,6 +12,7 @@ epe4md_calibra_curva_s(
   ano_max_resultado = 2060,
   p_max = 0.01,
   q_max = 1,
+  ano_backtesting = NA_integer_,
   dir_dados_premissas = NA_character_
 )
 }

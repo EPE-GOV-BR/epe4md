@@ -12,6 +12,7 @@ epe4md_proj_mensal(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA,
   metodo_ajuste = NA,
+  ano_backtesting = NA_integer_,
   dir_dados_premissas = NA_character_
 )
 }

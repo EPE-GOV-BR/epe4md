@@ -23,8 +23,13 @@
 
 epe4md_proj_potencia <- function(lista_adotantes,
                                  ano_base,
+                                 ano_backtesting = NA_integer_,
                                  dir_dados_premissas = NA_character_) {
 
+  if(is.na(ano_backtesting)) {
+    ano_backtesting <- ano_base
+  }  
+  
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
@@ -65,7 +70,7 @@ epe4md_proj_potencia <- function(lista_adotantes,
   # historico de adotantes para substituir anos iniciais da projeção
 
   historico_pot_fontes <- dados_gd %>%
-    filter(ano <= ano_base) %>%
+    filter(ano <= ano_backtesting) %>%
     group_by(ano, nome_4md, segmento, fonte_resumo) %>%
     summarise(pot_hist = sum(potencia_instalada_k_w)) %>%
     ungroup() %>%
@@ -81,7 +86,7 @@ epe4md_proj_potencia <- function(lista_adotantes,
                                     "ano", "fonte_resumo"))
 
   proj_potencia <- proj_potencia %>%
-    mutate(pot_ano = ifelse(ano <= ano_base, pot_hist, pot_ano)) %>%
+    mutate(pot_ano = ifelse(ano <= ano_backtesting, pot_hist, pot_ano)) %>%
     ungroup()
 
   proj_potencia <- proj_potencia %>%
