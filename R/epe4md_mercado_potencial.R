@@ -61,7 +61,7 @@ epe4md_mercado_potencial <- function(ano_base,
     mutate(crescimento_acumulado = cumprod(1 + taxa_crescimento_mercado)) %>%
     select(-taxa_crescimento_mercado)
 
-  anos_faltantes_res <- data.frame("ano" = 2010:2050)
+  anos_faltantes_res <- data.frame("ano" = 2010:2060)
 
   consumidores_residenciais <- read_xlsx(
     stringr::str_glue("{dir_dados_premissas}/consumidores_residenciais_renda.xlsx")) %>%

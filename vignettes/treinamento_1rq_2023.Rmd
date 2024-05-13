@@ -102,7 +102,7 @@ Todos os parâmetros default da função são apresentados abaixo. Uma explicaç
 epe4md_calcula(
   premissas_reg,
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,

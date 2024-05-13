@@ -4,7 +4,7 @@
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
 #' @param ano_max_resultado numeric. Ano final para apresentação dos resultados.
-#' Máximo igual a 2050. Default igual a 2050.
+#' Máximo igual a 2060. Default igual a 2060.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas.
 #' Se esse parâmetro não for passado, a função usa os dados default que são
 #' instalados com o pacote. É importante que os nomes dos arquivos sejam os
@@ -27,7 +27,7 @@
 
 epe4md_investimentos <- function(resultados_mensais,
                                  ano_base,
-                                 ano_max_resultado = 2050,
+                                 ano_max_resultado = 2060,
                                  dir_dados_premissas = NA_character_ ) {
 
 
@@ -53,7 +53,7 @@ epe4md_investimentos <- function(resultados_mensais,
   
   combinacoes <- custo_outras %>% 
     select(fonte_resumo) %>% 
-    expand(fonte_resumo, ano = 2013:2050)
+    expand(fonte_resumo, ano = 2013:2060)
   
   seq_anos <- tibble(ano = seq(2013, ano_base, 1))
   

@@ -8,7 +8,7 @@
 epe4md_calcula(
   premissas_reg,
   ano_base,
-  ano_max_resultado = 2050,
+  ano_max_resultado = 2060,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -64,7 +64,7 @@ contém um exemplo de premissas de entrada.}
 irá buscar a base de dados. Último ano completo realizado.}
 
 \item{ano_max_resultado}{numeric. Ano final para apresentação dos resultados.
-Máximo igual a 2050. Default igual a 2050.}
+Máximo igual a 2060. Default igual a 2060.}
 
 \item{altera_sistemas_existentes}{logic. TRUE se alterações regulatórias
 afetam investimentos realizados em anos anteriores à revisão da regulação.

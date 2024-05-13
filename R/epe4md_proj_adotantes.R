@@ -116,11 +116,13 @@ epe4md_proj_adotantes <- function(casos_otimizados,
     mutate(adotantes_hist = ifelse(is.na(adotantes_hist), 0, adotantes_hist))
 
   projecao <- left_join(projecao, part_adot_fontes,
-                        by = c("nome_4md", "segmento")) %>%
+                        by = c("nome_4md", "segmento"),
+                        relationship = "many-to-many") %>%
     mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0))
 
   projecao <- left_join(projecao, historico_adot_fontes,
-                        by = c("nome_4md", "segmento", "ano", "fonte_resumo"))
+                        by = c("nome_4md", "segmento", "ano", "fonte_resumo"),
+                        relationship = "many-to-many")
 
   projecao <- projecao %>%
     mutate(adotantes_ano = ifelse(ano <= ano_backtesting,
