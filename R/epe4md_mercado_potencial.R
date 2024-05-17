@@ -42,6 +42,8 @@ epe4md_mercado_potencial <- function(ano_base,
                                      dir_dados_premissas = NA_character_
                                      ) {
 
+  a <-  2
+  
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
