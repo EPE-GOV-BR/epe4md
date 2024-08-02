@@ -91,6 +91,20 @@ epe4md_prepara_base <- function(base_aneel,
 
   base_mmgd <- base_mmgd %>%
     left_join(nomes_dist, by = "sig_agente")
+  
+  #conferir se o join encontrou relação de nome para todas as distribuidoras
+  
+  if (sum(is.na(base_mmgd$nome_4md)) > 0) {
+    
+    faltantes <- base_mmgd %>%
+      filter(is.na(nome_4md)) %>%
+      distinct(nome_4md, sig_agente) %>%
+      pull(sig_agente)
+    
+    mensagem_erro <- paste("Existem valores NA na coluna nome_4md. Atualize a planilha nomes_dist_powerbi.xlsx com", paste(faltantes,collapse = ", "))
+    
+    stop(mensagem_erro)
+  }
 
   tabela_regiao <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx")) %>%
