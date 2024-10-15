@@ -9,7 +9,7 @@
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
-#' @param fator_local_comercial string. Define a origem dos dados do Fator de 
+#' @param fator_local_comercial string. Define a origem dos dados do Fator de
 #' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
 #' tensão. Como default, são utilizados os mesmos valores dos consumidores
 #' residenciais. Caso selecionado "historico", utiliza o histórico do percentual
@@ -33,260 +33,193 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#'
+library(readxl)
+library(dplyr)
+library(tidyr)
 
-epe4md_mercado_potencial <- function(ano_base,
-                                     filtro_renda_domicilio = "maior_3sm",
-                                     filtro_comercial = NA,
-                                     fator_local_comercial = "residencial",
-                                     tx_cresc_grupo_a = 0,
-                                     dir_dados_premissas = NA_character_
-                                     ) {
-
-  dir_dados_premissas <- if_else(
-    is.na(dir_dados_premissas),
-    system.file(stringr::str_glue("dados_premissas/{ano_base}"),
-                package = "epe4md"),
-    dir_dados_premissas
-  )
-
-  total_domicilios <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/total_domicilios.xlsx"))
+mercado_potencial <- function(ano_base, filtro_renda_domicilio = "maior_3sm",filtro_comercial = NA,
+                              fator_local_comercial = "residencial", tx_cresc_grupo_a = 0,
+                              dir_dados_premissas = NA_character_,calcular_bateria = FALSE)
+{
+  dir_dados_premissas <- if_else(is.na(dir_dados_premissas),
+                                 system.file(stringr::str_glue("dados_premissas/{ano_base}"),
+                                             package = "epe4md"), dir_dados_premissas)
+  total_domicilios <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/total_domicilios.xlsx"))
   taxa_crescimento_a <- tx_cresc_grupo_a
-
-  #residencial
-  crescimento_mercado <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/crescimento_mercado.xlsx"))
-
-  crescimento_mercado <- crescimento_mercado %>%
-    mutate(crescimento_acumulado = cumprod(1 + taxa_crescimento_mercado)) %>%
-    select(-taxa_crescimento_mercado)
-
-  anos_faltantes_res <- data.frame("ano" = 2010:2060)
-
-  consumidores_residenciais <- read_xlsx(
-    stringr::str_glue("{dir_dados_premissas}/consumidores_residenciais_renda.xlsx")) %>%
-    mutate(maior_5sm = domicilios_5a10sm +
-             domicilios_10a15sm +
-             domicilios_15a20sm +
-             domicilios_maior20sm,
+  crescimento_mercado <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/crescimento_mercado.xlsx"))
+  crescimento_mercado <- crescimento_mercado %>% mutate(crescimento_acumulado = cumprod(1 +
+                                                                                          taxa_crescimento_mercado)) %>% select(-taxa_crescimento_mercado)
+  anos_faltantes_res <- data.frame(ano = 2010:2060)
+  consumidores_residenciais <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_residenciais_renda.xlsx")) %>%
+    mutate(maior_10sm = domicilios_10a15sm +domicilios_15a20sm + domicilios_maior20sm,
+           maior_5sm = maior_10sm + domicilios_5a10sm,
            maior_3sm = maior_5sm + domicilios_3a5sm,
            maior_2sm = maior_3sm + domicilios_2a3sm,
            maior_1sm = maior_2sm + domicilios_1a2sm,
            total = domicilios_pp) %>%
-    select(nome_4md, starts_with("maior")) %>%
-    pivot_longer(cols = starts_with("maior"), names_to = "renda",
-                 values_to = "domicilios") %>%
-    mutate(ano = 2010)
 
+    # mutate(maior_5sm = domicilios_5a10sm + domicilios_10a15sm +domicilios_15a20sm + domicilios_maior20sm,
+    #        maior_3sm = maior_5sm + domicilios_3a5sm, maior_2sm = maior_3sm + domicilios_2a3sm,
+    #        maior_1sm = maior_2sm + domicilios_1a2sm,
+    #        total = domicilios_pp) %>%
+    select(nome_4md, starts_with("maior")) %>% pivot_longer(cols = starts_with("maior"),
+                                                            names_to = "renda", values_to = "domicilios") %>% mutate(ano = 2010)
   lista_consumidores_residenciais <- consumidores_residenciais %>%
-    group_by(nome_4md, renda) %>%
-    tally() %>%
-    select(-n) %>%
+    group_by(nome_4md, renda) %>% tally() %>% select(-n) %>%
     ungroup()
-
   lista_consumidores_residenciais <- crossing(lista_consumidores_residenciais,
                                               anos_faltantes_res)
-
   consumidores_residenciais <- left_join(lista_consumidores_residenciais,
-                                         consumidores_residenciais,
-                                         by = c("nome_4md", "ano", "renda"))
-
+                                         consumidores_residenciais, by = c("nome_4md", "ano",
+                                                                           "renda"))
   consumidores_residenciais <- left_join(consumidores_residenciais,
                                          crescimento_mercado, by = "ano")
-
   consumidores_residenciais <- consumidores_residenciais %>%
-    group_by(nome_4md, renda) %>%
-    arrange(ano) %>%
-    fill(domicilios) %>%
-    ungroup() %>%
-    mutate(consumidores_proj = round(domicilios * crescimento_acumulado, 0)) %>%
-    select(nome_4md, ano, renda, consumidores_proj) %>%
-    filter(ano > 2012)
-
-
-  # consumidores b2 e b3
-
-  consumidores_b2b3 <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_b2b3.xlsx")) %>%
+    group_by(nome_4md, renda) %>% arrange(ano) %>% fill(domicilios) %>%
+    ungroup() %>% mutate(consumidores_proj = round(domicilios *
+                                                     crescimento_acumulado, 0)) %>% select(nome_4md, ano,
+                                                                                           renda, consumidores_proj) %>% filter(ano > 2012)
+  consumidores_b2b3 <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_b2b3.xlsx")) %>%
     pivot_longer(cols = starts_with("20"), names_to = "ano",
-                 values_to = "consumidores") %>%
-    group_by(nome_4md, ano) %>%
-    summarise(consumidores = sum(consumidores)) %>%
-    ungroup() %>% 
-    mutate(ano = as.numeric(ano)) %>% 
-    filter(between(ano, 2013, ano_base))
-
+                 values_to = "consumidores") %>% group_by(nome_4md,
+                                                          ano) %>% summarise(consumidores = sum(consumidores)) %>%
+    ungroup() %>% mutate(ano = as.numeric(ano)) %>% filter(between(ano,
+                                                                   2013, ano_base))
   consumidores_b2b3$ano <- as.numeric(consumidores_b2b3$ano)
-
   ano_ultimo_comercial <- max(consumidores_b2b3$ano)
-
-  lista_consumidores_b2b3 <- consumidores_b2b3 %>%
-    distinct(nome_4md)
-
+  lista_consumidores_b2b3 <- consumidores_b2b3 %>% distinct(nome_4md)
   lista_consumidores_b2b3 <- crossing(lista_consumidores_b2b3,
                                       anos_faltantes_res)
-
   consumidores_b2b3 <- left_join(lista_consumidores_b2b3, consumidores_b2b3,
-                                 by = c("nome_4md", "ano")) %>%
-    filter(ano > 2012)
-
-  crescimento_mercado <- read_xlsx(stringr::str_glue(
-    "{dir_dados_premissas}/crescimento_mercado.xlsx")) %>%
-    filter(ano > ano_ultimo_comercial) %>%
-    mutate(crescimento_acumulado = cumprod(1 + taxa_crescimento_mercado)) %>%
-    select(-taxa_crescimento_mercado)
-
+                                 by = c("nome_4md", "ano")) %>% filter(ano > 2012)
+  crescimento_mercado <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/crescimento_mercado.xlsx")) %>%
+    filter(ano > ano_ultimo_comercial) %>% mutate(crescimento_acumulado = cumprod(1 +
+                                                                                    taxa_crescimento_mercado)) %>% select(-taxa_crescimento_mercado)
   consumidores_b2b3 <- left_join(consumidores_b2b3, crescimento_mercado,
                                  by = "ano")
-
-  consumidores_b2b3 <- consumidores_b2b3 %>%
-    group_by(nome_4md) %>%
-    arrange(ano) %>%
-    fill(consumidores) %>%
-    ungroup() %>%
+  consumidores_b2b3 <- consumidores_b2b3 %>% group_by(nome_4md) %>%
+    arrange(ano) %>% fill(consumidores) %>% ungroup() %>%
     mutate(consumidores_proj = ifelse(is.na(crescimento_acumulado),
-                                      consumidores,
-                                      round(consumidores *
-                                              crescimento_acumulado, 0))) %>%
-    select(nome_4md, ano, consumidores_proj)
-
-
-  # consumidores a
-
-  consumidores_a <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_a.xlsx")) %>%
+                                      consumidores, round(consumidores * crescimento_acumulado,
+                                                          0))) %>% select(nome_4md, ano, consumidores_proj)
+  consumidores_a <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/consumidores_a.xlsx")) %>%
     pivot_longer(cols = starts_with("20"), names_to = "ano",
-                 values_to = "consumidores") %>%
-    group_by(nome_4md, ano) %>%
-    summarise(consumidores = sum(consumidores)) %>%
-    ungroup() %>% 
-    mutate(ano = as.numeric(ano)) %>% 
-    filter(between(ano, 2013, ano_base))
-
+                 values_to = "consumidores") %>% group_by(nome_4md,
+                                                          ano) %>% summarise(consumidores = sum(consumidores)) %>%
+    ungroup() %>% mutate(ano = as.numeric(ano)) %>% filter(between(ano,
+                                                                   2013, ano_base))
   consumidores_a$ano <- as.numeric(consumidores_a$ano)
-
   consumidores_a <- left_join(lista_consumidores_b2b3, consumidores_a,
-                              by = c("nome_4md", "ano")) %>%
-    filter(ano > 2012)
-
-
-    consumidores_a <- consumidores_a %>%
-    mutate(crescimento = ifelse(is.na(consumidores),
-                                1 + taxa_crescimento_a,
-                                1)) %>%
-    group_by(nome_4md) %>%
-    arrange(ano) %>%
-    mutate(taxa_acumulada = cumprod(crescimento)) %>%
-    fill(consumidores) %>%
-    mutate(consumidores_proj = round(consumidores * taxa_acumulada, 0)) %>%
-    ungroup() %>%
-    select(nome_4md, ano, consumidores_proj)
-
-
- #consumidores totais para avaliacao de share posterior
-
-  consumidores_totais_domicilios <- total_domicilios %>%
-    mutate(segmento = "residencial") %>%
+                              by = c("nome_4md", "ano")) %>% filter(ano > 2012)
+  consumidores_a <- consumidores_a %>% mutate(crescimento = ifelse(is.na(consumidores),
+                                                                   1 + taxa_crescimento_a, 1)) %>% group_by(nome_4md) %>%
+    arrange(ano) %>% mutate(taxa_acumulada = cumprod(crescimento)) %>%
+    fill(consumidores) %>% mutate(consumidores_proj = round(consumidores *
+                                                              taxa_acumulada, 0)) %>% ungroup() %>% select(nome_4md,
+                                                                                                           ano, consumidores_proj)
+  consumidores_totais_domicilios <- total_domicilios %>% mutate(segmento = "residencial") %>%
     rename(total_ucs = domicilios)
-
-  consumidores_totais_b2b3 <- consumidores_b2b3 %>%
-    group_by(ano) %>%
-    summarise(total_ucs = sum(consumidores_proj)) %>%
-    mutate(segmento = "comercial_bt")
-
-  consumidores_totais_a <- consumidores_a %>%
-    group_by(ano) %>%
-    summarise(total_ucs = sum(consumidores_proj)) %>%
-    mutate(segmento = "comercial_at")
-
+  consumidores_totais_b2b3 <- consumidores_b2b3 %>% group_by(ano) %>%
+    summarise(total_ucs = sum(consumidores_proj)) %>% mutate(segmento = "comercial_bt")
+  consumidores_totais_a <- consumidores_a %>% group_by(ano) %>%
+    summarise(total_ucs = sum(consumidores_proj)) %>% mutate(segmento = "comercial_at")
   consumidores_totais <- bind_rows(consumidores_totais_domicilios,
-                                   consumidores_totais_b2b3) %>%
-    bind_rows(consumidores_totais_a)
-
-
-  # Calculo mercado nicho ---------------------------------------------------
-
-  fator_tecnico <-
-    read_xlsx(stringr::str_glue("{dir_dados_premissas}/fator_tecnico.xlsx")) %>%
-      select(nome_4md, fator_tecnico)
-  
+                                   consumidores_totais_b2b3) %>% bind_rows(consumidores_totais_a)
+  fator_tecnico <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/fator_tecnico.xlsx")) %>%
+    select(nome_4md, fator_tecnico)
   fator_tecnico_comercial <- fator_tecnico
-  
-  if(fator_local_comercial == "historico") {
-  
-  dados_gd <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx"))
-  
-  fator_tecnico_comercial <- dados_gd %>%
-    filter(ano <= ano_base,
-           segmento %in% c("comercial_bt", "comercial_at_remoto")) %>% 
-    group_by(nome_4md, local_remoto) %>%
-    summarise(qtde_clientes = sum(qtde_u_csrecebem_os_creditos)) %>% 
-    ungroup() %>% 
-    group_by(nome_4md) %>% 
-    mutate(total_clientes = sum(qtde_clientes)) %>% 
-    ungroup() %>% 
-    filter(local_remoto == "local") %>% 
-    mutate(fator_tecnico = qtde_clientes / total_clientes) 
-
-  } 
-  
+  if (fator_local_comercial == "historico") {
+    dados_gd <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx"))
+    fator_tecnico_comercial <- dados_gd %>% filter(ano <=
+                                                     ano_base, segmento %in% c("comercial_bt", "comercial_at_remoto")) %>%
+      group_by(nome_4md, local_remoto) %>% summarise(qtde_clientes = sum(qtde_u_csrecebem_os_creditos)) %>%
+      ungroup() %>% group_by(nome_4md) %>% mutate(total_clientes = sum(qtde_clientes)) %>%
+      ungroup() %>% filter(local_remoto == "local") %>%
+      mutate(fator_tecnico = qtde_clientes/total_clientes)
+  }
   consumidores_residenciais <- consumidores_residenciais %>%
     filter(renda == filtro_renda_domicilio)
-
-  fator_comercial <- consumidores_residenciais %>%
-    group_by(ano) %>%
+  fator_comercial <- consumidores_residenciais %>% group_by(ano) %>%
     summarise(consumidores_nicho = sum(consumidores_proj)) %>%
-    left_join(total_domicilios, by = "ano") %>%
-    mutate(fator_nicho_comercial = consumidores_nicho / domicilios) %>%
-    ungroup() %>%
-    select(ano, fator_nicho_comercial)
-
+    left_join(total_domicilios, by = "ano") %>% mutate(fator_nicho_comercial = consumidores_nicho/domicilios) %>%
+    ungroup() %>% select(ano, fator_nicho_comercial)
   if (!is.na(filtro_comercial)) {
-   fator_comercial <- fator_comercial %>%
-     mutate(fator_nicho_comercial = filtro_comercial)
-
+    fator_comercial <- fator_comercial %>% mutate(fator_nicho_comercial = filtro_comercial)
   }
-
   consumidores_residenciais <- left_join(consumidores_residenciais,
                                          fator_tecnico, by = "nome_4md")
-
   consumidores_residenciais <- consumidores_residenciais %>%
-    mutate(residencial = round(consumidores_proj * fator_tecnico, 0),
-           residencial_remoto = round(consumidores_proj *
-                                        (1 - fator_tecnico), 0)) %>%
-    select(nome_4md, ano, residencial, residencial_remoto) %>%
-    pivot_longer(cols = starts_with("residen"), names_to = "segmento",
-                 values_to = "consumidores")
-
-
+    mutate(residencial = round(consumidores_proj * fator_tecnico,
+                               0), residencial_remoto = round(consumidores_proj *
+                                                                (1 - fator_tecnico), 0)) %>% select(nome_4md, ano,
+                                                                                                    residencial, residencial_remoto) %>% pivot_longer(cols = starts_with("residen"),
+                                                                                                                                                      names_to = "segmento", values_to = "consumidores")
   consumidores_b2b3 <- left_join(consumidores_b2b3, fator_comercial,
                                  by = "ano")
-
   consumidores_b2b3 <- left_join(consumidores_b2b3, fator_tecnico_comercial,
                                  by = "nome_4md")
-
-
-  consumidores_b2b3 <- consumidores_b2b3 %>%
-    mutate(comercial_bt = round(consumidores_proj * fator_tecnico *
-                                  fator_nicho_comercial, 0),
-           comercial_at_remoto = round(consumidores_proj *
-                                         fator_nicho_comercial *
-                                         (1 - fator_tecnico), 0)) %>%
+  consumidores_b2b3 <- consumidores_b2b3 %>% mutate(comercial_bt = round(consumidores_proj *
+                                                                           fator_tecnico * fator_nicho_comercial, 0), comercial_at_remoto = round(consumidores_proj *
+                                                                                                                                                    fator_nicho_comercial * (1 - fator_tecnico), 0)) %>%
     select(nome_4md, ano, comercial_bt, comercial_at_remoto) %>%
     pivot_longer(cols = starts_with("comerc"), names_to = "segmento",
                  values_to = "consumidores")
-
-  consumidores_a <- consumidores_a %>%
-    mutate(segmento = "comercial_at") %>%
+  consumidores_a <- consumidores_a %>% mutate(segmento = "comercial_at") %>%
     rename(consumidores = "consumidores_proj")
-
   consumidores <- bind_rows(consumidores_residenciais, consumidores_b2b3,
                             consumidores_a)
 
-  lista_consumidores <- list(consumidores, consumidores_totais)
 
+  consumidores <- bind_rows(consumidores_residenciais, consumidores_b2b3,
+                            consumidores_a)
+  lista_consumidores <- list(consumidores, consumidores_totais)
   names(lista_consumidores) <- c("consumidores", "consumidores_totais")
 
-  lista_consumidores
+  #RODAR SCRIPTS diretamente dentro da função
 
+  # Evitamos a chamada recursiva ao calcular mercado com bateria fora da função
+  if (calcular_bateria == FALSE) {
+    #Mercado potencial para FV
+    mercado_fv <- list(consumidores = consumidores, consumidores_totais = consumidores_totais)
+
+    # Chamar mercado potencial com filtro para maior_10sm (bateria)
+    mercado_fv_bateria <- mercado_potencial(
+      ano_base = ano_base,
+      filtro_renda_domicilio = "maior_10sm",
+      filtro_comercial = filtro_comercial,
+      tx_cresc_grupo_a = tx_cresc_grupo_a,
+      dir_dados_premissas = dir_dados_premissas,
+      calcular_bateria = TRUE
+    )
+
+    # Extrair os dataframes das listas
+    consumidores_df <- mercado_fv$consumidores
+    consumidores_bateria_df <- mercado_fv_bateria$consumidores
+
+    # Fazer o join das duas tabelas
+    mercado <- consumidores_df %>%
+      left_join(consumidores_bateria_df %>% select(nome_4md, ano, segmento, consumidores),
+                by = c("nome_4md", "ano", "segmento")) %>%
+      rename(consumidores_bateria = consumidores.y)
+
+    # Renomear coluna de consumidores original (opcional)
+    mercado <- mercado %>%
+      rename(consumidores = consumidores.x)
+
+    # Atualiza a lista final de consumidores no mercado_fv_bateria
+    mercado_fv_bateria$consumidores <- mercado
+
+    # Retorna o mercado com baterias atualizado
+    return(mercado_fv_bateria)
+  }
+
+  # Se calcular_bateria == TRUE, apenas retorna o resultado atual
+  return(list(consumidores = consumidores, consumidores_totais = consumidores_totais))
 }
+
+
+mercado_fv_bateria <- mercado_potencial(
+  ano_base = 2022,
+  filtro_comercial = NA,
+  tx_cresc_grupo_a = 0)
