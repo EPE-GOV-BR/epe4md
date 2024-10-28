@@ -49,8 +49,7 @@ epe4md_mercado_potencial <- function(ano_base,
     dir_dados_premissas
   )
 
-  #teste
-  #teste 2
+
   
   total_domicilios <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/total_domicilios.xlsx"))
