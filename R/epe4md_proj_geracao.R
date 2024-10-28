@@ -120,14 +120,24 @@ epe4md_proj_geracao <- function(proj_mensal,
     left_join(injecao, by = c("segmento", "fonte_resumo")) %>%
     mutate(energia_autoc_mwh = energia_mwh * fator_autoconsumo,
            energia_inj_mwh = energia_mwh * (1 - fator_autoconsumo))
+  
+  #abertura GD1
+  projecao_energia <- projecao_energia %>%
+    mutate(enquadramento_gd = case_when(
+      ano <= 2023 & segmento %in% 
+        c("comercial_at", "comercial_at_remoto") ~ "GD 1",
+      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1",
+      mes_operacao > make_date(2045, 12, 31) ~ "GD 2",
+      TRUE ~ "GD 2"))
 
   resumo_projecao_energia <- projecao_energia %>%
-    group_by(mes_operacao, nome_4md, subsistema, uf, segmento, fonte_resumo) %>%
+    group_by(mes_operacao, nome_4md, subsistema, uf, segmento, fonte_resumo,
+             enquadramento_gd) %>%
     summarise(energia_mwh = sum(energia_mwh),
               energia_autoc_mwh = sum(energia_autoc_mwh),
               energia_inj_mwh = sum(energia_inj_mwh)) %>%
     ungroup()
-
+  
   resumo_projecao_energia <- resumo_projecao_energia %>%
     mutate(mes = tsibble::yearmonth(mes_operacao),
            ano = year(mes),
@@ -138,7 +148,13 @@ epe4md_proj_geracao <- function(proj_mensal,
     select(data, ano, mes, everything(), -dias_mes, -mes_operacao)
 
   resumo_projecao_potencia <- proj_mensal %>%
-    group_by(mes_ano, nome_4md, subsistema, uf, segmento, fonte_resumo) %>%
+    mutate(enquadramento_gd = case_when(
+      ano <= 2023 & segmento %in% 
+        c("comercial_at", "comercial_at_remoto") ~ "GD 1",
+      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1",
+      TRUE ~ "GD 2")) %>% 
+    group_by(mes_ano, nome_4md, subsistema, uf, segmento, fonte_resumo, 
+             enquadramento_gd) %>%
     summarise(pot_mes_mw = sum(pot_mes_mw),
               adotantes_mes = sum(adotantes_mes)) %>%
     ungroup() %>%
@@ -151,7 +167,7 @@ epe4md_proj_geracao <- function(proj_mensal,
   #juncao potencia e energia
 
   juncao <- left_join(resumo_projecao_energia, resumo_projecao_potencia,
-                      by = c("data", "ano", "mes", "nome_4md",
+                      by = c("data", "ano", "mes", "nome_4md", "enquadramento_gd",
                              "subsistema", "uf", "segmento", "fonte_resumo"))
 
   juncao <- juncao %>%
