@@ -6,6 +6,14 @@
 #' [epe4md::epe4md_mercado_potencial].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
+#' @param cresc_fv numeric. Taxa de crescimento da participação da fonte
+#' fotovoltaica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_eol numeric. Taxa de crescimento da participação da fonte
+#' eólica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_cgh numeric. Taxa de crescimento da participação da fonte
+#' hidráulica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_ute numeric. Taxa de crescimento da participação da fonte
+#' termelétrica. Default igual a 0 (mantém participação histórica).
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos
@@ -26,6 +34,10 @@
 epe4md_proj_adotantes <- function(casos_otimizados,
                                   consumidores,
                                   ano_base,
+                                  cresc_fv = 0,
+                                  cresc_eol = 0,
+                                  cresc_cgh = 0,
+                                  cresc_ute = 0,
                                   dir_dados_premissas = NA_character_ ) {
 
 
@@ -79,6 +91,11 @@ epe4md_proj_adotantes <- function(casos_otimizados,
 
   # Abertura dos adotantes por fonte ----------------------------------------
 
+  taxa_crescimento <- tibble(
+    fonte_resumo = c("Fotovoltaica", "Eólica", "Hidro", "Termelétrica"), # Exemplos de fontes
+    crescimento_anual = c(cresc_fv, cresc_eol, cresc_cgh, cresc_ute) # Percentual de crescimento/decrescimento anual
+  )
+
   part_adot_fontes <- dados_gd %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%
     summarise(adotantes_hist = sum(qtde_u_csrecebem_os_creditos)) %>%
@@ -113,7 +130,14 @@ epe4md_proj_adotantes <- function(casos_otimizados,
   projecao <- left_join(projecao, part_adot_fontes,
                         by = c("nome_4md", "segmento"),
                         relationship = "many-to-many") %>%
-    mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0))
+    left_join(taxa_crescimento, by = "fonte_resumo") %>%
+    group_by(nome_4md, segmento, ano) %>%
+    mutate(part_fonte = ifelse(ano <= ano_base, part_fonte,
+                               part_fonte * (1 + crescimento_anual) ^ (ano - ano_base)),
+           part_fonte = part_fonte / sum(part_fonte)) %>%
+    ungroup() %>%
+    mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0)) %>%
+    select(-crescimento_anual)
 
   projecao <- left_join(projecao, historico_adot_fontes,
                         by = c("nome_4md", "segmento", "ano", "fonte_resumo"),

@@ -33,6 +33,11 @@
 #' Default igual a 0.
 #' @param anos_desconto vector. Anos em que há a incidência do desconto no
 #' CAPEX.Ex: c(2024, 2025). Default igual a 0.
+#' @param tarifa_bonus integer. Tarifa que representa benefícios adicionais
+#' da MMGD. Valor em R$/kWh. A tarifa é multiplicada pela energia injetada na
+#' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
+#' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
+#' na receita.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -64,6 +69,8 @@ epe4md_payback <- function(
     disponibilidade_kwh_mes = 100,
     desconto_capex_local = 0,
     anos_desconto = 0,
+    tarifa_bonus = 0,
+    ano_inicio_bonus = 2099,
     dir_dados_premissas = NA_character_
 ) {
 
@@ -144,14 +151,11 @@ epe4md_payback <- function(
                              capex_inicial, capex_inversor, oem_anual,
                              pot_sistemas) {
 
-    # print(paste(nome_4md, ano, segmento,
-    #       vida_util, fator_autoconsumo,
-    #       geracao_1_kwh, degradacao,
-    #       capex_inicial, capex_inversor,
-    #       oem_anual, pot_sistemas,sep="_"))
-
+    # # auxilio debug
+    # ano_base = 2023
     # nome_4md="FORCEL"
-    # ano=2013
+    # ano=2026
+    # inflacao = 0.0375
     # segmento="comercial_at"
     # vida_util=25
     # fator_autoconsumo=0.8
@@ -161,19 +165,15 @@ epe4md_payback <- function(
     # capex_inversor=98449.2663270433
     # oem_anual=0.01
     # pot_sistemas=73
-
-    # nome_4md="LIGHT"
-    # ano=2020
-    # segmento="residencial_remoto"
-    # vida_util=25
-    # fator_autoconsumo=0.2
-    # geracao_1_kwh=7970.84281914893
-    # degradacao=0.005
-    # capex_inicial=25620
-    # capex_inversor=5164.67064581946
-    # oem_anual=0.01
-    # pot_sistemas=6
-
+    # ano_troca_inversor = 11
+    # altera_sistemas_existentes = TRUE
+    # ano_decisao_alteracao = 2023
+    # tarifa_bonus = 0.2
+    # ano_inicio_bonus = 2027
+    # desconto_capex_local = 0
+    # anos_desconto = 0
+    # pagamento_disponibilidade = 0.3
+    # disponibilidade_kwh_mes = 100
 
 
     fluxo_caixa <- data.frame("ano_simulacao" = 1:vida_util,
@@ -257,6 +257,9 @@ epe4md_payback <- function(
                                    (1 - impostos_te)) +
                                   (taxa_inflacao * energia_inj * pag_inj_tusd /
                                      (1 - impostos_tusd))) * -p_transicao,
+             receita_bonus = ifelse(first(ano) >= ano_inicio_bonus,
+                                    taxa_inflacao * energia_inj * tarifa_bonus,
+                                    0),
              demanda_contratada = -taxa_inflacao * pot_sistemas *
                tarifa_demanda * 12 / (1 - impostos_cheio),
              capex_obra = 0,
@@ -274,6 +277,7 @@ epe4md_payback <- function(
     fluxo_caixa <- fluxo_caixa %>%
       mutate(oem = -oem_anual * capex_inicial * fator_construcao,
              saldo_anual = capex + receita_autoc + receita_inj_completa +
+               receita_bonus +
                pag_compensacao + demanda_contratada + oem +
                troca_inversor + capex_obra + custo_disponibilidade,
              saldo_acumulado = cumsum(saldo_anual),
