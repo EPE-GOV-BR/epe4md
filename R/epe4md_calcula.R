@@ -96,6 +96,11 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' Default igual a 0.
 #' @param anos_desconto vector. Anos em que há a incidência do desconto no
 #' CAPEX.Ex: c(2024, 2025). Default igual a 0.
+#' @param tarifa_bonus integer. Tarifa que representa benefícios adicionais
+#' da MMGD. Valor em R$/kWh. A tarifa é multiplicada pela energia injetada na
+#' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
+#' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
+#' na receita.
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
@@ -103,6 +108,14 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
 #' cativos do Grupo A. Default igual a 0.
+#' @param cresc_fv numeric. Taxa de crescimento da participação da fonte
+#' fotovoltaica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_eol numeric. Taxa de crescimento da participação da fonte
+#' eólica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_cgh numeric. Taxa de crescimento da participação da fonte
+#' hidráulica. Default igual a 0 (mantém participação histórica).
+#' @param cresc_ute numeric. Taxa de crescimento da participação da fonte
+#' termelétrica. Default igual a 0 (mantém participação histórica).
 #' @param ajuste_ano_corrente logic. Se TRUE indica que a projeção deverá
 #' incorporar o histórico mensal recente, verificado em parte do primeiro ano
 #' após o ano base. Default igual a FALSE. O arquivo base_mmgd.xlsx deve
@@ -150,10 +163,16 @@ epe4md_calcula <- function(
   fator_local_comercial = "residencial",
   desconto_capex_local = 0,
   anos_desconto = 0,
+  tarifa_bonus = 0,
+  ano_inicio_bonus = 2099,
   tx_cresc_grupo_a = 0,
   p_max = 0.01,
   q_max = 1,
   filtro_comercial = NA_real_,
+  cresc_fv = 0,
+  cresc_eol = 0,
+  cresc_cgh = 0,
+  cresc_ute = 0,
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
@@ -183,6 +202,12 @@ epe4md_calcula <- function(
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(inflacao))
   assert_that(is.number(taxa_desconto_nominal))
+  assert_that(is.number(tarifa_bonus))
+  assert_that(is.number(cresc_fv))
+  assert_that(is.number(cresc_eol))
+  assert_that(is.number(cresc_cgh))
+  assert_that(is.number(cresc_ute))
+  assert_that(is.number(ano_inicio_bonus))
   assert_that(is.number(custo_reforco_rede))
   assert_that(is.number(ano_troca_inversor))
   assert_that(is.number(pagamento_disponibilidade))
@@ -255,6 +280,8 @@ epe4md_calcula <- function(
     disponibilidade_kwh_mes = disponibilidade_kwh_mes,
     desconto_capex_local = desconto_capex_local,
     anos_desconto = anos_desconto,
+    tarifa_bonus = tarifa_bonus,
+    ano_inicio_bonus = ano_inicio_bonus,
     dir_dados_premissas = dir_dados_premissas
   )
 
@@ -281,6 +308,10 @@ epe4md_calcula <- function(
     casos_otimizados = casos_otimizados,
     consumidores = consumidores,
     ano_base = ano_base,
+    cresc_fv = cresc_fv,
+    cresc_eol = cresc_eol,
+    cresc_cgh = cresc_cgh,
+    cresc_ute = cresc_ute,
     dir_dados_premissas = dir_dados_premissas)
 
   lista_potencia <- epe4md_proj_potencia(
