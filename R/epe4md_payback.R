@@ -11,7 +11,10 @@
 #' Default igual a FALSE.
 #' @param ano_decisao_alteracao numeric. Ano em que são definidas novas regras e
 #' se tornam de conhecimento público. Esse parâmetro só tem efeito caso o
-#' anterior seja igual a TRUE. Default igual a 2021.
+#' anterior seja igual a TRUE. Default igual a 2023.
+#' @param ano_final_alteracao numeric. Até qual ano as alterações regulatórias
+#' previstas afetam investimentos presentes. Só válido quando
+#' altera_sistemas_existentes igual a TRUE. Default igual a 2060.
 #' @param inflacao mumeric. Taxa anual de inflacao considerada no reajuste das
 #' tarifas e para calcular o retorno real de projetos. Default igual a 0.0375.
 #' @param taxa_desconto_nominal numeric. Taxa de desconto nominal considerada
@@ -61,6 +64,7 @@ epe4md_payback <- function(
     ano_base,
     altera_sistemas_existentes = TRUE,
     ano_decisao_alteracao = 2023,
+    ano_final_alteracao = 2060,
     inflacao = 0.0375,
     taxa_desconto_nominal = 0.13,
     custo_reforco_rede = 200,
@@ -154,7 +158,7 @@ epe4md_payback <- function(
     # # auxilio debug
     # ano_base = 2023
     # nome_4md="FORCEL"
-    # ano=2026
+    # ano=2038
     # inflacao = 0.0375
     # segmento="comercial_at"
     # vida_util=25
@@ -168,6 +172,7 @@ epe4md_payback <- function(
     # ano_troca_inversor = 11
     # altera_sistemas_existentes = TRUE
     # ano_decisao_alteracao = 2023
+    # ano_final_alteracao = 2034
     # tarifa_bonus = 0.2
     # ano_inicio_bonus = 2027
     # desconto_capex_local = 0
@@ -183,14 +188,19 @@ epe4md_payback <- function(
 
     fluxo_caixa <- fluxo_caixa %>%
       left_join(fator_construcao, by = "segmento") %>%
-      mutate(fator_construcao = ifelse(ano_simulacao == 1, fator_construcao, 1))
+      mutate(fator_construcao = ifelse(ano_simulacao == 1, fator_construcao, 1),
+             ano_inicial = ano)
 
 
     if (altera_sistemas_existentes == TRUE && ano >= ano_decisao_alteracao) {
       fluxo_caixa <- fluxo_caixa %>%
         mutate(ano = row_number() + ano - 1,
-               ano = ifelse(ano > 2060, 2060, ano))
+               ano = ifelse(ano > 2060, 2060, ano),
+               ano = ifelse(ano >= ano_final_alteracao, ano_final_alteracao, ano),
+               ano = ifelse(ano_inicial > ano, ano_inicial, ano)) %>%
+        select(-ano_inicial)
     }
+
 
     fluxo_caixa <- left_join(fluxo_caixa, premissas_regulatorias, by = "ano")
 
