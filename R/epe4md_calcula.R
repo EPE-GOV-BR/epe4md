@@ -66,6 +66,9 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' @param ano_decisao_alteracao numeric. Ano em que são definidas novas regras e
 #' se tornam de conhecimento público. Esse parâmetro só tem efeito caso o
 #' anterior seja igual a TRUE. Default igual a 2023.
+#' @param ano_final_alteracao numeric. Até qual ano as alterações regulatórias
+#' previstas afetam investimentos presentes. Só válido quando
+#' altera_sistemas_existentes igual a TRUE. Default igual a 2060.
 #' @param inflacao mumeric. Taxa anual de inflacao considerada no reajuste das
 #' tarifas e para calcular o retorno real de projetos. Default igual a 0.0375.
 #' @param taxa_desconto_nominal numeric. Taxa de desconto nominal considerada
@@ -153,6 +156,7 @@ epe4md_calcula <- function(
   ano_max_resultado = 2060,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
+  ano_final_alteracao = 2060,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
   custo_reforco_rede = 200,
@@ -200,6 +204,7 @@ epe4md_calcula <- function(
   assert_that(is.number(ano_base))
   assert_that(is.flag(altera_sistemas_existentes))
   assert_that(is.number(ano_decisao_alteracao))
+  assert_that(is.number(ano_final_alteracao))
   assert_that(is.number(inflacao))
   assert_that(is.number(taxa_desconto_nominal))
   assert_that(is.number(tarifa_bonus))
@@ -272,6 +277,7 @@ epe4md_calcula <- function(
     premissas_reg = premissas_reg,
     altera_sistemas_existentes = altera_sistemas_existentes,
     ano_decisao_alteracao = ano_decisao_alteracao,
+    ano_final_alteracao = ano_final_alteracao,
     inflacao = inflacao,
     taxa_desconto_nominal = taxa_desconto_nominal,
     custo_reforco_rede = custo_reforco_rede,
