@@ -12,6 +12,7 @@ epe4md_casos_payback(
   inflacao = 0.0375,
   ano_troca_inversor = 11,
   fator_custo_inversor = 0.15,
+  ano_recapex_bat = 11,
   dir_dados_premissas = NA_character_
 )
 }
@@ -30,6 +31,9 @@ e para calcular o retorno real de projetos.}
 
 \item{fator_custo_inversor}{numeric. Custo do inversor para a substituição em
 percentual do CAPEX total do sistema de geração. Default igual a 0.15.}
+
+\item{ano_recapex_bat}{Ano em que será feito um investimento adicional em baterias
+para compensar a degradação. Default igual a 11.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

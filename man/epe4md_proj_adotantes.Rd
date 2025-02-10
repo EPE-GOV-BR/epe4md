@@ -9,6 +9,10 @@ epe4md_proj_adotantes(
   casos_otimizados,
   consumidores,
   ano_base,
+  cresc_fv = 0,
+  cresc_eol = 0,
+  cresc_cgh = 0,
+  cresc_ute = 0,
   dir_dados_premissas = NA_character_
 )
 }
@@ -20,6 +24,18 @@ epe4md_proj_adotantes(
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
+
+\item{cresc_fv}{numeric. Taxa de crescimento da participação da fonte
+fotovoltaica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_eol}{numeric. Taxa de crescimento da participação da fonte
+eólica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_cgh}{numeric. Taxa de crescimento da participação da fonte
+hidráulica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_ute}{numeric. Taxa de crescimento da participação da fonte
+termelétrica. Default igual a 0 (mantém participação histórica).}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

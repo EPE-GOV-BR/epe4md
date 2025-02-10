@@ -11,14 +11,21 @@ epe4md_payback(
   ano_base,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
+  ano_final_alteracao = 2060,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
   custo_reforco_rede = 200,
   ano_troca_inversor = 11,
+  ano_recapex_bat = 11,
+  degradacao_bateria_mil_ciclos = 0.1,
   pagamento_disponibilidade = 0.3,
   disponibilidade_kwh_mes = 100,
   desconto_capex_local = 0,
   anos_desconto = 0,
+  tarifa_bonus = 0,
+  ano_inicio_bonus = 2099,
+  custo_deficit = 0,
+  bateria_eficiencia = 0.9,
   dir_dados_premissas = NA_character_
 )
 }
@@ -38,7 +45,11 @@ Default igual a FALSE.}
 
 \item{ano_decisao_alteracao}{numeric. Ano em que são definidas novas regras e
 se tornam de conhecimento público. Esse parâmetro só tem efeito caso o
-anterior seja igual a TRUE. Default igual a 2021.}
+anterior seja igual a TRUE. Default igual a 2023.}
+
+\item{ano_final_alteracao}{numeric. Até qual ano as alterações regulatórias
+previstas afetam investimentos presentes. Só válido quando
+altera_sistemas_existentes igual a TRUE. Default igual a 2060.}
 
 \item{inflacao}{mumeric. Taxa anual de inflacao considerada no reajuste das
 tarifas e para calcular o retorno real de projetos. Default igual a 0.0375.}
@@ -53,6 +64,12 @@ para reforços na rede. Default igual a 200.}
 \item{ano_troca_inversor}{numeric. Ano, a partir do ano de instalação, em que
 é realizada a troca do inversor fotovoltaico. Default igual a 11.}
 
+\item{ano_recapex_bat}{numeric. Ano em que será feito um investimento adicional em baterias
+para compensar a degradação. Default igual a 11.}
+
+\item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
+em percentual a cada 1000 ciclos. Default igual a 10\%.}
+
 \item{disponibilidade_kwh_mes}{numeric. Consumo de disponbilidade do
 consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
 trifásico. Tem efeito somente até o ano de 2022.}
@@ -63,6 +80,18 @@ Default igual a 0.}
 
 \item{anos_desconto}{vector. Anos em que há a incidência do desconto no
 CAPEX.Ex: c(2024, 2025). Default igual a 0.}
+
+\item{tarifa_bonus}{integer. Tarifa que representa benefícios adicionais
+da MMGD. Valor em R$/kWh. A tarifa é multiplicada pela energia injetada na
+rede para formar uma receita adicional ao empreendimento. Default igual a 0.}
+
+\item{ano_inicio_bonus}{integer. Ano em que o bônus começa a ser incorporado
+na receita.}
+
+\item{custo_deficit}{numeric. Custo atribuído pelo consumidor à interrupção
+de energia. Em R$/MWh. Default = 0.}
+
+\item{bateria_eficiencia}{numeric. Eficiência das baterias. Default igual a 0.95.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

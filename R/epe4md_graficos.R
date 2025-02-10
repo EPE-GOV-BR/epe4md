@@ -16,7 +16,73 @@ epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
     filter(ano >= ano_inicio)
 
   ggplot(resumo) +
-    aes(x = ano, y = pot_acum) +
+    aes(x = ano, y = pot_acum_gw) +
+    geom_line(color = cor, size = 1) +
+    geom_point(color = cor, fill = "white", shape = 21, stroke = 1.25) +
+    labs(x = "", y = "Potência [GW]") +
+    theme_minimal() +
+    theme(legend.position = "none",
+          text = element_text(size = tamanho)) +
+    scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
+}
+
+#' Gráfico da capacidade instalada acumulada com baterias
+#'
+#' @param dados data.frame Resultados mensais de potencia e energia
+#'
+#' @return
+#' @export
+#'
+#' @import dplyr
+#' @encoding UTF-8
+#'
+
+epe4md_graf_pot_bat_acum <- function(dados, ano_inicio = 2013,
+                                 tamanho = 14) {
+  resumo <- dados %>%
+    epe4md_sumariza_resultados() %>%
+    filter(ano >= ano_inicio) %>%
+    pivot_longer(cols = starts_with("pot_acum"), names_to = "tecnologia",
+                 values_to = "pot_gw")
+
+  ggplot(resumo) +
+    aes(x = ano, y = pot_gw, group = tecnologia, color = tecnologia) +
+    geom_line(size = 1) +
+    geom_point(fill = "white", shape = 21, stroke = 1.25) +
+    theme_minimal() +
+    labs(x = "",
+         y = "Potência [GW]",
+         color = "") +
+    theme(text = element_text(size = tamanho)) +
+    scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2)) +
+    scale_color_manual(
+      values = paleta_epe,
+      labels = c(
+        "pot_acum_bat_gw" = "Baterias",
+        "pot_acum_gw" = "MMGD"
+      )
+    )
+}
+
+#' Gráfico da capacidade de armazenamento acumulada
+#'
+#' @param dados data.frame Resultados mensais de potencia e energia
+#'
+#' @return
+#' @export
+#'
+#' @import dplyr
+#' @encoding UTF-8
+#'
+
+epe4md_graf_cap_arm_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
+                                 tamanho = 14) {
+  resumo <- dados %>%
+    epe4md_sumariza_resultados() %>%
+    filter(ano >= ano_inicio)
+
+  ggplot(resumo) +
+    aes(x = ano, y = cap_acum_bat_mwh) +
     geom_line(color = cor, size = 1) +
     geom_point(color = cor, fill = "white", shape = 21, stroke = 1.25) +
     labs(x = "", y = "Potência [GW]") +
@@ -53,6 +119,44 @@ epe4md_graf_pot_anual <- function(dados, ano_inicio = 2013, cor = "#13475d",
           text = element_text(size = tamanho)) +
     scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2))
 }
+
+#' Gráfico da capacidade instalada anual com baterias
+#'
+#' @param dados data.frame Resultados mensais de potencia e energia
+#'
+#' @return
+#' @export
+#'
+#' @import dplyr
+#' @encoding UTF-8
+#'
+
+epe4md_graf_pot_bat_anual <- function(dados, ano_inicio = 2013,
+                                     tamanho = 14) {
+  resumo <- dados %>%
+    epe4md_sumariza_resultados() %>%
+    filter(ano >= ano_inicio) %>%
+    pivot_longer(cols = starts_with("pot_ano"), names_to = "tecnologia",
+                 values_to = "pot_gw")
+
+  ggplot(resumo) +
+    aes(x = ano, y = pot_gw, fill = tecnologia) +
+    geom_col(position = "dodge") +
+    theme_minimal() +
+    labs(x = "",
+         y = "Potência [GW]",
+         fill = "") +
+    theme(text = element_text(size = tamanho)) +
+    scale_x_continuous(breaks = seq(ano_inicio, last(resumo$ano), by = 2)) +
+    scale_fill_manual(
+      values = paleta_epe,
+      labels = c(
+        "pot_ano_bat_gw" = "Baterias",
+        "pot_ano_gw" = "MMGD"
+      )
+    )
+}
+
 
 #' Gráfico da capacidade instalada acumulada por segmento
 #'

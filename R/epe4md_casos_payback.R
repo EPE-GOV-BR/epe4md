@@ -11,6 +11,8 @@
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
 #' @param fator_custo_inversor numeric. Custo do inversor para a substituição em
 #' percentual do CAPEX total do sistema de geração. Default igual a 0.15.
+#' @param ano_recapex_bat Ano em que será feito um investimento adicional em baterias
+#' para compensar a degradação. Default igual a 11.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -36,9 +38,9 @@ epe4md_casos_payback <- function(ano_base,
                                  inflacao = 0.0375,
                                  ano_troca_inversor = 11,
                                  fator_custo_inversor = 0.15,
+                                 ano_recapex_bat = 11,
                                  dir_dados_premissas = NA_character_
                                  ) {
-
 
 # Potência típica dos sistemas ------------------------------------------------
 
@@ -49,7 +51,6 @@ epe4md_casos_payback <- function(ano_base,
                 package = "epe4md"),
       dir_dados_premissas
   )
-
 
   potencia_tipica <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/potencia_tipica.xlsx"))
@@ -115,8 +116,34 @@ epe4md_casos_payback <- function(ano_base,
   casos <- casos %>%
     filter(ano <= ano_max_resultado)
 
-  casos_payback <- casos
 
-  casos_payback
+  # Baterias ---------------------------------------------------------------
+
+
+    precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
+
+    precos_recapex_bat <- precos_bateria %>%
+      rename(bateria_custo_rec = bateria_custo,
+             ano_recapex = ano) %>%
+      select(-bateria_oem)
+
+    dec_fec <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/dec_fec.xlsx"))
+
+    casos <- casos %>%
+      mutate(ano_recapex = ano + ano_recapex_bat) %>%
+      left_join(dec_fec, by = "nome_4md") %>%
+      left_join(precos_bateria, by = c("ano", "segmento")) %>%
+      left_join(precos_recapex_bat, by = c("ano_recapex", "segmento")) %>%
+      mutate(
+        bateria_capacidade_kwh = geracao_1_kwh * (1 - fator_autoconsumo) / 365,
+        bateria_capex_inicial = bateria_custo * bateria_capacidade_kwh,
+        bateria_recapex = bateria_custo_rec * bateria_capacidade_kwh,
+        bateria_oem_anual = bateria_oem
+      ) %>%
+      group_by(segmento, nome_4md) %>%
+      fill(everything(), .direction = "updown") %>%
+      ungroup()
+
+  casos
 
 }

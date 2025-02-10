@@ -14,14 +14,28 @@
 #' @examples
 epe4md_sumariza_resultados <- function(resultados_mensais) {
 
-  result <- resultados_mensais %>%
-    group_by(ano) %>%
-    summarise(pot_ano = sum(pot_mes_mw / 1000),
-              geracao_gwh = sum(energia_mwh / 1000)) %>%
-    ungroup() %>%
-    mutate(pot_acum = cumsum(pot_ano),
-           geracao_mwmed = geracao_gwh / 8.76)
-
+  if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
+    result <- resultados_mensais %>%
+      group_by(ano) %>%
+      summarise(pot_ano_gw = sum(pot_mes_mw / 1000),
+                pot_ano_bat_gw = sum(pot_mes_bateria_mw / 1000),
+                cap_bat_mwh = sum(cap_bateria_mwh),
+                geracao_gwh = sum(energia_mwh / 1000)
+      ) %>%
+      ungroup() %>%
+      mutate(pot_acum_gw = cumsum(pot_ano_gw),
+             pot_acum_bat_gw = cumsum(pot_ano_bat_gw),
+             cap_acum_bat_mwh = cumsum(cap_bat_mwh),
+             geracao_mwmed = geracao_gwh / 8.76)
+  } else {
+    result <- resultados_mensais %>%
+      group_by(ano) %>%
+      summarise(pot_ano_gw = sum(pot_mes_mw / 1000),
+                geracao_gwh = sum(energia_mwh / 1000)) %>%
+      ungroup() %>%
+      mutate(pot_acum_gw = cumsum(pot_ano_gw),
+             geracao_mwmed = geracao_gwh / 8.76)
+  }
 
 }
 
@@ -52,7 +66,7 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'
 #' Um arquivo excel
 #' instalado com este pacote, acessível via
-#' `system.file("dados_premissas/2021/premissas_reg.xlsx", package = "epe4md")`,
+#' `system.file("dados_premissas/{ano_base}/premissas_reg.xlsx", package = "epe4md")`,
 #' contém um exemplo de premissas de entrada.
 #'
 #'
@@ -78,6 +92,10 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' para reforços na rede. Default igual a 200.
 #' @param ano_troca_inversor numeric. Ano, a partir do ano de instalação, em que
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
+#' @param ano_recapex_bat numeric. Ano em que será feito um investimento adicional em baterias
+#' para compensar a degradação. Default igual a 11.
+#' @param fator_custo_inversor numeric. Custo do inversor para a substituição em
+#' percentual do CAPEX total do sistema de geração. Default igual a 0.15.
 #' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
 #' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
@@ -89,6 +107,10 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' residenciais, de acordo com a renda mensal do responsável, em salários
 #' mínimos. Permite: "total", "maior_1sm", maior_2sm", "maior_3sm" ou
 #' "maior_5sm". Default igual a "maior_3sm".
+#' @param filtro_renda_bateria string. Define o filtro aplicado a consumidores
+#' residenciais para investimento em baterias, de acordo com a renda mensal do
+#' responsável, em salários mínimos. Permite: "total", "maior_1sm, maior_2sm",
+#' "maior_3sm", "maior_5sm" ou "maior_10sm". Default igual a "maior_10sm".
 #' @param fator_local_comercial string. Define a origem dos dados do Fator de
 #' Aptidão Local "FAL" para os consumidores não residenciais atendidos em baixa
 #' tensão. Como default, são utilizados os mesmos valores dos consumidores
@@ -104,11 +126,20 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
 #' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
 #' na receita.
+#' @param custo_deficit numeric. Custo atribuído pelo consumidor à interrupção
+#' de energia. Em R$/MWh. Default = 0.
 #' @param filtro_comercial numeric. Fator percentual para definir o nicho do
 #' segmento comercial. Default é calculado pelo modelo com base no nicho
 #' residencial.
 #' @param p_max numeric. Fator de inovação (p) máximo. Default igual a 0.01.
 #' @param q_max numeric. Fator de imitação (q) máximo. DEfault igual a 1.
+#' @param curva_bateria string. Pode ser "propria" (Default) ou "lag". A primeira
+#' opção utiliza os fatores p_bat e q_bat. A opção "lag" utiliza a curva de
+#' difusão de MMGD, atrasada no tempo, conforme o parâmetro inicio_curva_bateria.
+#' @param p_bat numeric. Fator de inovação (p) para baterias. Default igual a 0.0015.
+#' @param q_bat numeric. Fator de imitação (q) para_baterias. Default igual a 0.3.
+#' @param inicio_curva_bateria numeric. Indica o ano que começa a difusão
+#' das baterias. Default igual a 2023.
 #' @param tx_cresc_grupo_a numeric. Taxa de crescimento anual dos consumuidores
 #' cativos do Grupo A. Default igual a 0.
 #' @param cresc_fv numeric. Taxa de crescimento da participação da fonte
@@ -130,6 +161,11 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #' potência e o número de adotantes até o final do ano base + 1 com base no
 #' verificado até o ultimo_mes_ajuste. Default igual a NA. Só tem efeito caso
 #' ajuste_ano_corrente seja igual a TRUE.
+#' @param bateria_eficiencia numeric. Eficiência da bateria. Default igual a 0.829.
+#' @param degradacao_bateria_mil_ciclos numeric. Degradação linear da bateria,
+#' em percentual a cada 1000 ciclos. Default igual a 10%.
+#' @param simula_bateria. Define se o modelo irá considerar a projeção de
+#' baterias no resultado final. Default igual a FALSE.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -161,6 +197,7 @@ epe4md_calcula <- function(
   taxa_desconto_nominal = 0.13,
   custo_reforco_rede = 200,
   ano_troca_inversor = 11,
+  fator_custo_inversor = 0.15,
   pagamento_disponibilidade = 0.3,
   disponibilidade_kwh_mes = 100,
   filtro_renda_domicilio = "maior_3sm",
@@ -180,6 +217,16 @@ epe4md_calcula <- function(
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
+  simula_bateria = FALSE,
+  bateria_eficiencia = 0.9,
+  degradacao_bateria_mil_ciclos = 0.1,
+  ano_recapex_bat = 11,
+  filtro_renda_bateria = "maior_10sm",
+  custo_deficit = 0,
+  inicio_curva_bateria = 2023,
+  curva_bateria = "propria",
+  p_bat = 0.0015,
+  q_bat = 0.3,
   dir_dados_premissas = NA_character_
   )
 {
@@ -203,6 +250,7 @@ epe4md_calcula <- function(
 
   assert_that(is.number(ano_base))
   assert_that(is.flag(altera_sistemas_existentes))
+  assert_that(is.flag(ajuste_ano_corrente))
   assert_that(is.number(ano_decisao_alteracao))
   assert_that(is.number(ano_final_alteracao))
   assert_that(is.number(inflacao))
@@ -213,21 +261,38 @@ epe4md_calcula <- function(
   assert_that(is.number(cresc_cgh))
   assert_that(is.number(cresc_ute))
   assert_that(is.number(ano_inicio_bonus))
+  assert_that(is.number(inicio_curva_bateria))
+  assert_that(is.number(bateria_eficiencia))
+  assert_that(is.number(degradacao_bateria_mil_ciclos))
+  assert_that(is.number(custo_deficit))
   assert_that(is.number(custo_reforco_rede))
   assert_that(is.number(ano_troca_inversor))
+  assert_that(is.number(ano_recapex_bat))
+  assert_that(is.number(fator_custo_inversor))
   assert_that(is.number(pagamento_disponibilidade))
   assert_that(is.number(disponibilidade_kwh_mes))
   assert_that(
     assert_in(
       filtro_renda_domicilio,
       categorias = c(
-
-        "total",
         "maior_1sm",
         "maior_2sm",
         "maior_3sm",
-        "maior_5sm"
+        "maior_5sm",
+        "maior_10sm"
+      )
+    )
+  )
 
+  assert_that(
+    assert_in(
+      filtro_renda_bateria,
+      categorias = c(
+        "maior_1sm",
+        "maior_2sm",
+        "maior_3sm",
+        "maior_5sm",
+        "maior_10sm"
       )
     )
   )
@@ -244,15 +309,33 @@ epe4md_calcula <- function(
     )
   )
 
+  assert_that(
+    assert_in(
+      curva_bateria,
+      categorias = c(
 
+        "lag",
+        "propria"
+
+      )
+    )
+  )
+
+  assert_that(is.number(filtro_comercial) || is.na(filtro_comercial))
   assert_that(is.number(desconto_capex_local))
   assert_that(is.number(anos_desconto))
   assert_that(is.number(tx_cresc_grupo_a))
   assert_that(is.number(p_max))
   assert_that(is.number(q_max))
+  assert_that(is.number(p_bat))
+  assert_that(is.number(q_bat))
+  assert_that(is.flag(simula_bateria))
 
 
   assertthat::assert_that(ano_max_resultado <= 2060)
+  assertthat::assert_that(inicio_curva_bateria >= 2013)
+  assert_that(bateria_eficiencia >= 0 && bateria_eficiencia <= 1)
+  assert_that(degradacao_bateria_mil_ciclos >= 0 && degradacao_bateria_mil_ciclos <= 1)
 
 
   dir_dados_premissas <- if_else(
@@ -267,6 +350,9 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     ano_max_resultado = ano_max_resultado,
     inflacao = inflacao,
+    ano_troca_inversor = ano_troca_inversor,
+    ano_recapex_bat = ano_recapex_bat,
+    fator_custo_inversor = fator_custo_inversor,
     dir_dados_premissas = dir_dados_premissas
   )
 
@@ -282,12 +368,16 @@ epe4md_calcula <- function(
     taxa_desconto_nominal = taxa_desconto_nominal,
     custo_reforco_rede = custo_reforco_rede,
     ano_troca_inversor = ano_troca_inversor,
+    ano_recapex_bat = ano_recapex_bat,
+    degradacao_bateria_mil_ciclos = degradacao_bateria_mil_ciclos,
     pagamento_disponibilidade = pagamento_disponibilidade,
     disponibilidade_kwh_mes = disponibilidade_kwh_mes,
     desconto_capex_local = desconto_capex_local,
     anos_desconto = anos_desconto,
     tarifa_bonus = tarifa_bonus,
     ano_inicio_bonus = ano_inicio_bonus,
+    custo_deficit = custo_deficit,
+    bateria_eficiencia = bateria_eficiencia,
     dir_dados_premissas = dir_dados_premissas
   )
 
@@ -296,6 +386,7 @@ epe4md_calcula <- function(
     ano_base = ano_base,
     tx_cresc_grupo_a = tx_cresc_grupo_a,
     filtro_renda_domicilio = filtro_renda_domicilio,
+    filtro_renda_bateria = filtro_renda_bateria,
     filtro_comercial = filtro_comercial,
     fator_local_comercial = fator_local_comercial,
     dir_dados_premissas = dir_dados_premissas
@@ -308,6 +399,10 @@ epe4md_calcula <- function(
     ano_max_resultado = ano_max_resultado,
     p_max = p_max,
     q_max = q_max,
+    inicio_curva_bateria = inicio_curva_bateria,
+    curva_bateria = curva_bateria,
+    p_bat = p_bat,
+    q_bat = q_bat,
     dir_dados_premissas = dir_dados_premissas)
 
   lista_adotantes <- epe4md_proj_adotantes(
@@ -338,6 +433,10 @@ epe4md_calcula <- function(
   resultados_mensais <- epe4md_proj_geracao(
     proj_mensal = proj_mensal,
     ano_base = ano_base,
+    bateria_eficiencia = bateria_eficiencia,
+    degradacao_bateria_mil_ciclos = degradacao_bateria_mil_ciclos,
+    simula_bateria = simula_bateria,
+    ano_recapex_bat = ano_recapex_bat,
     dir_dados_premissas = dir_dados_premissas
   )
 

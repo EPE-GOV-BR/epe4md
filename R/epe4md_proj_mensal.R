@@ -38,13 +38,13 @@
 #' @examples
 
 epe4md_proj_mensal <- function(lista_potencia,
-                                  ano_base,
-                                  ano_max_resultado = 2060,
-                                  ajuste_ano_corrente = FALSE,
-                                  ultimo_mes_ajuste = NA,
-                                  metodo_ajuste = NA,
-                                  dir_dados_premissas = NA_character_
-                               ) {
+                               ano_base,
+                               ano_max_resultado = 2060,
+                               ajuste_ano_corrente = FALSE,
+                               ultimo_mes_ajuste = NA,
+                               metodo_ajuste = NA,
+                               dir_dados_premissas = NA_character_
+) {
 
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
@@ -53,7 +53,7 @@ epe4md_proj_mensal <- function(lista_potencia,
     dir_dados_premissas
   )
 
-  #extrair proj potencia da lista
+  # Extrair proj potencia da lista
 
   proj_potencia <- lista_potencia$proj_potencia
 
@@ -62,7 +62,8 @@ epe4md_proj_mensal <- function(lista_potencia,
 
     dados_gd_historico <- readxl::read_xlsx(
       stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx")) %>%
-      filter(data_conexao < make_date(ano_base + 1, ultimo_mes_ajuste + 1, 1))
+      filter(data_conexao < make_date(ano_base + 1, ultimo_mes_ajuste + 1, 1)) %>%
+      select(-local_remoto)
 
     if(metodo_ajuste == "extrapola") {
 
@@ -85,7 +86,8 @@ epe4md_proj_mensal <- function(lista_potencia,
 
     dados_gd_historico <- readxl::read_xlsx(
       stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx")) %>%
-      filter(ano <= ano_base)
+      filter(ano <= ano_base) %>%
+      select(-local_remoto)
   }
 
   dados_gd_historico <- dados_gd_historico %>%
@@ -100,12 +102,13 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   projecao_mensal <- proj_potencia %>%
     select(ano, nome_4md, segmento, fonte_resumo,
-           pot_ano_mw, adotantes_ano) %>%
+           pot_ano_mw, pot_ano_bateria_mw, adotantes_ano, adotantes_ano_bateria,
+           cap_ano_bateria_mwh) %>%
     crossing(meses) %>%
     mutate(mes_ano = make_date(ano, mes, 1),
            mes_ano = tsibble::yearmonth(mes_ano))
 
-  # calculo dos fatores de sazonalizacao
+  # Calculo dos fatores de sazonalizacao
   historico_fatores <- dados_gd_historico %>%
     filter(ano <= ano_base) %>%
     group_by(mes_ano, ano) %>%
@@ -126,13 +129,26 @@ epe4md_proj_mensal <- function(lista_potencia,
     summarise(fator_mensal = mean(seasonal)) %>%
     ungroup()
 
-  # transformação da potencia anual em mensal com base nos fatores
+  # Transformação da potencia anual em mensal com base nos fatores
 
   projecao_mensal <- projecao_mensal %>%
     left_join(fatores_mensais, by = "mes") %>%
     mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
-           adotantes_mes = round(fator_mensal * adotantes_ano / 12)) %>%
-    select(- fator_mensal, - adotantes_ano, - pot_ano_mw)
+           pot_mes_bateria_mw = fator_mensal * pot_ano_bateria_mw / 12,
+           adotantes_mes = round(fator_mensal * adotantes_ano / 12),
+           adotantes_bateria_mes = round(fator_mensal * adotantes_ano_bateria / 12),
+           cap_bateria_mes_mwh = fator_mensal * cap_ano_bateria_mwh / 12) %>%
+    select(- fator_mensal, - adotantes_ano, - pot_ano_mw, - adotantes_ano_bateria,
+           - pot_ano_bateria_mw, -cap_ano_bateria_mwh)
+
+  proj_mensal_bat <- projecao_mensal %>%
+    select(ano, mes, mes_ano, nome_4md, segmento, fonte_resumo, adotantes_bateria_mes, pot_mes_bateria_mw,
+           cap_bateria_mes_mwh)
+
+  projecao_mensal <- projecao_mensal %>%
+    select(-adotantes_bateria_mes, -pot_mes_bateria_mw,
+           -cap_bateria_mes_mwh)
+
 
   if (ajuste_ano_corrente == TRUE & metodo_ajuste == "extrapola") {
 
@@ -150,7 +166,7 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   }
 
-  # substituicao do inicio com dados realizados
+  # Substituicao do inicio com dados realizados
 
   if (ajuste_ano_corrente == FALSE) {
 
@@ -180,18 +196,20 @@ epe4md_proj_mensal <- function(lista_potencia,
   }
 
 
-  #junção historico e projecao
+  # Junção historico e projecao
   projecao_mensal <- bind_rows(historico_mensal, projecao_mensal)
 
+  # join com dados de baterias
+  projecao_mensal <- projecao_mensal %>%
+    left_join(proj_mensal_bat, by = c("ano", "mes", "mes_ano", "segmento", "fonte_resumo",
+                                      "nome_4md"))
 
-
-  #inclusao fatores imitacao e inovacao para registro
+  # Inclusao fatores imitacao e inovacao para registro
   fatores_pq <- lista_potencia$proj_potencia %>%
-    select(ano, segmento, fonte_resumo, nome_4md, p, q, Ft)
+    select(ano, segmento, fonte_resumo, nome_4md, p, q, Ft, Ft_bateria)
 
   projecao_mensal <- projecao_mensal %>%
     left_join(fatores_pq, by = c("ano", "segmento", "nome_4md", "fonte_resumo"))
 
   projecao_mensal
-
 }

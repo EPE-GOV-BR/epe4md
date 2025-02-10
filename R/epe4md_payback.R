@@ -24,6 +24,10 @@
 #' para reforços na rede. Default igual a 200.
 #' @param ano_troca_inversor numeric. Ano, a partir do ano de instalação, em que
 #' é realizada a troca do inversor fotovoltaico. Default igual a 11.
+#' @param ano_recapex_bat numeric. Ano em que será feito um investimento adicional em baterias
+#' para compensar a degradação. Default igual a 11.
+#' @param degradacao_bateria_mil_ciclos numeric. Degradação linear da bateria,
+#' em percentual a cada 1000 ciclos. Default igual a 10%.
 #' @param pagamento_disponibilidade. numeric. Percentual de meses em que o
 #' consumidor residencial paga custo de disponbilidade em função da
 #' variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
@@ -41,6 +45,9 @@
 #' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
 #' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
 #' na receita.
+#' @param bateria_eficiencia numeric. Eficiência das baterias. Default igual a 0.95.
+#' @param custo_deficit numeric. Custo atribuído pelo consumidor à interrupção
+#' de energia. Em R$/MWh. Default = 0.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
 #' parâmetro não for passado, a função usa os dados default que são instalados
 #' com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -69,12 +76,16 @@ epe4md_payback <- function(
     taxa_desconto_nominal = 0.13,
     custo_reforco_rede = 200,
     ano_troca_inversor = 11,
+    ano_recapex_bat = 11,
+    degradacao_bateria_mil_ciclos = 0.1,
     pagamento_disponibilidade = 0.3,
     disponibilidade_kwh_mes = 100,
     desconto_capex_local = 0,
     anos_desconto = 0,
     tarifa_bonus = 0,
     ano_inicio_bonus = 2099,
+    custo_deficit = 0,
+    bateria_eficiencia = 0.9,
     dir_dados_premissas = NA_character_
 ) {
 
@@ -153,7 +164,8 @@ epe4md_payback <- function(
   fluxo_de_caixa <- function(nome_4md, ano, segmento, vida_util,
                              fator_autoconsumo, geracao_1_kwh, degradacao,
                              capex_inicial, capex_inversor, oem_anual,
-                             pot_sistemas) {
+                             pot_sistemas, bateria_eficiencia, bateria_recapex,
+                             bateria_capex_inicial, bateria_oem_anual, dec) {
 
     # # auxilio debug
     # ano_base = 2023
@@ -232,21 +244,24 @@ epe4md_payback <- function(
              energia_inj = energia_ano - energia_autoc,
              capex = 0,
              troca_inversor = 0,
+             bateria_capex = 0,
              capex_obra = 0,
-             taxa_inflacao = (1 + inflacao)^(ano_simulacao - 1)
-      )
+             taxa_inflacao = (1 + inflacao)^(ano_simulacao - 1))
 
     fluxo_caixa[1, "capex"] <- -capex_inicial
     fluxo_caixa[ano_troca_inversor, "troca_inversor"] <- -capex_inversor
+    fluxo_caixa[1, "bateria_capex"] <- -bateria_capex_inicial
+    fluxo_caixa[ano_recapex_bat, "bateria_capex"] <- -bateria_recapex *
+      (ano_recapex_bat - 1) * 365 * degradacao_bateria_mil_ciclos / 1000 #percentual
+    #da bateria degradada até o recapex.
 
-    #aplicar desconto no capex
-    fluxo_caixa <- fluxo_caixa %>%
-      mutate(desconto_capex = desconto_capex_local,
-             capex = ifelse(segmento %in% c("residencial",
-                                            "comercial_bt", "comercial_at") &
-                              ano %in% anos_desconto,
-                            capex * (1 - desconto_capex),
-                            capex))
+    fluxo_caixa <- fluxo_caixa %>% mutate(
+      desconto_capex = desconto_capex_local,
+      capex = ifelse(segmento %in% c("residencial", "comercial_bt",
+                                     "comercial_at") & ano %in% anos_desconto, capex *
+                       (1 - desconto_capex), capex))
+
+
 
     # ano auxiliar para possibilitar alteracoes com base no ano
     fluxo_caixa <- fluxo_caixa %>%
@@ -263,6 +278,10 @@ epe4md_payback <- function(
                                        tarifa_inj_te / (1 - impostos_te)) +
                (taxa_inflacao * energia_inj * tarifa_inj_tusd /
                   (1 - impostos_tusd)),
+             receita_bat_backup = taxa_inflacao * dec * (custo_deficit / 1000) *
+               (geracao_1_kwh / 8760),
+             receita_bat_arbitragem = taxa_inflacao * energia_inj * bateria_eficiencia *
+               (tarifa_autoc_tusd + tarifa_autoc_te) / (1 - impostos_cheio),
              pag_compensacao = ((taxa_inflacao * energia_inj * pag_inj_te /
                                    (1 - impostos_te)) +
                                   (taxa_inflacao * energia_inj * pag_inj_tusd /
@@ -286,43 +305,55 @@ epe4md_payback <- function(
 
     fluxo_caixa <- fluxo_caixa %>%
       mutate(oem = -oem_anual * capex_inicial * fator_construcao,
+             bateria_oem = -bateria_oem_anual,
              saldo_anual = capex + receita_autoc + receita_inj_completa +
                receita_bonus +
                pag_compensacao + demanda_contratada + oem +
                troca_inversor + capex_obra + custo_disponibilidade,
+             saldo_anual_bateria = capex + bateria_capex + receita_autoc +
+               receita_bonus + receita_bat_backup +
+               receita_bat_arbitragem +
+               demanda_contratada + oem + bateria_oem +
+               troca_inversor + capex_obra + custo_disponibilidade,
              saldo_acumulado = cumsum(saldo_anual),
+             saldo_acumulado_bateria = cumsum(saldo_anual_bateria),
              taxa_desconto = (1 + taxa_desconto_nominal)^(ano_simulacao - 1),
              saldo_anual_desc = saldo_anual / taxa_desconto,
-             saldo_acumulado_desc = cumsum(saldo_anual_desc))
+             saldo_anual_desc_bateria = saldo_anual_bateria / taxa_desconto,
+             saldo_acumulado_desc = cumsum(saldo_anual_desc),
+             saldo_acumulado_desc_bateria = cumsum(saldo_anual_desc_bateria))
 
-    metricas <- fluxo_caixa %>%
-      summarise(
-        .temp_payback_inteiro = sum(saldo_acumulado < 0),
-        .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado > 0,
-                                                            saldo_acumulado,
-                                                            NA_real_),
-                                                    na.rm = TRUE)),
-        .temp_maior_negativo = max(if_else(saldo_acumulado < 0,
-                                           saldo_acumulado,
-                                           NA_real_), na.rm = TRUE),
-        .temp_payback_frac = -.temp_maior_negativo /
-          (.temp_menor_positivo - .temp_maior_negativo),
-        payback = .temp_payback_inteiro + .temp_payback_frac,
-        .temp_payback_inteiro = sum(saldo_acumulado_desc < 0),
-        .temp_menor_positivo = suppressWarnings(min(if_else(
-          saldo_acumulado_desc > 0,
-          saldo_acumulado_desc,
-          NA_real_), na.rm = TRUE)),
-        .temp_maior_negativo = max(if_else(saldo_acumulado_desc < 0,
-                                           saldo_acumulado_desc,
-                                           NA_real_), na.rm = TRUE),
-        .temp_payback_frac = -.temp_maior_negativo /
-          (.temp_menor_positivo - .temp_maior_negativo),
-        payback_desc = .temp_payback_inteiro + .temp_payback_frac
-      ) %>%
-      select(
-        -starts_with(".temp_")
-      )
+    metricas <- fluxo_caixa %>% summarise(
+      .temp_payback_inteiro = sum(saldo_acumulado < 0),
+      .temp_payback_inteiro_bateria = sum(saldo_acumulado_bateria < 0), #tempo payback com bateria
+      .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado > 0,saldo_acumulado, NA_real_), na.rm = TRUE)),
+      .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_bateria > 0,
+                                                                  saldo_acumulado_bateria,
+                                                                  NA_real_),
+                                                          na.rm = TRUE)),
+      .temp_maior_negativo = max(if_else(saldo_acumulado < 0, saldo_acumulado, NA_real_), na.rm = TRUE),
+      .temp_maior_negativo_bateria = max(if_else(saldo_acumulado_bateria < 0,
+                                                 saldo_acumulado_bateria,
+                                                 NA_real_), na.rm = TRUE),
+      .temp_payback_frac = -.temp_maior_negativo/(.temp_menor_positivo -   .temp_maior_negativo),
+      .temp_payback_frac_bateria = -.temp_maior_negativo_bateria /
+        (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria),
+      payback = .temp_payback_inteiro + .temp_payback_frac,
+      payback_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria,
+      .temp_payback_inteiro = sum(saldo_acumulado_desc < 0),
+      temp_payback_inteiro_bateria = sum(saldo_acumulado_desc_bateria < 0), #bateria
+      .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado_desc >0,saldo_acumulado_desc, NA_real_),na.rm = TRUE)),
+      .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_desc_bateria > 0,saldo_acumulado_desc_bateria,NA_real_), na.rm = TRUE)), #bateria
+      .temp_maior_negativo = max(if_else(saldo_acumulado_desc <0, saldo_acumulado_desc, NA_real_), na.rm = TRUE),
+      .temp_maior_negativo_bateria = max(if_else(saldo_acumulado_desc_bateria < 0,
+                                                 saldo_acumulado_desc_bateria,
+                                                 NA_real_), na.rm = TRUE), #bateria
+      .temp_payback_frac = -.temp_maior_negativo/(.temp_menor_positivo - .temp_maior_negativo),
+      .temp_payback_frac_bateria = -.temp_maior_negativo_bateria / (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria), #bateria
+      payback_desc = .temp_payback_inteiro + .temp_payback_frac,
+      payback_desc_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria) %>%
+      select(-starts_with(".temp_")) %>%
+      select(-temp_payback_inteiro_bateria)
 
 
     metricas <- metricas %>%
@@ -338,11 +369,12 @@ epe4md_payback <- function(
   future::plan(future::multisession)
 
   resultado_payback <- casos_payback %>%
-    mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento,
-                                                vida_util, fator_autoconsumo,
-                                                geracao_1_kwh, degradacao,
-                                                capex_inicial, capex_inversor,
-                                                oem_anual, pot_sistemas),
+    mutate(saida = furrr::future_pmap(.l = list(nome_4md, ano, segmento, vida_util,
+                                                fator_autoconsumo, geracao_1_kwh, degradacao,
+                                                capex_inicial, capex_inversor, oem_anual,
+                                                pot_sistemas, bateria_eficiencia,
+                                                bateria_recapex,
+                                                bateria_capex_inicial, bateria_oem_anual, dec),
                                       .f = fluxo_de_caixa,
                                       .progress = TRUE)) %>%
     unnest(saida)

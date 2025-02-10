@@ -8,6 +8,7 @@
 epe4md_mercado_potencial(
   ano_base,
   filtro_renda_domicilio = "maior_3sm",
+  filtro_renda_bateria = "maior_10sm",
   filtro_comercial = NA,
   fator_local_comercial = "residencial",
   tx_cresc_grupo_a = 0,
@@ -23,6 +24,11 @@ residenciais, de acordo com a renda mensal do responsável, em salários
 mínimos. Permite: "total", "maior_1sm, maior_2sm", "maior_3sm" ou
 "maior_5sm". Default igual a "maior_3sm".}
 
+\item{filtro_renda_bateria}{string. Define o filtro aplicado a consumidores
+residenciais para investimento em baterias, de acordo com a renda mensal do
+responsável, em salários mínimos. Permite: "total", "maior_1sm, maior_2sm",
+"maior_3sm", "maior_5sm" ou "maior_10sm". Default igual a "maior_10sm".}
+
 \item{filtro_comercial}{numeric. Fator percentual para definir o nicho do
 segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.}
@@ -33,7 +39,7 @@ tensão. Como default, são utilizados os mesmos valores dos consumidores
 residenciais. Caso selecionado "historico", utiliza o histórico do percentual
 de adotantes locais por distribuidora até o ano base.}
 
-\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
+\item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumidores
 cativos do Grupo A. Default igual a 0.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse

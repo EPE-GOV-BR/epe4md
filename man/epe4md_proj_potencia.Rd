@@ -3,7 +3,7 @@
 \encoding{UTF-8}
 \name{epe4md_proj_potencia}
 \alias{epe4md_proj_potencia}
-\title{Realiza a projecao da capacidade instalada de micro e minigeracao distribuida}
+\title{Realiza a projeção da capacidade instalada de micro e minigeração distribuída}
 \usage{
 epe4md_proj_potencia(
   lista_adotantes,
@@ -12,6 +12,9 @@ epe4md_proj_potencia(
 )
 }
 \arguments{
+\item{lista_adotantes}{list. Resultado da função
+\link{epe4md_proj_adotantes}.}
+
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
@@ -20,8 +23,8 @@ Se esse parâmetro não for passado, a função usa os dados default que são
 instalados com o pacote. É importante que os nomes dos arquivos sejam os
 mesmos da pasta default.}
 
-\item{proj_adotantes}{data.frame. Resultado da função
-\link{epe4md_proj_adotantes}.}
+\item{perc_pot_bateria}{numeric. Percentual de potência atribuída a baterias.
+Default igual a 0.35 (35\%).}
 }
 \value{
 list com dois data.frames. "proj_potencia" possui os resultados da
@@ -30,5 +33,5 @@ projeção de capacidade instalada de micro e minigeração distribuída.
 número de adotantes frente ao total de unidades consumidoras.
 }
 \description{
-Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
+Realiza a projeção da capacidade instalada de micro e minigeração distribuída
 }

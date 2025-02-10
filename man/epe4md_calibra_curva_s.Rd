@@ -12,6 +12,10 @@ epe4md_calibra_curva_s(
   ano_max_resultado = 2060,
   p_max = 0.01,
   q_max = 1,
+  curva_bateria = "propria",
+  p_bat = 0.0015,
+  q_bat = 0.3,
+  inicio_curva_bateria = 2023,
   dir_dados_premissas = NA_character_
 )
 }
@@ -30,7 +34,18 @@ Máximo igual a 2060. Default igual a 2060.}
 
 \item{p_max}{numeric. Fator de inovação (p) máximo. Default igual a 0.01.}
 
-\item{q_max}{numeric. Fator de imitação (q) máximo. DEfault igual a 1.}
+\item{q_max}{numeric. Fator de imitação (q) máximo. Default igual a 1.}
+
+\item{curva_bateria}{string. Pode ser "propria" (Default) ou "lag". A primeira
+opção utiliza os fatores p_bat e q_bat. A opção "lag" utiliza a curva de
+difusão de MMGD, atrasada no tempo, conforme o parâmetro inicio_curva_bateria.}
+
+\item{p_bat}{numeric. Fator de inovação (p) para baterias. Default igual a 0.0015.}
+
+\item{q_bat}{numeric. Fator de imitação (q) para_baterias. Default igual a 0.3.}
+
+\item{inicio_curva_bateria}{numeric. Indica o ano que começa a difusão
+das baterias. Default igual a 2023.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

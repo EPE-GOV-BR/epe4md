@@ -5,7 +5,15 @@
 \alias{epe4md_proj_geracao}
 \title{Estima a geração de eletricidade a partir da projeção de potência}
 \usage{
-epe4md_proj_geracao(proj_mensal, ano_base, dir_dados_premissas = NA_character_)
+epe4md_proj_geracao(
+  proj_mensal,
+  ano_base,
+  bateria_eficiencia = 0.9,
+  degradacao_bateria_mil_ciclos = 0.1,
+  simula_bateria = FALSE,
+  ano_recapex_bat = 11,
+  dir_dados_premissas = NA_character_
+)
 }
 \arguments{
 \item{proj_mensal}{dataframe. Resultado da função
@@ -14,10 +22,21 @@ epe4md_proj_geracao(proj_mensal, ano_base, dir_dados_premissas = NA_character_)
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
+\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.829.}
+
+\item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
+em percentual a cada 1000 ciclos. Default igual a 10\%.}
+
+\item{ano_recapex_bat}{Ano em que será feito um investimento adicional em baterias
+para compensar a degradação. Default igual a 11.}
+
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas.
 Se esse parâmetro não for passado, a função usa os dados default que são
 instalados com o pacote. É importante que os nomes dos arquivos sejam os
 mesmos da pasta default.}
+
+\item{simula_bateria.}{Define se o modelo irá considerar a projeção de
+baterias no resultado final. Default igual a FALSE.}
 }
 \value{
 data.frame com os resultados da projeção de capacidade instalada
