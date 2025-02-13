@@ -11,23 +11,41 @@ epe4md_calcula(
   ano_max_resultado = 2060,
   altera_sistemas_existentes = FALSE,
   ano_decisao_alteracao = 2023,
+  ano_final_alteracao = 2060,
   inflacao = 0.0375,
   taxa_desconto_nominal = 0.13,
   custo_reforco_rede = 200,
   ano_troca_inversor = 11,
+  fator_custo_inversor = 0.15,
   pagamento_disponibilidade = 0.3,
   disponibilidade_kwh_mes = 100,
   filtro_renda_domicilio = "maior_3sm",
   fator_local_comercial = "residencial",
   desconto_capex_local = 0,
   anos_desconto = 0,
+  tarifa_bonus = 0,
+  ano_inicio_bonus = 2099,
   tx_cresc_grupo_a = 0,
   p_max = 0.01,
   q_max = 1,
   filtro_comercial = NA_real_,
+  cresc_fv = 0,
+  cresc_eol = 0,
+  cresc_cgh = 0,
+  cresc_ute = 0,
   ajuste_ano_corrente = FALSE,
   ultimo_mes_ajuste = NA_integer_,
   metodo_ajuste = NA_character_,
+  simula_bateria = FALSE,
+  bateria_eficiencia = 0.9,
+  degradacao_bateria_mil_ciclos = 0.1,
+  ano_recapex_bat = 11,
+  filtro_renda_bateria = "maior_10sm",
+  custo_deficit = 0,
+  inicio_curva_bateria = 2023,
+  curva_bateria = "propria",
+  p_bat = 0.0015,
+  q_bat = 0.3,
   dir_dados_premissas = NA_character_
 )
 }
@@ -56,7 +74,7 @@ grupo A. Caso seja \code{FALSE}, é considerada a cobrança da TUSD consumo.
 
 Um arquivo excel
 instalado com este pacote, acessível via
-\code{system.file("dados_premissas/2021/premissas_reg.xlsx", package = "epe4md")},
+\code{system.file("dados_premissas/{ano_base}/premissas_reg.xlsx", package = "epe4md")},
 contém um exemplo de premissas de entrada.}
 
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
@@ -73,6 +91,10 @@ Default igual a FALSE.}
 se tornam de conhecimento público. Esse parâmetro só tem efeito caso o
 anterior seja igual a TRUE. Default igual a 2023.}
 
+\item{ano_final_alteracao}{numeric. Até qual ano as alterações regulatórias
+previstas afetam investimentos presentes. Só válido quando
+altera_sistemas_existentes igual a TRUE. Default igual a 2060.}
+
 \item{inflacao}{mumeric. Taxa anual de inflacao considerada no reajuste das
 tarifas e para calcular o retorno real de projetos. Default igual a 0.0375.}
 
@@ -85,6 +107,9 @@ para reforços na rede. Default igual a 200.}
 
 \item{ano_troca_inversor}{numeric. Ano, a partir do ano de instalação, em que
 é realizada a troca do inversor fotovoltaico. Default igual a 11.}
+
+\item{fator_custo_inversor}{numeric. Custo do inversor para a substituição em
+percentual do CAPEX total do sistema de geração. Default igual a 0.15.}
 
 \item{disponibilidade_kwh_mes}{numeric. Consumo de disponbilidade do
 consumidor em kWh/mês. Default igual a 100, equivalente a um consumidor
@@ -108,6 +133,13 @@ Default igual a 0.}
 \item{anos_desconto}{vector. Anos em que há a incidência do desconto no
 CAPEX.Ex: c(2024, 2025). Default igual a 0.}
 
+\item{tarifa_bonus}{integer. Tarifa que representa benefícios adicionais
+da MMGD. Valor em R$/kWh. A tarifa é multiplicada pela energia injetada na
+rede para formar uma receita adicional ao empreendimento. Default igual a 0.}
+
+\item{ano_inicio_bonus}{integer. Ano em que o bônus começa a ser incorporado
+na receita.}
+
 \item{tx_cresc_grupo_a}{numeric. Taxa de crescimento anual dos consumuidores
 cativos do Grupo A. Default igual a 0.}
 
@@ -118,6 +150,18 @@ cativos do Grupo A. Default igual a 0.}
 \item{filtro_comercial}{numeric. Fator percentual para definir o nicho do
 segmento comercial. Default é calculado pelo modelo com base no nicho
 residencial.}
+
+\item{cresc_fv}{numeric. Taxa de crescimento da participação da fonte
+fotovoltaica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_eol}{numeric. Taxa de crescimento da participação da fonte
+eólica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_cgh}{numeric. Taxa de crescimento da participação da fonte
+hidráulica. Default igual a 0 (mantém participação histórica).}
+
+\item{cresc_ute}{numeric. Taxa de crescimento da participação da fonte
+termelétrica. Default igual a 0 (mantém participação histórica).}
 
 \item{ajuste_ano_corrente}{logic. Se TRUE indica que a projeção deverá
 incorporar o histórico mensal recente, verificado em parte do primeiro ano
@@ -133,6 +177,33 @@ potência e o número de adotantes até o final do ano base + 1 com base no
 verificado até o ultimo_mes_ajuste. Default igual a NA. Só tem efeito caso
 ajuste_ano_corrente seja igual a TRUE.}
 
+\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.829.}
+
+\item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
+em percentual a cada 1000 ciclos. Default igual a 10\%.}
+
+\item{ano_recapex_bat}{numeric. Ano em que será feito um investimento adicional em baterias
+para compensar a degradação. Default igual a 11.}
+
+\item{filtro_renda_bateria}{string. Define o filtro aplicado a consumidores
+residenciais para investimento em baterias, de acordo com a renda mensal do
+responsável, em salários mínimos. Permite: "total", "maior_1sm, maior_2sm",
+"maior_3sm", "maior_5sm" ou "maior_10sm". Default igual a "maior_10sm".}
+
+\item{custo_deficit}{numeric. Custo atribuído pelo consumidor à interrupção
+de energia. Em R$/MWh. Default = 0.}
+
+\item{inicio_curva_bateria}{numeric. Indica o ano que começa a difusão
+das baterias. Default igual a 2023.}
+
+\item{curva_bateria}{string. Pode ser "propria" (Default) ou "lag". A primeira
+opção utiliza os fatores p_bat e q_bat. A opção "lag" utiliza a curva de
+difusão de MMGD, atrasada no tempo, conforme o parâmetro inicio_curva_bateria.}
+
+\item{p_bat}{numeric. Fator de inovação (p) para baterias. Default igual a 0.0015.}
+
+\item{q_bat}{numeric. Fator de imitação (q) para_baterias. Default igual a 0.3.}
+
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados
 com o pacote. É importante que os nomes dos arquivos sejam os mesmos da
@@ -142,6 +213,9 @@ pasta default.}
 consumidor residencial paga custo de disponbilidade em função da
 variabilidade da geração FV. Default igual a 0.3. Tem efeito somente até o
 ano de 2022.}
+
+\item{simula_bateria.}{Define se o modelo irá considerar a projeção de
+baterias no resultado final. Default igual a FALSE.}
 }
 \value{
 data.frame com os resultados da projeção de capacidade instalada

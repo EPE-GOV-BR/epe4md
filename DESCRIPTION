@@ -1,6 +1,6 @@
 Package: epe4md
-Title: EPE's 4MD model to forecast the adoption of Distributed Generation
-Version: 0.1.4
+Title: EPE's 4MD model to forecast the adoption of Distributed Generation and Behind-the-meter energy storage
+Version: 0.1.5
 Authors@R: 
     c(person(given = "Gabriel",
            family = "Konzen",
@@ -21,12 +21,12 @@ Authors@R:
       person(given = "Empresa de Pesquisa Energética",
            role = c("cph", "fnd")
            ))           
-Description: EPE's 4MD model to forecast the adoption of Distributed Generation.
+Description: EPE's 4MD model to forecast the adoption of Distributed Generation and Behind-the-meter energy storage
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 Suggests: 
     testthat (>= 3.0.0),
     knitr,

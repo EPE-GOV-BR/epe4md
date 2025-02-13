@@ -9,10 +9,10 @@
 <img src="man/figures/logo.png" align="right" height="139" />
 
 O pacote epe4md permite fazer projeções do mercado de Micro e
-Minigeração Distribuída (GD) no Brasil.
+Minigeração Distribuída (GD) e Baterias Atrás do Medidor no Brasil.
 
 Através das premissas do usuário, é possível estimar quantas unidades
-consumidoras terão GD no Brasil nos próximos 10 anos, por exemplo.
+consumidoras terão GD e baterias no Brasil nos próximos 10 anos, por exemplo.
 Adicionalmente, é possível estimar a capacidade instalada, montante de
 investimentos que serão realizados no país e a contribuição energética
 mensal dessa modalidade de geração.

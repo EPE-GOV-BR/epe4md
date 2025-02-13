@@ -1,6 +1,6 @@
-#' Realiza a projecao da capacidade instalada de micro e minigeracao distribuida
+#' Realiza a projeção da capacidade instalada de micro e minigeração distribuída
 #'
-#' @param proj_adotantes data.frame. Resultado da função
+#' @param lista_adotantes list. Resultado da função
 #' [epe4md::epe4md_proj_adotantes].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
@@ -8,6 +8,8 @@
 #' Se esse parâmetro não for passado, a função usa os dados default que são
 #' instalados com o pacote. É importante que os nomes dos arquivos sejam os
 #' mesmos da pasta default.
+#' @param perc_pot_bateria numeric. Percentual de potência atribuída a baterias.
+#' Default igual a 0.35 (35%).
 #'
 #' @return list com dois data.frames. "proj_potencia" possui os resultados da
 #' projeção de capacidade instalada de micro e minigeração distribuída.
@@ -32,7 +34,6 @@ epe4md_proj_potencia <- function(lista_adotantes,
     dir_dados_premissas
   )
 
-
   dados_gd <-
     readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/base_mmgd.xlsx"))
 
@@ -43,26 +44,27 @@ epe4md_proj_potencia <- function(lista_adotantes,
 
   potencia_media <- dados_gd %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%
-    summarise(pot_total = sum(potencia_instalada_k_w),
-              adotantes_total = sum(qtde_u_csrecebem_os_creditos),
-              pot_media = pot_total / adotantes_total) %>%
+    summarise(
+      pot_total = sum(potencia_instalada_k_w),
+      adotantes_total = sum(qtde_u_csrecebem_os_creditos),
+      pot_media = pot_total / adotantes_total
+    ) %>%
     ungroup() %>%
     complete(nome_4md, segmento, fonte_resumo) %>%
     group_by(segmento, fonte_resumo) %>%
-    mutate(pot_media = ifelse(is.na(pot_media),
-                              mean(pot_media, na.rm = TRUE),
-                              pot_media)) %>%
+    mutate(
+      pot_media = ifelse(is.na(pot_media), mean(pot_media, na.rm = TRUE), pot_media)
+    ) %>%
     ungroup() %>%
     select(nome_4md, segmento, fonte_resumo, pot_media) %>%
     left_join(potencia_tipica, by = "segmento") %>%
-    mutate(pot_media = ifelse(is.na(pot_media), pot_sistemas, pot_media)) %>%
+    mutate(
+      pot_media = ifelse(is.na(pot_media), pot_sistemas, pot_media)
+    ) %>%
     select(-pot_sistemas)
 
   proj_potencia <- left_join(proj_adotantes, potencia_media,
                              by = c("nome_4md", "segmento", "fonte_resumo"))
-
-
-  # historico de adotantes para substituir anos iniciais da projeção
 
   historico_pot_fontes <- dados_gd %>%
     filter(ano <= ano_base) %>%
@@ -72,33 +74,56 @@ epe4md_proj_potencia <- function(lista_adotantes,
     complete(ano, nome_4md, segmento, fonte_resumo) %>%
     mutate(pot_hist = ifelse(is.na(pot_hist), 0, pot_hist))
 
-
   proj_potencia <- proj_potencia %>%
-    mutate(pot_ano = adotantes_ano * pot_media)
+    mutate(
+      pot_ano = adotantes_ano * pot_media,
+      pot_ano_bateria = adotantes_ano_bateria * pot_media
+    )
 
   proj_potencia <- left_join(proj_potencia, historico_pot_fontes,
-                             by = c("nome_4md", "segmento",
-                                    "ano", "fonte_resumo"))
+                             by = c("nome_4md", "segmento", "ano", "fonte_resumo"))
 
   proj_potencia <- proj_potencia %>%
     mutate(pot_ano = ifelse(ano <= ano_base, pot_hist, pot_ano)) %>%
-    ungroup()
+    ungroup() %>%
+    select(-pot_hist)
+
+  #dimensionamento bateria
+  fc_fontes <-
+    read_xlsx(stringr::str_glue("{dir_dados_premissas}/fc_distribuidoras.xlsx")) %>%
+    select(nome_4md, fc_local)
+
+  injecao <-
+    read_xlsx(stringr::str_glue("{dir_dados_premissas}/injecao.xlsx")) %>%
+    filter(fonte_resumo == "Fotovoltaica") %>%
+    select(-fonte_resumo)
 
   proj_potencia <- proj_potencia %>%
-    mutate(pot_ano_mw = pot_ano / 1000) %>%
+    left_join(fc_fontes, by = "nome_4md") %>%
+    left_join(injecao, by = "segmento")
+
+  proj_potencia <- proj_potencia %>%
+    mutate(bateria_capacidade_kwh = adotantes_ano_bateria * pot_media * fc_local *
+    8760 * (1 - fator_autoconsumo) / 365)
+
+  #resumo
+  proj_potencia <- proj_potencia %>%
+    mutate(
+      pot_ano_mw = pot_ano / 1000,
+      pot_ano_bateria_mw = pot_ano_bateria / 1000,
+      cap_ano_bateria_mwh = bateria_capacidade_kwh / 1000
+    ) %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%
     arrange(ano) %>%
-    mutate(pot_acum_mw = cumsum(pot_ano_mw)) %>%
+    mutate(
+      pot_acum_mw = cumsum(pot_ano_mw),
+      pot_acum_bateria_mw = cumsum(pot_ano_bateria_mw),
+      cap_acum_bateria_mwh = cumsum(cap_ano_bateria_mwh),
+    ) %>%
     ungroup()
 
-
-  #lista resultados
-
   lista_potencia <- list(proj_potencia, lista_adotantes$part_adotantes)
-
   names(lista_potencia) <- c("proj_potencia", "part_adotantes")
 
   lista_potencia
-
 }
-

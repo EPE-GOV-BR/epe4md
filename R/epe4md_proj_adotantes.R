@@ -40,7 +40,6 @@ epe4md_proj_adotantes <- function(casos_otimizados,
                                   cresc_ute = 0,
                                   dir_dados_premissas = NA_character_ ) {
 
-
   dir_dados_premissas <- if_else(
     is.na(dir_dados_premissas),
     system.file(stringr::str_glue("dados_premissas/{ano_base}"),
@@ -61,10 +60,18 @@ epe4md_proj_adotantes <- function(casos_otimizados,
            adotantes_ano = ifelse(adotantes_ano < 0,
                                   0,
                                   round(adotantes_ano, 0)),
-           adotantes_acum = cumsum(adotantes_ano)) %>%
+           adotantes_acum = cumsum(adotantes_ano),
+           adotantes_acum_bateria = mercado_potencial_bateria * Ft_bateria,
+           adotantes_ano_bateria = ifelse(ano == 2013,
+                                          adotantes_acum_bateria,
+                                          adotantes_acum_bateria - lag(adotantes_acum_bateria)),
+           adotantes_ano_bateria = ifelse(adotantes_ano_bateria < 0,
+                                          0,
+                                          round(adotantes_ano_bateria, 0)),
+           adotantes_acum_bateria = cumsum(adotantes_ano_bateria)) %>%
     ungroup()
 
-  #suavização em caso de adotantes = 0
+  # Suavização em caso de adotantes = 0
 
   projecao <- projecao %>%
     group_by(nome_4md, segmento) %>%
@@ -73,21 +80,21 @@ epe4md_proj_adotantes <- function(casos_otimizados,
                                                align = "left"),
            adotantes_ano_media = round(ifelse(is.na(adotantes_ano_media),
                                               adotantes_ano,
-                                              adotantes_ano_media), 0))
-
-  projecao <- projecao %>%
+                                              adotantes_ano_media), 0),
+           adotantes_ano_media_bateria = zoo::rollmean(adotantes_ano_bateria, 2, fill = NA,
+                                                       align = "left"),
+           adotantes_ano_media_bateria = round(ifelse(is.na(adotantes_ano_media_bateria),
+                                                      adotantes_ano_bateria,
+                                                      adotantes_ano_media_bateria), 0)) %>%
     mutate(adotantes_ano_c = case_when(
       adotantes_ano == 0 & ano > 2019 ~ adotantes_ano_media,
       lag(adotantes_ano) == 0 & ano > 2019 ~ lag(adotantes_ano_media),
       TRUE ~ adotantes_ano),
       adotantes_acum_c = cumsum(adotantes_ano_c)) %>%
     ungroup() %>%
-    select(-adotantes_ano, -adotantes_acum, -adotantes_ano_media) %>%
-    rename(
-      adotantes_ano = adotantes_ano_c,
-      adotantes_acum = adotantes_acum_c
-    )
-
+    select(-adotantes_ano, -adotantes_acum, -adotantes_ano_media, -adotantes_ano_media_bateria) %>%
+    rename(adotantes_ano = adotantes_ano_c,
+           adotantes_acum = adotantes_acum_c)
 
   # Abertura dos adotantes por fonte ----------------------------------------
 
@@ -105,7 +112,7 @@ epe4md_proj_adotantes <- function(casos_otimizados,
            part_fonte = adotantes_hist / adotantes_hist_total) %>%
     ungroup()
 
-  # completar faltantes para serem encontrados no join
+  # Completar faltantes para serem encontrados no join
   part_adot_fontes <- part_adot_fontes %>%
     complete(nome_4md, segmento, fonte_resumo) %>%
     group_by(nome_4md, segmento) %>%
@@ -117,7 +124,7 @@ epe4md_proj_adotantes <- function(casos_otimizados,
            part_fonte = ifelse(is.na(part_fonte), 0, part_fonte)) %>%
     select(nome_4md, segmento, fonte_resumo, part_fonte)
 
-  # historico de adotantes para substituir anos iniciais da projeção
+  # Histórico de adotantes para substituir anos iniciais da projeção
 
   historico_adot_fontes <- dados_gd %>%
     filter(ano <= ano_base) %>%
@@ -136,7 +143,8 @@ epe4md_proj_adotantes <- function(casos_otimizados,
                                part_fonte * (1 + crescimento_anual) ^ (ano - ano_base)),
            part_fonte = part_fonte / sum(part_fonte)) %>%
     ungroup() %>%
-    mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0)) %>%
+    mutate(adotantes_ano = round(adotantes_ano * part_fonte, 0),
+           adotantes_ano_bateria = ifelse(fonte_resumo == "Fotovoltaica", adotantes_ano_bateria, 0)) %>%
     select(-crescimento_anual)
 
   projecao <- left_join(projecao, historico_adot_fontes,
@@ -149,34 +157,27 @@ epe4md_proj_adotantes <- function(casos_otimizados,
                                   adotantes_ano)) %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%
     arrange(ano) %>%
-    mutate(adotantes_acum = cumsum(adotantes_ano)) %>%
+    mutate(adotantes_acum = cumsum(adotantes_ano),
+           adotantes_acum_bateria = cumsum(adotantes_ano_bateria)) %>%
     ungroup() %>%
-    mutate(mercado_potencial = mercado_potencial / 4)
+    mutate(mercado_potencial = mercado_potencial / 4,
+           mercado_potencial_bateria = mercado_potencial_bateria / 4)
 
-
-  #calculo percentual de adocao frente ao numero de consumidores totais
+  # Cálculo percentual de adoção frente ao número de consumidores totais
 
   consumidores_totais <- consumidores$consumidores_totais
 
   adotantes_segmento <- projecao %>%
-    mutate(segmento = ifelse(segmento == "residencial_remoto",
-                             "residencial",
-                             segmento),
-           segmento = ifelse(segmento == "comercial_at_remoto",
-                             "comercial_bt",
-                             segmento)) %>%
+    mutate(segmento = ifelse(segmento == "residencial_remoto", "residencial", segmento),
+           segmento = ifelse(segmento == "comercial_at_remoto", "comercial_bt", segmento)) %>%
     group_by(ano, segmento) %>%
     summarise(adotantes = sum(adotantes_acum),
               mercado_potencial = sum(mercado_potencial)) %>%
     ungroup()
 
   mercado_nicho <- consumidores$consumidores %>%
-    mutate(segmento = ifelse(segmento == "residencial_remoto",
-                             "residencial",
-                             segmento),
-           segmento = ifelse(segmento == "comercial_at_remoto",
-                             "comercial_bt",
-                             segmento)) %>%
+    mutate(segmento = ifelse(segmento == "residencial_remoto", "residencial", segmento),
+           segmento = ifelse(segmento == "comercial_at_remoto", "comercial_bt", segmento)) %>%
     group_by(ano, segmento) %>%
     summarise(mercado_nicho = sum(consumidores)) %>%
     ungroup()
@@ -188,7 +189,7 @@ epe4md_proj_adotantes <- function(casos_otimizados,
     mutate(penetracao_nicho = adotantes / mercado_nicho,
            penetracao_potencial = adotantes / mercado_potencial)
 
-  #lista com resultados
+  # Lista com resultados
 
   proj_adotantes <- projecao
 
@@ -196,5 +197,4 @@ epe4md_proj_adotantes <- function(casos_otimizados,
   names(lista_adotantes) <- c("proj_adotantes", "part_adotantes")
 
   lista_adotantes
-
 }

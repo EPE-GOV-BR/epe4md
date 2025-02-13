@@ -38,11 +38,19 @@ epe4md_investimentos <- function(resultados_mensais,
     dir_dados_premissas
   )
 
+  if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
+    proj_potencia <- resultados_mensais %>%
+      group_by(ano, segmento, fonte_resumo) %>%
+      summarise(pot_ano_mw = sum(pot_mes_mw),
+                cap_bateria_mwh = sum(cap_bateria_mwh)) %>%
+      ungroup()
+  } else {
 
   proj_potencia <- resultados_mensais %>%
     group_by(ano, segmento, fonte_resumo) %>%
     summarise(pot_ano_mw = sum(pot_mes_mw)) %>%
     ungroup()
+  }
 
 
 # Investimentos ------------------------------------------------------------
@@ -50,43 +58,43 @@ epe4md_investimentos <- function(resultados_mensais,
   custo_outras <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/capex_historico_outras.xlsx")) %>%
     rename(custo_outras = custo_unitario)
-  
-  combinacoes <- custo_outras %>% 
-    select(fonte_resumo) %>% 
+
+  combinacoes <- custo_outras %>%
+    select(fonte_resumo) %>%
     expand(fonte_resumo, ano = 2013:2060)
-  
+
   seq_anos <- tibble(ano = seq(2013, ano_base, 1))
-  
+
   custo_outras <- crossing(custo_outras, seq_anos)
-  
-  custo_outras <- custo_outras %>% 
+
+  custo_outras <- custo_outras %>%
     mutate(mes_final = str_glue("12/{ano}"))
-  
+
   calcula_inflacao <- function(custo, data_final) {
-    
+
     deflateBR::deflate(custo, as.Date("2018-12-01"), data_final, "inpc")
-    
+
   }
-  
-  custo_outras <- custo_outras %>% 
-    mutate(custo_deflacionado = map2(.x = custo_outras, .y = mes_final, 
+
+  custo_outras <- custo_outras %>%
+    mutate(custo_deflacionado = map2(.x = custo_outras, .y = mes_final,
                                      .f = calcula_inflacao))
-  
+
   custo_outras$custo_deflacionado <- as.numeric(custo_outras$custo_deflacionado)
-  
-  custo_outras <- custo_outras %>% 
-    mutate(custo = round(custo_deflacionado, 2)) %>% 
+
+  custo_outras <- custo_outras %>%
+    mutate(custo = round(custo_deflacionado, 2)) %>%
     select(ano, fonte_resumo, custo)
-  
-  custo_outras <- left_join(combinacoes, custo_outras, 
-                            by = c("fonte_resumo", "ano")) %>% 
+
+  custo_outras <- left_join(combinacoes, custo_outras,
+                            by = c("fonte_resumo", "ano")) %>%
     fill(custo)
-  
+
 
   custo_fv <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/custos.xlsx")) %>%
     mutate(fonte_resumo = "Fotovoltaica")
-  
+
 
   potencia_custos <- left_join(proj_potencia, custo_fv,
                                by = c("ano", "fonte_resumo", "segmento"))
@@ -100,8 +108,24 @@ epe4md_investimentos <- function(resultados_mensais,
                                    custo_unitario)) %>%
     select(- custo)
 
+  if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
+  precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
+
+  potencia_custos <- potencia_custos %>%
+    left_join(precos_bateria, by = "ano")
+
+  potencia_custos <- potencia_custos %>%
+    fill(bateria_capex, .direction = "up") %>%
+    select(-bateria_oem)
+
+  potencia_custos <- potencia_custos %>%
+    mutate(investimento_ano_milhoes = pot_ano_mw * custo_unitario,
+           investimento_ano_bat_milhoes = cap_bateria_mwh * bateria_capex / 10^3)
+  } else {
+
   potencia_custos <- potencia_custos %>%
     mutate(investimento_ano_milhoes = pot_ano_mw * custo_unitario)
+  }
 
   potencia_custos
 
