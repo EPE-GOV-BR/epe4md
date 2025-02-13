@@ -447,16 +447,16 @@ epe4md_graf_part_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
 epe4md_graf_pot_cenario <- function(dados, ano_inicio = 2013, tamanho = 14) {
 
   ultimos <- dados %>%
-    mutate(pot_acum = round(pot_acum, 1)) %>%
+    mutate(pot_acum_gw = round(pot_acum_gw, 1)) %>%
     group_by(cenario) %>%
     top_n(1, ano) %>%
-    pull(pot_acum)
+    pull(pot_acum_gw)
 
   resumo <- dados %>%
     filter(ano >= ano_inicio)
 
   ggplot(resumo) +
-    aes(x = ano, y = pot_acum, color = cenario) +
+    aes(x = ano, y = pot_acum_gw, color = cenario) +
     geom_line(size = 1) +
     geom_point(fill = "white", shape = 21, stroke = 1.25) +
     labs(x = "", y = "Potência [GW]", color = "Cenário") +
