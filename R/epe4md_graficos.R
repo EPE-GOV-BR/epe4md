@@ -9,6 +9,7 @@
 #' @encoding UTF-8
 #'
 
+#
 epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
                                  tamanho = 14) {
   resumo <- dados %>%
