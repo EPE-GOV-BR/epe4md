@@ -1,10 +1,9 @@
-pandoc: 2.19.2
-pkgdown: 2.0.7
+pandoc: '3.2'
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   fazendo_projecoes: fazendo_projecoes.html
   por_dentro_do_modelo: por_dentro_do_modelo.html
   treinamento_1rq_2023: treinamento_1rq_2023.html
   treinamento_inicial: treinamento_inicial.html
-last_built: 2023-05-11T14:27Z
-
+last_built: 2025-04-10T13:19Z

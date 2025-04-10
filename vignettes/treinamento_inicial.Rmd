@@ -63,12 +63,12 @@ library(epe4md)
 
 A função epe4md_calcula condensa todas as funções intermediárias e permite gerar resultados a partir da execução de apenas essa função. No entanto, é preciso inicialmente definir o ano base da projeção e as premissas regulatórias (ver explicação no help da função ou no seguinte tutorial: <https://epe-gov-br.github.io/epe4md/articles/fazendo_projecoes.html>
 
-```{r}
+```{r, warning=FALSE}
 
-premissas_regulatorias <- readxl::read_xlsx(system.file("dados_premissas/2022/premissas_reg.xlsx", package = "epe4md"))
+premissas_regulatorias <- readxl::read_xlsx(system.file("dados_premissas/2024/premissas_reg.xlsx", package = "epe4md"))
 
 resultado <- epe4md_calcula(
-  ano_base = 2022,
+  ano_base = 2024,
   premissas_reg = premissas_regulatorias,
   ano_max_resultado = 2028)
 ```
@@ -112,7 +112,7 @@ O primeiro passo é calcular o mercado potencial inicial para adotar a tecnologi
 
 ```{r}
 mercado <- epe4md_mercado_potencial(
-  ano_base = 2022,
+  ano_base = 2024,
   filtro_renda_domicilio = "maior_3sm",
   filtro_comercial = NA,
   tx_cresc_grupo_a = 0)
@@ -130,7 +130,7 @@ Na sequência, é necessário calcular o payback para cada caso. Para isso, prim
 
 ```{r}
 casos <- epe4md_casos_payback(
-  ano_base = 2022,
+  ano_base = 2024,
   ano_max_resultado = 2028
 )
 ```
@@ -139,11 +139,11 @@ casos <- epe4md_casos_payback(
 
 Na sequência, é elaborado um fluxo de caixa para cada caso e são calculas as métricas financeiras de payback e TIR.
 
-```{r}
+```{r, warning=FALSE}
 payback <- epe4md_payback(
   casos_payback = casos,
   premissas_reg = premissas_regulatorias,
-  ano_base = 2022,
+  ano_base = 2024,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
   inflacao = 0.0375,
@@ -162,7 +162,7 @@ Neste passo é calculado o mercado potencial final ao unir o mercado potencial i
 mercado_calibrado <- epe4md_calibra_curva_s(
   resultado_payback = payback,
   consumidores = mercado,
-  ano_base = 2022,
+  ano_base = 2024,
   ano_max_resultado = 2028,
   p_max = 0.01,
   q_max = 1
@@ -177,7 +177,7 @@ A partir do mercado potencial e da taxa de adoção F(t), é calculado o número
 adotantes <- epe4md_proj_adotantes(
   casos_otimizados = mercado_calibrado,
   consumidores = mercado,
-  ano_base = 2022
+  ano_base = 2024
 )
 
 dados_adotantes <- adotantes$proj_adotantes
@@ -192,7 +192,7 @@ O número de adotantes é então multiplicado pela potência média histórica p
 ```{r}
 potencia <- epe4md_proj_potencia(
   lista_adotantes = adotantes,
-  ano_base = 2022
+  ano_base = 2024
 )
 
 dados_potencia <- potencia$proj_potencia
@@ -205,7 +205,7 @@ Nesta etapa, a projeção anual é aberta por mês.
 ```{r}
 mensal <- epe4md_proj_mensal(
   lista_potencia = potencia,
-  ano_base = 2022,
+  ano_base = 2024,
   ano_max_resultado = 2028,
   ajuste_ano_corrente = TRUE,
   ultimo_mes_ajuste = 2,
@@ -228,7 +228,7 @@ Finalmente, esta função estima a geração de energia a partir da capacidade i
 ```{r}
 geracao <- epe4md_proj_geracao(
   proj_mensal = mensal,
-  ano_base = 2022
+  ano_base = 2024
 )
 
 resumo_partes_br <- epe4md_sumariza_resultados(geracao)
@@ -239,7 +239,7 @@ Comparação com função única.
 ```{r}
 geracao_funcao <- epe4md_calcula(
   premissas_reg = premissas_regulatorias,
-  ano_base = 2022,
+  ano_base = 2024,
   ano_max_resultado = 2028,
   altera_sistemas_existentes = TRUE,
   ano_decisao_alteracao = 2023,
@@ -267,7 +267,7 @@ A função epe4md_prepara_base é utilizada para resumir a base de unidades de M
 base_aneel <- read_csv2("empreendimento-geracao-distribuida.csv", locale = locale(encoding = "Windows-1252"))
 
 resumo_base <- epe4md_prepara_base(base_aneel,
-                                   ano_base = 2022)
+                                   ano_base = 2024)
 ```
 
 *Dica 1: Atente-se ao encoding. Não é raro que o csv tenha alteração no encoding. Se a leitura for feita com encoding incorreto, haverá erro ao fazer join com outras tabelas.*
@@ -281,7 +281,7 @@ Esta função estima o montante de investimentos a serem realizados, a partir da
 ```{r, message=FALSE}
 investimentos <- epe4md_investimentos(
   resultados_mensais = resultado,
-  ano_base = 2022)
+  ano_base = 2024)
 
 resumo_investimentos <- investimentos %>% 
   group_by(ano) %>% 
@@ -313,10 +313,10 @@ Esta função cria uma copia das planilhas de premissas do modelo em uma nova pa
 Para conhecer as planilhas utilizadas, em primeiro lugar, vamos criar uma cópia na pasta do seu projeto atual (destino *default* da função). Caso queira escolher um diretório diferente, o usuário pode informar através do parâmetro "destino".
 
 ```{r, eval = FALSE}
-epe4md_copia_premissas(ano_base = 2022)
+epe4md_copia_premissas(ano_base = 2024)
 ```
 
-Essa função criou na raiz do projeto atual as pastas *dados_premissas/2021*, com a copia de todas as planilhas de premissas.
+Essa função criou na raiz do projeto atual as pastas *dados_premissas/2024*, com a copia de todas as planilhas de premissas.
 
 Uma explicação breve de cada planilha pode ser encontrada no [site do pacote](https://epe-gov-br.github.io/epe4md/articles/por_dentro_do_modelo.html).
 
@@ -324,27 +324,27 @@ Caso deseje alterar algum parâmetro, faça a alteração nas planilhas copiadas
 
 Vamos ver um exemplo, alterando a taxa de crescimento do mercado potencial.
 
-Após copiar todas as planilhas para a pasta do projeto atual, aumentamos a taxa de crescimento anual para 4% a.a. a partir de 2024 e salvamos.
+Após copiar todas as planilhas para a pasta do projeto atual, aumentamos a taxa de crescimento anual para 4% a.a. a partir de 2025 e salvamos.
 
 ```{r, eval = FALSE}
-planilha_crescimento <- readxl::read_xlsx("dados_premissas/2022/crescimento_mercado.xlsx")
+planilha_crescimento <- readxl::read_xlsx("dados_premissas/2024/crescimento_mercado.xlsx")
 
 planilha_crescimento <- planilha_crescimento %>% 
-  mutate(taxa_crescimento_mercado = ifelse(ano > 2023,
+  mutate(taxa_crescimento_mercado = ifelse(ano >= 2025,
                                            0.04,
                                            taxa_crescimento_mercado))
 
-writexl::write_xlsx(planilha_crescimento, "dados/2022/crescimento_mercado.xlsx")
+writexl::write_xlsx(planilha_crescimento, "dados/2024/crescimento_mercado.xlsx")
 ```
 
 Agora vamos fazer nova projeção, passando o caminho da nova pasta de premissas (perceba o último parâmetro).
 
 ```{r, eval = FALSE}
 resultado_crescimento <- epe4md_calcula(
-  ano_base = 2022,
+  ano_base = 2024,
   premissas_reg = premissas_regulatorias,
   ano_max_resultado = 2028,
-  dir_dados_premissas = "dados_premissas/2022"
+  dir_dados_premissas = "dados_premissas/2024"
   )
 ```
 
