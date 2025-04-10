@@ -21,15 +21,16 @@ O referencial teórico e uma descrição da metodologia do 4MD pode ser encontra
 
 ## Estrutura do pacote epe4md
 
-O pacote `epe4md` possui diferentes funções encadeadas para realizar as projeções de difusão da Micro e Minigeração Distribuída (MMGD) no Brasil. A imagem a seguir ilustra a relação entre as funções do pacote.
+O pacote `epe4md` possui diferentes funções encadeadas para realizar as projeções de difusão de Micro e Minigeração Distribuída (MMGD) e Baterias atrás-do-medidor no Brasil. A imagem a seguir ilustra a relação entre as funções do pacote.
 
-![Estrutura de funções do pacote epe4md. Todas as funções possuem um prefixo "epe4md_" (omitido na figura)](estrutura_funcoes.png){width=100%}
+![Estrutura de funções do pacote epe4md. Todas as funções possuem um prefixo "epe4md\_" (omitido na figura)](estrutura_funcoes.png){width="100%"}
 
 ## Dados e parâmetros de entrada
 
-No local onde o pacote é instalado na máquina existe a pasta `dados_premissas`. Dentro dessa pasta há subpastas com dados e parâmetros de entrada para cada ano base. 
+No local onde o pacote é instalado na máquina existe a pasta `dados_premissas`. Dentro dessa pasta há subpastas com dados e parâmetros de entrada para cada ano base.
+
 ```{r}
-list.files(system.file("dados_premissas/2022", package = "epe4md"))
+list.files(system.file("dados_premissas/2024", package = "epe4md"))
 ```
 
 Caso o usuário deseje alterar esses dados e parâmetros de entrada, é recomendado copiar esses arquivos para outra pasta, fazer as alterações na nova pasta, e passar para o modelo o caminho da nova pasta. Esse novo diretório pode ser atribuído ao modelo através do argumento `dir_dados_premissas`, presente nas funções do pacote.
@@ -54,7 +55,7 @@ Dados de CAPEX para cada tecnologia, com exceção da fotovoltaica. São utiliza
 
 ### consumidores_residenciais_renda.xlsx
 
-É a base de domicílios por faixa de renda para o ano de 2010, conforme o Censo IBGE 2010. É utilizada para compor o mercado potencial. Dados por distribuidora.
+É a base de domicílios por faixa de renda, conforme o Censo IBGE (2010 ou mais atual, caso microdados estejam disponíveis). É utilizada para compor o mercado potencial. Dados por distribuidora.
 
 ### crescimento_mercado.xlsx
 
@@ -64,9 +65,13 @@ São premissas de taxas de crescimento do mercado potencial, ano a ano, aplicado
 
 São dados históricos e projeções de CAPEX para sistemas fotovoltaicos. Dados nacionais.
 
+### dec_fec.xlsx
+
+São valores apurados dos indicadores coletivos de continuidade DEC (Duração equivalente de interrupção por unidade consumidora), expresso em horas, e FEC (Frequência equivalente de interrupção por unidade consumidora), expresso em número de interrupções. Dados por distribuidora.
+
 ### fator_tecnico.xlsx
 
-Percentual de domicílios do tipo casa e própria, segundo o CENSO IBGE 2010. Dados por distribuidora.
+Percentual de domicílios do tipo casa e própria, segundo o CENSO IBGE (2010 ou mais atual, caso microdados estejam disponíveis). Dados por distribuidora.
 
 ### fc_distribuidoras.xlsx
 
@@ -92,6 +97,10 @@ Uma base auxiliar com a relação dos nomes das distribuidoras presente na base 
 
 Premissa de potência típica fotovoltaica por segmento. Utilizada como referência para o cálculo de payback dos investimentos. Como padrão, é a potência mediana verificada no histórico.
 
+### precos_baterias.xlsx
+
+São dados históricos e projeções de CAPEX para sistemas de baterias atrás-do-medidor. Dados nacionais.
+
 ### premissas_reg.xlsx
 
 Premissas regulatórias. Veja mais na vinheta "Fazendo as primeiras projeções com o 4MD".
@@ -101,6 +110,7 @@ Premissas regulatórias. Veja mais na vinheta "Fazendo as primeiras projeções 
 Definição dos segmentos de mercado a partir das características das instalações (alta ou baixa tensão, local ou remoto e classe do consumidor)
 
 ### spb.xlsx
+
 Definição do fator de Sensibilidade ao Payback (SPB) por segmento.
 
 ### subgrupo_compensacao.xlsx
@@ -117,13 +127,12 @@ Relação entre as distribuidoras, unidades federativas, regiões e subsistemas.
 
 ### tempo_construcao.xlsx
 
-Premissas de tempo de construção dos sistemas fotovoltaicos em cada segmento de mercado. Utilizadas para os cálculos de retorno financeiro dos projetos.
+Premissas de tempo de construção (em meses) dos sistemas fotovoltaicos em cada segmento de mercado. Utilizadas para os cálculos de retorno financeiro dos projetos.
 
 ### tipo_payback.xlsx
-Definição da métrica de payback que será utilizada para cálculo do mercado
-potencial em conjunto com o fator SPB. Pode ser "simples" ou "descontado".
+
+Definição da métrica de payback que será utilizada para cálculo do mercado potencial em conjunto com o fator SPB. Pode ser "simples" ou "descontado".
 
 ### total_domicilios.xlsx
 
-Histórico e projeção do número de domicílios no Brasil. Dados utilizados para calcular o percentual de inserção da MMGD e para calcular o "fator comercial". 
-
+Histórico e projeção do número de domicílios no Brasil. Dados utilizados para calcular o percentual de inserção da MMGD e para calcular o "fator comercial".
