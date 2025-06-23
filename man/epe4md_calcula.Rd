@@ -177,7 +177,7 @@ potência e o número de adotantes até o final do ano base + 1 com base no
 verificado até o ultimo_mes_ajuste. Default igual a NA. Só tem efeito caso
 ajuste_ano_corrente seja igual a TRUE.}
 
-\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.829.}
+\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.90.}
 
 \item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
 em percentual a cada 1000 ciclos. Default igual a 10\%.}

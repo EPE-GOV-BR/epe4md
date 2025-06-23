@@ -91,7 +91,7 @@ na receita.}
 \item{custo_deficit}{numeric. Custo atribuído pelo consumidor à interrupção
 de energia. Em R$/MWh. Default = 0.}
 
-\item{bateria_eficiencia}{numeric. Eficiência das baterias. Default igual a 0.95.}
+\item{bateria_eficiencia}{numeric. Eficiência das baterias. Default igual a 0.90.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados

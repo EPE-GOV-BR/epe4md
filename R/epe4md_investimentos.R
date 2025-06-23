@@ -112,15 +112,15 @@ epe4md_investimentos <- function(resultados_mensais,
   precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
 
   potencia_custos <- potencia_custos %>%
-    left_join(precos_bateria, by = "ano")
+    left_join(precos_bateria, by = c("ano", "segmento"))
 
   potencia_custos <- potencia_custos %>%
-    fill(bateria_capex, .direction = "up") %>%
+    fill(bateria_custo, .direction = "up") %>%
     select(-bateria_oem)
 
   potencia_custos <- potencia_custos %>%
     mutate(investimento_ano_milhoes = pot_ano_mw * custo_unitario,
-           investimento_ano_bat_milhoes = cap_bateria_mwh * bateria_capex / 10^3)
+           investimento_ano_bat_milhoes = cap_bateria_mwh * bateria_custo / 10^3)
   } else {
 
   potencia_custos <- potencia_custos %>%

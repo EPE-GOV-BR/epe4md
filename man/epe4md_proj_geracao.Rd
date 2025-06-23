@@ -22,7 +22,7 @@ epe4md_proj_geracao(
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
-\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.829.}
+\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.90.}
 
 \item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
 em percentual a cada 1000 ciclos. Default igual a 10\%.}

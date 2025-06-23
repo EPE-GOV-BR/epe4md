@@ -4,7 +4,7 @@
 #' [epe4md::epe4md_proj_mensal].
 #' @param ano_base numeric. Ano base da projeção. Define o ano em que a função
 #' irá buscar a base de dados. Último ano completo realizado.
-#' @param bateria_eficiencia numeric. Eficiência da bateria. Default igual a 0.829.
+#' @param bateria_eficiencia numeric. Eficiência da bateria. Default igual a 0.90.
 #' @param degradacao_bateria_mil_ciclos numeric. Degradação linear da bateria,
 #' em percentual a cada 1000 ciclos. Default igual a 10%.
 #' @param simula_bateria. Define se o modelo irá considerar a projeção de

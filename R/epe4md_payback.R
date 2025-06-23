@@ -45,7 +45,7 @@
 #' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
 #' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
 #' na receita.
-#' @param bateria_eficiencia numeric. Eficiência das baterias. Default igual a 0.95.
+#' @param bateria_eficiencia numeric. Eficiência das baterias. Default igual a 0.90.
 #' @param custo_deficit numeric. Custo atribuído pelo consumidor à interrupção
 #' de energia. Em R$/MWh. Default = 0.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
@@ -341,7 +341,7 @@ epe4md_payback <- function(
       payback = .temp_payback_inteiro + .temp_payback_frac,
       payback_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria,
       .temp_payback_inteiro = sum(saldo_acumulado_desc < 0),
-      temp_payback_inteiro_bateria = sum(saldo_acumulado_desc_bateria < 0), #bateria
+      .temp_payback_inteiro_bateria = sum(saldo_acumulado_desc_bateria < 0), #bateria
       .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado_desc >0,saldo_acumulado_desc, NA_real_),na.rm = TRUE)),
       .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_desc_bateria > 0,saldo_acumulado_desc_bateria,NA_real_), na.rm = TRUE)), #bateria
       .temp_maior_negativo = max(if_else(saldo_acumulado_desc <0, saldo_acumulado_desc, NA_real_), na.rm = TRUE),
@@ -352,8 +352,7 @@ epe4md_payback <- function(
       .temp_payback_frac_bateria = -.temp_maior_negativo_bateria / (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria), #bateria
       payback_desc = .temp_payback_inteiro + .temp_payback_frac,
       payback_desc_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria) %>%
-      select(-starts_with(".temp_")) %>%
-      select(-temp_payback_inteiro_bateria)
+      select(-starts_with(".temp_"))
 
 
     metricas <- metricas %>%

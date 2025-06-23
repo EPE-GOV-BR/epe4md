@@ -90,11 +90,20 @@ epe4md_proj_adotantes <- function(casos_otimizados,
       adotantes_ano == 0 & ano > 2019 ~ adotantes_ano_media,
       lag(adotantes_ano) == 0 & ano > 2019 ~ lag(adotantes_ano_media),
       TRUE ~ adotantes_ano),
-      adotantes_acum_c = cumsum(adotantes_ano_c)) %>%
+      adotantes_acum_c = cumsum(adotantes_ano_c),
+      adotantes_ano_bateria_c = case_when(
+        adotantes_ano_bateria == 0 & ano > 2019 ~ adotantes_ano_media_bateria,
+        lag(adotantes_ano_bateria) == 0 & ano > 2019 ~ lag(adotantes_ano_media_bateria),
+        TRUE ~ adotantes_ano_bateria),
+      adotantes_acum_bateria_c = cumsum(adotantes_ano_bateria_c)) %>%
     ungroup() %>%
-    select(-adotantes_ano, -adotantes_acum, -adotantes_ano_media, -adotantes_ano_media_bateria) %>%
+    select(-adotantes_ano,-adotantes_ano_bateria, -adotantes_acum, -adotantes_acum_bateria
+           , -adotantes_ano_media, -adotantes_ano_media_bateria) %>%
     rename(adotantes_ano = adotantes_ano_c,
-           adotantes_acum = adotantes_acum_c)
+           adotantes_acum = adotantes_acum_c,
+           adotantes_ano_bateria = adotantes_ano_bateria_c,
+           adotantes_acum_bateria = adotantes_acum_bateria_c
+           )
 
   # Abertura dos adotantes por fonte ----------------------------------------
 
