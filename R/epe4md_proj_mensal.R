@@ -53,11 +53,11 @@ epe4md_proj_mensal <- function(lista_potencia,
     dir_dados_premissas
   )
 
-  # Extrair proj potencia da lista
-
+  # Extrair proj_potencia da lista
   proj_potencia <- lista_potencia$proj_potencia
 
-
+  # Se ajuste_ano_corrente == TRUE, a projeção deverá incorporar o histórico mensal recente,
+  # verificado em parte do primeiro ano após o ano base.
   if (ajuste_ano_corrente == TRUE) {
 
     dados_gd_historico <- readxl::read_xlsx(
@@ -65,6 +65,10 @@ epe4md_proj_mensal <- function(lista_potencia,
       filter(data_conexao < make_date(ano_base + 1, ultimo_mes_ajuste + 1, 1)) %>%
       select(-local_remoto)
 
+    # Se metodo_ajuste igual a "extrapola" o modelo irá extrapolar a potência e o número de adotantes
+    # até o final do ano base + 1 com base no verificado até o ultimo_mes_ajuste.
+    # Se igual a "substitui", o modelo substitui a projeção até o ultimo_mes_ajuste e mantém o restante do ano
+    # com a projeção normal. Só tem efeito caso ajuste_ano_corrente seja igual a TRUE.
     if(metodo_ajuste == "extrapola") {
 
       dados_gd_ano <- dados_gd_historico %>%
@@ -108,20 +112,22 @@ epe4md_proj_mensal <- function(lista_potencia,
     mutate(mes_ano = make_date(ano, mes, 1),
            mes_ano = tsibble::yearmonth(mes_ano))
 
-  # Calculo dos fatores de sazonalizacao
+  # Cria dataframe de série temporal com a potência mensal para definir a sazonalização
   historico_fatores <- dados_gd_historico %>%
     filter(ano <= ano_base) %>%
     group_by(mes_ano, ano) %>%
     summarise(pot_mes_mw = sum(pot_mes_mw)) %>%
     ungroup() %>%
-    filter(between(ano, 2014, ano_base))
+    filter(between(ano, 2014, ano_base)) # Retira-se o ano de 2013 por ter dados incompletos.
 
+  # Cria um dataframe com a sasonalidade, tendência e resíduos da série temporal
   fatores_mensais <- historico_fatores %>%
     tsibble::as_tsibble(index = mes_ano) %>%
     fabletools::model(feasts::classical_decomposition(pot_mes_mw ~ season(12),
                                                       type = "mult")) %>%
     fabletools::components()
 
+  # Define a sasonalidade média de cada mês do ano como "fator_mensal"
   fatores_mensais <- fatores_mensais %>%
     as_tibble() %>%
     mutate(mes = lubridate::month(mes_ano)) %>%
@@ -129,8 +135,7 @@ epe4md_proj_mensal <- function(lista_potencia,
     summarise(fator_mensal = mean(seasonal)) %>%
     ungroup()
 
-  # Transformação da potencia anual em mensal com base nos fatores
-
+  # Transforma as projeções anuais em mensais com base no fator_mensal
   projecao_mensal <- projecao_mensal %>%
     left_join(fatores_mensais, by = "mes") %>%
     mutate(pot_mes_mw = fator_mensal * pot_ano_mw / 12,
@@ -141,10 +146,12 @@ epe4md_proj_mensal <- function(lista_potencia,
     select(- fator_mensal, - adotantes_ano, - pot_ano_mw, - adotantes_ano_bateria,
            - pot_ano_bateria_mw, -cap_ano_bateria_mwh)
 
+  # Cria dataframe com as projeções relacionadas a baterias
   proj_mensal_bat <- projecao_mensal %>%
     select(ano, mes, mes_ano, nome_4md, segmento, fonte_resumo, adotantes_bateria_mes, pot_mes_bateria_mw,
            cap_bateria_mes_mwh)
 
+  # Cria dataframe com as projeções relacionadas a MMGD
   projecao_mensal <- projecao_mensal %>%
     select(-adotantes_bateria_mes, -pot_mes_bateria_mw,
            -cap_bateria_mes_mwh)
@@ -166,8 +173,7 @@ epe4md_proj_mensal <- function(lista_potencia,
 
   }
 
-  # Substituicao do inicio com dados realizados
-
+  # Substituicao dos dados de projeção pelos dados históricos disponíveis
   if (ajuste_ano_corrente == FALSE) {
 
     projecao_mensal <- projecao_mensal %>%
@@ -196,7 +202,7 @@ epe4md_proj_mensal <- function(lista_potencia,
   }
 
 
-  # Junção historico e projecao
+  # Junta histórico e projeção
   projecao_mensal <- bind_rows(historico_mensal, projecao_mensal)
 
   # join com dados de baterias
@@ -204,7 +210,7 @@ epe4md_proj_mensal <- function(lista_potencia,
     left_join(proj_mensal_bat, by = c("ano", "mes", "mes_ano", "segmento", "fonte_resumo",
                                       "nome_4md"))
 
-  # Inclusao fatores imitacao e inovacao para registro
+  # Inclui fatores de imitação e inovação
   fatores_pq <- lista_potencia$proj_potencia %>%
     select(ano, segmento, fonte_resumo, nome_4md, p, q, Ft, Ft_bateria)
 

@@ -38,6 +38,7 @@ epe4md_investimentos <- function(resultados_mensais,
     dir_dados_premissas
   )
 
+  # Verifica se a simula_bateria == TRUE (variáveis de baterias só estão contidas em resultados_mensais se sim)
   if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
     proj_potencia <- resultados_mensais %>%
       group_by(ano, segmento, fonte_resumo) %>%
@@ -55,6 +56,7 @@ epe4md_investimentos <- function(resultados_mensais,
 
 # Investimentos ------------------------------------------------------------
 
+  # Cria dataframe com dados de CAPEX unitário para cada tecnologia, com exceção da fotovoltaica.
   custo_outras <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/capex_historico_outras.xlsx")) %>%
     rename(custo_outras = custo_unitario)
@@ -70,6 +72,7 @@ epe4md_investimentos <- function(resultados_mensais,
   custo_outras <- custo_outras %>%
     mutate(mes_final = str_glue("12/{ano}"))
 
+  # Calcula o valor atualizado no tempo com base no inpc para o 12/2018.
   calcula_inflacao <- function(custo, data_final) {
 
     deflateBR::deflate(custo, as.Date("2018-12-01"), data_final, "inpc")
@@ -86,6 +89,8 @@ epe4md_investimentos <- function(resultados_mensais,
     mutate(custo = round(custo_deflacionado, 2)) %>%
     select(ano, fonte_resumo, custo)
 
+  # Cria dataframe com os custos atualizado no tempo das outras tecnologias
+  # para cada tecnologia e ano de projeção
   custo_outras <- left_join(combinacoes, custo_outras,
                             by = c("fonte_resumo", "ano")) %>%
     fill(custo)
@@ -102,12 +107,14 @@ epe4md_investimentos <- function(resultados_mensais,
   potencia_custos <- left_join(potencia_custos, custo_outras,
                                by = c("ano", "fonte_resumo"))
 
+  # Unifica os custos por tecnologia e ano
   potencia_custos <- potencia_custos %>%
     mutate(custo_unitario = ifelse(is.na(custo_unitario),
                                    custo,
                                    custo_unitario)) %>%
     select(- custo)
 
+  # Calcula o montante de investimento
   if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
   precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
 

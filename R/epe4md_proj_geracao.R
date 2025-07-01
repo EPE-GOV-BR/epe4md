@@ -50,19 +50,24 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   # Bases de fatores e parâmetros
 
+  # Cria dataframe com o fator de capacidade mensal para a fonte fotovoltaica em solo e em telhado. Dados por distribuidora.
   fc_fv_mensal <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/fc_distribuidoras_mensal.xlsx"))
 
+  # Cria dataframe com o fator de capacidade mensal para outras tecnologias. Dados por subsistema.
   fc_outras_mensal <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/fc_outras_fontes.xlsx")) %>%
     pivot_longer(cols = 3:14, names_to = "mes", values_to = "fc") %>%
     mutate(mes = as.numeric(mes))
 
+  # Cria dataframe com fator de autoconsumo por tecnologias e segmento de mercado. Dados nacionais.
   injecao <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/injecao.xlsx"))
 
+  # Cria dataframe com relação entre as distribuidoras, unidades federativas, regiões e subsistemas.
   tabela_regiao <-
     readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/tabela_dist_subs.xlsx"))
 
+  # Inclui o subsistema e região ao dataframe de projeções
   proj_mensal <- proj_mensal %>%
     left_join(tabela_regiao, by = c("nome_4md"))
 
@@ -73,6 +78,7 @@ epe4md_proj_geracao <- function(proj_mensal,
 
   anos_operacao <- tibble(ano_operacao = seq(2013, max(proj_mensal$ano)))
 
+  # Cria dataframe com datas para o último dia de cada mês
   meses_operacao <- crossing(anos_operacao, meses) %>%
     mutate(mes_operacao = make_date(ano_operacao, mes),
            mes_operacao = ceiling_date(mes_operacao, "month") - 1) %>%
@@ -108,6 +114,7 @@ epe4md_proj_geracao <- function(proj_mensal,
   vida_util_fv_dias <- 25 * 365
   vida_util_bateria_dias <- (ano_recapex_bat - 1) * 365
 
+  # Calcula a quantidade de dias em operação até o último dia do último ano da projeção
   projecao_energia <- projecao_energia %>%
     mutate(dias_operando_fv = ifelse(dias_operando > vida_util_fv_dias,
                                   dias_operando - vida_util_fv_dias,
@@ -121,6 +128,7 @@ epe4md_proj_geracao <- function(proj_mensal,
                                       dias_operando_mes - dia_instalacao,
                                       dias_operando_mes))
 
+  # Calcula a projeção acumulada de potência, consumo e armazenamento da data inicial de operação até a data máxima da projeção
   projecao_energia <- projecao_energia %>%
     mutate(energia_mwh = ifelse(fonte_resumo == "Fotovoltaica",
                                 pot_mes_mw * fc * dias_operando_mes * 24 *
@@ -131,6 +139,7 @@ epe4md_proj_geracao <- function(proj_mensal,
            armazenamento_bateria_mwh = cap_bateria_mes_mwh * dias_operando_mes *
              (1 - degradacao_ciclo_bat * dias_operando_bat) * bateria_eficiencia)
 
+  # Calcula a energia gerada em MWh
   if(simula_bateria == TRUE) {
     projecao_energia <- projecao_energia %>%
            mutate(energia_mwh = energia_mwh - consumo_bateria_mwh) %>%
@@ -145,12 +154,12 @@ epe4md_proj_geracao <- function(proj_mensal,
     mutate(energia_autoc_mwh = energia_mwh * fator_autoconsumo,
            energia_inj_mwh = energia_mwh * (1 - fator_autoconsumo))}
 
-  #abertura GD1
+  # Faz abertura entre GD I e GD II e sumariza os resultados das projeções
   projecao_energia <- projecao_energia %>%
     mutate(enquadramento_gd = case_when(
       ano <= 2023 & segmento %in%
-        c("comercial_at", "comercial_at_remoto") ~ "GD 1",
-      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1",
+        c("comercial_at", "comercial_at_remoto") ~ "GD 1", # Representação do inciso I e III do parágrafo 2o do Art. 26 da Lei 14.300/22
+      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1", # Representação do inciso II do parágrafo 2o do Art. 26 da Lei 14.300/22
       mes_operacao > make_date(2045, 12, 31) ~ "GD 2",
       TRUE ~ "GD 2"))
 
@@ -176,8 +185,8 @@ epe4md_proj_geracao <- function(proj_mensal,
   resumo_projecao_potencia <- proj_mensal %>%
     mutate(enquadramento_gd = case_when(
       ano <= 2023 & segmento %in%
-        c("comercial_at", "comercial_at_remoto") ~ "GD 1",
-      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1",
+        c("comercial_at", "comercial_at_remoto") ~ "GD 1", # Representação do inciso I e III do parágrafo 2o do Art. 26 da Lei 14.300/22
+      mes_instalacao < make_date(2023, 5, 1) ~ "GD 1", # Representação do inciso II do parágrafo 2o do Art. 26 da Lei 14.300/22
       TRUE ~ "GD 2")) %>%
     group_by(mes_ano, nome_4md, subsistema, uf, segmento, fonte_resumo,
              enquadramento_gd) %>%
@@ -191,8 +200,7 @@ epe4md_proj_geracao <- function(proj_mensal,
            ano = year(data), mes = month(data)) %>%
     select(data, ano, mes, everything(), -mes_ano)
 
-  # Junção de potência e energia
-
+  # Junta dataframes com projeções de potência e energia
   juncao <- left_join(resumo_projecao_energia, resumo_projecao_potencia,
                       by = c("data", "ano", "mes", "nome_4md", "subsistema",
                              "uf", "segmento", "fonte_resumo", "enquadramento_gd"))
