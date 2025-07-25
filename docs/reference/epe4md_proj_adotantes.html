@@ -126,6 +126,32 @@ possui o resultado em termos de participação do número de adotantes frente
 ao total de unidades consumidoras.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Exemplo básico</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">casos_otimizados</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_calibra_curva_s.html">epe4md_calibra_curva_s</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  resultado_payback <span class="op">=</span> <span class="fu"><a href="epe4md_payback.html">epe4md_payback</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  consumidores <span class="op">=</span> <span class="fu"><a href="epe4md_mercado_potencial.html">epe4md_mercado_potencial</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">consumidores</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_mercado_potencial.html">epe4md_mercado_potencial</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">resultado_proj</span> <span class="op">&lt;-</span> <span class="fu">epe4md_proj_adotantes</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  casos_otimizados <span class="op">=</span> <span class="va">casos_otimizados</span>,</span></span>
+<span class="r-in"><span>  consumidores <span class="op">=</span> <span class="va">consumidores</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span>,</span></span>
+<span class="r-in"><span>  cresc_fv <span class="op">=</span> <span class="fl">0.05</span>,   <span class="co"># Exemplo: crescimento anual 5% na fonte fotovoltaica</span></span></span>
+<span class="r-in"><span>  cresc_eol <span class="op">=</span> <span class="fl">0.02</span>   <span class="co"># Exemplo: crescimento anual 2% na fonte eólica</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resultado_proj</span><span class="op">$</span><span class="va">proj_adotantes</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resultado_proj</span><span class="op">$</span><span class="va">part_adotantes</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

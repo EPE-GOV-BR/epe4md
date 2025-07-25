@@ -109,3 +109,15 @@ data.frame. Métricas financeiras para cada caso.
 \description{
 Roda um fluxo de caixa para cada caso e retorna métricas financeiras.
 }
+\examples{
+\dontrun{
+premissas <- readr::read_csv("caminho/para/premissas_reg.csv")
+casos_payback <- epe4md_casos_payback()  # gera os casos para o fluxo de caixa
+resultado_payback <- epe4md_payback(
+  casos_payback = casos_payback,
+  premissas_reg = premissas,
+  ano_base = 2023
+)
+}
+
+}

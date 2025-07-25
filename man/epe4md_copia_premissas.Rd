@@ -20,3 +20,9 @@ Cópia das planilhas de premissas.
 \description{
 Copia as planilhas de premissas originais do modelo para um novo diretório.
 }
+\examples{
+\dontrun{
+# Copia as planilhas para uma pasta personalizada
+epe4md_copia_premissas(ano_base = 2024)
+}
+}

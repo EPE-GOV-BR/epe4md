@@ -15,6 +15,9 @@ epe4md_graf_geracao_mes(
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da geração mensal em MWmed
+}
 \description{
 Gráfico da geração mensal em MWmed
 }

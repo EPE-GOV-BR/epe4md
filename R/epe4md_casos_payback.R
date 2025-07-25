@@ -31,7 +31,17 @@
 #'@encoding UTF-8
 #'
 #' @examples
-
+#' \dontrun{
+#' casos_payback <- epe4md_casos_payback(
+#'   ano_base = 2024,
+#'   ano_max_resultado = 2030,
+#'   inflacao = 0.04,
+#'   ano_troca_inversor = 12,
+#'   fator_custo_inversor = 0.18,
+#'   ano_recapex_bat = 10,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#' }
 
 epe4md_casos_payback <- function(ano_base,
                                  ano_max_resultado = 2060,

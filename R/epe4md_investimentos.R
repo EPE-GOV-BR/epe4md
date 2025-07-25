@@ -23,7 +23,23 @@
 #'@encoding UTF-8
 #'
 #' @examples
-
+#' \dontrun{
+#' # Executa o cálculo para obter os resultados mensais
+#' resultados <- epe4md_calcula(
+#'   premissas_reg = readxl::read_xlsx("dados_premissas/2024/premissas_reg.xlsx"),
+#'   ano_base = 2024,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#'
+#' # Calcula os investimentos a partir dos resultados
+#' investimentos <- epe4md_investimentos(
+#'   resultados_mensais = resultados,
+#'   ano_base = 2024,
+#'   ano_max_resultado = 2060,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#' head(investimentos)
+#' }
 
 epe4md_investimentos <- function(resultados_mensais,
                                  ano_base,

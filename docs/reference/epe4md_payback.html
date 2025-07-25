@@ -212,6 +212,20 @@ ano de 2022.</p></dd>
     <p>data.frame. Métricas financeiras para cada caso.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">premissas</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html" class="external-link">read_csv</a></span><span class="op">(</span><span class="st">"caminho/para/premissas_reg.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">casos_payback</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_casos_payback.html">epe4md_casos_payback</a></span><span class="op">(</span><span class="op">)</span>  <span class="co"># gera os casos para o fluxo de caixa</span></span></span>
+<span class="r-in"><span><span class="va">resultado_payback</span> <span class="op">&lt;-</span> <span class="fu">epe4md_payback</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  casos_payback <span class="op">=</span> <span class="va">casos_payback</span>,</span></span>
+<span class="r-in"><span>  premissas_reg <span class="op">=</span> <span class="va">premissas</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

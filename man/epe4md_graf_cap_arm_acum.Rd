@@ -15,6 +15,9 @@ epe4md_graf_cap_arm_acum(
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da capacidade de armazenamento acumulada
+}
 \description{
 Gráfico da capacidade de armazenamento acumulada
 }

@@ -54,3 +54,13 @@ potencial incial. "consumidores_totais" possui dados de mercado total.
 \description{
 Cria a base do mercado potencial inicial para a adoção.
 }
+\examples{
+\dontrun{
+# Executa a função para criar a base do mercado potencial para o ano base 2023
+consumidores <- epe4md_mercado_potencial(ano_base = 2023)
+
+# mercado_potencial é uma lista com os data.frames "consumidores" e "consumidores_totais"
+head(mercado_potencial$consumidores)
+head(mercado_potencial$consumidores_totais)
+}
+}

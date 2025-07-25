@@ -2,7 +2,7 @@
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada
 #' @export
 #'
 #' @import dplyr
@@ -31,7 +31,7 @@ epe4md_graf_pot_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada com baterias
 #' @export
 #'
 #' @import dplyr
@@ -69,7 +69,7 @@ epe4md_graf_pot_bat_acum <- function(dados, ano_inicio = 2013,
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade de armazenamento acumulada
 #' @export
 #'
 #' @import dplyr
@@ -97,7 +97,7 @@ epe4md_graf_cap_arm_acum <- function(dados, ano_inicio = 2013, cor = "#13475d",
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada anual
 #' @export
 #' @encoding UTF-8
 #'
@@ -125,7 +125,7 @@ epe4md_graf_pot_anual <- function(dados, ano_inicio = 2013, cor = "#13475d",
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada anual com baterias
 #' @export
 #'
 #' @import dplyr
@@ -163,7 +163,7 @@ epe4md_graf_pot_bat_anual <- function(dados, ano_inicio = 2013,
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada por segmento
 #' @export
 #' @encoding UTF-8
 #'
@@ -201,7 +201,7 @@ epe4md_graf_pot_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada por região
 #' @export
 #' @encoding UTF-8
 #'
@@ -238,7 +238,7 @@ epe4md_graf_pot_regiao <- function(dados, ano_inicio = 2013, tamanho = 14) {
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da participação de capacidade por fonte
 #' @export
 #' @encoding UTF-8
 #'
@@ -281,7 +281,7 @@ epe4md_graf_part_fonte_potencia <- function(dados, ano_inicio = 2013,
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da geração mensal em MWmed
 #' @export
 #' @encoding UTF-8
 #'
@@ -313,7 +313,7 @@ epe4md_graf_geracao_mes <- function(dados, ano_inicio = 2013,
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da geração anual em MWmed
 #' @export
 #' @encoding UTF-8
 #'
@@ -354,7 +354,7 @@ epe4md_graf_geracao_ano <- function(dados, ano_inicio = 2013,
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da participação de cada tecnologia na geração de energia
 #' @export
 #' @encoding UTF-8
 #'
@@ -397,7 +397,7 @@ epe4md_graf_part_fonte_geracao <- function(dados, cor = "#953735",
 #'
 #' @param dados data.frame Resultados mensais de potencia e energia
 #'
-#' @return
+#' @return Gráfico da evolução da participação por segmento
 #' @export
 #' @encoding UTF-8
 #'
@@ -438,7 +438,7 @@ epe4md_graf_part_segmento <- function(dados, ano_inicio = 2013, tamanho = 14) {
 #'
 #' @param dados data.frame Resultado resumido com coluna cenario
 #'
-#' @return
+#' @return Gráfico da capacidade instalada acumulada por cenário
 #' @export
 #' @encoding UTF-8
 #'

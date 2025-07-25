@@ -10,6 +10,9 @@ epe4md_graf_part_fonte_geracao(dados, cor = "#953735", tamanho = 14)
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da participação de cada tecnologia na geração de energia
+}
 \description{
 Gráfico da participação de cada tecnologia na geração de energia
 }

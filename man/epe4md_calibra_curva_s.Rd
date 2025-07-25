@@ -58,3 +58,23 @@ data.frame com curvas de difusão e mercado potencial
 \description{
 Calibra o modelo de Bass com dados históricos e gera curvas S de adoção.
 }
+\examples{
+\dontrun{
+# Exemplo de uso da função epe4md_calibra_curva_s
+
+# Obtém resultado de payback (exemplo fictício)
+resultado_payback <- epe4md_payback(ano_base = 2023)
+
+# Obtém mercado potencial (lista com data.frames)
+consumidores <- epe4md_mercado_potencial(ano_base = 2023)
+
+# Roda calibração da curva S para adoção
+casos_otimizados <- epe4md_calibra_curva_s(
+  resultado_payback = resultado_payback,
+  consumidores = consumidores,
+  ano_base = 2023
+)
+
+head(resultado_curva_s)
+}
+}

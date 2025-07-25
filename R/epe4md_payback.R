@@ -64,6 +64,16 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' premissas <- readr::read_csv("caminho/para/premissas_reg.csv")
+#' casos_payback <- epe4md_casos_payback()  # gera os casos para o fluxo de caixa
+#' resultado_payback <- epe4md_payback(
+#'   casos_payback = casos_payback,
+#'   premissas_reg = premissas,
+#'   ano_base = 2023
+#' )
+#' }
+#'
 
 epe4md_payback <- function(
     casos_payback,

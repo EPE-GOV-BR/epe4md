@@ -22,6 +22,22 @@
 #'
 #'@encoding UTF-8
 #' @examples
+#' \dontrun{
+#' # Supondo que você já tenha rodado as funções anteriores para obter a lista de adotantes:
+#' lista_adotantes <- epe4md_proj_adotantes(
+#'   casos_otimizados = casos_otimizados,
+#'   consumidores = consumidores,
+#'   ano_base = 2023
+#' )
+#'
+#' resultado_potencia <- epe4md_proj_potencia(
+#'   lista_adotantes = lista_adotantes,
+#'   ano_base = 2023
+#' )
+#'
+#' head(resultado_potencia$proj_potencia)
+#' head(resultado_potencia$part_adotantes)
+#' }
 
 epe4md_proj_potencia <- function(lista_adotantes,
                                  ano_base,

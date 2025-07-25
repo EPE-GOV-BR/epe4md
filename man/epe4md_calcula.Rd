@@ -226,3 +226,10 @@ mensal de energia.
 O resultado do modelo 4MD são projeções de capacidade instalada, número de
 adotantes e geração de energia em base mensal.
 }
+\examples{
+\dontrun{
+resultados <- epe4md_calcula(premissas_reg, ano_base = 2023)
+resumo <- epe4md_sumariza_resultados(resultados)
+}
+
+}

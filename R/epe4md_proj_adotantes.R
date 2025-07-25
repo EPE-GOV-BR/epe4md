@@ -30,6 +30,29 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' # Exemplo básico
+#'
+#' casos_otimizados <- epe4md_calibra_curva_s(
+#'   resultado_payback = epe4md_payback(ano_base = 2023),
+#'   consumidores = epe4md_mercado_potencial(ano_base = 2023),
+#'   ano_base = 2023
+#' )
+#'
+#' consumidores <- epe4md_mercado_potencial(ano_base = 2023)
+#'
+#' resultado_proj <- epe4md_proj_adotantes(
+#'   casos_otimizados = casos_otimizados,
+#'   consumidores = consumidores,
+#'   ano_base = 2023,
+#'   cresc_fv = 0.05,   # Exemplo: crescimento anual 5% na fonte fotovoltaica
+#'   cresc_eol = 0.02   # Exemplo: crescimento anual 2% na fonte eólica
+#' )
+#'
+#' head(resultado_proj$proj_adotantes)
+#' head(resultado_proj$part_adotantes)
+#' }
+
 
 epe4md_proj_adotantes <- function(casos_otimizados,
                                   consumidores,

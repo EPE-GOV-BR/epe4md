@@ -1,4 +1,4 @@
-pandoc: '3.2'
+pandoc: '3.4'
 pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
@@ -6,4 +6,4 @@ articles:
   por_dentro_do_modelo: por_dentro_do_modelo.html
   treinamento_1rq_2023: treinamento_1rq_2023.html
   treinamento_inicial: treinamento_inicial.html
-last_built: 2025-04-10T13:19Z
+last_built: 2025-07-28T20:35Z

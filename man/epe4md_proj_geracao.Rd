@@ -46,3 +46,19 @@ mensal de energia.
 \description{
 Estima a geração de eletricidade a partir da projeção de potência
 }
+\examples{
+\dontrun{
+# Suponha que proj_mensal foi obtido pela função epe4md_proj_mensal()
+proj_mensal <- epe4md_proj_mensal(lista_potencia, ano_base = 2023)
+
+# Estimar a geração considerando baterias
+resultados_mensais <- epe4md_proj_geracao(
+  proj_mensal = proj_mensal,
+  ano_base = 2023,
+  bateria_eficiencia = 0.9,
+  degradacao_bateria_mil_ciclos = 0.1,
+  simula_bateria = TRUE,
+  ano_recapex_bat = 11
+)
+}
+}

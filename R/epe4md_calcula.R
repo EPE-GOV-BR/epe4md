@@ -12,6 +12,12 @@
 #'@import dplyr
 #'
 #' @examples
+#' \dontrun{
+#' resultados <- epe4md_calcula(premissas_reg, ano_base = 2023)
+#' resumo <- epe4md_sumariza_resultados(resultados)
+#' }
+#'
+
 epe4md_sumariza_resultados <- function(resultados_mensais) {
 
   if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
@@ -186,6 +192,12 @@ epe4md_sumariza_resultados <- function(resultados_mensais) {
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' resultados <- epe4md_calcula(premissas_reg, ano_base = 2023)
+#' resumo <- epe4md_sumariza_resultados(resultados)
+#' }
+#'
+
 epe4md_calcula <- function(
   premissas_reg,
   ano_base,

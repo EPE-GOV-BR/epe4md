@@ -36,6 +36,25 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' # Supondo que a projeção anual de potência já foi gerada:
+#' lista_potencia <- epe4md_proj_potencia(lista_adotantes, ano_base = 2023)
+#'
+#' # Projeção mensal sem ajuste no ano corrente:
+#' proj_mensal <- epe4md_proj_mensal(
+#'   lista_potencia = lista_potencia,
+#'   ano_base = 2023
+#' )
+#'
+#' # Projeção mensal com ajuste no ano corrente, até abril, usando método extrapola:
+#' proj_mensal_ajustada <- epe4md_proj_mensal(
+#'   lista_potencia = lista_potencia,
+#'   ano_base = 2023,
+#'   ajuste_ano_corrente = TRUE,
+#'   ultimo_mes_ajuste = 4,
+#'   metodo_ajuste = "extrapola"
+#' )
+#' }
 
 epe4md_proj_mensal <- function(lista_potencia,
                                ano_base,
