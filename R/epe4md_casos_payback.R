@@ -31,7 +31,17 @@
 #'@encoding UTF-8
 #'
 #' @examples
-
+#' \dontrun{
+#' casos_payback <- epe4md_casos_payback(
+#'   ano_base = 2024,
+#'   ano_max_resultado = 2030,
+#'   inflacao = 0.04,
+#'   ano_troca_inversor = 12,
+#'   fator_custo_inversor = 0.18,
+#'   ano_recapex_bat = 10,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#' }
 
 epe4md_casos_payback <- function(ano_base,
                                  ano_max_resultado = 2060,
@@ -58,27 +68,29 @@ epe4md_casos_payback <- function(ano_base,
 
   # Premissas ---------------------------------------------------------------
 
-
-  fc_fontes <-
+  # Fator de capacidade médio por distribuidora para a fonte fotovoltaica
+    fc_fontes <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/fc_distribuidoras.xlsx"))
 
+  # Fator de autoconsumo por fonte e segmento de consumidor
   injecao <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/injecao.xlsx")) %>%
-    filter(fonte_resumo == "Fotovoltaica")
+    filter(fonte_resumo == "Fotovoltaica") # FIltra somente para fotovoltaica
 
+  # Define o O&M anual por segmento de consumidor
   injecao <- injecao %>%
     mutate(oem_anual = ifelse(segmento == "comercial_at_remoto", 0.02, 0.01))
 
-
+  # Define a vida útil e degradação anual da fonte fotovoltaica
   fontes <- tribble(
     ~fonte_resumo, ~vida_util, ~degradacao,
     "Fotovoltaica",    25,         0.005,
   )
 
-
+  # Custos unitários inicial do sistema fotovoltaico em R$/Wp por ano e segmento de consumidor
   custos <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/custos.xlsx"),
                       sheet = "custos") %>%
-    mutate(custo_inversor = fator_custo_inversor * custo_unitario)
+    mutate(custo_inversor = fator_custo_inversor * custo_unitario) # calcula o custo unitário do inversor em R$/Wp em relação ao custo unitário da fonte por segmento de consumidor
 
   casos <- merge(injecao, fc_fontes) %>%
     mutate(fc_fv = ifelse(segmento == "comercial_at_remoto",
@@ -90,26 +102,33 @@ epe4md_casos_payback <- function(ano_base,
       "eolica" = fc_eol,
       "termica" = fc_term)
 
+  # Transpõe as colunas fv, eolica e térmica
   casos <- pivot_longer(casos, cols = c("fv", "eolica", "termica"),
                         names_to = "tecnologia", values_to = "fc")
 
+  # Inclui vida útil e degradação para a fonte fotovoltaica
   casos <- left_join(casos, fontes, by = "fonte_resumo")
 
+  # Inclui potência típica por segmento
   casos <- left_join(casos, potencia_tipica, by = "segmento")
 
+  # Calcula a energia gerada em kWh em 1 ano
   casos <- casos %>%
     mutate(geracao_1_kwh = pot_sistemas * fc * 8760)
 
+  # Filtra a tecnologia para somente fotovoltaica
   casos <- casos %>%
     filter(tecnologia == "fv") %>%
     select(-tecnologia)
 
+  # Inclui os custos unitários da energia fotovoltaica e do inversor em R$/Wp
   casos <- casos %>%
     merge(custos)
 
+  # Cálculo do capex para cada segmento de consumidor em cada distribuidora
   casos <- casos %>%
-    mutate(capex_inicial = custo_unitario * pot_sistemas * 1000,
-           capex_inversor = custo_inversor * pot_sistemas * 1000 *
+    mutate(capex_inicial = custo_unitario * pot_sistemas * 1000, # custo inicial de instalação do sistema fotovoltaico
+           capex_inversor = custo_inversor * pot_sistemas * 1000 * # custo da troca do inversor atualizado pela inflação até o ano da troca
              ((1 + inflacao)^(ano_troca_inversor - 1))) %>%
     arrange(nome_4md, segmento, ano)
 
@@ -117,7 +136,7 @@ epe4md_casos_payback <- function(ano_base,
     filter(ano <= ano_max_resultado)
 
 
-  # Baterias ---------------------------------------------------------------
+  # Cálculo para baterias ---------------------------------------------------------------
 
 
     precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
@@ -130,14 +149,14 @@ epe4md_casos_payback <- function(ano_base,
     dec_fec <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/dec_fec.xlsx"))
 
     casos <- casos %>%
-      mutate(ano_recapex = ano + ano_recapex_bat) %>%
-      left_join(dec_fec, by = "nome_4md") %>%
+      mutate(ano_recapex = ano + ano_recapex_bat) %>% # calcula o ano de troca do inversor a partir de um ano inicial
+      left_join(dec_fec, by = "nome_4md") %>% # inclui os indicadores equivalentes de duração e de falta de energia
       left_join(precos_bateria, by = c("ano", "segmento")) %>%
       left_join(precos_recapex_bat, by = c("ano_recapex", "segmento")) %>%
       mutate(
-        bateria_capacidade_kwh = geracao_1_kwh * (1 - fator_autoconsumo) / 365,
-        bateria_capex_inicial = bateria_custo * bateria_capacidade_kwh,
-        bateria_recapex = bateria_custo_rec * bateria_capacidade_kwh,
+        bateria_capacidade_kwh = geracao_1_kwh * (1 - fator_autoconsumo) / 365, # calcula a capacidade da bateria em kwh/dia em função da energia gerada pelos paineis fotovoltaicos em 1 ano: [kWh/ano] * [] / [dias/ano] = [kWh/dia]
+        bateria_capex_inicial = bateria_custo * bateria_capacidade_kwh, # calcula o capex total da bateria com base na capacidade em kWh/dia
+        bateria_recapex = bateria_custo_rec * bateria_capacidade_kwh, # calcula o capex total da troca da bateria com base na capacidade em kWh/dia
         bateria_oem_anual = bateria_oem
       ) %>%
       group_by(segmento, nome_4md) %>%

@@ -23,7 +23,23 @@
 #'@encoding UTF-8
 #'
 #' @examples
-
+#' \dontrun{
+#' # Executa o cálculo para obter os resultados mensais
+#' resultados <- epe4md_calcula(
+#'   premissas_reg = readxl::read_xlsx("dados_premissas/2024/premissas_reg.xlsx"),
+#'   ano_base = 2024,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#'
+#' # Calcula os investimentos a partir dos resultados
+#' investimentos <- epe4md_investimentos(
+#'   resultados_mensais = resultados,
+#'   ano_base = 2024,
+#'   ano_max_resultado = 2060,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#' head(investimentos)
+#' }
 
 epe4md_investimentos <- function(resultados_mensais,
                                  ano_base,
@@ -38,6 +54,7 @@ epe4md_investimentos <- function(resultados_mensais,
     dir_dados_premissas
   )
 
+  # Verifica se a simula_bateria == TRUE (variáveis de baterias só estão contidas em resultados_mensais se sim)
   if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
     proj_potencia <- resultados_mensais %>%
       group_by(ano, segmento, fonte_resumo) %>%
@@ -55,6 +72,7 @@ epe4md_investimentos <- function(resultados_mensais,
 
 # Investimentos ------------------------------------------------------------
 
+  # Cria dataframe com dados de CAPEX unitário para cada tecnologia, com exceção da fotovoltaica.
   custo_outras <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/capex_historico_outras.xlsx")) %>%
     rename(custo_outras = custo_unitario)
@@ -70,6 +88,7 @@ epe4md_investimentos <- function(resultados_mensais,
   custo_outras <- custo_outras %>%
     mutate(mes_final = str_glue("12/{ano}"))
 
+  # Calcula o valor atualizado no tempo com base no inpc para o 12/2018.
   calcula_inflacao <- function(custo, data_final) {
 
     deflateBR::deflate(custo, as.Date("2018-12-01"), data_final, "inpc")
@@ -86,6 +105,8 @@ epe4md_investimentos <- function(resultados_mensais,
     mutate(custo = round(custo_deflacionado, 2)) %>%
     select(ano, fonte_resumo, custo)
 
+  # Cria dataframe com os custos atualizado no tempo das outras tecnologias
+  # para cada tecnologia e ano de projeção
   custo_outras <- left_join(combinacoes, custo_outras,
                             by = c("fonte_resumo", "ano")) %>%
     fill(custo)
@@ -102,25 +123,27 @@ epe4md_investimentos <- function(resultados_mensais,
   potencia_custos <- left_join(potencia_custos, custo_outras,
                                by = c("ano", "fonte_resumo"))
 
+  # Unifica os custos por tecnologia e ano
   potencia_custos <- potencia_custos %>%
     mutate(custo_unitario = ifelse(is.na(custo_unitario),
                                    custo,
                                    custo_unitario)) %>%
     select(- custo)
 
+  # Calcula o montante de investimento
   if("cap_bateria_mwh" %in% colnames(resultados_mensais)){
   precos_bateria <- readxl::read_xlsx(stringr::str_glue("{dir_dados_premissas}/precos_baterias.xlsx"))
 
   potencia_custos <- potencia_custos %>%
-    left_join(precos_bateria, by = "ano")
+    left_join(precos_bateria, by = c("ano", "segmento"))
 
   potencia_custos <- potencia_custos %>%
-    fill(bateria_capex, .direction = "up") %>%
+    fill(bateria_custo, .direction = "up") %>%
     select(-bateria_oem)
 
   potencia_custos <- potencia_custos %>%
     mutate(investimento_ano_milhoes = pot_ano_mw * custo_unitario,
-           investimento_ano_bat_milhoes = cap_bateria_mwh * bateria_capex / 10^3)
+           investimento_ano_bat_milhoes = cap_bateria_mwh * bateria_custo / 10^3)
   } else {
 
   potencia_custos <- potencia_custos %>%

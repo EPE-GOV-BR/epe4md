@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Metodologia
 
-O referencial teórico e uma descrição da metodologia do 4MD pode ser encontrada [neste link.](https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-689/topico-639/NT_Metodologia_4MD_PDE_2032_VF.pdf)
+O referencial teórico e uma descrição da metodologia do 4MD pode ser encontrada [neste link.](https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-889/NT-EPE-DEA-SEE-009-2025.pdf)
 
 ## Estrutura do pacote epe4md
 

@@ -10,6 +10,9 @@ epe4md_graf_pot_bat_anual(dados, ano_inicio = 2013, tamanho = 14)
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da capacidade instalada anual com baterias
+}
 \description{
 Gráfico da capacidade instalada anual com baterias
 }

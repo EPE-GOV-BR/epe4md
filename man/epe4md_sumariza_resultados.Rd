@@ -17,3 +17,10 @@ geração de energia, em GWh e MWméd.
 \description{
 Resume os resultados de capacidade instalada
 }
+\examples{
+\dontrun{
+resultados <- epe4md_calcula(premissas_reg, ano_base = 2023)
+resumo <- epe4md_sumariza_resultados(resultados)
+}
+
+}

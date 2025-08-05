@@ -22,6 +22,22 @@
 #'
 #'@encoding UTF-8
 #' @examples
+#' \dontrun{
+#' # Supondo que você já tenha rodado as funções anteriores para obter a lista de adotantes:
+#' lista_adotantes <- epe4md_proj_adotantes(
+#'   casos_otimizados = casos_otimizados,
+#'   consumidores = consumidores,
+#'   ano_base = 2023
+#' )
+#'
+#' resultado_potencia <- epe4md_proj_potencia(
+#'   lista_adotantes = lista_adotantes,
+#'   ano_base = 2023
+#' )
+#'
+#' head(resultado_potencia$proj_potencia)
+#' head(resultado_potencia$part_adotantes)
+#' }
 
 epe4md_proj_potencia <- function(lista_adotantes,
                                  ano_base,
@@ -42,6 +58,7 @@ epe4md_proj_potencia <- function(lista_adotantes,
   potencia_tipica <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/potencia_tipica.xlsx"))
 
+  # Cria dataframe com a potência média histórica por fonte, segmento e distribuidora
   potencia_media <- dados_gd %>%
     group_by(nome_4md, segmento, fonte_resumo) %>%
     summarise(
@@ -50,22 +67,25 @@ epe4md_proj_potencia <- function(lista_adotantes,
       pot_media = pot_total / adotantes_total
     ) %>%
     ungroup() %>%
-    complete(nome_4md, segmento, fonte_resumo) %>%
+    complete(nome_4md, segmento, fonte_resumo) %>% # gera todas as combinações possíveis de nome_4md, segmento e fonte_resumo, mesmo que não existam no dado original), preenchendo com NA quando necessário.
     group_by(segmento, fonte_resumo) %>%
     mutate(
-      pot_media = ifelse(is.na(pot_media), mean(pot_media, na.rm = TRUE), pot_media)
+      pot_media = ifelse(is.na(pot_media), mean(pot_media, na.rm = TRUE), pot_media) # Para os NA em pot_media, substitui pela média da potência média das demais distribuidoras do mesmo segmento e fonte_resumo.
     ) %>%
     ungroup() %>%
     select(nome_4md, segmento, fonte_resumo, pot_media) %>%
     left_join(potencia_tipica, by = "segmento") %>%
     mutate(
-      pot_media = ifelse(is.na(pot_media), pot_sistemas, pot_media)
+      pot_media = ifelse(is.na(pot_media), pot_sistemas, pot_media) # Se, para uma dada combinação de distribuidora, segmento e fonte, não houver potência média histórica, inclui a potencia típica.
     ) %>%
     select(-pot_sistemas)
 
+  # Inclui o dataframe de potência média no dataframe de projeção de adotantes
   proj_potencia <- left_join(proj_adotantes, potencia_media,
                              by = c("nome_4md", "segmento", "fonte_resumo"))
 
+  # Cria dataframe com a potência média histórica por fonte, segmento e distribuidora e ano
+  # Diferente do dataframe potencia_media, inclui ano como agrupador
   historico_pot_fontes <- dados_gd %>%
     filter(ano <= ano_base) %>%
     group_by(ano, nome_4md, segmento, fonte_resumo) %>%
@@ -74,6 +94,8 @@ epe4md_proj_potencia <- function(lista_adotantes,
     complete(ano, nome_4md, segmento, fonte_resumo) %>%
     mutate(pot_hist = ifelse(is.na(pot_hist), 0, pot_hist))
 
+  # Calcula a potencia anual de MMGD e baterias para cada distribuidora, segmento, fonte e ano
+  # Por calcular também para o passado, estima dados históricos que já estão disponíveis
   proj_potencia <- proj_potencia %>%
     mutate(
       pot_ano = adotantes_ano * pot_media,
@@ -83,16 +105,21 @@ epe4md_proj_potencia <- function(lista_adotantes,
   proj_potencia <- left_join(proj_potencia, historico_pot_fontes,
                              by = c("nome_4md", "segmento", "ano", "fonte_resumo"))
 
+  # Caso o ano seja inferior ao ano base da análise, mantém os dados históricos reais.
   proj_potencia <- proj_potencia %>%
     mutate(pot_ano = ifelse(ano <= ano_base, pot_hist, pot_ano)) %>%
     ungroup() %>%
     select(-pot_hist)
 
   #dimensionamento bateria
+
+  # Cria dataframe com fator de capacidade anual para a fonte fotovoltaica em solo e em telhado,
+  # além do fator de capacidade de outras tecnologias. Dados por distribuidora.
   fc_fontes <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/fc_distribuidoras.xlsx")) %>%
     select(nome_4md, fc_local)
 
+  # Cria dataframe com o fator de autoconsumo para tecnologia fotovoltaica e por segmento de mercado.
   injecao <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/injecao.xlsx")) %>%
     filter(fonte_resumo == "Fotovoltaica") %>%
@@ -102,6 +129,7 @@ epe4md_proj_potencia <- function(lista_adotantes,
     left_join(fc_fontes, by = "nome_4md") %>%
     left_join(injecao, by = "segmento")
 
+  # Calcula a capacidade em kWh de baterias por ano, distribuidora, segmento e fonte
   proj_potencia <- proj_potencia %>%
     mutate(bateria_capacidade_kwh = adotantes_ano_bateria * pot_media * fc_local *
     8760 * (1 - fator_autoconsumo) / 365)
@@ -122,6 +150,7 @@ epe4md_proj_potencia <- function(lista_adotantes,
     ) %>%
     ungroup()
 
+  # Cria lista de dataframes com os resultados das projeções de potência e capacidade
   lista_potencia <- list(proj_potencia, lista_adotantes$part_adotantes)
   names(lista_potencia) <- c("proj_potencia", "part_adotantes")
 

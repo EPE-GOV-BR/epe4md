@@ -22,7 +22,7 @@ epe4md_proj_geracao(
 \item{ano_base}{numeric. Ano base da projeção. Define o ano em que a função
 irá buscar a base de dados. Último ano completo realizado.}
 
-\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.829.}
+\item{bateria_eficiencia}{numeric. Eficiência da bateria. Default igual a 0.90.}
 
 \item{degradacao_bateria_mil_ciclos}{numeric. Degradação linear da bateria,
 em percentual a cada 1000 ciclos. Default igual a 10\%.}
@@ -45,4 +45,20 @@ mensal de energia.
 }
 \description{
 Estima a geração de eletricidade a partir da projeção de potência
+}
+\examples{
+\dontrun{
+# Suponha que proj_mensal foi obtido pela função epe4md_proj_mensal()
+proj_mensal <- epe4md_proj_mensal(lista_potencia, ano_base = 2023)
+
+# Estimar a geração considerando baterias
+resultados_mensais <- epe4md_proj_geracao(
+  proj_mensal = proj_mensal,
+  ano_base = 2023,
+  bateria_eficiencia = 0.9,
+  degradacao_bateria_mil_ciclos = 0.1,
+  simula_bateria = TRUE,
+  ano_recapex_bat = 11
+)
+}
 }

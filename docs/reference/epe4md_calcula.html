@@ -294,7 +294,7 @@ ajuste_ano_corrente seja igual a TRUE.</p></dd>
 
 
 <dt id="arg-bateria-eficiencia">bateria_eficiencia<a class="anchor" aria-label="anchor" href="#arg-bateria-eficiencia"></a></dt>
-<dd><p>numeric. Eficiência da bateria. Default igual a 0.829.</p></dd>
+<dd><p>numeric. Eficiência da bateria. Default igual a 0.90.</p></dd>
 
 
 <dt id="arg-degradacao-bateria-mil-ciclos">degradacao_bateria_mil_ciclos<a class="anchor" aria-label="anchor" href="#arg-degradacao-bateria-mil-ciclos"></a></dt>
@@ -364,6 +364,15 @@ de micro e minigeração distribuída, número de adotantes e geração
 mensal de energia.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="va">resultados</span> <span class="op">&lt;-</span> <span class="fu">epe4md_calcula</span><span class="op">(</span><span class="va">premissas_reg</span>, ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">resumo</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_sumariza_resultados.html">epe4md_sumariza_resultados</a></span><span class="op">(</span><span class="va">resultados</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

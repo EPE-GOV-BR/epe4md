@@ -15,6 +15,9 @@ epe4md_graf_part_fonte_potencia(
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da participação de capacidade por fonte
+}
 \description{
 Gráfico da participação de capacidade por fonte
 }

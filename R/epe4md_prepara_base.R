@@ -24,7 +24,20 @@
 #'@encoding UTF-8
 #'
 #' @examples
-
+#' \dontrun{
+#' # Carregar base ANEEL (exemplo fictício)
+#' base_aneel <- read_csv2("referencias/2025-07-17-empreendimento-geracao-distribuida.csv", locale = locale(encoding = "Windows-1252"))
+#'
+#' # Preparar base resumida
+#' base_tratada <- epe4md_prepara_base(
+#'   base_aneel = base_aneel,
+#'   ano_base = 2024,
+#'   resumida = TRUE,
+#'   dir_dados_premissas = "dados_premissas/2024"
+#' )
+#'
+#' head(base_tratada)
+#' }
 
 epe4md_prepara_base <- function(base_aneel,
                                 ano_base,

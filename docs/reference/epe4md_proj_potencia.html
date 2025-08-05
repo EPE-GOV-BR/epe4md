@@ -104,6 +104,26 @@ projeção de capacidade instalada de micro e minigeração distribuída.
 número de adotantes frente ao total de unidades consumidoras.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Supondo que você já tenha rodado as funções anteriores para obter a lista de adotantes:</span></span></span>
+<span class="r-in"><span><span class="va">lista_adotantes</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_proj_adotantes.html">epe4md_proj_adotantes</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  casos_otimizados <span class="op">=</span> <span class="va">casos_otimizados</span>,</span></span>
+<span class="r-in"><span>  consumidores <span class="op">=</span> <span class="va">consumidores</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">resultado_potencia</span> <span class="op">&lt;-</span> <span class="fu">epe4md_proj_potencia</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  lista_adotantes <span class="op">=</span> <span class="va">lista_adotantes</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resultado_potencia</span><span class="op">$</span><span class="va">proj_potencia</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resultado_potencia</span><span class="op">$</span><span class="va">part_adotantes</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

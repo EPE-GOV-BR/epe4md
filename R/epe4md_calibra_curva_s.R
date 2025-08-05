@@ -33,6 +33,24 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' # Exemplo de uso da função epe4md_calibra_curva_s
+#'
+#' # Obtém resultado de payback (exemplo fictício)
+#' resultado_payback <- epe4md_payback(ano_base = 2023)
+#'
+#' # Obtém mercado potencial (lista com data.frames)
+#' consumidores <- epe4md_mercado_potencial(ano_base = 2023)
+#'
+#' # Roda calibração da curva S para adoção
+#' casos_otimizados <- epe4md_calibra_curva_s(
+#'   resultado_payback = resultado_payback,
+#'   consumidores = consumidores,
+#'   ano_base = 2023
+#' )
+#'
+#' head(resultado_curva_s)
+#' }
 
 epe4md_calibra_curva_s <- function(resultado_payback,
                                    consumidores,
@@ -59,38 +77,46 @@ epe4md_calibra_curva_s <- function(resultado_payback,
   dados_gd <- dados_gd %>%
     filter(ano <= ano_base)
 
-  #selecionando data.frame da lista
+  # selecionando data.frame da lista
   consumidores <- consumidores$consumidores
   consumidores_bateria <- consumidores$consumidores_bateria
 
+  # Cria uma tabela com segmentos por distribuidora
   casos_otimizacao <- resultado_payback %>%
     group_by(nome_4md, segmento) %>%
     tally() %>%
     select(-n) %>%
     ungroup()
 
+  # Histórico de adotantes de geração distribuída por distribuidora, ano e segmento
   historico <- dados_gd %>%
     group_by(nome_4md, segmento, ano) %>%
     summarise(adotantes_hist = sum(qtde_u_csrecebem_os_creditos)) %>%
     ungroup()
 
+  # Seleciona o payback histórico
   resultado_payback_historico <- resultado_payback %>%
     filter(ano <= ano_base) %>%
     select(nome_4md, segmento, ano, payback,
            payback_desc, payback_bateria, payback_desc_bateria)
 
+  # Cria um dataframe com payback e quantidade de consumidores estimados para o mercado nicho
   base_otimizacao <- left_join(resultado_payback_historico, consumidores,
                                by = c("nome_4md", "ano", "segmento"))
 
+  # Adiciona o histórico de adotantes de MMGD
   base_otimizacao <- left_join(base_otimizacao, historico,
                                by = c("nome_4md", "ano", "segmento"))
 
+  # Cria dataframe com o tipo de payback, simples ou descontado, para cada segmento de cliente
   tipo_payback <- read_xlsx(
     stringr::str_glue("{dir_dados_premissas}/tipo_payback.xlsx"))
 
+  # Adiciona o tipo de payback ao dataframe principal
   base_otimizacao <- left_join(base_otimizacao, tipo_payback,
                                by = "segmento")
 
+  # Seleciona o valor do payback a depender se o tipo de payback é simples ou descontado
   base_otimizacao <- base_otimizacao %>%
     mutate(payback = ifelse(tipo_payback == "simples",
                             payback,
@@ -99,17 +125,20 @@ epe4md_calibra_curva_s <- function(resultado_payback,
                                     payback_bateria,
                                     payback_desc_bateria))
 
+  # Substitui células vazias por zero
   base_otimizacao$adotantes_hist <- base_otimizacao$adotantes_hist %>%
     replace_na(0)
 
+  # Calcula a quantidade acumulada de cada distribuidora e segmento por ano
   base_otimizacao <- base_otimizacao %>%
     arrange(ano) %>%
     group_by(nome_4md, segmento) %>%
     mutate(adotantes_acum = cumsum(adotantes_hist)) %>%
     ungroup() %>%
     select(nome_4md, consumidores, consumidores_bateria, ano, payback, payback_bateria, adotantes_acum, segmento) %>%
-    mutate(ano = ano - 2012)
+    mutate(ano = ano - 2012) # normaliza o ano inicial, 1, como 2013
 
+  # Inclui fator de sensibilidade ao payback por segmento
   fator_sbp <- read_xlsx(stringr::str_glue("{dir_dados_premissas}/spb.xlsx"))
 
   base_otimizacao <- left_join(base_otimizacao, fator_sbp, by = "segmento")
@@ -122,13 +151,14 @@ epe4md_calibra_curva_s <- function(resultado_payback,
     )
 
 
+  # Função que otimiza p e q dado o histórico de adotantes
   otimiza_casos <- function(nome_4md, segmento) {
 
     caso <- base_otimizacao %>%
       filter(nome_dist == nome_4md,
              nome_seg == segmento)
 
-
+    # Função que será otimizada com base no dataframe "caso"
     otimiza_curva_s <- function(params, y) {
       p <- params[1]
       q <- params[2]
@@ -140,25 +170,28 @@ epe4md_calibra_curva_s <- function(resultado_payback,
       payback_bateria <- y$payback_bateria
       historico_adotantes <- y$adotantes_acum
 
+      # Função da curva S de adoção: função distribuição acumulada de um potencial adotante em realizar a adoção no tempo t
       taxa_difusao <- (1 - exp(- (p + q) * t)) /
         (1 + (q / p) * exp(- (p + q) * t))
 
-      mercado_potencial <- exp(-spb * payback) * consumidores
-      mercado_potencial_bateria <- exp(-spb * payback_bateria) * consumidores_bateria
+      mercado_potencial <- exp(-spb * payback) * consumidores # fração de máximo mercado: exp(-spb * payback)
+      mercado_potencial_bateria <- exp(-spb * payback_bateria) * consumidores_bateria # fração de máximo mercado: exp(-spb * payback)
 
+      # Calcula o número acumulado de adotantes por ano para MMGD e para baterias
       projecao <- taxa_difusao * mercado_potencial
       projecao_bateria <- taxa_difusao * mercado_potencial_bateria
 
+      # Calcula o erro do modelo
       erro <- sum((historico_adotantes - projecao)^2)
       return(erro)
     }
 
-
-    otimizador <- stats::optim(c(0.005, 0.3), otimiza_curva_s, y = caso,
-                        method = "L-BFGS-B",
-                        lower = c(0.0001, 0.01),
-                        upper = c(p_max, q_max),
-                        control = list(parscale = c(0.005, 0.3)))
+    # O otimizador procura os valores de p e q que minimizem a soma das diferenças entre os valores da projeção e os dados verificados
+    otimizador <- stats::optim(c(0.005, 0.3), otimiza_curva_s, y = caso, # c(0.005, 0.3) é o chute inicial para os dois parâmetros a serem otimizados.
+                        method = "L-BFGS-B", # Método eficiente para problemas com restrições simples (limites inferior e superior).
+                        lower = c(0.0001, 0.01), # Restrições dos parâmetros
+                        upper = c(p_max, q_max), # Restrições dos parâmetros
+                        control = list(parscale = c(0.005, 0.3))) # Indica ao otimizador a escala esperada dos parâmetros, importante para evitar instabilidades numéricas, especialmente quando os parâmetros estão em ordens de grandeza muito diferentes.
 
     parametros <- tibble::enframe(otimizador$par)
 
@@ -170,22 +203,29 @@ epe4md_calibra_curva_s <- function(resultado_payback,
 
   }
 
+  # Retorna um dataframe com p e q ótimos para cada segmento em cada distribidora com base no histórico
   casos_otimizados <- casos_otimizacao %>%
     mutate(saida = pmap(.l = list(nome_4md, segmento), .f = otimiza_casos)) %>%
     unnest(saida)
 
+  # Inclui o fator de sensibilidade ao payback no dataframe anterior
   casos_otimizados <- casos_otimizados %>%
     left_join(fator_sbp, by = "segmento")
 
+  # Cria um dataframe com p e q ótimos e o fator de sensibilidade por distribuidora por segmento por ano (parametrizado)
+  # Lembrando que p e q ótimos são constantes para cada segmento, distribuidora, independente do ano.
   anos_simulacao <- tibble::tibble("ano" = seq(1, 48))
 
   casos_otimizados <- crossing(casos_otimizados, anos_simulacao)
 
-#equação do modelo de Bass
+  # Calcula a função da curva S de adoção com base nos p e q ótimos
   casos_otimizados <- casos_otimizados %>%
     mutate(Ft = (1 - exp(-(p + q) * ano)) /
              (1 + (q / p) * exp(-(p + q) * ano)))
 
+  # Calcula a função da curva S para baterias
+  # Pode ser "propria" (Default) ou "lag". A primeira opção utiliza os fatores p_bat e q_bat.
+  # A opção "lag" utiliza a curva de difusão de MMGD, atrasada no tempo, conforme o parâmetro inicio_curva_bateria.
   if(curva_bateria == "lag") {
     casos_otimizados <- casos_otimizados %>%
     group_by(nome_4md, segmento) %>%
@@ -203,7 +243,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
   }
 
   casos_otimizados <- casos_otimizados %>%
-    mutate(ano = ano + 2012) %>%
+    mutate(ano = ano + 2012) %>% # desnormaliza o ano
     left_join(consumidores, by = c("nome_4md", "segmento", "ano"))
 
   resultado_payback <- resultado_payback %>%
@@ -220,6 +260,7 @@ epe4md_calibra_curva_s <- function(resultado_payback,
   casos_otimizados <- left_join(casos_otimizados, resultado_payback,
                                 by = c("nome_4md", "segmento", "ano"))
 
+  # Calcula o mercado potencial final de MMGD e de baterias
   casos_otimizados <- casos_otimizados %>%
     mutate(mercado_potencial = round(exp(-spb * payback) * consumidores, 0),
            mercado_potencial = ifelse(mercado_potencial == 0, 1, mercado_potencial),

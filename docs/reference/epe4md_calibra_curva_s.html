@@ -141,6 +141,28 @@ pasta default.</p></dd>
     <p>data.frame com curvas de difusão e mercado potencial</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Exemplo de uso da função epe4md_calibra_curva_s</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Obtém resultado de payback (exemplo fictício)</span></span></span>
+<span class="r-in"><span><span class="va">resultado_payback</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_payback.html">epe4md_payback</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Obtém mercado potencial (lista com data.frames)</span></span></span>
+<span class="r-in"><span><span class="va">consumidores</span> <span class="op">&lt;-</span> <span class="fu"><a href="epe4md_mercado_potencial.html">epe4md_mercado_potencial</a></span><span class="op">(</span>ano_base <span class="op">=</span> <span class="fl">2023</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Roda calibração da curva S para adoção</span></span></span>
+<span class="r-in"><span><span class="va">casos_otimizados</span> <span class="op">&lt;-</span> <span class="fu">epe4md_calibra_curva_s</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  resultado_payback <span class="op">=</span> <span class="va">resultado_payback</span>,</span></span>
+<span class="r-in"><span>  consumidores <span class="op">=</span> <span class="va">consumidores</span>,</span></span>
+<span class="r-in"><span>  ano_base <span class="op">=</span> <span class="fl">2023</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">resultado_curva_s</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

@@ -91,7 +91,7 @@ na receita.}
 \item{custo_deficit}{numeric. Custo atribuído pelo consumidor à interrupção
 de energia. Em R$/MWh. Default = 0.}
 
-\item{bateria_eficiencia}{numeric. Eficiência das baterias. Default igual a 0.95.}
+\item{bateria_eficiencia}{numeric. Eficiência das baterias. Default igual a 0.90.}
 
 \item{dir_dados_premissas}{Diretório onde se encontram as premissas. Se esse
 parâmetro não for passado, a função usa os dados default que são instalados
@@ -108,4 +108,16 @@ data.frame. Métricas financeiras para cada caso.
 }
 \description{
 Roda um fluxo de caixa para cada caso e retorna métricas financeiras.
+}
+\examples{
+\dontrun{
+premissas <- readr::read_csv("caminho/para/premissas_reg.csv")
+casos_payback <- epe4md_casos_payback()  # gera os casos para o fluxo de caixa
+resultado_payback <- epe4md_payback(
+  casos_payback = casos_payback,
+  premissas_reg = premissas,
+  ano_base = 2023
+)
+}
+
 }

@@ -10,6 +10,9 @@ epe4md_graf_pot_cenario(dados, ano_inicio = 2013, tamanho = 14)
 \arguments{
 \item{dados}{data.frame Resultado resumido com coluna cenario}
 }
+\value{
+Gráfico da capacidade instalada acumulada por cenário
+}
 \description{
 Gráfico da capacidade instalada acumulada por cenário
 }

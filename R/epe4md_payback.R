@@ -45,7 +45,7 @@
 #' rede para formar uma receita adicional ao empreendimento. Default igual a 0.
 #' @param ano_inicio_bonus integer. Ano em que o bônus começa a ser incorporado
 #' na receita.
-#' @param bateria_eficiencia numeric. Eficiência das baterias. Default igual a 0.95.
+#' @param bateria_eficiencia numeric. Eficiência das baterias. Default igual a 0.90.
 #' @param custo_deficit numeric. Custo atribuído pelo consumidor à interrupção
 #' de energia. Em R$/MWh. Default = 0.
 #' @param dir_dados_premissas Diretório onde se encontram as premissas. Se esse
@@ -64,6 +64,16 @@
 #'@encoding UTF-8
 #'
 #' @examples
+#' \dontrun{
+#' premissas <- readr::read_csv("caminho/para/premissas_reg.csv")
+#' casos_payback <- epe4md_casos_payback()  # gera os casos para o fluxo de caixa
+#' resultado_payback <- epe4md_payback(
+#'   casos_payback = casos_payback,
+#'   premissas_reg = premissas,
+#'   ano_base = 2023
+#' )
+#' }
+#'
 
 epe4md_payback <- function(
     casos_payback,
@@ -97,11 +107,12 @@ epe4md_payback <- function(
     dir_dados_premissas
   )
 
-
+  # Tempo de construção em meses
   fator_construcao <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/tempo_construcao.xlsx"),
                                 sheet = "fator")
 
+  # Tarifas aplicáveis
   tarifas <-
     read_xlsx(stringr::str_glue("{dir_dados_premissas}/tarifas_4md.xlsx"))
 
@@ -192,12 +203,13 @@ epe4md_payback <- function(
     # pagamento_disponibilidade = 0.3
     # disponibilidade_kwh_mes = 100
 
-
+    # Cria um dataframe com uma matriz das colunas abaixo com uma combinação completa
     fluxo_caixa <- data.frame("ano_simulacao" = 1:vida_util,
                               "segmento" = segmento,
                               "nome_4md" = nome_4md,
                               "ano" = ano)
 
+    # Inclui fator de construção em meses
     fluxo_caixa <- fluxo_caixa %>%
       left_join(fator_construcao, by = "segmento") %>%
       mutate(fator_construcao = ifelse(ano_simulacao == 1, fator_construcao, 1),
@@ -213,25 +225,27 @@ epe4md_payback <- function(
         select(-ano_inicial)
     }
 
-
+    # Inclui, para cada linha do fluxo de caixa,
+    # todas as possibilidades de premissas regulatórias
     fluxo_caixa <- left_join(fluxo_caixa, premissas_regulatorias, by = "ano")
 
     fluxo_caixa <- left_join(fluxo_caixa, tarifas,
                              by = c("ano", "nome_4md",
                                     "segmento", "alternativa"))
 
+    # Inclui as tarifas para cada alternativa de cada segmento de cada distribuidora em cada ano
     fluxo_caixa <- fluxo_caixa %>%
-      mutate(tarifa_autoc_tusd = ifelse(binomia == TRUE,
-                                        tarifa_autoc_bin_tusd,
-                                        tarifa_autoc_tusd),
-             tarifa_demanda = ifelse(demanda_g == TRUE,
-                                     tarifa_demanda_g,
-                                     tarifa_demanda_c),
+      mutate(tarifa_autoc_tusd = ifelse(binomia == TRUE, # Se Grupo A
+                                        tarifa_autoc_bin_tusd, # considera a TUSD c binômia de autoconsumo do grupo A
+                                        tarifa_autoc_tusd), # se não, considera a monômia
+             tarifa_demanda = ifelse(demanda_g == TRUE, # se há cobrança de TUSDg para a demanda de consumidores do grupo A
+                                     tarifa_demanda_g, # considera a TUSD G
+                                     tarifa_demanda_c), # se não, considera a TUSD C
              custo_obra = ifelse(segmento == "comercial_at_remoto" &
                                    row_number() == 1,
                                  - custo_reforco_rede * pot_sistemas, 0),
              consumo_disponibilidade = ifelse(segmento == "comercial_at" |
-                                                binomia == TRUE,
+                                                binomia == TRUE, # Custo de disponibilidade não é aplicável ao grupo A
                                               0,
                                               disponibilidade_kwh_mes)) %>%
       select(-tarifa_demanda_c, -tarifa_demanda_g, -tarifa_autoc_bin_tusd)
@@ -239,28 +253,27 @@ epe4md_payback <- function(
 
     fluxo_caixa <- fluxo_caixa %>%
       mutate(energia_ano = geracao_1_kwh * fator_construcao *
-               (1 + degradacao)^(1 - ano_simulacao),
-             energia_autoc = energia_ano * fator_autoconsumo,
-             energia_inj = energia_ano - energia_autoc,
+               (1 + degradacao)^(1 - ano_simulacao), # Calcula a energia do ano para a degradação da célula
+             energia_autoc = energia_ano * fator_autoconsumo, # energia anual em autoconsumo
+             energia_inj = energia_ano - energia_autoc, # energia anual injetada
              capex = 0,
              troca_inversor = 0,
              bateria_capex = 0,
              capex_obra = 0,
-             taxa_inflacao = (1 + inflacao)^(ano_simulacao - 1))
+             taxa_inflacao = (1 + inflacao)^(ano_simulacao - 1)) # atualiza a taxa de inflação
 
+    # os valores abaixo são negativos por serem desembolsos
     fluxo_caixa[1, "capex"] <- -capex_inicial
     fluxo_caixa[ano_troca_inversor, "troca_inversor"] <- -capex_inversor
     fluxo_caixa[1, "bateria_capex"] <- -bateria_capex_inicial
     fluxo_caixa[ano_recapex_bat, "bateria_capex"] <- -bateria_recapex *
-      (ano_recapex_bat - 1) * 365 * degradacao_bateria_mil_ciclos / 1000 #percentual
-    #da bateria degradada até o recapex.
+      (ano_recapex_bat - 1) * 365 * degradacao_bateria_mil_ciclos / 1000 # percentual da bateria degradada até o recapex.
 
     fluxo_caixa <- fluxo_caixa %>% mutate(
       desconto_capex = desconto_capex_local,
       capex = ifelse(segmento %in% c("residencial", "comercial_bt",
-                                     "comercial_at") & ano %in% anos_desconto, capex *
+        "comercial_at") & ano %in% anos_desconto, capex *
                        (1 - desconto_capex), capex))
-
 
 
     # ano auxiliar para possibilitar alteracoes com base no ano
@@ -269,7 +282,7 @@ epe4md_payback <- function(
              ano_real = ifelse(ano_real > 2060, 2060, ano_real))
 
 
-
+    # Calcula as receitas associadas a cada parcela da energia, atualizadas pela inflação do período
     fluxo_caixa <- fluxo_caixa %>%
       mutate(receita_autoc = (taxa_inflacao * energia_autoc *
                                 (tarifa_autoc_tusd + tarifa_autoc_te)) /
@@ -304,13 +317,13 @@ epe4md_payback <- function(
 
 
     fluxo_caixa <- fluxo_caixa %>%
-      mutate(oem = -oem_anual * capex_inicial * fator_construcao,
+      mutate(oem = -oem_anual * capex_inicial * fator_construcao, # custo anual com o&m
              bateria_oem = -bateria_oem_anual,
-             saldo_anual = capex + receita_autoc + receita_inj_completa +
+             saldo_anual = capex + receita_autoc + receita_inj_completa + # saldo anual da MMGD
                receita_bonus +
                pag_compensacao + demanda_contratada + oem +
                troca_inversor + capex_obra + custo_disponibilidade,
-             saldo_anual_bateria = capex + bateria_capex + receita_autoc +
+             saldo_anual_bateria = capex + bateria_capex + receita_autoc + # saldo anual da bateria
                receita_bonus + receita_bat_backup +
                receita_bat_arbitragem +
                demanda_contratada + oem + bateria_oem +
@@ -324,42 +337,45 @@ epe4md_payback <- function(
              saldo_acumulado_desc_bateria = cumsum(saldo_anual_desc_bateria))
 
     metricas <- fluxo_caixa %>% summarise(
-      .temp_payback_inteiro = sum(saldo_acumulado < 0),
-      .temp_payback_inteiro_bateria = sum(saldo_acumulado_bateria < 0), #tempo payback com bateria
+
+      # Calcula o payback simples
+      .temp_payback_inteiro = sum(saldo_acumulado < 0), # Conta quantos períodos (anos) o saldo_acumulado foi negativo. Isso indica o tempo necessário até o investimento se pagar, ou seja, o payback simples.
+      .temp_payback_inteiro_bateria = sum(saldo_acumulado_bateria < 0), # Mesma lógica acima, mas para o fluxo da bateria.
       .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado > 0,saldo_acumulado, NA_real_), na.rm = TRUE)),
       .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_bateria > 0,
                                                                   saldo_acumulado_bateria,
                                                                   NA_real_),
                                                           na.rm = TRUE)),
-      .temp_maior_negativo = max(if_else(saldo_acumulado < 0, saldo_acumulado, NA_real_), na.rm = TRUE),
+      .temp_maior_negativo = max(if_else(saldo_acumulado < 0, saldo_acumulado, NA_real_), na.rm = TRUE), # valor mais negativo do saldo
       .temp_maior_negativo_bateria = max(if_else(saldo_acumulado_bateria < 0,
                                                  saldo_acumulado_bateria,
-                                                 NA_real_), na.rm = TRUE),
-      .temp_payback_frac = -.temp_maior_negativo/(.temp_menor_positivo -   .temp_maior_negativo),
+                                                 NA_real_), na.rm = TRUE), # valor mais negativo do saldo
+      .temp_payback_frac = -.temp_maior_negativo/(.temp_menor_positivo -   .temp_maior_negativo), # calcula a fração de tempo de um ano na virada do saldo negativo para saldo positivo
       .temp_payback_frac_bateria = -.temp_maior_negativo_bateria /
-        (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria),
-      payback = .temp_payback_inteiro + .temp_payback_frac,
-      payback_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria,
+        (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria), # calcula a fração de tempo de um ano na virada do saldo negativo para saldo positivo
+      payback = .temp_payback_inteiro + .temp_payback_frac, # soma a parcela inteira e fracionária do payback
+      payback_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria, # soma a parcela inteira e fracionária do payback
+
+      # Repete o processo acima, mas para o payback descontado
       .temp_payback_inteiro = sum(saldo_acumulado_desc < 0),
-      temp_payback_inteiro_bateria = sum(saldo_acumulado_desc_bateria < 0), #bateria
+      .temp_payback_inteiro_bateria = sum(saldo_acumulado_desc_bateria < 0),
       .temp_menor_positivo = suppressWarnings(min(if_else(saldo_acumulado_desc >0,saldo_acumulado_desc, NA_real_),na.rm = TRUE)),
-      .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_desc_bateria > 0,saldo_acumulado_desc_bateria,NA_real_), na.rm = TRUE)), #bateria
+      .temp_menor_positivo_bateria = suppressWarnings(min(if_else(saldo_acumulado_desc_bateria > 0,saldo_acumulado_desc_bateria,NA_real_), na.rm = TRUE)),
       .temp_maior_negativo = max(if_else(saldo_acumulado_desc <0, saldo_acumulado_desc, NA_real_), na.rm = TRUE),
       .temp_maior_negativo_bateria = max(if_else(saldo_acumulado_desc_bateria < 0,
                                                  saldo_acumulado_desc_bateria,
-                                                 NA_real_), na.rm = TRUE), #bateria
+                                                 NA_real_), na.rm = TRUE),
       .temp_payback_frac = -.temp_maior_negativo/(.temp_menor_positivo - .temp_maior_negativo),
-      .temp_payback_frac_bateria = -.temp_maior_negativo_bateria / (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria), #bateria
+      .temp_payback_frac_bateria = -.temp_maior_negativo_bateria / (.temp_menor_positivo_bateria - .temp_maior_negativo_bateria),
       payback_desc = .temp_payback_inteiro + .temp_payback_frac,
       payback_desc_bateria = .temp_payback_inteiro_bateria + .temp_payback_frac_bateria) %>%
-      select(-starts_with(".temp_")) %>%
-      select(-temp_payback_inteiro_bateria)
+      select(-starts_with(".temp_"))
 
 
     metricas <- metricas %>%
       mutate(tir_nominal = jrvFinance::irr(fluxo_caixa$saldo_anual),
              tir_nominal = ifelse(is.na(tir_nominal) & payback == 25,
-                                  -0.2,
+                                  -0.2, # Caso não tenha TIR e o ano for o 25o da vida útil, assume perda financeira de 20%
                                   tir_nominal),
              tir_real = (1 + tir_nominal) / (1 + inflacao) - 1)
 

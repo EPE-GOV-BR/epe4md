@@ -10,6 +10,9 @@ epe4md_graf_pot_acum(dados, ano_inicio = 2013, cor = "#13475d", tamanho = 14)
 \arguments{
 \item{dados}{data.frame Resultados mensais de potencia e energia}
 }
+\value{
+Gráfico da capacidade instalada acumulada
+}
 \description{
 Gráfico da capacidade instalada acumulada
 }
