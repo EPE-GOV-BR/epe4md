@@ -61,7 +61,7 @@ epe4md_prepara_base <- function(base_aneel,
     janitor::clean_names()
 
   base_mmgd <- base_mmgd %>%
-    drop_na(sig_agente, cod_municipio_ibge, sig_modalidade_empreendimento,
+    drop_na(sig_agente, cod_municipio_ibge, dsc_modalidade_habilitado,
             sig_tipo_consumidor, sig_tipo_geracao, dth_atualiza_cadastral_empreend,
             dsc_porte, dsc_sub_grupo_tarifario, dsc_classe_consumo, sig_uf,
             mda_potencia_instalada_kw,
@@ -145,11 +145,13 @@ epe4md_prepara_base <- function(base_aneel,
     rename(subgrupo = dsc_sub_grupo_tarifario,
            classe = dsc_classe_consumo) %>%
     mutate(atbt = ifelse(subgrupo %in% c("B1", "B2", "B3", "B4"), "BT", "AT"),
-           local_remoto = ifelse(sig_modalidade_empreendimento %in% c("R", "C"),
+           local_remoto = ifelse(dsc_modalidade_habilitado %in% c("Auto consumo remoto", "Compartilhada"),
                                  "remoto",
                                  "local"))
 
   base_mmgd$classe <- gsub("Iluminação pública", "Ilum. Púb.", base_mmgd$classe)
+  base_mmgd$classe <- gsub("REBR", "Residencial", base_mmgd$classe)
+
 
   # divisao segmentos
 
@@ -161,9 +163,9 @@ epe4md_prepara_base <- function(base_aneel,
 
   base_mmgd <- base_mmgd %>%
     mutate(modalidade = case_when(
-      sig_modalidade_empreendimento == "P" ~ "Geração na própria UC",
-      sig_modalidade_empreendimento == "R" ~ "Autoconsumo remoto",
-      sig_modalidade_empreendimento == "C" ~ "Geração compartilhada",
+      dsc_modalidade_habilitado == "Geracao na propria UC" ~ "Geração na própria UC",
+      dsc_modalidade_habilitado == "Auto consumo remoto" ~ "Autoconsumo remoto",
+      dsc_modalidade_habilitado == "Compartilhada" ~ "Geração compartilhada",
       TRUE ~ "Condomínios"))
 
   base_mmgd <- base_mmgd %>%
